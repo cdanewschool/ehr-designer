@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+<base href="/sample-app/"></base>
+<script type="text/javascript" src="//code.angularjs.org/1.2.0-rc.3/angular.min.js"></script>
+<script type="text/javascript" src="//code.angularjs.org/1.2.0-rc.3/angular-route.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/controller/app.js"></script>
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body ng-controller="AppCtrl">
+
+	
+	<nav class="navbar navbar-default" role="navigation">
+	
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">{{model.title}}</a>
+			</div>
+			
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul class="nav navbar-nav">
+					<li ng-repeat="link in model.navigation"><a ng-click="setLocation(link.url)">{{link.title}}</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container">
+		<div ng-view></div>
+	</div>
+	
+</body>
+
+</html>
