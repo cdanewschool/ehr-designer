@@ -1,0 +1,59 @@
+<div class='component-preview' ng-class='{static:isStatic}'>
+
+	<!-- border -->
+	<div ng-class='{border:showBorder, dropTarget:showBorder && dragService.dragModel.hover==definition, droppable:isDroppable}' ng-mouseenter='dragService.hover=definition'>
+		
+		<!-- inset showing component type (appears on rollover) -->
+		<div class='inset' ng-show='!isStatic && dragService.hover==definition'>{{definition.cid}}</div>
+		
+		<div class='content'>
+			
+			<div ng-if='definition.cid=="horizontal_list"' ng-repeat="child in definition.children" resizable>
+				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
+			</div>
+			
+			<div ng-if='definition.cid=="image"' class='img' resizable>
+				<img ng-src='{{definition.values.src}}'>
+			</div>
+			
+			<div ng-if='definition.cid=="label"' resizable>
+				<div>{{definition.values.text ? definition.values.text : componentDefinition.name}}</div>
+			</div>
+			
+			<div ng-if='definition.cid=="button"' resizable>
+				<button class="btn btn-default">{{componentDefinition.name}}</button>
+			</div>
+			
+			<div ng-if='definition.cid=="iconbutton"' resizable>
+				<button class="btn btn-default"><span class="glyphicon"><img ng-src='{{definition.values.src}}' style="height:14px;" /></span> {{componentDefinition.name}}</button>
+			</div>
+			
+			<div ng-if='definition.cid=="vertical_list"' ng-repeat="child in definition.children" resizable>
+				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
+			</div>
+			
+			<div ng-if='definition.cid=="ui_component"' ng-repeat="child in definition.children" resizable>
+				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
+			</div>
+			
+			<div ng-if='definition.cid=="dropdown"' resizable>
+				<select class="form-control" ng-model="definition.values.items[0]" ng-options="v.label for v in definition.values.items"></select>
+			</div>
+			
+			<div ng-if='definition.cid=="textinput"' resizable>
+				<label><input class="form-control" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}"> {{definition.values.label}}</label>
+			</div>
+			
+			<div ng-if='definition.cid=="checkbox"' resizable>
+				<label><input type="checkbox" checked> {{definition.values.label}}</label>
+			</div>
+			
+			<div ng-if='definition.cid=="radio"' resizable>
+				<label><input type="radio" checked> {{definition.values.label}}</label>
+			</div>
+			
+		</div>
+		
+	</div>
+	
+</div>

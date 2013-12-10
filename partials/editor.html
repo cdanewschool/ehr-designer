@@ -1,0 +1,37 @@
+<!-- sidebar -->
+<div id="sidebar">
+	<tabset>
+		<!--	component library -->
+	    <tab heading="Component Library">	
+		  	<ul class="list-group">
+	  			<li ng-repeat="component in model.components | filter:componentFilter" class="list-group-item">
+	  				<!--<span class="badge text-muted">0</span> -->
+	  				<h6 class="list-group-item-heading text-muted">{{component.name}}</h6>
+	  				<p ng-if="component.description" class="small">{{component.description}}</p>
+	  				<div>
+	  					<component-preview component-definition="component" component-static="true" draggable drag-service="dragService" style="width:100%;height:30px"></component-preview>
+	  				</div>
+	  			</li>
+			</ul>
+	    </tab>
+	    <!-- 	debug window -->
+	    <tab heading="Debug">
+	    	<h6>Document JSON</h6>
+	    	<pre class="pre-scrollable" style="font-size:.7em">{{model.document | json}}</pre>
+	    	<button class='btn' ng-click="clearCanvas()">Clear Canvas</button>
+	    </tab>
+  	</tabset>
+</div>
+
+<!-- canvas -->
+<div id="canvas" ng-class="{grid:model.showGrid}">
+	<component-preview component-definition="model.page" component-static="false" drag-service="dragService" style="width:100%; height:100%;"></component-preview>
+</div>
+
+<!-- footer -->
+<div class="navbar-footer navbar-fixed-bottom">
+	<div class="container">
+		<label><input type="checkbox" ng-model="model.showGrid"> Show grid</label>
+		<label><input type="checkbox" ng-model="model.snapToGrid"> Snap to grid</label>
+	</div>
+</div>
