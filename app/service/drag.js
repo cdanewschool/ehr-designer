@@ -26,8 +26,6 @@ app.service
 				
 				onDragStart: function(event,ui,item)
 				{
-					console.log( 'dragStart', event, ui );
-					
 					dragModel.hover = null;
 					dragModel.dragItem = item;
 					dragModel.dragProps = _.defaults(item.values||{},{width:event.toElement.scrollWidth,height:event.toElement.scrollHeight});
@@ -100,7 +98,8 @@ app.service
 						{
 							ui.draggable.detach();
 							
-							values = conditionPoints( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
+							var position = conditionPoints( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
+							values = _.defaults( position, values );
 							
 							var parentId = dragModel.dragItem.pid;
 							var parent = getParentById(parentId);
@@ -154,6 +153,11 @@ app.service
 					console.log('drop target = ',item);
 					
 					$rootScope.$apply();
+				},
+				
+				acceptDrop: function(item)
+				{
+					return true;
 				}
 			};
 		}

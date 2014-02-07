@@ -1,7 +1,7 @@
 app.directive
 (
 	'droppable',
-	function($parse,$compile,FactoryService)
+	function($compile)
 	{
 		return {
 			restrict : 'A',
@@ -19,7 +19,7 @@ app.directive
 					pre: function preLink(scope, iElement, iAttrs) {},
 					post: function postLink(scope, iElement, iAttrs) 
 					{
-			            $compile(iElement)(scope);
+						$compile(iElement)(scope);
 					} 
 			    };
 			}

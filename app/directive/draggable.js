@@ -1,7 +1,7 @@
 app.directive
 (
 	'draggable',
-	function($parse,$compile,DragService)
+	function($compile)
 	{
 		return {
 			restrict : 'A',
@@ -14,9 +14,8 @@ app.directive
 				try{
 					$( element ).draggable( "disable" );
 				}
-				catch(e){
-			
-				}
+				catch(e){}
+				
 				element.attr("data-drag","true");
 				element.attr("jqyoui-draggable","{animate: false, index: scope.$index, onStart: 'dragService.onDragStart(definition)', onDrag: 'dragService.onDrag(definition)', placeholder:'keep'}");
 				element.attr("data-jqyoui-options","{cancel: false, helper: 'clone', revert: 'invalid'}");
