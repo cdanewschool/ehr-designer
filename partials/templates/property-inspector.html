@@ -1,0 +1,91 @@
+<div class="panel panel-default" ng-controller="PropertyInspectorCtrl">
+
+	<div class="panel-heading">Component Inspector <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="dragService.dragModel.selection=null">&times;</button></div>
+  
+	<div class="panel-body" class="container">
+  
+  		<accordion close-others="oneAtATime">
+
+			<accordion-group heading="Properties" is-open="true">
+		   	
+		   		<form role="form" class="form-horizontal">
+		
+					<div ng-repeat="property in definition.properties | filter:{editable:'!'}">
+				
+						<div class="form-group">
+							
+							<label class="control-label col-sm-4 small">
+							
+								{{property.name}} 
+								
+								<div>
+									<button type="button" class="btn btn-default btn-xs" ng-show="property.lockable" ng-class="{active:locked[property.id]===true}" ng-click="locked[property.id]=!locked[property.id]">
+										<span class="glyphicon glyphicon-link"></span>
+									</button>
+								</div>
+								
+							</label>
+		
+							<div ng-switch="property.type">
+								
+								<div class="col-sm-8" ng-switch-when="string">
+									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]">
+								</div>
+								
+								<div class="col-sm-8" ng-switch-when="int">
+									<input class="form-control input-sm" type="number" ng-model="component.values[property.id]">
+								</div>
+								
+								<div class="col-sm-8"  ng-switch-when="enum">
+									<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t as t for t in property.values"></select>
+								</div>
+								
+								<div class="col-sm-8"  ng-switch-when="object">
+								
+									<div class="row">
+									
+										<div class="col-xs-6" ng-repeat="subProperty in property.properties | filter:{editable:'!'}">
+										
+											<div ng-switch="subProperty.type">
+											
+												<div ng-switch-when="string">
+													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
+													<input class="form-control input-sm" type="text" ng-model="component.values[property.id][subProperty.id]">
+												</div>
+												
+												<div ng-switch-when="int">
+													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
+													<input class="form-control input-sm" type="number" ng-model="component.values[property.id][subProperty.id]" ng-change="propagateChange(property,component.values[property.id],component.values[property.id][subProperty.id])" min="0">
+												</div>
+												
+												<div ng-switch-when="enum">
+													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
+													<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t as t for t in subProperty.values"></select>
+												</div>
+											
+											</div>
+											
+										</div>
+									
+									</div>
+									
+								</div>
+							
+							</div>
+							
+						</div>
+						
+					</div>
+			
+				</form>
+		
+		    </accordion-group>
+		    
+			<accordion-group heading="Data">
+			</accordion-group>
+			
+		</accordion>
+	
+	</div>
+	
+</div>

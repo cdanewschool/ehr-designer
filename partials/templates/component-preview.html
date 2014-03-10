@@ -13,19 +13,36 @@
 			</div>
 			
 			<div ng-if='definition.cid=="image"' class='img' resizable>
-				<img ng-src='{{definition.values.src}}'>
+				<img class='target' ng-src='{{definition.values.src}}'>
 			</div>
 			
 			<div ng-if='definition.cid=="label"' resizable>
-				<div>{{definition.values.text ? definition.values.text : componentDefinition.name}}</div>
+				<span 
+					class='target' 
+					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit}">
+					{{definition.values.text ? definition.values.text : componentDefinition.name}}
+				</span>
 			</div>
 			
 			<div ng-if='definition.cid=="button"' resizable>
-				<button class="btn btn-default">{{componentDefinition.name}}</button>
+				<button 
+					class="btn btn-default target" 
+					ng-class="{'text-left':definition.values.text-align=='left','text-center':definition.values.text-align=='center','text-right':definition.values.text-align=='right'}"
+					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit}">
+					{{definition.values.text ? definition.values.text : componentDefinition.name}}
+				</button>
 			</div>
 			
 			<div ng-if='definition.cid=="iconbutton"' resizable>
-				<button class="btn btn-default"><span class="glyphicon"><img ng-src='{{definition.values.src}}' style="height:14px;" /></span> {{componentDefinition.name}}</button>
+				<button 
+					class="btn btn-default target"
+					ng-class="{'text-left':definition.values.text-align=='left','text-center':definition.values.text-align=='center','text-right':definition.values.text-align=='right'}"
+					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit}">
+					<span class="glyphicon">
+						<img ng-src='{{definition.values.src}}' style="height:14px;" />
+					</span> 
+					{{definition.values.text ? definition.values.text : componentDefinition.name}}
+				</button>
 			</div>
 			
 			<div ng-if='definition.cid=="vertical_list"' ng-repeat="child in definition.children" resizable>
@@ -36,20 +53,21 @@
 				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
 			</div>
 			
+			<!-- form elements -->
 			<div ng-if='definition.cid=="dropdown"' resizable>
-				<select class="form-control" ng-model="definition.values.items[0]" ng-options="v.label for v in definition.values.items"></select>
+				<select class="form-control target" ng-model="definition.values.items[0]" ng-options="v.label for v in definition.values.items"></select>
 			</div>
 			
 			<div ng-if='definition.cid=="textinput"' resizable>
-				<label><input class="form-control" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}"> {{definition.values.label}}</label>
+				<input class="form-control target" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}">
 			</div>
 			
 			<div ng-if='definition.cid=="checkbox"' resizable>
-				<label><input type="checkbox" checked> {{definition.values.label}}</label>
+				<input type="checkbox" class="target" checked> {{definition.values.label}}
 			</div>
 			
 			<div ng-if='definition.cid=="radio"' resizable>
-				<label><input type="radio" checked> {{definition.values.label}}</label>
+				<input type="radio" class="target" checked> {{definition.values.label}}
 			</div>
 			
 		</div>

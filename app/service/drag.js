@@ -8,6 +8,7 @@ app.service
 			dragItem:null,
 			dropTarget:null,
 			hover:null,
+			selection:null,
 			snapToGrid:true
 		};
 	}

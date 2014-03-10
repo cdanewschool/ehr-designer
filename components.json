@@ -12,28 +12,34 @@
 				"id":"width",
 				"name":"Width",
 				"type":"int",
-				"min":0
+				"min":0,
+				"editable":false
 			},
 			{
 				"id":"height",
 				"name":"Height",
 				"type":"int",
-				"min":0
+				"min":0,
+				"editable":false
 			},
 			{
 				"id":"x",
-				"name":"X",
-				"type":"int"
+				"name":"x",
+				"type":"int",
+				"editable":false
 			},
 			{
 				"id":"y",
-				"name":"Y",
-				"type":"int"
+				"name":"y",
+				"type":"int",
+				"editable":false
 			},
 			{
 				"id":"padding",
 				"name":"Padding",
 				"type":"object",
+				"parseExpression":"^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+				"lockable":true,
 				"properties": 
 				[
 					{
@@ -55,6 +61,11 @@
 						"id":"left",
 						"name":"Left",
 						"type":"int"
+					},
+					{
+						"id":"unit",
+						"type":"enum",
+						"values":["px","em"]
 					}
 				]
 			},
@@ -62,6 +73,8 @@
 				"id":"margin",
 				"name":"Margin",
 				"type":"object",
+				"parseExpression":"^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+				"lockable":true,
 				"properties": 
 				[
 					{
@@ -83,6 +96,11 @@
 						"id":"left",
 						"name":"Left",
 						"type":"int"
+					},
+					{
+						"id":"unit",
+						"type":"enum",
+						"values":["px","em"]
 					}
 				]
 			}
@@ -101,15 +119,28 @@
 						"type":"string"
 					},
 					{
-						"id":"align",
-						"name":"Text align",
-						"type":"enum",
-						"values":["left","middle","right"]
+						"id":"font-size",
+						"name":"Font Size",
+						"type":"object",
+						"parseExpression":"(\\d*)([a-z]*)",
+						"properties": 
+						[
+							{
+								"id":"size",
+								"name":"",
+								"type":"int"
+							},
+							{
+								"id":"unit",
+								"type":"enum",
+								"values":["px","em"]
+							}
+						]
 					}
 				],
 				"values":
 				{
-					"text":"My Text"
+					"text":"Label"
 				}
 			},
 			{
@@ -124,21 +155,28 @@
 						"type":"string"
 					},
 					{
-						"id":"align",
-						"name":"Text align",
-						"type":"enum",
-						"values":["left","middle","right"]
-					},
-					{
-						"id":"size",
-						"name":"Size",
-						"type":"enum",
-						"values":["small","medium","large"]
+						"id":"font-size",
+						"name":"Font Size",
+						"type":"object",
+						"parseExpression":"(\\d*)([a-z]*)",
+						"properties": 
+						[
+							{
+								"id":"size",
+								"name":"",
+								"type":"int"
+							},
+							{
+								"id":"unit",
+								"type":"enum",
+								"values":["px","em"]
+							}
+						]
 					}
 				],
 				"values":
 				{
-					"text":"Click here"
+					"text":"Button"
 				},
 				"children":
 				[
@@ -274,14 +312,7 @@
 				"name":"Input",
 				"abstract":true,
 				"container":false,
-				"properties":
-				[
-					{
-						"id":"label",
-						"name":"Label",
-						"type":"string"
-					}
-				],
+				"properties":[],
 				"children":
 				[
 					{
@@ -316,6 +347,11 @@
 						"container":false,
 						"properties":
 						[
+							{
+								"id":"label",
+								"name":"Label",
+								"type":"string"
+							}
 						],
 						"values":
 						{
@@ -329,6 +365,11 @@
 						"container":false,
 						"properties":
 						[
+							{
+								"id":"label",
+								"name":"Label",
+								"type":"string"
+							}
 						],
 						"values":
 						{

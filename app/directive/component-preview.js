@@ -43,7 +43,25 @@ app.directive
 						scope.isDroppable = (!scope.isStatic && scope.definition.cid!='label' && scope.definition.cid!='image');
 						scope.isDraggable = !scope.isStatic;
 						
-						//console.log(scope.componentDefinition.container,scope.showBorder);
+						//	show properties menu on click
+						if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
+						{
+							element.on
+							(
+								'click',
+								function(e)
+								{
+									e.stopImmediatePropagation();
+									
+									if( scope.id != "2")	//	temp hack to disallow editing root canvas
+									{
+										scope.dragService.dragModel.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
+										
+										scope.$apply();
+									}
+								}
+							);
+						}
 						
 						var update = function()
 						{

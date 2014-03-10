@@ -88,7 +88,20 @@ app.controller
 											child[inheritableProperties[p]] = c[inheritableProperties[p]];
 									
 									//	copy properties from parent
-									child.properties = _.defaults(child.properties||{},c.properties||{});
+									for(p in c.properties)
+									{
+										var exists = false;
+										var property = c.properties[p];
+										
+										for(var p2 in child.properties)
+										{
+											if( child.properties[p2].id == property.id )
+												exists = true;
+										}
+										
+										if( !exists )
+											child.properties.push( c.properties[p] );											
+									}
 									
 									parse(child,components);
 								}
