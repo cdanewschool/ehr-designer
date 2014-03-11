@@ -228,7 +228,7 @@
 					{
 						"id":"direction",
 						"name":"Direction",
-						"type":"string",
+						"type":"enum",
 						"values":["horizontal","vertical"]
 					},
 					{
@@ -249,14 +249,14 @@
 							{
 								"id":"valign",
 								"name":"Vertical Align",
-								"type":"string",
+								"type":"enum",
 								"values":["top","middle","bottom"]
 							}
 						],
 						"values":
 						{
 							"direction":"horizontal",
-							"padding": {"top":5,"right":5,"bottom":5,"left":5}
+							"valign":"top"
 						},
 						"children":[]
 					},
@@ -270,14 +270,14 @@
 							{
 								"id":"halign",
 								"name":"Horizontal Align",
-								"type":"string",
+								"type":"enum",
 								"values":["left","center","right"]
 							}
 						],
 						"values":
 						{
 							"direction":"vertical",
-							"padding": {"top":5,"right":5,"bottom":5,"left":5}
+							"valign":"top"
 						}
 					}
 				]

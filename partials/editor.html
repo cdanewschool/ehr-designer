@@ -3,21 +3,39 @@
 
 	<tabset>
 		<!--	component library -->
-	    <tab heading="Component Library">
-		  	<ul class="list-group">
-	  			<li ng-repeat="component in model.components | filter:componentFilter" class="list-group-item">
-	  				<!-- <h6 class="list-group-item-heading text-muted">{{component.name}}</h6> -->
-	  				<p ng-show="component.description" class="small">{{component.description}}</p>
-	  				<component-preview component-definition="component" component-static="true" draggable drag-service="dragService" style="width:100%;height:30px"></component-preview>
-	  			</li>
+	    <tab heading="Components" class="small">
+	    	<div class="panel panel-default">
+				<div class="panel-body">
+			    	<accordion close-others="oneAtATime">
+			    		<accordion-group heading="Basic Components" is-open="true">
+			    			<accordion close-others="oneAtATime" ng-repeat="component in model.components | filter:componentFilter">
+			    				<accordion-group heading="{{component.name}}" is-open="false" style="border-radius:0px">
+			    					<p ng-show="component.description" class="small">{{component.description}}</p>
+					  				<component-preview component-definition="component" component-static="true" draggable drag-service="dragService" style="width:100%;height:30px"></component-preview>
+					  			</accordion-group>
+					  		</accordion>
+						</accordion-group>
+						<accordion-group heading="Modules"></accordion-group>
+					</accordion>
+				</div>
+			</div>
+	    </tab>
+	    
+	     <!-- 	settings -->
+	    <tab heading="Settings" class="small">
+	    	<ul class="list-group">
+				<li class="list-group-item"><label><input type="checkbox" ng-model="model.showGrid"> Show grid</label></li>
+				<li class="list-group-item"><label><input type="checkbox" ng-model="model.snapToGrid"> Snap to grid</label></li>
+				<li class="list-group-item"><button class='btn btn-danger' ng-click="clearCanvas()">Clear Canvas</button></li>
 			</ul>
 	    </tab>
+	    
 	    <!-- 	debug window -->
-	    <tab heading="Debug">
+	    <tab heading="Debug" class="small">
 	    	<h6>Document JSON</h6>
 	    	<pre class="pre-scrollable" style="font-size:.7em">{{model.document | json}}</pre>
-	    	<button class='btn' ng-click="clearCanvas()">Clear Canvas</button>
 	    </tab>
+	    
   	</tabset>
   	
 </div>
@@ -32,12 +50,4 @@
 	
 	<property-inspector ng-class="{maximized:dragService.dragModel.selection!=null}" drag-service="dragService" />
 	
-</div>
-
-<!-- footer -->
-<div class="navbar-footer navbar-fixed-bottom">
-	<div class="container">
-		<label><input type="checkbox" ng-model="model.showGrid"> Show grid</label>
-		<label><input type="checkbox" ng-model="model.snapToGrid"> Snap to grid</label>
-	</div>
 </div>
