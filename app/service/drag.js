@@ -28,8 +28,10 @@ app.service
 				onDragStart: function(event,ui,item)
 				{
 					dragModel.hover = null;
+					dragModel.hoverIndex = null;
 					dragModel.dragItem = item;
 					dragModel.dragProps = _.defaults(item.values||{},{width:event.toElement.scrollWidth,height:event.toElement.scrollHeight});
+					dragModel.dragElement = event.target;
 				},
 				
 				onDrop: function(event,ui,target)
@@ -37,9 +39,8 @@ app.service
 					if( !dragModel.dropTarget ) return;
 					if( target == dragModel.dragItem ) return;
 					
-					dragModel.hover = null;
-					
-					var conditionPoints = function( offset )
+					//	utility function for massaging points if snapping turned on
+					var snap = function( offset )
 					{
 						if( model.snapToGrid )
 						{
@@ -50,15 +51,18 @@ app.service
 						return offset;
 					};
 					
+					//	init object containing new values for dragged item,
+					//	copying over all old values other than position
 					var values = _.defaults
 					(
 						{
-							left: ui.position.left - event.target.parentNode.clientLeft,
-							top: ui.position.top - event.target.parentNode.clientTop
+							left: ui.offset.left - dragModel.dropTarget.offset().left,
+							top:ui.offset.top - dragModel.dropTarget.offset().top
 						},
 						dragModel.dragItem.values
 					);
 					
+					//	set width, height and position if none
 					values = _.defaults
 					(
 						values,
@@ -69,50 +73,56 @@ app.service
 						}
 					);
 					
-					values = conditionPoints(values);
+					//	snap points to grid
+					values = snap(values);
 					
-					var getParentById = function(id)
-					{
-						var search = function(item)
-						{
-							if(item.id == id)
-								return item;
-							
-							if( item.children )
-								for(var c in item.children)
-									return search(item.children[c]);
-							
-							return null;
-						};
-						
-						return search(model.page);
-					};
-					
-					var index = target.children.indexOf(dragModel.dragItem);
-					
-					var componentId = dragModel.dragItem.cid + (dragModel.dragItem.id?"_" + dragModel.dragItem.id:"");
+					var oldIndex = target.children.indexOf(dragModel.dragItem);
 					var parentId = target.cid + (target.id?"_" + target.id:"");
 					
-					if( dragModel.dragItem.pid )	//	item has a parent
+					var componentId = dragModel.dragItem.cid + (dragModel.dragItem.id?"_" + dragModel.dragItem.id:"");	//	only used for console logging
+					
+					//	set hoverIndex if set
+					if( dragModel.hoverIndex !== null )
 					{
-						if( target.id != dragModel.dragItem.pid )	//	change in parent
+						dragModel.dragItem.parentIndex = dragModel.hoverIndex;
+						dragModel.hoverIndex = null;
+					}
+					
+					//	item has already been added to stage
+					if( dragModel.dragItem.pid )
+					{
+						//	item has been dragged to a new parent component
+						if( target.id != dragModel.dragItem.pid )
 						{
-							ui.draggable.detach();
+							var getParentById = function(id)
+							{
+								var search = function(item)
+								{
+									if(item.id == id)
+										return item;
+									
+									if( item.children )
+										for(var c in item.children)
+											return search(item.children[c]);
+									
+									return null;
+								};
+								
+								return search(model.page);
+							};
 							
-							var position = conditionPoints( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
+							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
 							values = _.defaults( position, values );
 							
-							var parentId = dragModel.dragItem.pid;
+							parentId = dragModel.dragItem.pid;
+							
 							var parent = getParentById(parentId);
 							
 							if( !parent )
-							{
-								console.error("no parent for " + dragModel.dragItem.pid)
-							}
+								console.error("no parent for " + dragModel.dragItem.pid);
 							
-							var index = parent.children.indexOf(dragModel.dragItem);
-							
-							parent.children.splice( index, 1 );
+							oldIndex = parent.children.indexOf(dragModel.dragItem);
+							parent.children.splice( oldIndex, 1 );
 							
 							dragModel.dragItem.values = values;
 							dragModel.dragItem.pid = target.id;
@@ -123,23 +133,29 @@ app.service
 						}
 						else
 						{
-							target.children[index].values = values;
+							//	item has been repositioned
+							var position = snap( {left:ui.position.left,top:ui.position.top});
+							values = _.defaults( position, values );
+							
+							target.children[oldIndex].values = values;
 							
 							console.log("Updating " + componentId + " (" + parentId + ")", target );
 						}
 					}
-					else						//	item does not have a parent
+					//	item has been freshly added to stage
+					else
 					{
-						values = conditionPoints( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
+						values = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
 						
-						target.children.push( factory.componentInstance(dragModel.dragItem,values,target) );
+						var instance = factory.componentInstance(dragModel.dragItem,values,target);
 						
-						//console.log( 'drop', angular.element(dragModel.dropTarget).attr("id"), angular.element(dragModel.dropTarget).offset().left + "," + angular.element(dragModel.dropTarget).offset().top, ui.position.left + "," + ui.position.top, ui.offset.left + "," + ui.offset.top, dragModel.dropTarget ? dragModel.dropTarget.offset().left + "," + dragModel.dropTarget.offset().top : '', event.clientX + "," + event.clientY, (event.clientX - ui.offset.left) + ", " + (event.clientY - ui.offset.top) );
+						target.children.push( instance );
 					}
 				},
 				
 				onDrag: function(event,ui,item)
 				{
+					//console.log( event.target, event.currentTarget )
 					//console.log( 'drag', ui.offset.left + "," + ui.offset.top, dragModel.dropTarget ? dragModel.dropTarget.offset().left + "," + dragModel.dropTarget.offset().top : '', event.clientX + "," + event.clientY, (event.clientX - ui.offset.left) + ", " + (event.clientY - ui.offset.top) );
 				},
 				
@@ -150,8 +166,6 @@ app.service
 					
 					dragModel.dropTarget = angular.element(event.target);
 					dragModel.hover = item;
-					
-					console.log('drop target = ',item);
 					
 					$rootScope.$apply();
 				},

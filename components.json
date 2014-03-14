@@ -218,6 +218,33 @@
 				}
 			},
 			{
+				"id":"grid",
+				"name":"Grid",
+				"autoLayoutChildren":true,
+				"description":"Arrange a group of items",
+				"properties":
+				[
+					{
+						"id":"cols",
+						"name":"Columns",
+						"type":"int",
+						"min":1
+					},
+					{
+						"id":"rows",
+						"name":"Rows",
+						"type":"int",
+						"min":1
+					}
+				],
+				"values":
+				{
+					"cols":2,
+					"rows":2
+				},
+				"children":[]
+			},
+			{
 				"id":"list",
 				"name":"List",
 				"abstract":true,
@@ -239,47 +266,6 @@
 				],
 				"children":
 				[
-					{
-						"id":"horizontal_list",
-						"name":"Horizontal List",
-						"autoLayoutChildren":true,
-						"description":"Arrange a group of items horizontally",
-						"properties":
-						[
-							{
-								"id":"valign",
-								"name":"Vertical Align",
-								"type":"enum",
-								"values":["top","middle","bottom"]
-							}
-						],
-						"values":
-						{
-							"direction":"horizontal",
-							"valign":"top"
-						},
-						"children":[]
-					},
-					{
-						"id":"vertical_list",
-						"name":"Vertical List",
-						"autoLayoutChildren":true,
-						"description":"Arrange a group of items vertically",
-						"properties":
-						[
-							{
-								"id":"halign",
-								"name":"Horizontal Align",
-								"type":"enum",
-								"values":["left","center","right"]
-							}
-						],
-						"values":
-						{
-							"direction":"vertical",
-							"valign":"top"
-						}
-					}
 				]
 			},
 			{

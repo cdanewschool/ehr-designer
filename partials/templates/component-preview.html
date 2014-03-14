@@ -1,22 +1,22 @@
-<div class='component-preview' ng-class='{static:isStatic}'>
+<div class='component-preview' ng-class='{static:isStatic}' ng-style="{width:id!=2?'auto':'100%',height:id!=2?'auto':'100%'}">
 
 	<!-- border -->
-	<div ng-class='{border:showBorder, dropTarget:showBorder && dragService.dragModel.hover==definition, droppable:isDroppable}' ng-mouseenter='dragService.hover=definition'>
+	<div ng-class='{border:(showBorder && definition.cid!="grid"), dropTarget:(showBorder && definition.cid!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
 		
 		<!-- inset showing component type (appears on rollover) -->
 		<div class='inset' ng-show='!isStatic && dragService.hover==definition'>{{definition.cid}}</div>
 		
-		<div class='content'>
+		<div class='content' style="width:100%;height:100%">
 			
-			<div ng-if='definition.cid=="horizontal_list"' ng-repeat="child in definition.children" resizable>
+			<div ng-if='definition.cid=="ui_component"' ng-repeat="child in definition.children" resizable style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.dragModel.hover=definition'>
 				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
 			</div>
 			
-			<div ng-if='definition.cid=="image"' class='img' resizable>
+			<div ng-if='definition.cid=="image"' class='img' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<img class='target' ng-src='{{definition.values.src}}'>
 			</div>
 			
-			<div ng-if='definition.cid=="label"' resizable>
+			<div ng-if='definition.cid=="label"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<span 
 					class='target' 
 					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit}">
@@ -24,7 +24,7 @@
 				</span>
 			</div>
 			
-			<div ng-if='definition.cid=="button"' resizable>
+			<div ng-if='definition.cid=="button"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<button 
 					class="btn btn-default target" 
 					ng-class="{'text-left':definition.values.text-align=='left','text-center':definition.values.text-align=='center','text-right':definition.values.text-align=='right'}"
@@ -33,7 +33,7 @@
 				</button>
 			</div>
 			
-			<div ng-if='definition.cid=="iconbutton"' resizable>
+			<div ng-if='definition.cid=="iconbutton"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<button 
 					class="btn btn-default target"
 					ng-class="{'text-left':definition.values.text-align=='left','text-center':definition.values.text-align=='center','text-right':definition.values.text-align=='right'}"
@@ -45,12 +45,19 @@
 				</button>
 			</div>
 			
-			<div ng-if='definition.cid=="vertical_list"' ng-repeat="child in definition.children" resizable>
-				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
-			</div>
-			
-			<div ng-if='definition.cid=="ui_component"' ng-repeat="child in definition.children" resizable>
-				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
+			<div ng-if='definition.cid=="grid"' ng-mouseenter='dragService.dragModel.hover=definition'>
+				<table>
+					<tr ng-repeat="r in [] | range:definition.values.rows">
+						 <td 
+						 	ng-controller="CellCtrl" 
+						 	ng-repeat="c in [] | range:definition.values.cols" ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
+						 	ng-mouseover='onMouseEnter()' ng-mouseout='dragService.dragModel.hoverIndex=null' 
+						 	ng-class='{border:showBorder, dropTarget:(showBorder && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}'
+						 	ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px'}"> 
+						 	<div><div ng-repeat="child in definition.children | filter: getCellChildren"><component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview></div></div>
+						 </td>
+					</tr>
+				</table>
 			</div>
 			
 			<!-- form elements -->

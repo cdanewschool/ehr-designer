@@ -11,15 +11,10 @@ app.directive
 			{
 				element.removeAttr("draggable");
 				
-				try{
-					$( element ).draggable( "disable" );
-				}
-				catch(e){}
-				
 				element.attr("data-drag","true");
-				element.attr("jqyoui-draggable","{animate: false, index: scope.$index, onStart: 'dragService.onDragStart(definition)', onDrag: 'dragService.onDrag(definition)', placeholder:'keep'}");
-				element.attr("data-jqyoui-options","{cancel: false, helper: 'clone', revert: 'invalid'}");
-				
+				element.attr("jqyoui-draggable","{animate: false, onStart: 'dragService.onDragStart(definition)', onDrag: 'dragService.onDrag(definition)', placeholder:'keep'}");
+				element.attr("data-jqyoui-options","{cancel: false, helper: 'clone', revert: 'invalid', stack: '.component-preview'}");
+
 				return {
 			           pre: function preLink(scope, iElement, iAttrs, controller) {},
 			           post: function postLink(scope, iElement, iAttrs, controller) { 

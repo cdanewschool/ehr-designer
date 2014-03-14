@@ -72,82 +72,27 @@ app.directive
 							
 							var padding = _.defaults(values.padding||{},{top:0,right:0,bottom:0,left:0});
 							
-							var direction;
-							
-							switch( scope.definition.cid )
-							{
-								case "horizontal_list":
-									direction = "horizontal";
-									break;
-									
-								case "vertical_list":
-									direction = "vertical";
-									break;
-							}
-							
 							w = values.width || 0;
 							h = values.height || 0;
 							
 							var hasChildren = scope.definition.children
 												&& scope.definition.children.length;
 							
-							if( direction )
+							if( scope.definition.cid == "grid" )
 							{
 								w = 0;
 								h = 0;
 								
 								//	lay-out children
-								if( scope.componentDefinition.autoLayoutChildren 
-									&& hasChildren )
+								for(var i = 0;i < scope.definition.children.length;i++)
 								{
-									for(var c in scope.definition.children)
-									{
-										if( scope.definition.children[c].values )
-										{
-											if( direction == "horizontal" )
-												w += scope.definition.children[c].values.width;
-											else if( direction == "vertical" )
-												w = Math.max( scope.definition.children[c].values.width, w );
-											
-											if( direction == "horizontal" )
-												h = Math.max( scope.definition.children[c].values.height, h);
-											else if( direction == "vertical" )
-												h += scope.definition.children[c].values.height;
-										};
-									}
+									var child = scope.definition.children[i];
 									
-									var x = padding.left;
-									var y = padding.top;
-									
-									for(var i = 0;i < scope.definition.children.length;i++)
-									{
-										var child = scope.definition.children[i];
-										
-										child.values.position = "absolute";
-										child.values.left = x;
-										child.values.top = y;
-										
-										if( direction == "horizontal" )
-											x += (child.values.width + padding.left);
-										else if( direction =="vertical" )
-											y += (child.values.height + padding.bottom);
-									}
-									
-									if( direction == "horizontal" )
-										w += (padding.left * (scope.definition.children.length-1));
-									else if( direction == "vertical" )
-										h += (padding.top * (scope.definition.children.length-1));
-								}
-								else
-								{
-									var minWidth = 50,minHeight = 50;
-									
-									w = Math.max(w,minWidth);
-									h = Math.max(h,minHeight);
+									child.values.left = 0;
+									child.values.top = 0;
+									child.values.position = "relative";
 								}
 							}
-							
-							//console.log(scope.definition.cid,hasChildren,w,h)
 							
 							var borderThickness = 2;	//TODO: get dynamically?
 							
@@ -162,12 +107,6 @@ app.directive
 							}
 							
 							var el = angular.element(element);
-							
-							if( w > -1 )
-								el.css("width",w+"px");
-							
-							if( h > -1 )
-								el.css("height",h+"px");
 							
 							if( values.position ) 
 								el.css("position",values.position);
