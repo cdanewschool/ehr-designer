@@ -44,8 +44,10 @@ app.service
 					{
 						if( model.snapToGrid )
 						{
-							offset.left = Math.round(offset.left/10) * 10 - 2;
-							offset.top = Math.round(offset.top/10) * 10 - 2;
+							var gridSize = (model.gridSize/model.gridSubdivisions);
+							
+							offset.left = Math.round(offset.left/gridSize) * gridSize - 2;
+							offset.top = Math.round(offset.top/gridSize) * gridSize - 2;
 						}
 						
 						return offset;

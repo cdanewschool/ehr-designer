@@ -25,11 +25,25 @@
 	    
 	     <!-- 	settings -->
 	    <tab heading="Settings" class="small">
-	    	<ul class="list-group">
-				<li class="list-group-item"><label><input type="checkbox" ng-model="model.showGrid"> Show grid</label></li>
-				<li class="list-group-item"><label><input type="checkbox" ng-model="model.snapToGrid"> Snap to grid</label></li>
-				<li class="list-group-item"><button class='btn btn-danger' ng-click="clearCanvas()">Clear Canvas</button></li>
-			</ul>
+	    	
+	    	<div class="panel panel-default">
+	    		<div class="panel-body">
+		    		<accordion close-others="oneAtATime">
+				    	<accordion-group heading="Grid" is-open="true">
+				    		<accordion close-others="oneAtATime">
+								<ul class="list-group">
+									<li class="list-group-item"><label><input type="checkbox" ng-model="model.showGrid"> Show</label></li>
+									<li class="list-group-item"><label><input type="checkbox" ng-model="model.snapToGrid"> Snap</label></li>
+									<li class="list-group-item"><label class="inline-block">Gridline every</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.gridSize" min="10" step="10" style="width:75px"> px</li>
+									<li class="list-group-item"><label class="inline-block">Subdivisions</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.gridSubdivisions" min="1" step="1" style="width:75px"></li>
+									<li class="list-group-item"><button class='btn btn-danger' ng-click="clearCanvas()">Clear Canvas</button></li>
+								</ul>
+							</accordion>
+						</accordion-group>
+					</accordion>
+				</div>
+			</div>
+	    	
 	    </tab>
 	    
 	    <!-- 	debug window -->
@@ -47,7 +61,22 @@
 <div id="canvas" ng-class="{grid:model.showGrid}">
 
 	<div ng-class="{minimized:dragService.dragModel.selection!=null}">
-		<component-preview component-definition="model.page" component-static="false" drag-service="dragService" style="width:100%;height:100%"></component-preview>
+		
+		<component-preview component-definition="model.page" component-static="false" drag-service="dragService"></component-preview>
+		
+		<svg preserveAspectRatio="none" ng-show="model.showGrid">
+			<defs>
+				<pattern id="minorGrid" ng-attr-width="{{model.gridSize/model.gridSubdivisions}}" ng-attr-height="{{model.gridSize/model.gridSubdivisions}}" patternUnits="userSpaceOnUse">
+					<path ng-attr-d="M {{model.gridSize/model.gridSubdivisions}} 0 L 0 0 0 {{model.gridSize/model.gridSubdivisions}}" fill="none" stroke="#d4eaff" stroke-width="0.5"/>
+				</pattern>
+		        <pattern id="majorGrid" ng-attr-width="{{model.gridSize}}" ng-attr-height="{{model.gridSize}}" patternUnits="userSpaceOnUse">
+		            <path ng-attr-d="M {{model.gridSize}} 0 L 0 0 0 {{model.gridSize}}" fill="none" stroke="#d4eaff" stroke-width="2"></path>
+		        </pattern>
+		    </defs>
+		    <rect fill="url(#minorGrid)" width="100%" height="100%"  y="0"></rect>
+		    <rect fill="url(#majorGrid)" width="100%" height="100%"  y="0"></rect>
+		</svg>
+		
 	</div>
 	
 	<property-inspector ng-class="{maximized:dragService.dragModel.selection!=null}" drag-service="dragService" />

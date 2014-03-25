@@ -6,6 +6,8 @@ app.service
 		return {
 			components:null,
 			document: null,
+			gridSize: 40,
+			gridSubdivisions: 2,
 			navigation: 
 				[
 				 	{title:"Designer",url:"/editor"},
@@ -27,6 +29,7 @@ app.service
 					}
 				},
 			title: "EHR Designer",
+			
 			showGrid:true,
 			snapToGrid:true
 		};
