@@ -1,0 +1,8 @@
+{
+  "name": "ehr-designer",
+  "version": "0.0.0-1",
+  "dependencies": {
+    "grunt": "latest",
+    "grunt-include-source": "latest"
+  }
+}
