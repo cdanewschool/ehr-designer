@@ -11,7 +11,7 @@ app.service
 					clone.id = this.uniqueId();
 					clone.values = _.defaults(values,definition.values);
 					
-					var disclude = ["abstract","autoLayoutChildren","children","container","properties"];
+					var disclude = ["abstract","autoLayoutChildren","container","name","properties","resizable","subcomponents"];
 					
 					for(var p in definition)
 						if( disclude.indexOf(p) > -1 )
@@ -19,7 +19,18 @@ app.service
 					
 					if( parent ) clone.pid = parent.id;
 					
-					clone.children = [];
+					if( clone.children ) 
+					{
+						for(var c in clone.children)
+						{
+							clone.children[c].pid = clone.id;
+							clone.children[c].id = this.uniqueId();
+						}
+					}
+					else
+					{
+						clone.children = [];
+					}
 					
 					return clone;
 				},

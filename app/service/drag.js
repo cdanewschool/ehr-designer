@@ -88,6 +88,10 @@ app.service
 						dragModel.dragItem.parentIndex = dragModel.hoverIndex;
 						dragModel.hoverIndex = null;
 					}
+					else
+					{
+						delete dragModel.dragItem.parentIndex;
+					}
 					
 					//	item has already been added to stage
 					if( dragModel.dragItem.pid )
@@ -103,10 +107,16 @@ app.service
 										return item;
 									
 									if( item.children )
+									{
 										for(var c in item.children)
-											return search(item.children[c]);
+										{
+											var val = search(item.children[c]);
+											
+											if( val ) return val;
+										}
+									}
 									
-									return null;
+									return false;
 								};
 								
 								return search(model.page);
@@ -120,9 +130,10 @@ app.service
 							var parent = getParentById(parentId);
 							
 							if( !parent )
-								console.error("no parent for " + dragModel.dragItem.pid);
+								throw new Error("no parent for " + dragModel.dragItem.pid);
 							
 							oldIndex = parent.children.indexOf(dragModel.dragItem);
+							
 							parent.children.splice( oldIndex, 1 );
 							
 							dragModel.dragItem.values = values;

@@ -105,7 +105,7 @@
 				]
 			}
 		],
-		"children":
+		"subcomponents":
 		[
 			{
 				"id":"label",
@@ -178,7 +178,7 @@
 				{
 					"text":"Button"
 				},
-				"children":
+				"subcomponents":
 				[
 					{
 						"id":"iconbutton",
@@ -242,7 +242,7 @@
 					"cols":2,
 					"rows":2
 				},
-				"children":[]
+				"subcomponents":[]
 			},
 			{
 				"id":"list",
@@ -264,7 +264,7 @@
 						"type":"array"
 					}
 				],
-				"children":
+				"subcomponents":
 				[
 				]
 			},
@@ -299,7 +299,7 @@
 				"abstract":true,
 				"container":false,
 				"properties":[],
-				"children":
+				"subcomponents":
 				[
 					{
 						"id":"textinput",

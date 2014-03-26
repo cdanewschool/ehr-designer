@@ -5,6 +5,7 @@ app.service
 	{
 		return {
 			components:null,
+			componentsIndexed:null,
 			document: null,
 			grid:
 			{
@@ -69,7 +70,31 @@ app.controller
 			
 			$scope.getComponents = function()
 			{
-				var inheritableProperties = ['autoLayoutChildren','container','resizable'];
+				var sync = function(target,source)
+				{
+					var inheritableProperties = ['autoLayoutChildren','container','resizable'];
+					
+					//	copy inheritable attributes from parent
+					for(var p in inheritableProperties)
+						if( _.has(source,inheritableProperties[p]) && !_.has(target,inheritableProperties[p]) )
+							target[inheritableProperties[p]] = source[inheritableProperties[p]];
+					
+					//	copy properties from parent
+					for(p in source.properties)
+					{
+						var exists = false;
+						var property = source.properties[p];
+						
+						for(var p2 in target.properties)
+						{
+							if( target.properties[p2].id == property.id )
+								exists = true;
+						}
+						
+						if( !exists )
+							target.properties.push( source.properties[p] );											
+					}
+				};
 				
 				return $scope.dataService.getComponents().then
 				(
@@ -77,38 +102,40 @@ app.controller
 					{
 						function parse(c,components)
 						{
-							c.cid = c.id;
-							delete c.id;
+							if( c.cid )
+							{
+								angular.forEach
+								(
+									components,
+									function(component)
+									{
+										if( component.cid == c.cid )
+										{
+											sync(c,component);
+										}
+									}
+								);
+							}
+							else
+							{
+								c.cid = c.id;
+								delete c.id;
+							}
 							
 							components = components || [];
 							components.push( c );
 							
-							if( c.children )
+							if( !c.properties ) c.properties = [];
+							
+							if( c.subcomponents )
 							{
-								for(var d in c.children)
+								for(var d in c.subcomponents)
 								{
-									var child = c.children[d];
+									var child = c.subcomponents[d];
+
+									if( !child.properties ) child.properties = [];
 									
-									//	copy inheritable attributes from parent
-									for(var p in inheritableProperties)
-										if( _.has(c,inheritableProperties[p]) && !_.has(child,inheritableProperties[p]) )
-											child[inheritableProperties[p]] = c[inheritableProperties[p]];
-									
-									//	copy properties from parent
-									for(p in c.properties)
-									{
-										var exists = false;
-										var property = c.properties[p];
-										
-										for(var p2 in child.properties)
-										{
-											if( child.properties[p2].id == property.id )
-												exists = true;
-										}
-										
-										if( !exists )
-											child.properties.push( c.properties[p] );											
-									}
+									sync(child,c);
 									
 									parse(child,components);
 								}
