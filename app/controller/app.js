@@ -6,8 +6,15 @@ app.service
 		return {
 			components:null,
 			document: null,
-			gridSize: 40,
-			gridSubdivisions: 2,
+			grid:
+			{
+				color: '#d4eaff',
+				size: 40,
+				subdivisions: 2,
+				visible: true,
+				snapTo:true
+			},
+			
 			navigation: 
 				[
 				 	{title:"Designer",url:"/editor"},
@@ -28,10 +35,7 @@ app.service
 						children:[]
 					}
 				},
-			title: "EHR Designer",
-			
-			showGrid:true,
-			snapToGrid:true
+			title: "EHR Designer"
 		};
 	}
 );

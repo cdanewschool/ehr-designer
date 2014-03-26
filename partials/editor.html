@@ -32,10 +32,11 @@
 				    	<accordion-group heading="Grid" is-open="true">
 				    		<accordion close-others="oneAtATime">
 								<ul class="list-group">
-									<li class="list-group-item"><label><input type="checkbox" ng-model="model.showGrid"> Show</label></li>
-									<li class="list-group-item"><label><input type="checkbox" ng-model="model.snapToGrid"> Snap</label></li>
-									<li class="list-group-item"><label class="inline-block">Gridline every</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.gridSize" min="10" step="10" style="width:75px"> px</li>
-									<li class="list-group-item"><label class="inline-block">Subdivisions</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.gridSubdivisions" min="1" step="1" style="width:75px"></li>
+									<li class="list-group-item"><label><input type="checkbox" ng-model="model.grid.visible"> Show</label></li>
+									<li class="list-group-item"><label><input type="checkbox" ng-model="model.grid.snapTo"> Snap</label></li>
+									<li class="list-group-item"><label class="inline-block">Gridline every</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.grid.size" min="10" step="10" style="width:75px"> px</li>
+									<li class="list-group-item"><label class="inline-block">Subdivisions</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.grid.subdivisions" min="1" step="1" style="width:75px"></li>
+									<li class="list-group-item"><label class="inline-block">Color</label> <input class="form-control input-sm inline-block" type="text" ng-model="model.grid.color" colorpicker style="width:75px"></li>
 									<li class="list-group-item"><button class='btn btn-danger' ng-click="clearCanvas()">Clear Canvas</button></li>
 								</ul>
 							</accordion>
@@ -64,13 +65,13 @@
 		
 		<component-preview component-definition="model.page" component-static="false" drag-service="dragService"></component-preview>
 		
-		<svg preserveAspectRatio="none" ng-show="model.showGrid">
+		<svg preserveAspectRatio="none" ng-show="model.grid.visible">
 			<defs>
-				<pattern id="minorGrid" ng-attr-width="{{model.gridSize/model.gridSubdivisions}}" ng-attr-height="{{model.gridSize/model.gridSubdivisions}}" patternUnits="userSpaceOnUse">
-					<path ng-attr-d="M {{model.gridSize/model.gridSubdivisions}} 0 L 0 0 0 {{model.gridSize/model.gridSubdivisions}}" fill="none" stroke="#d4eaff" stroke-width="0.5"/>
+				<pattern id="minorGrid" ng-attr-width="{{model.grid.size/model.grid.subdivisions}}" ng-attr-height="{{model.grid.size/model.grid.subdivisions}}" patternUnits="userSpaceOnUse">
+					<path ng-attr-d="M {{model.grid.size/model.grid.subdivisions}} 0 L 0 0 0 {{model.grid.size/model.grid.subdivisions}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="1"/>
 				</pattern>
-		        <pattern id="majorGrid" ng-attr-width="{{model.gridSize}}" ng-attr-height="{{model.gridSize}}" patternUnits="userSpaceOnUse">
-		            <path ng-attr-d="M {{model.gridSize}} 0 L 0 0 0 {{model.gridSize}}" fill="none" stroke="#d4eaff" stroke-width="2"></path>
+		        <pattern id="majorGrid" ng-attr-width="{{model.grid.size}}" ng-attr-height="{{model.grid.size}}" patternUnits="userSpaceOnUse">
+		            <path ng-attr-d="M {{model.grid.size}} 0 L 0 0 0 {{model.grid.size}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="2"></path>
 		        </pattern>
 		    </defs>
 		    <rect fill="url(#minorGrid)" width="100%" height="100%"  y="0"></rect>

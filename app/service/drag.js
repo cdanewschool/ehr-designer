@@ -8,8 +8,7 @@ app.service
 			dragItem:null,
 			dropTarget:null,
 			hover:null,
-			selection:null,
-			snapToGrid:true
+			selection:null
 		};
 	}
 );
@@ -42,9 +41,9 @@ app.service
 					//	utility function for massaging points if snapping turned on
 					var snap = function( offset )
 					{
-						if( model.snapToGrid )
+						if( model.grid.snapTo )
 						{
-							var gridSize = (model.gridSize/model.gridSubdivisions);
+							var gridSize = (model.grid.size/model.grid.subdivisions);
 							
 							offset.left = Math.round(offset.left/gridSize) * gridSize - 2;
 							offset.top = Math.round(offset.top/gridSize) * gridSize - 2;

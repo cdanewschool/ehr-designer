@@ -43,6 +43,9 @@ td > div:empty { min-width: 20px; min-height: 20px; }
 
 .inline-block { display: inline-block; }
 
+/*	overrides	*/
+.panel-group { margin-bottom: 0px; }
+
 //	debug styles
 /*
 .component-preview { border: solid 1px #1BBFA1; }
