@@ -29,15 +29,15 @@
 							<div ng-switch="property.type">
 								
 								<div class="col-sm-8" ng-switch-when="string">
-									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]">
+									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" history-action="Changed {{property.id}} from %oldValue% to %value%">
 								</div>
 								
 								<div class="col-sm-8" ng-switch-when="int">
-									<input class="form-control input-sm" type="number" ng-model="component.values[property.id]">
+									<input class="form-control input-sm" type="number" ng-model="component.values[property.id]" history-action="Changed {{property.id}} from %oldValue% to %value%">
 								</div>
 								
 								<div class="col-sm-8"  ng-switch-when="enum">
-									<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t as t for t in property.values"></select>
+									<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t as t for t in property.values" history-action="Changed {{property.id}} from %oldValue% to %value%"></select>
 								</div>
 								
 								<div class="col-sm-8"  ng-switch-when="object">
@@ -50,17 +50,17 @@
 											
 												<div ng-switch-when="string">
 													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<input class="form-control input-sm" type="text" ng-model="component.values[property.id][subProperty.id]">
+													<input class="form-control input-sm" type="text" ng-model="component.values[property.id][subProperty.id]" history-action="Changed {{property.id}} from %oldValue% to %value%">
 												</div>
 												
 												<div ng-switch-when="int">
 													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<input class="form-control input-sm" type="number" ng-model="component.values[property.id][subProperty.id]" ng-change="propagateChange(property,component.values[property.id],component.values[property.id][subProperty.id])" min="0">
+													<input class="form-control input-sm" type="number" ng-model="component.values[property.id][subProperty.id]" ng-change="propagateChange(property,component.values[property.id],component.values[property.id][subProperty.id])" min="0" history-action="Changed {{property.id}} from %oldValue% to %value%">
 												</div>
 												
 												<div ng-switch-when="enum">
 													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t as t for t in subProperty.values"></select>
+													<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t as t for t in subProperty.values" history-action="Changed {{property.id}} from %oldValue% to %value%"></select>
 												</div>
 											
 											</div>

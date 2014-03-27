@@ -5,6 +5,7 @@
     "angular": "latest",
     "angular-dragdrop": "1.0.5",
     "angular-route": "latest",
+    "angular-sanitize": "latest",
     "angular-bootstrap-colorpicker": "latest",
     "bootstrap": "latest",
     "jquery": "2.1.0",

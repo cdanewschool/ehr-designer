@@ -45,8 +45,8 @@ app.controller
 (
 	'AppCtrl',
 	[
-	 	'$scope','$location','model','DataService','DragService','FactoryService',
-		function($scope,$location,model,dataService,dragService,factory)
+	 	'$scope','$location','model','DataService','DragService','FactoryService','HistoryService',
+		function($scope,$location,model,dataService,dragService,factory,historyService)
 		{
 			$scope.model = model;
 			$scope.dataService = dataService;
@@ -66,6 +66,8 @@ app.controller
 				
 				model.document = emptyDocument;
 				model.page = model.document.children[0];
+				
+				historyService.save( "Cleared canvas" );
 			};
 			
 			$scope.getComponents = function()

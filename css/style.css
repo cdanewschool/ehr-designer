@@ -37,14 +37,40 @@ h4.panel-title { font-size: 12px; }
 .border-bottom { border-bottom: solid 1px; }
 .border-left { border-left: solid 1px; }
 
-table {}
-td { }
 td > div:empty { min-width: 20px; min-height: 20px; }
 
 .inline-block { display: inline-block; }
 
-/*	overrides	*/
+input.document-title { border: none; width: auto; box-shadow: none; -webkit-box-shadow: none; }
+input.document-title:focus { border: solid 1px; outline: none; }
+
+#history .list-group-item.small {
+	padding: 5px 10px;
+}
+
+#history .list-group-item:first-child {
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+#history .list-group-item:last-child {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+/*	bootstrap overrides	*/
 .panel-group { margin-bottom: 0px; }
+
+.list-group > a[disabled] {
+	color: #999999;
+}
+.list-group > a[disabled]:hover,
+.list-group > a[disabled]:focus {
+	color: #999999;
+	text-decoration: none;
+	background-color: transparent;
+	cursor: not-allowed;
+}
 
 //	debug styles
 /*

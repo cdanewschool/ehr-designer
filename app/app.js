@@ -1,7 +1,7 @@
 var app = angular.module
 (
 	'app',
-	['ngRoute','ngDragDrop','ui.bootstrap','colorpicker.module']
+	['ngRoute','ngSanitize','ngDragDrop','ui.bootstrap','colorpicker.module']
 );
 
 app.config

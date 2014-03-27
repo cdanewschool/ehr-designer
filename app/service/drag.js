@@ -17,8 +17,8 @@ app.service
 (
 	'DragService',
 	[
-		'$rootScope','model','dragModel','FactoryService',
-		function($rootScope,model,dragModel,factory)
+		'$rootScope','model','dragModel','FactoryService','HistoryService',
+		function($rootScope,model,dragModel,factory,historyService)
 		{
 			return {
 				
@@ -141,7 +141,9 @@ app.service
 							
 							target.children.push(dragModel.dragItem);
 							
-							console.log("Re-parenting " + componentId + " from " + parentId + " to " + target.id, target, parent );
+							historyService.save( "Detached " + model.componentsIndexed[dragModel.dragItem.cid].name + " from " + model.componentsIndexed[parent.cid].name + " to " + model.componentsIndexed[target.cid].name );
+							
+							//console.log("Re-parenting " + componentId + " from " + parentId + " to " + target.id, target, parent );
 						}
 						else
 						{
@@ -151,7 +153,9 @@ app.service
 							
 							target.children[oldIndex].values = values;
 							
-							console.log("Updating " + componentId + " (" + parentId + ")", target );
+							historyService.save( "Repositioned " + model.componentsIndexed[dragModel.dragItem.cid].name );
+							
+							//console.log("Updating " + componentId + " (" + parentId + ")", target );
 						}
 					}
 					//	item has been freshly added to stage
@@ -162,6 +166,8 @@ app.service
 						var instance = factory.componentInstance(dragModel.dragItem,values,target);
 						
 						target.children.push( instance );
+						
+						historyService.save( "Added " + dragModel.dragItem.name + " to canvas" );
 					}
 				},
 				

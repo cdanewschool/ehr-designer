@@ -4,7 +4,7 @@
 	<tabset>
 		
 		<!--	component library -->
-	    <tab heading="Components" class="small">
+	    <tab heading="Library" class="small">
 	    	<div class="panel panel-default">
 				<div class="panel-body">
 			    	<accordion close-others="oneAtATime">
@@ -23,7 +23,7 @@
 			
 	    </tab>
 	    
-	     <!-- 	settings -->
+		<!-- 	settings -->
 	    <tab heading="Settings" class="small">
 	    	
 	    	<div class="panel panel-default">
@@ -47,6 +47,19 @@
 	    	
 	    </tab>
 	    
+	    <tab heading="History" class="small" ng-controller="HistoryCtrl">
+	    	
+	    	<div class="panel panel-default">
+	    		<div class="panel-body">
+		    		<div id="history" class="list-group" ng-show="history.actions.length">
+						<a class="list-group-item small" ng-repeat="action in history.actions | orderBy:date" ng-click="revert(action)" ng-class="{active:action==history.currentAction}" ng-disabled="action.id>history.currentAction.id" ng-bind-html="action.name"></a>
+					</div>
+					<span class="small text-muted" ng-show="!history.actions.length">No history to show</span>
+				</div>
+			</div>
+	    	
+	    </tab>
+	    
 	    <!-- 	debug window -->
 	    <tab heading="Debug" class="small">
 	    	<h6>Document JSON</h6>
@@ -58,7 +71,7 @@
 </div>
 
 <!-- canvas -->
-<h5>New Layout</h5>
+<h5><input class="form-control document-title inline-block" type="text" ng-model="model.document.name"></h5>
 <div id="canvas" ng-class="{grid:model.showGrid}">
 
 	<div ng-class="{minimized:dragService.dragModel.selection!=null}">
