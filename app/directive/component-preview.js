@@ -65,6 +65,8 @@ app.directive
 						
 						var update = function()
 						{
+							if( !scope.definition ) return;
+							
 							//	calculate size
 							var values = scope.definition && scope.definition.values ? scope.definition.values : {width:-1,height:-1};
 							

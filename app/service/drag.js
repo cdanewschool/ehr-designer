@@ -17,8 +17,8 @@ app.service
 (
 	'DragService',
 	[
-		'$rootScope','model','dragModel','FactoryService','HistoryService',
-		function($rootScope,model,dragModel,factory,historyService)
+		'$rootScope','model','project','dragModel','FactoryService','HistoryService',
+		function($rootScope,model,project,dragModel,factory,historyService)
 		{
 			return {
 				
@@ -119,7 +119,7 @@ app.service
 									return false;
 								};
 								
-								return search(model.page);
+								return search(project.page);
 							};
 							
 							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});

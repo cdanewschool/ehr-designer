@@ -63,7 +63,7 @@
 	    <!-- 	debug window -->
 	    <tab heading="Debug" class="small">
 	    	<h6>Document JSON</h6>
-	    	<pre class="pre-scrollable" style="font-size:.7em">{{model.document | json}}</pre>
+	    	<pre class="pre-scrollable" style="font-size:.7em">{{project.document | json}}</pre>
 	    </tab>
 	    
   	</tabset>
@@ -71,28 +71,78 @@
 </div>
 
 <!-- canvas -->
-<h5><input class="form-control document-title inline-block" type="text" ng-model="model.document.name"></h5>
-<div id="canvas" ng-class="{grid:model.showGrid}">
+<div id="main">
 
 	<div ng-class="{minimized:dragService.dragModel.selection!=null}">
+	
+		<div ng-controller="ProjectCtrl" class="clearfix">
 		
-		<component-preview component-definition="model.page" component-static="false" drag-service="dragService"></component-preview>
+			<ol class="breadcrumb pull-left">
+				<li ng-class="{active:project.section==null}" ng-show="project.document"><a ng-click="project.section = null; project.page = null">{{project.document.name}}</a></li>
+				<li ng-class="{active:project.page==null}" ng-show="project.section" ng-click="project.page = null"><a>{{project.section.name}}</a></li>
+				<li ng-class="{active:true}" ng-show="project.page">{{project.page.name}}</li>
+			</ol>
 		
-		<svg preserveAspectRatio="none" ng-show="model.grid.visible">
-			<defs>
-				<pattern id="minorGrid" ng-attr-width="{{model.grid.size/model.grid.subdivisions}}" ng-attr-height="{{model.grid.size/model.grid.subdivisions}}" patternUnits="userSpaceOnUse">
-					<path ng-attr-d="M {{model.grid.size/model.grid.subdivisions}} 0 L 0 0 0 {{model.grid.size/model.grid.subdivisions}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="1"/>
-				</pattern>
-		        <pattern id="majorGrid" ng-attr-width="{{model.grid.size}}" ng-attr-height="{{model.grid.size}}" patternUnits="userSpaceOnUse">
-		            <path ng-attr-d="M {{model.grid.size}} 0 L 0 0 0 {{model.grid.size}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="2"></path>
-		        </pattern>
-		    </defs>
-		    <rect fill="url(#minorGrid)" width="100%" height="100%"  y="0"></rect>
-		    <rect fill="url(#majorGrid)" width="100%" height="100%"  y="0"></rect>
-		</svg>
+			<div class="btn-group pull-right">
+				<button class="btn btn-default btn-small" ng-show="project.document" ng-click="addSection()"><span class="glyphicon glyphicon-plus" ng-disabled="!project.document"> Section</button>
+				<button class="btn btn-default btn-small" ng-show="project.section" ng-click="addPage()" ng-disabled="!project.section"><span class="glyphicon glyphicon-plus"> Page</button>
+			</div>
+			
+		</div>
 		
+		<!-- sections in document -->
+		<div ng-controller="ProjectCtrl" ng-if="project.document && !project.section">
+			<div class="alert alert-danger" ng-if="project.pendingSection!=null">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="project.pendingSection=null">&times;</button>
+				<strong>Really delete this section and all of its pages?</strong>
+				<div class="btns">
+					<button type="button" class="btn btn-default" ng-click="project.pendingSection=null">No</button> <button type="button" class="btn btn-danger" ng-click="deleteSection(project.pendingSection)">Yes</button>
+				</div>
+			</div>
+			<div class="page" ng-repeat="section in project.document.children">
+				<a ng-click="selectSection(section)">{{section.name}}</a>
+				<a class="small" ng-click="project.pendingSection=section">Delete</a>
+			</div>
+		</div>
+		
+		<!-- pages in section-->
+		<div ng-controller="ProjectCtrl" ng-if="project.section && !project.page">
+			<div class="alert alert-danger" ng-if="project.pendingPage!=null">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="project.pendingPage=null">&times;</button>
+				<strong>Really delete this page?</strong>
+				<div class="btns">
+					<button type="button" class="btn btn-default" ng-click="project.pendingPage=null">No</button> <button type="button" class="btn btn-danger" ng-click="deletePage(project.pendingPage)">Yes</button>
+				</div>
+			</div>
+			<div class="page" ng-repeat="page in project.section.children">
+				<a ng-click="selectPage(page)">{{page.name}}</a>
+				<a class="small" ng-click="project.pendingPage=page">Delete</a>
+			</div>
+		</div>
+	
+		<div id="canvas" ng-class="{grid:model.showGrid}" ng-show="project.page">
+			
+			<!-- canvas -->
+			<component-preview component-definition="project.page" component-static="false" drag-service="dragService"></component-preview>
+			
+			<!-- canvas bg -->
+			<svg preserveAspectRatio="none" ng-show="model.grid.visible">
+				<defs>
+					<pattern id="minorGrid" ng-attr-width="{{model.grid.size/model.grid.subdivisions}}" ng-attr-height="{{model.grid.size/model.grid.subdivisions}}" patternUnits="userSpaceOnUse">
+						<path ng-attr-d="M {{model.grid.size/model.grid.subdivisions}} 0 L 0 0 0 {{model.grid.size/model.grid.subdivisions}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="1"/>
+					</pattern>
+			        <pattern id="majorGrid" ng-attr-width="{{model.grid.size}}" ng-attr-height="{{model.grid.size}}" patternUnits="userSpaceOnUse">
+			            <path ng-attr-d="M {{model.grid.size}} 0 L 0 0 0 {{model.grid.size}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="2"></path>
+			        </pattern>
+			    </defs>
+			    <rect fill="url(#minorGrid)" width="100%" height="100%"  y="0"></rect>
+			    <rect fill="url(#majorGrid)" width="100%" height="100%"  y="0"></rect>
+			</svg>
+			
+		</div>
+	
 	</div>
 	
-	<property-inspector ng-class="{maximized:dragService.dragModel.selection!=null}" drag-service="dragService" />
+	<property-inspector id="properties" ng-class="{maximized:dragService.dragModel.selection!=null}" drag-service="dragService" />
 	
 </div>

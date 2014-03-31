@@ -2,8 +2,8 @@ app.service
 (
 	'HistoryService',
 	[
-	 	'history','model',
-	 	function(history,model)
+	 	'history','project','ProjectService',
+	 	function(history,project,ProjectService)
 	 	{
 	 		var id = 0;
 	 		
@@ -15,7 +15,7 @@ app.service
 	 					&& history.actions.indexOf(history.currentAction) < history.actions.length - 1 )
 	 					history.actions.splice(history.actions.indexOf(history.currentAction)+1);
 	 				
-	 				var action = {id: id, name:name, content: angular.copy(model.document), date:new Date()	};
+	 				var action = {id: id, name:name, content: angular.copy(project.document), date:new Date()	};
 	 				history.actions.push( action );
 	 				
 	 				//	truncate list of actions
@@ -29,8 +29,9 @@ app.service
 	 			
 	 			revert: function(action)
 	 			{
-	 				model.document = action.content;
-	 				model.page = model.document.children[0];
+	 				project.document = action.content;
+	 				
+	 				ProjectService.selectSection(0);
 	 				
 	 				history.currentAction = action;
 	 			}

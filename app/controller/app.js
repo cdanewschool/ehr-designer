@@ -6,7 +6,7 @@ app.service
 		return {
 			components:null,
 			componentsIndexed:null,
-			document: null,
+			
 			grid:
 			{
 				color: '#d4eaff',
@@ -21,21 +21,7 @@ app.service
 				 	{title:"Designer",url:"/editor"},
 				 	{title:"About",url:"/about"}
 				 ],
-			page:null,
-			templates:
-				{
-					document:
-					{
-						name:"New Document",
-						children:[]
-					},
-					page:
-					{
-						id:"ui_component",
-						name:"My Section",
-						children:[]
-					}
-				},
+			
 			title: "EHR Designer"
 		};
 	}
@@ -45,29 +31,16 @@ app.controller
 (
 	'AppCtrl',
 	[
-	 	'$scope','$location','model','DataService','DragService','FactoryService','HistoryService',
-		function($scope,$location,model,dataService,dragService,factory,historyService)
+	 	'$scope','$rootScope','$location','model','project','ProjectService','DataService','DragService',
+		function($scope,$rootScope,$location,model,project,ProjectService,dataService,dragService)
 		{
 			$scope.model = model;
-			$scope.dataService = dataService;
+			$scope.project = project;
 			$scope.dragService = dragService;
-			$scope.factory = factory;
 			
 			$scope.init = function()
 			{
-				$scope.getComponents().then($scope.clearCanvas);
-			};
-			
-			$scope.clearCanvas = function()
-			{
-				var emptyDocument = angular.copy(model.templates.document);
-				emptyDocument.created = new Date();
-				emptyDocument.children = [ $scope.factory.componentInstance($scope.model.components[0]) ];
-				
-				model.document = emptyDocument;
-				model.page = model.document.children[0];
-				
-				historyService.save( "Cleared canvas" );
+				$scope.getComponents().then( function(){ ProjectService.new() } );
 			};
 			
 			$scope.getComponents = function()
@@ -95,10 +68,10 @@ app.controller
 						
 						if( !exists )
 							target.properties.push( source.properties[p] );											
-					}
+					};
 				};
 				
-				return $scope.dataService.getComponents().then
+				return dataService.getComponents().then
 				(
 					function(data)
 					{
@@ -134,13 +107,13 @@ app.controller
 								for(var d in c.subcomponents)
 								{
 									var child = c.subcomponents[d];
-
+									
 									if( !child.properties ) child.properties = [];
 									
 									sync(child,c);
 									
 									parse(child,components);
-								}
+								};
 							}
 							
 							return components;
@@ -152,8 +125,8 @@ app.controller
 						for(var c in components)
 							componentsIndexed[ components[c].cid ] = components[c];
 						
-						$scope.model.components = components;
-						$scope.model.componentsIndexed = componentsIndexed;
+						model.components = components;
+						model.componentsIndexed = componentsIndexed;
 						
 						console.log( "components loaded", $scope.model.components, $scope.model.componentsIndexed );
 					}
