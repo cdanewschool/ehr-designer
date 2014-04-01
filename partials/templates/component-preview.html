@@ -60,7 +60,6 @@
 				</table>
 			</div>
 			
-			<!-- form elements -->
 			<div ng-if='definition.cid=="dropdown"' resizable>
 				<select class="form-control target" ng-model="definition.values.items[0]" ng-options="v.label for v in definition.values.items"></select>
 			</div>
@@ -69,12 +68,12 @@
 				<input class="form-control target" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}">
 			</div>
 			
-			<div ng-if='definition.cid=="checkbox"' resizable>
-				<input type="checkbox" class="target" checked> {{definition.values.label}}
+			<div ng-if='definition.cid=="checkbox" || definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="radio" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"' resizable>
+				<input class="target" ng-class="{'form-control':(definition.cid!='checkbox' && definition.cid!='radio')}" type="{{definition.values.type}}" ng-checked="definition.cid=='checkbox' || definition.cid=='radio'"> {{definition.values.label}}
 			</div>
 			
-			<div ng-if='definition.cid=="radio"' resizable>
-				<input type="radio" class="target" checked> {{definition.values.label}}
+			<div ng-if='definition.cid=="number" || definition.cid=="range"' resizable>
+				<input class="target" ng-class="{'form-control':(definition.cid!='range')}" type="{{definition.values.type}}" ng-value="definition.values.value" ng-attr-min="definition.values.min" ng-attr-max="definition.values.max" ng-attr-step="definition.values.step"> {{definition.values.label}}
 			</div>
 			
 		</div>

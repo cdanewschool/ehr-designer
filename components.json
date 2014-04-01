@@ -295,17 +295,94 @@
 			
 			{
 				"id":"input",
-				"name":"Input",
+				"name":"Form Field",
 				"abstract":true,
 				"container":false,
-				"properties":[],
+				"properties":
+				[
+					{
+						"id":"type",
+						"editable":"false"
+						
+					}
+				],
 				"subcomponents":
 				[
 					{
-						"id":"textinput",
-						"name":"Text Input",
+						"id":"checkbox",
+						"name":"Checkbox",
 						"abstract":false,
-						"container":false,
+						"properties":
+						[
+							{
+								"id":"label",
+								"name":"Label",
+								"type":"string"
+							}
+						],
+						"values":
+						{
+							"type":"checkbox",
+							"label":"Checkbox"
+						}
+					},
+					{
+						"id":"date",
+						"name":"Date Field",
+						"abstract":false,
+						"properties":
+						[
+							{
+								"id":"text",
+								"name":"Text",
+								"type":"string"
+							}
+						],
+						"values":
+						{
+							"type":"date"
+						}
+					},
+					{
+						"id":"datetime",
+						"name":"Datetime Field",
+						"abstract":false,
+						"properties":
+						[
+							{
+								"id":"text",
+								"name":"Text",
+								"type":"string"
+							}
+						],
+						"values":
+						{
+							"type":"datetime"
+						}
+					},
+					{
+						"id":"email",
+						"description":"An input field that includes client-side email validation",
+						"name":"Email Field",
+						"abstract":false,
+						"properties":
+						[
+							{
+								"id":"text",
+								"name":"Text",
+								"type":"string"
+							}
+						],
+						"values":
+						{
+							"text":"user@provider.com",
+							"type":"email"
+						}
+					},
+					{
+						"id":"textinput",
+						"name":"Input Field",
+						"abstract":false,
 						"properties":
 						[
 							{
@@ -322,33 +399,73 @@
 						"values":
 						{
 							"label":"",
+							"type":"text",
 							"text":"My text",
 							"placeholder":"Placeholder"
 						}
 					},
 					{
-						"id":"checkbox",
-						"name":"Checkbox",
+						"id":"month",
+						"name":"Month Field",
 						"abstract":false,
-						"container":false,
-						"properties":
-						[
-							{
-								"id":"label",
-								"name":"Label",
-								"type":"string"
-							}
-						],
 						"values":
 						{
-							"label":"Checkbox"
+							"type":"month"
 						}
 					},
 					{
-						"id":"radio",
-						"name":"Radio",
+						"id":"number",
+						"name":"Number Field",
 						"abstract":false,
-						"container":false,
+						"properties":
+						[
+							{
+								"id":"min",
+								"name":"Min",
+								"type":"int"
+							},
+							{
+								"id":"max",
+								"name":"Max",
+								"type":"int"
+							},
+							{
+								"id":"step",
+								"name":"Step",
+								"type":"int"
+							},
+							{
+								"id":"value",
+								"name":"Default Value",
+								"type":"int"
+							}
+						],
+						"values":
+						{
+							"min":0,
+							"max":10,
+							"type":"number",
+							"value":1
+						},
+						"subcomponents":
+						[
+							{
+								"id":"range",
+								"name":"Range Field",
+								"values":
+								{
+									"min":0,
+									"max":10,
+									"type":"range",
+									"value":1
+								}
+							}
+						]
+					},
+					{
+						"id":"radio",
+						"name":"Radio Button",
+						"abstract":false,
 						"properties":
 						[
 							{
@@ -359,7 +476,56 @@
 						],
 						"values":
 						{
+							"type":"radio",
 							"label":"Radio button"
+						}
+					},
+					{
+						"id":"search",
+						"name":"Search Field",
+						"abstract":false,
+						"values":
+						{
+							"type":"search"
+						}
+					},
+					{
+						"id":"tel",
+						"description":"An input field that includes client-side telephone number validation",
+						"name":"Telephone Field",
+						"abstract":false,
+						"values":
+						{
+							"text":"888-888-8888",
+							"type":"tel"
+						}
+					},
+					{
+						"id":"time",
+						"name":"Time Field",
+						"abstract":false,
+						"values":
+						{
+							"type":"time"
+						}
+					},
+					{
+						"id":"url",
+						"description":"An input field that includes client-side url validation",
+						"name":"URL Field",
+						"abstract":false,
+						"values":
+						{
+							"type":"url"
+						}
+					},
+					{
+						"id":"week",
+						"name":"Week Field",
+						"abstract":false,
+						"values":
+						{
+							"type":"week"
 						}
 					}
 				]
