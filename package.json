@@ -2,7 +2,15 @@
   "name": "ehr-designer",
   "version": "0.0.0-1",
   "dependencies": {
+  	"connect-mongo": "0.4.0",
+  	"crypto": "0.0.3",
     "grunt": "latest",
-    "grunt-include-source": "latest"
+    "grunt-include-source": "latest",
+    "ejs": "1.0.0",
+    "express": "3.5.1",
+    "mongoose": "3.8.8",
+    "passport": "0.2.0",
+    "passport-local": "1.0.0",
+    "path": "0.4.9"
   }
 }

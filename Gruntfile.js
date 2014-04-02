@@ -20,7 +20,7 @@ module.exports = function(grunt)
 				{
 					files: 
 					{
-						'index.html': 'dist/index.tpl.html'
+						'www/index.html': 'dist/index.tpl.html'
 					}
 				}
 			}

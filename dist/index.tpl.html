@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
-<!-- include: "type": "css", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/dist/css/bootstrap.min.css" -->
-<!-- include: "type": "css", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/css/colorpicker.css" -->
-<!-- include: "type": "css", "files": "css/**/*.css" -->
+<!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/dist/css/bootstrap.min.css" -->
+<!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/css/colorpicker.css" -->
+<!-- include: "type": "css", "basePath": "www/", "files": "css/**/*.css" -->
 </head>
 
 <body ng-controller="AppCtrl" ng-init="init()">
@@ -14,26 +14,32 @@
 			<a class="navbar-brand" href="#">{{model.title}}</a>
 		</div>
 		
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		    <ul class="nav navbar-nav">
-				<li ng-repeat="link in model.navigation"><a ng-click="setLocation(link.url)">{{link.title}}</a></li>
-			</ul>
-		</div>
+		<ul class="nav navbar-nav" ng-show="currentUser">
+			<li ng-repeat="link in model.navigation"><a ng-click="setLocation(link.url)">{{link.title}}</a></li>
+		</ul>
+		
+		<ul class="nav navbar-nav navbar-right" ng-show="currentUser">
+			<li><a ng-click="logout()">Logout</a></li>
+		</ul>
+		
 	</nav>
 	
 	<div ng-view></div>
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "jquery/dist/jquery.min.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "angular/angular.min.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "angular-route/angular-route.min.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "angular-sanitize/angular-sanitize.min.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "angular-dragdrop/src/angular-dragdrop.min.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "underscore/underscore.js" -->
-	<!-- include: "type": "js", "basePath": "bower_components/", "baseUrl": "bower_components/", "files": "underscore.string/dist/underscore.string.min.js" -->
-	<!-- include: "type": "js", "basePath": "lib/", "baseUrl": "lib/", "files": "jqueryui/jquery-ui.js" -->
-	<!-- include: "type": "js", "basePath": "lib/", "baseUrl": "lib/", "files": "ui-bootstrap/ui-bootstrap-custom-0.10.0.min.js" -->
-	<!-- include: "type": "js", "basePath": "lib/", "baseUrl": "lib/", "files": "ui-bootstrap/ui-bootstrap-custom-tpls-0.10.0.min.js" -->
-	<!-- include: "type": "js", "files": "app/**/*.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery/dist/jquery.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular/angular.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-cookies/angular-cookies.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-http-auth/src/http-auth-interceptor.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-resource/angular-resource.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-route/angular-route.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-sanitize/angular-sanitize.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-dragdrop/src/angular-dragdrop.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "underscore/underscore.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "underscore.string/dist/underscore.string.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/js/", "baseUrl": "js/", "files": "jqueryui/jquery-ui.js" -->
+	<!-- include: "type": "js", "basePath": "www/js/", "baseUrl": "js/", "files": "ui-bootstrap/ui-bootstrap-custom-0.10.0.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/js/", "baseUrl": "js/", "files": "ui-bootstrap/ui-bootstrap-custom-tpls-0.10.0.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/app/", "baseUrl": "app/", "files": "**/*.js" -->
 	
 </body>
 </html>
