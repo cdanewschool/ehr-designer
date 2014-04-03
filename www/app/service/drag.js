@@ -20,6 +20,15 @@ app.service
 		'$rootScope','model','project','dragModel','FactoryService','HistoryService',
 		function($rootScope,model,project,dragModel,factory,historyService)
 		{
+			$rootScope.$on
+	 		(
+	 			'$locationChangeStart',
+	 			function()
+	 			{
+	 				dragModel.selection = null;
+	 			}
+	 		);
+			
 			return {
 				
 				dragModel:dragModel,

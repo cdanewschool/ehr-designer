@@ -2,9 +2,21 @@ app.controller
 (
 	'ProjectCtrl',
 	[
-	 	'$scope','$rootScope','model','project','ProjectService','HistoryService',
-	 	function($scope,$rootScope,model,project,ProjectService,HistoryService)
+	 	'$scope','$rootScope','model','project','dragModel','ProjectService','HistoryService',
+	 	function($scope,$rootScope,model,project,dragModel,ProjectService,HistoryService)
 	 	{
+	 		$scope.$watch
+	 		(
+	 			'project.page',
+	 			function(newVal,oldVal)
+	 			{
+	 				if( newVal != oldVal && !newVal )
+	 				{
+	 					dragModel.selection = null;
+	 				}
+	 			}
+	 		);
+	 		
 	 		$scope.pendingPage = null;
 	 		$scope.pendingSection = null;
 	 		
