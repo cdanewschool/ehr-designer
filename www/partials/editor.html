@@ -78,8 +78,8 @@
 		<div ng-controller="ProjectCtrl" class="clearfix">
 		
 			<ol class="breadcrumb pull-left">
-				<li ng-class="{active:project.section==null}" ng-show="project.document"><a ng-click="project.section = null; project.page = null">{{project.document.name}}</a></li>
-				<li ng-class="{active:project.page==null}" ng-show="project.section" ng-click="project.page = null"><a>{{project.section.name}}</a></li>
+				<li ng-class="{active:project.section==null}" ng-show="project.document"><a href="#" ng-click="project.section = null; project.page = null">{{project.document.name}}</a></li>
+				<li ng-class="{active:project.page==null}" ng-show="project.section"><a href="#" ng-click="project.page = null">{{project.section.name}}</a></li>
 				<li ng-class="{active:true}" ng-show="project.page">{{project.page.name}}</li>
 			</ol>
 		
@@ -100,8 +100,8 @@
 				</div>
 			</div>
 			<div class="page" ng-repeat="section in project.document.children">
-				<a ng-click="selectSection(section)">{{section.name}}</a>
-				<a class="small" ng-click="project.pendingSection=section">Delete</a>
+				<a href="#" ng-click="selectSection(section)">{{section.name}}</a>
+				<a class="small" href="#" ng-click="project.pendingSection=section">Delete</a>
 			</div>
 		</div>
 		
@@ -115,8 +115,8 @@
 				</div>
 			</div>
 			<div class="page" ng-repeat="page in project.section.children">
-				<a ng-click="selectPage(page)">{{page.name}}</a>
-				<a class="small" ng-click="project.pendingPage=page">Delete</a>
+				<a href="#" ng-click="selectPage(page)">{{page.name}}</a>
+				<a class="small" href="#" ng-click="project.pendingPage=page">Delete</a>
 			</div>
 		</div>
 	

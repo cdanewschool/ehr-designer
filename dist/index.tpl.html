@@ -10,17 +10,21 @@
 
 	<nav class="navbar navbar-default" role="navigation">
 	
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">{{model.title}}</a>
+		<div class="container-fluid">
+		
+			<div class="navbar-header">
+				<span class="navbar-brand">{{model.title}}</span]>
+			</div>
+			
+			<ul class="nav navbar-nav" ng-show="currentUser">
+				<li ng-repeat="link in model.navigation"><a href="#" ng-click="setLocation(link.url)">{{link.title}}</a></li>
+			</ul>
+			
+			<ul class="nav navbar-nav navbar-right" ng-show="currentUser" ng-controller="UserCtrl">
+				<li><a href="#" ng-click="logout()">Logout</a></li>
+			</ul>
+		
 		</div>
-		
-		<ul class="nav navbar-nav" ng-show="currentUser">
-			<li ng-repeat="link in model.navigation"><a ng-click="setLocation(link.url)">{{link.title}}</a></li>
-		</ul>
-		
-		<ul class="nav navbar-nav navbar-right" ng-show="currentUser">
-			<li><a ng-click="logout()">Logout</a></li>
-		</ul>
 		
 	</nav>
 	
