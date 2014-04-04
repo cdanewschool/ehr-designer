@@ -5,7 +5,7 @@ app.factory
 	{
 		return $resource
 		(
-			'http://localhost:3000/auth/users/:id',{},
+			'auth/users/:id',{},
 			{
 				'update': {
 					method:'PUT'

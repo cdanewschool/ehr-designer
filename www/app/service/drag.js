@@ -17,8 +17,8 @@ app.service
 (
 	'DragService',
 	[
-		'$rootScope','model','project','dragModel','FactoryService','HistoryService',
-		function($rootScope,model,project,dragModel,factory,historyService)
+		'$rootScope','dragModel','canvas','library','FactoryService','HistoryService',
+		function($rootScope,dragModel,canvas,library,factory,historyService)
 		{
 			$rootScope.$on
 	 		(
@@ -50,9 +50,9 @@ app.service
 					//	utility function for massaging points if snapping turned on
 					var snap = function( offset )
 					{
-						if( model.grid.snapTo )
+						if( canvas.grid.snapTo )
 						{
-							var gridSize = (model.grid.size/model.grid.subdivisions);
+							var gridSize = (canvas.grid.size/canvas.grid.subdivisions);
 							
 							offset.left = Math.round(offset.left/gridSize) * gridSize - 2;
 							offset.top = Math.round(offset.top/gridSize) * gridSize - 2;
@@ -128,7 +128,7 @@ app.service
 									return false;
 								};
 								
-								return search(project.page);
+								return search(canvas.currentPage);
 							};
 							
 							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
@@ -150,7 +150,7 @@ app.service
 							
 							target.children.push(dragModel.dragItem);
 							
-							historyService.save( "Detached " + model.componentsIndexed[dragModel.dragItem.cid].name + " from " + model.componentsIndexed[parent.cid].name + " to " + model.componentsIndexed[target.cid].name );
+							historyService.save( "Detached " + library.componentsIndexed[dragModel.dragItem.cid].name + " from " + library.componentsIndexed[parent.cid].name + " to " + library.componentsIndexed[target.cid].name );
 							
 							//console.log("Re-parenting " + componentId + " from " + parentId + " to " + target.id, target, parent );
 						}
@@ -162,7 +162,7 @@ app.service
 							
 							target.children[oldIndex].values = values;
 							
-							historyService.save( "Repositioned " + model.componentsIndexed[dragModel.dragItem.cid].name );
+							historyService.save( "Repositioned " + library.componentsIndexed[dragModel.dragItem.cid].name );
 							
 							//console.log("Updating " + componentId + " (" + parentId + ")", target );
 						}

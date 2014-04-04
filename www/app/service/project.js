@@ -1,27 +1,16 @@
 app.service
 (
 	'ProjectService',
-	function(project,FactoryService,model)
+	function(Project,FactoryService,canvas,template)
 	{
 		var service = {};
 		
-		var ordinalize = function(n)
-		{
-			var ns = n.toString();
-			
-			if( ns.charAt(ns.length-1) == "1" && n != 11 ) return n + "st";
-			if( ns.charAt(ns.length-1) == "2" ) return n + "nd";
-			if( ns.charAt(ns.length-1) == "3" ) return n + "rd";
-			
-			return n + "th";
-		};
-		
 		service.new = function()
 		{
-			var document = angular.copy( project.templates.document );
-			document.created = new Date();
+			var newDocument = angular.copy( template.document );
 			
-			project.document = document;
+			var project = new Project();
+			project.content = newDocument;
 			
 			service.addSection();
 		};
@@ -29,8 +18,8 @@ app.service
 		service.addSection = function()
 		{
 			var section = angular.copy( project.templates.section );
-			section.created = new Date();
 			section.name = "Section " + (project.document.children.length + 1);
+			
 			project.document.children.push( section );
 			
 			service.selectSection( project.document.children.length - 1 );
@@ -45,9 +34,9 @@ app.service
 		
 		service.addPage = function()
 		{
-			var page = FactoryService.componentInstance( model.componentsIndexed['ui_component'] );
-			page.created = new Date();
+			var page = FactoryService.componentInstance( canvas.componentsIndexed['ui_component'] );
 			page.name = "Page " + (project.section.children.length+1);
+			
 			project.section.children.push( page );
 			
 			service.selectPage( project.section.children.length - 1 );
@@ -73,5 +62,5 @@ app.service
 		};
 		
 		return service;
-	}		
+	}
 );

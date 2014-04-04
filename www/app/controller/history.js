@@ -15,8 +15,8 @@ app.controller
 (
 	'HistoryCtrl',
 	[
-	 	'$scope','model','history','HistoryService',
-	 	function($scope,model,history,historyService)
+	 	'$scope','history','HistoryService',
+	 	function($scope,history,historyService)
 	 	{
 	 		$scope.history = history;
 	 		

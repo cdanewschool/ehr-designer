@@ -17,9 +17,11 @@ app.config
 			 	.when("/",{templateUrl:"partials/main.html",controller:"UserCtrl"})
 			 	.when("/login",{templateUrl:"partials/login.html",controller:"UserCtrl"})
 			 	.when("/signup",{templateUrl:"partials/signup.html",controller:"UserCtrl"})
-			 	.when("/editor",{templateUrl:"partials/editor.html"})
+			 	.when("/myprojects",{templateUrl:"partials/myprojects.html",controller:"ProjectCtrl"})
+			 	.when("/editor",{templateUrl:"partials/editor.html",controller:"CanvasCtrl"})
+			 	.when("/editor/:projectId",{templateUrl:"partials/editor.html",controller:"CanvasCtrl"})
 			 	.when("/about",{templateUrl:"partials/about.html"})
-			 	.otherwise({redirectUrl:"/"});			 
+			 	.otherwise({redirectUrl:"/"});
 		 }
 	 ]	
 );

@@ -1,11 +1,11 @@
 app.controller
 (
 	'UserCtrl',
-	function($scope,$location,Auth)
+	function($rootScope,$scope,$location,Auth)
 	{
 		$scope.errors = {};
 		$scope.user = {};
-		
+
 		$scope.login = function(form)
 		{
 			Auth.login

@@ -9,7 +9,7 @@
 				<div class="panel-body">
 			    	<accordion close-others="oneAtATime">
 			    		<accordion-group heading="Basic Components" is-open="true">
-			    			<accordion close-others="oneAtATime" ng-repeat="component in model.components | filter:componentFilter">
+			    			<accordion close-others="oneAtATime" ng-repeat="component in library.components | filter:componentFilter">
 			    				<accordion-group heading="{{component.name}}" is-open="false" style="border-radius:0px">
 			    					<p ng-show="component.description" class="small">{{component.description}}</p>
 					  				<component-preview component-definition="component" component-static="true" draggable drag-service="dragService" style="height:30px"></component-preview>
@@ -32,11 +32,11 @@
 				    	<accordion-group heading="Grid" is-open="true">
 				    		<accordion close-others="oneAtATime">
 								<ul class="list-group">
-									<li class="list-group-item"><label><input type="checkbox" ng-model="model.grid.visible"> Show</label></li>
-									<li class="list-group-item"><label><input type="checkbox" ng-model="model.grid.snapTo"> Snap</label></li>
-									<li class="list-group-item"><label class="inline-block">Gridline every</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.grid.size" min="10" step="10" style="width:75px"> px</li>
-									<li class="list-group-item"><label class="inline-block">Subdivisions</label> <input class="form-control input-sm inline-block" type="number" ng-model="model.grid.subdivisions" min="1" step="1" style="width:75px"></li>
-									<li class="list-group-item"><label class="inline-block">Color</label> <input class="form-control input-sm inline-block" type="text" ng-model="model.grid.color" colorpicker style="width:75px"></li>
+									<li class="list-group-item"><label><input type="checkbox" ng-model="canvas.grid.visible"> Show</label></li>
+									<li class="list-group-item"><label><input type="checkbox" ng-model="canvas.grid.snapTo"> Snap</label></li>
+									<li class="list-group-item"><label class="inline-block">Gridline every</label> <input class="form-control input-sm inline-block" type="number" ng-model="canvas.grid.size" min="10" step="10" style="width:75px"> px</li>
+									<li class="list-group-item"><label class="inline-block">Subdivisions</label> <input class="form-control input-sm inline-block" type="number" ng-model="canvas.grid.subdivisions" min="1" step="1" style="width:75px"></li>
+									<li class="list-group-item"><label class="inline-block">Color</label> <input class="form-control input-sm inline-block" type="text" ng-model="canvas.grid.color" colorpicker style="width:75px"></li>
 									<li class="list-group-item"><button class='btn btn-danger' ng-click="clearCanvas()">Clear Canvas</button></li>
 								</ul>
 							</accordion>
@@ -63,7 +63,7 @@
 	    <!-- 	debug window -->
 	    <tab heading="Debug" class="small">
 	    	<h6>Document JSON</h6>
-	    	<pre class="pre-scrollable" style="font-size:.7em">{{project.document | json}}</pre>
+	    	<pre class="pre-scrollable" style="font-size:.7em">{{canvas.currentProject.content | json}}</pre>
 	    </tab>
 	    
   	</tabset>
@@ -71,72 +71,91 @@
 </div>
 
 <!-- canvas -->
-<div id="main">
+<div id="main" ng-init="init()">
 
 	<div ng-class="{minimized:dragService.dragModel.selection!=null}">
 	
-		<div ng-controller="ProjectCtrl" class="clearfix">
+		<div class="clearfix">
 		
 			<ol class="breadcrumb pull-left">
-				<li ng-class="{active:project.section==null}" ng-show="project.document"><a href="#" ng-click="project.section = null; project.page = null">{{project.document.name}}</a></li>
-				<li ng-class="{active:project.page==null}" ng-show="project.section"><a href="#" ng-click="project.page = null">{{project.section.name}}</a></li>
-				<li ng-class="{active:true}" ng-show="project.page">{{project.page.name}}</li>
+				<li ng-class="{active:canvas.currentSection==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentSection = null; canvas.currentPage = null">{{canvas.currentProject.name}}</a></li>
+				<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentSection"><a ng-click="canvas.currentPage = null">{{canvas.currentSection.name}}</a></li>
+				<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
 			</ol>
 		
+			<div class="inline-block" style="width:400px; margin: 0px 10px">
+			
+				<div class="alert alert-warning alert-dismissable" ng-show="canvas.errors.length">
+					<button type="button" class="close" aria-hidden="true" ng-click="canvas.errors = []">&times;</button>
+					<ul class="list-unstyled">
+						<li class="small" ng-repeat="error in canvas.errors">{{error}}</li>
+					</ul>
+				</div>
+				
+				<div class="alert alert-warning alert-dismissable" ng-show="canvas.messages.length">
+					<button type="button" class="close" aria-hidden="true" ng-click="canvas.messages = []">&times;</button>
+					<ul class="list-unstyled">
+						<li class="small" ng-repeat="message in canvas.messages">{{message}}</li>
+					</ul>
+				</div>
+				
+			</div>
+			
+			
 			<div class="btn-group pull-right">
-				<button class="btn btn-default btn-small" ng-show="project.document" ng-click="addSection()"><span class="glyphicon glyphicon-plus" ng-disabled="!project.document"> Section</button>
-				<button class="btn btn-default btn-small" ng-show="project.section" ng-click="addPage()" ng-disabled="!project.section"><span class="glyphicon glyphicon-plus"> Page</button>
+				<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addSection()"><span class="glyphicon glyphicon-plus" ng-disabled="!canvas.currentProject"> Section</button>
+				<button class="btn btn-default btn-small" ng-show="canvas.currentSection" ng-click="addPage()" ng-disabled="!canvas.currentSection"><span class="glyphicon glyphicon-plus"> Page</button>
 			</div>
 			
 		</div>
 		
 		<!-- sections in document -->
-		<div ng-controller="ProjectCtrl" ng-if="project.document && !project.section">
-			<div class="alert alert-danger" ng-if="project.pendingSection!=null">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="project.pendingSection=null">&times;</button>
+		<div ng-if="canvas.currentProject && !canvas.currentSection">
+			<div class="alert alert-danger" ng-if="canvas.pendingSection!=null">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.pendingSection=null">&times;</button>
 				<strong>Really delete this section and all of its pages?</strong>
 				<div class="btns">
-					<button type="button" class="btn btn-default" ng-click="project.pendingSection=null">No</button> <button type="button" class="btn btn-danger" ng-click="deleteSection(project.pendingSection)">Yes</button>
+					<button type="button" class="btn btn-default" ng-click="canvas.pendingSection=null">No</button> <button type="button" class="btn btn-danger" ng-click="deleteSection(canvas.pendingSection); canvas.pendingSection = null">Yes</button>
 				</div>
 			</div>
-			<div class="page" ng-repeat="section in project.document.children">
-				<a href="#" ng-click="selectSection(section)">{{section.name}}</a>
-				<a class="small" href="#" ng-click="project.pendingSection=section">Delete</a>
+			<div class="page thumb" ng-repeat="section in canvas.currentProject.content.children">
+				<a ng-click="selectSection(section)">{{section.name}}</a>
+				<a class="small" ng-click="canvas.pendingSection=section">Delete</a>
 			</div>
 		</div>
 		
 		<!-- pages in section-->
-		<div ng-controller="ProjectCtrl" ng-if="project.section && !project.page">
-			<div class="alert alert-danger" ng-if="project.pendingPage!=null">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="project.pendingPage=null">&times;</button>
+		<div ng-if="canvas.currentSection && !canvas.currentPage">
+			<div class="alert alert-danger" ng-if="canvas.pendingPage!=null">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.pendingPage=null">&times;</button>
 				<strong>Really delete this page?</strong>
 				<div class="btns">
-					<button type="button" class="btn btn-default" ng-click="project.pendingPage=null">No</button> <button type="button" class="btn btn-danger" ng-click="deletePage(project.pendingPage)">Yes</button>
+					<button type="button" class="btn btn-default" ng-click="canvas.pendingPage=null">No</button> <button type="button" class="btn btn-danger" ng-click="deletePage(canvas.pendingPage); canvas.pendingPage = null;">Yes</button>
 				</div>
 			</div>
-			<div class="page" ng-repeat="page in project.section.children">
-				<a href="#" ng-click="selectPage(page)">{{page.name}}</a>
-				<a class="small" href="#" ng-click="project.pendingPage=page">Delete</a>
+			<div class="page thumb" ng-repeat="page in canvas.currentSection.children">
+				<a ng-click="selectPage(page)">{{page.name}}</a>
+				<a class="small" ng-click="canvas.pendingPage=page">Delete</a>
 			</div>
 		</div>
-	
-		<div id="canvas" ng-class="{grid:model.showGrid}" ng-show="project.page">
+		
+		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
 			
 			<!-- canvas -->
-			<component-preview component-definition="project.page" component-static="false" drag-service="dragService"></component-preview>
+			<component-preview component-definition="canvas.currentPage" component-static="false" drag-service="dragService"></component-preview>
 			
 			<!-- canvas bg -->
-			<svg preserveAspectRatio="none" ng-show="model.grid.visible">
+			<svg preserveAspectRatio="none" ng-show="canvas.grid.visible">
 				<defs>
-					<pattern id="minorGrid" ng-attr-width="{{model.grid.size/model.grid.subdivisions}}" ng-attr-height="{{model.grid.size/model.grid.subdivisions}}" patternUnits="userSpaceOnUse">
-						<path ng-attr-d="M {{model.grid.size/model.grid.subdivisions}} 0 L 0 0 0 {{model.grid.size/model.grid.subdivisions}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="1"/>
+					<pattern id="minorGrid" ng-attr-width="{{canvas.grid.size/canvas.grid.subdivisions}}" ng-attr-height="{{canvas.grid.size/canvas.grid.subdivisions}}" patternUnits="userSpaceOnUse">
+						<path ng-attr-d="M {{canvas.grid.size/canvas.grid.subdivisions}} 0 L 0 0 0 {{canvas.grid.size/canvas.grid.subdivisions}}" fill="none" ng-attr-stroke="{{canvas.grid.color}}" stroke-width="1"/>
 					</pattern>
-			        <pattern id="majorGrid" ng-attr-width="{{model.grid.size}}" ng-attr-height="{{model.grid.size}}" patternUnits="userSpaceOnUse">
-			            <path ng-attr-d="M {{model.grid.size}} 0 L 0 0 0 {{model.grid.size}}" fill="none" ng-attr-stroke="{{model.grid.color}}" stroke-width="2"></path>
+			        <pattern id="majorGrid" ng-attr-width="{{canvas.grid.size}}" ng-attr-height="{{canvas.grid.size}}" patternUnits="userSpaceOnUse">
+			            <path ng-attr-d="M {{canvas.grid.size}} 0 L 0 0 0 {{canvas.grid.size}}" fill="none" ng-attr-stroke="{{canvas.grid.color}}" stroke-width="2"></path>
 			        </pattern>
 			    </defs>
-			    <rect fill="url(#minorGrid)" width="100%" height="100%"  y="0"></rect>
-			    <rect fill="url(#majorGrid)" width="100%" height="100%"  y="0"></rect>
+			    <rect ng-attr-fill="url({{location.absUrl()}}#minorGrid)" width="100%" height="100%"  y="0"></rect>
+			    <rect ng-attr-fill="url({{location.absUrl()}}#majorGrid)" width="100%" height="100%"  y="0"></rect>
 			</svg>
 			
 		</div>

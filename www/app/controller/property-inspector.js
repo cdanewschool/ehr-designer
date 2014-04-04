@@ -2,8 +2,8 @@ app.controller
 (
 	'PropertyInspectorCtrl',
 	[
-	 	'$scope','model','DragService',
-	 	function($scope,model,dragService)
+	 	'$scope','library','DragService',
+	 	function($scope,library,dragService)
 	 	{
 	 		$scope.dragService = dragService;
 	 		
@@ -168,7 +168,7 @@ app.controller
 	 				$scope.component.children,
 	 				function(child)
 	 				{
-	 					setDefaultProperties(model.componentsIndexed[ child.cid ],child); 
+	 					setDefaultProperties(library.componentsIndexed[ child.cid ],child); 
 	 				}
 	 			);
 	 			

@@ -5,7 +5,7 @@ app.factory
 	{
 		return $resource
 		(
-			'http://localhost:3000/auth/session/'
+			'auth/session/'
 		);
 	}
 );

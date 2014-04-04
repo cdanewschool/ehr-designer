@@ -35,11 +35,12 @@ app.configure
 	{
 		app.use(express.static(path.join(__dirname, 'www')));
 		app.use(express.errorHandler());
-		app.use('/ehr-designer/www/js',express.static(path.join(__dirname, 'www/js')));
-		app.use('/ehr-designer/www/css',express.static(path.join(__dirname, 'www/css')));
-		app.use('/ehr-designer/www/bower_components',express.static(path.join(__dirname, 'www/bower_components')));
 		
-		app.use('/ehr-designer/www/app',express.static(path.join(__dirname, 'www/app')));
+		app.use('/editor/js',express.static(path.join(__dirname, 'www/js')));
+		app.use('/editor/css',express.static(path.join(__dirname, 'www/css')));
+		app.use('/editor/bower_components',express.static(path.join(__dirname, 'www/bower_components')));
+		app.use('/editor/app',express.static(path.join(__dirname, 'www/app')));
+		app.use('/editor/data',express.static(path.join(__dirname, 'www/data')));
 		app.set('views',__dirname + '/www');
 	}
 );

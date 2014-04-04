@@ -9,7 +9,7 @@
 app.directive
 (
 	'componentPreview',
-	function($parse,$compile,model,FactoryService)
+	function($parse,$compile,library,FactoryService)
 	{
 		return {
 			restrict : 'EA',
@@ -31,38 +31,36 @@ app.directive
 					pre: function preLink(scope, element, attrs) {},
 					post: function postLink(scope,element,attrs)
 					{
-						var el;
-						var width;
-						var height;
-						var updating;
-						
-						scope.componentDefinition = model.componentsIndexed[ scope.definition.cid ];
-						
-						scope.id = FactoryService.uniqueId();
-						scope.showBorder = scope.componentDefinition.container;
-						scope.isDroppable = (!scope.isStatic && scope.definition.cid!='label' && scope.definition.cid!='image');
-						scope.isDraggable = !scope.isStatic;
-						
-						console.log( scope.definition.pid )
-						//	show properties menu on click
-						if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
+						var init = function()
 						{
-							element.on
-							(
-								'mousedown',
-								function(e)
-								{
-									e.stopImmediatePropagation();
-									
-									if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
-										scope.dragService.dragModel.selection = null;
-									else
-										scope.dragService.dragModel.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
-									
-									scope.$apply();
-								}
-							);
-						}
+							if( !scope.definition ) return;
+							
+							scope.id = FactoryService.uniqueId();
+							scope.componentDefinition = library.componentsIndexed[ scope.definition.cid ];
+							scope.showBorder = scope.componentDefinition.container;
+							scope.isDroppable = (!scope.isStatic && scope.definition.cid!='label' && scope.definition.cid!='image');
+							scope.isDraggable = !scope.isStatic;
+							
+							//	show properties menu on click
+							if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
+							{
+								element.on
+								(
+									'mousedown',
+									function(e)
+									{
+										e.stopImmediatePropagation();
+										
+										if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
+											scope.dragService.dragModel.selection = null;
+										else
+											scope.dragService.dragModel.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
+										
+										scope.$apply();
+									}
+								);
+							}
+						};
 						
 						var update = function()
 						{
@@ -120,6 +118,26 @@ app.directive
 							if( values.top ) 
 								el.css("top",values.top + "px");				
 						};
+						
+						if( !scope.definition ) 
+						{
+							scope.$watch
+							(
+								'definition',
+								function(newVal,oldVal)
+								{
+									if( newVal != oldVal )
+									{
+										//unwatch
+										init();
+									}
+								}
+							);
+						}
+						else
+						{
+							init();
+						}
 						
 						if( !scope.isStatic )
 						{

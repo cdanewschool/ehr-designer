@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
+<base href="/"></base>
 <head>
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/dist/css/bootstrap.min.css" -->
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/css/colorpicker.css" -->
 <!-- include: "type": "css", "basePath": "www/", "files": "css/**/*.css" -->
 </head>
 
-<body ng-controller="AppCtrl" ng-init="init()">
+<body ng-controller="NavigationCtrl" ng-init="init()">
 
 	<nav class="navbar navbar-default" role="navigation">
 	
 		<div class="container-fluid">
 		
 			<div class="navbar-header">
-				<span class="navbar-brand">{{model.title}}</span]>
+				<span class="navbar-brand">EHR Designer</span>
 			</div>
 			
 			<ul class="nav navbar-nav" ng-show="currentUser">
-				<li ng-repeat="link in model.navigation"><a href="#" ng-click="setLocation(link.url)">{{link.title}}</a></li>
+				<li ng-repeat="link in navigation"><a ng-click="setLocation(link.url)">{{link.title}}</a></li>
 			</ul>
 			
-			<ul class="nav navbar-nav navbar-right" ng-show="currentUser" ng-controller="UserCtrl">
-				<li><a href="#" ng-click="logout()">Logout</a></li>
+			<ul class="nav navbar-nav navbar-right" ng-show="currentUser">
+				<li ng-controller="CanvasCtrl" ng-show="canvas.currentPage.children.length"><button class="btn navbar-btn" ng-click="save()">Save</button></li>
+				<li ng-controller="UserCtrl"><a ng-click="logout()">Logout</a></li>
 			</ul>
-		
 		</div>
 		
 	</nav>
