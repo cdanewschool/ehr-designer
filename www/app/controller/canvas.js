@@ -294,6 +294,10 @@ app.controller
 				if( canvas.currentSection.children[id] )
 					canvas.currentPage = canvas.currentSection.children[id];
 			};
+			$scope.clearCanvas = function()
+			{
+				canvas.currentPage.children = [];	
+			};
 			
 			$scope.componentFilter = function(item)
 			{
