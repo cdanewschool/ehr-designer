@@ -18,6 +18,18 @@ app.controller
 			$scope.errors = [];
 			
 			$scope.$watch
+			(
+				'canvas.currentProject',
+				function(newVal,oldVal)
+				{
+					if( newVal != oldVal && newVal )
+					{
+						$scope.selectSectionByIndex(0);
+					}
+				}
+			);
+			
+			$scope.$watch
 	 		(
 	 			'canvas.currentPage',
 	 			function(newVal,oldVal)
@@ -26,7 +38,7 @@ app.controller
 	 				{
 	 					var getMax = function(item,val)
 	 					{
-	 						val = Math.max( item.id, val );
+	 						val = Math.max( parseInt(item.id), val );
 	 						
 	 						if( item.children )
 	 							for(var c in item.children)
@@ -35,11 +47,11 @@ app.controller
 	 						return val;
 	 					};
 	 					
-	 					var val = getMax( canvas.currentPage, 0 );
+	 					var val = getMax( canvas.currentPage, 1 );
 	 					
 	 					FactoryService._id = val;
 	 				}
-	 			},true
+	 			}
 	 		);
 			
 			$scope.init = function()
@@ -56,8 +68,6 @@ app.controller
 							function(response)
 							{
 								canvas.currentProject = response;
-								
-								$scope.selectSectionByIndex(0);
 							}
 						);
 					}

@@ -2,8 +2,8 @@ app.service
 (
 	'HistoryService',
 	[
-	 	'history','canvas','ProjectService',
-	 	function(history,canvas,ProjectService)
+	 	'history','canvas',
+	 	function(history,canvas)
 	 	{
 	 		var id = 0;
 	 		
@@ -15,7 +15,7 @@ app.service
 	 					&& history.actions.indexOf(history.currentAction) < history.actions.length - 1 )
 	 					history.actions.splice(history.actions.indexOf(history.currentAction)+1);
 	 				
-	 				var action = {id: id, name:name, content: angular.copy(canvas.currentProject.content), date:new Date()	};
+	 				var action = {id: id, name:name, content: angular.copy(canvas.currentProject), date:new Date()	};
 	 				history.actions.push( action );
 	 				
 	 				//	truncate list of actions
@@ -29,9 +29,7 @@ app.service
 	 			
 	 			revert: function(action)
 	 			{
-	 				project.document = action.content;
-	 				
-	 				ProjectService.selectSection(0);
+	 				canvas.currentProject = action.content;
 	 				
 	 				history.currentAction = action;
 	 			}
