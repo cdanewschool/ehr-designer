@@ -1,7 +1,7 @@
 var app = angular.module
 (
 	'app',
-	['ngResource','ngRoute','ngSanitize','ngDragDrop','ngCookies','http-auth-interceptor','ui.bootstrap','colorpicker.module']
+	['ngResource','ngRoute','ngSanitize','ngDragDrop','ngCookies','http-auth-interceptor','ui.bootstrap','colorpicker.module','config']
 );
 
 app.config

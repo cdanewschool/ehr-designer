@@ -4,7 +4,10 @@ app.service
 	[
 	 	function()
 	 	{
-	 		return {
+	 		var service = 
+	 		{
+	 			_id: 0,
+	 			
 				componentInstance: function(definition,values,parent)
 				{
 					var clone = angular.copy(definition);
@@ -24,7 +27,6 @@ app.service
 						for(var c in clone.children)
 						{
 							clone.children[c].pid = clone.id;
-							clone.children[c].id = this.uniqueId();
 						}
 					}
 					else
@@ -37,9 +39,11 @@ app.service
 				
 				uniqueId: function()
 				{
-					return _.uniqueId();
+					return this._id++;
 				}
 	 		};
+		 		
+	 		return service;
 	 	}
 	 ]
 );

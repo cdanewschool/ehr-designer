@@ -67,7 +67,7 @@ app.service
 					(
 						{
 							left: ui.offset.left - dragModel.dropTarget.offset().left,
-							top:ui.offset.top - dragModel.dropTarget.offset().top
+							top: ui.offset.top - dragModel.dropTarget.offset().top
 						},
 						dragModel.dragItem.values
 					);
@@ -97,7 +97,7 @@ app.service
 						dragModel.dragItem.parentIndex = dragModel.hoverIndex;
 						dragModel.hoverIndex = null;
 					}
-					else
+					else if( dragModel.dragItem.pid && target.id != dragModel.dragItem.pid )
 					{
 						delete dragModel.dragItem.parentIndex;
 					}
@@ -176,7 +176,7 @@ app.service
 						
 						target.children.push( instance );
 						
-						historyService.save( "Added " + dragModel.dragItem.name + " to canvas" );
+						historyService.save( "Added " + dragModel.dragItem.name + " to " + library.componentsIndexed[target.cid].name );
 					}
 				},
 				
@@ -188,6 +188,11 @@ app.service
 				
 				onOver: function(event,ui,item)
 				{
+					if( !library.componentsIndexed[item.cid].container ) 
+						ui.helper.addClass("reject");
+					else
+						ui.helper.removeClass("reject");
+					
 					if( dragModel.dropTarget == event.target || dragModel.dragItem == event.target )
 						return;
 					

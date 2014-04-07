@@ -3,5 +3,6 @@
 
 bower_components/
 node_modules/
+www/app/config.js
 
 index.html
