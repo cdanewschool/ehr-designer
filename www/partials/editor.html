@@ -61,9 +61,13 @@
 	    </tab>
 	    
 	    <!-- 	debug window -->
-	    <tab heading="Debug" class="small">
+	    <tab heading="Debug" class="small" ng-if="DEBUG">
+	    
 	    	<h6>Document JSON</h6>
-	    	<pre class="pre-scrollable" style="font-size:.7em">{{canvas.currentProject.content | json}}</pre>
+	    	<pre class="pre-scrollable">{{canvas.currentProject.content | json}}</pre>
+	    	
+	    	<button class="btn btn-primary btn-md" ng-if="DEBUG" ng-show="dragService.dragModel.selection" ng-click="exportSelectionDefinition()">Export</button>
+	    	
 	    </tab>
 	    
   	</tabset>
@@ -100,7 +104,6 @@
 				</div>
 				
 			</div>
-			
 			
 			<div class="btn-group pull-right">
 				<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addSection()"><span class="glyphicon glyphicon-plus" ng-disabled="!canvas.currentProject"> Section</button>

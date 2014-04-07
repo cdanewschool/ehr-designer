@@ -2,19 +2,45 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$routeParams','canvas','library','template','history','Project','ProjectService','DataService','DragService','HistoryService','FactoryService',
-		function($scope,$rootScope,$location,$routeParams,canvas,library,template,history,Project,ProjectService,dataService,dragService,historyService,FactoryService)
+		'$scope','$rootScope','$location','$modal','$routeParams','canvas','library','template','history','Project','ProjectService','DataService','DragService','HistoryService','FactoryService','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,canvas,library,template,history,Project,ProjectService,dataService,dragService,historyService,FactoryService,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
 			$scope.library = library;
 			$scope.location = $location;
-
+			$scope.DEBUG = ENV.DEBUG;
+			
 			$scope.dragService = dragService;
 			$scope.historyService = historyService;
 			
 			$scope.messages = [];
 			$scope.errors = [];
+			
+			$scope.$watch
+	 		(
+	 			'canvas.currentPage',
+	 			function(newVal,oldVal)
+	 			{
+	 				if( newVal != oldVal )
+	 				{
+	 					var getMax = function(item,val)
+	 					{
+	 						val = Math.max( item.id, val );
+	 						
+	 						if( item.children )
+	 							for(var c in item.children)
+	 								val = getMax(item.children[c],val);
+	 						
+	 						return val;
+	 					};
+	 					
+	 					var val = getMax( canvas.currentPage, 0 );
+	 					
+	 					FactoryService._id = val;
+	 				}
+	 			},true
+	 		);
 			
 			$scope.init = function()
 			{
@@ -254,6 +280,38 @@ app.controller
 			{
 				return !item.abstract;
 			};
+			
+			if( ENV.DEBUG )
+			{
+				$scope.exportSelectionDefinition = function()
+		 		{
+		 			var props = {id:"test",name:"test"};
+		 			var output = _.defaults(props,$scope.component);
+		 			
+		 			delete output['pid'];
+		 			
+		 			var ModalCtrl = function($scope,$modalInstance,content)
+		 			{
+		 				$scope.content = content;
+		 				
+		 				$scope.close = function()
+		 				{
+		 					$modalInstance.dismiss('cancel');
+		 				};
+		 			};
+		 			
+		 			var modalInstance = $modal.open
+		 			(
+		 				{
+		 					template: '<div class="modal-body"><p>The following JSON represents your selection:</p><pre class="pre-scrollable">{{content | json}}</pre></div><div class="modal-footer"><button class="btn btn-primary" ng-click="close()">OK</button></div>',
+		 					controller: ModalCtrl,
+		 					resolve: {
+		 						content: function(){ return output; }
+		 					}
+		 				}
+		 			);
+		 		};
+			}
 		}
 	 ]
 );
