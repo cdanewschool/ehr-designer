@@ -15,7 +15,7 @@
 			
 			<div ng-if='definition.cid=="label"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<span 
-					class='target' style='text-wrap:none;white-space:nowrap;'
+					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
 					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit,'margin-top':definition.values.margin.top+'px','margin-right':definition.values.margin.right+'px','margin-bottom':definition.values.margin.bottom+'px','margin-left':definition.values.margin.left+'px'}">
 					{{definition.values.text ? definition.values.text : componentDefinition.name}}
 				</span>

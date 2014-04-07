@@ -36,20 +36,27 @@ app.controller
 	 			{
 	 				if( newVal != oldVal )
 	 				{
-	 					var getMax = function(item,val)
+	 					if( newVal )
 	 					{
-	 						val = Math.max( parseInt(item.id), val );
-	 						
-	 						if( item.children )
-	 							for(var c in item.children)
-	 								val = getMax(item.children[c],val);
-	 						
-	 						return val;
-	 					};
-	 					
-	 					var val = getMax( canvas.currentPage, 1 );
-	 					
-	 					FactoryService._id = val;
+	 						var getMax = function(item,val)
+		 					{
+		 						val = Math.max( parseInt(item.id), val );
+		 						
+		 						if( item.children )
+		 							for(var c in item.children)
+		 								val = getMax(item.children[c],val);
+		 						
+		 						return val;
+		 					};
+		 					
+		 					var val = getMax( canvas.currentPage, 1 );
+		 					
+		 					FactoryService._id = val;
+	 					}
+	 					else
+	 					{
+	 						dragService.dragModel.selection = null;
+	 					}
 	 				}
 	 			}
 	 		);
