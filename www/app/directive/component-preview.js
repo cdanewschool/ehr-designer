@@ -41,6 +41,8 @@ app.directive
 							scope.isDroppable = (!scope.isStatic && scope.definition.cid!='label' && scope.definition.cid!='image');
 							scope.isDraggable = !scope.isStatic;
 							
+							element.attr("data-component-id",scope.definition.cid);
+							
 							//	show properties menu on click
 							if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
 							{

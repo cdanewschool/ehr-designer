@@ -46,6 +46,7 @@ app.service
 				{
 					if( !dragModel.dropTarget ) return;
 					if( target == dragModel.dragItem ) return;
+					if( !library.componentsIndexed[angular.element(event.target).attr('data-component-id')].container  ) return;
 					
 					//	utility function for massaging points if snapping turned on
 					var snap = function( offset )
@@ -193,8 +194,10 @@ app.service
 					else
 						ui.helper.removeClass("reject");
 					
-					if( dragModel.dropTarget == event.target || dragModel.dragItem == event.target )
+					if( ui.helper.hasClass("reject") || dragModel.dropTarget == event.target || dragModel.dragItem == event.target )
+					{
 						return;
+					}
 					
 					dragModel.dropTarget = angular.element(event.target);
 					dragModel.hover = item;
@@ -204,7 +207,9 @@ app.service
 				
 				acceptDrop: function(item)
 				{
-					return true;
+					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[dragModel.dropTarget.attr("data-component-id")].container : true;
+					
+					return acceptable;
 				}
 			};
 		}

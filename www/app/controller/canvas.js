@@ -34,7 +34,7 @@ app.controller
 	 			'canvas.currentPage',
 	 			function(newVal,oldVal)
 	 			{
-	 				if( newVal != oldVal )
+	 				if( newVal != oldVal && newVal )
 	 				{
 	 					var getMax = function(item,val)
 	 					{
