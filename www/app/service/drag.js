@@ -23,9 +23,10 @@ app.service
 			$rootScope.$on
 	 		(
 	 			'$locationChangeStart',
-	 			function()
+	 			function(newVal,oldVal)
 	 			{
-	 				dragModel.selection = null;
+	 				if( newVal != oldVal )
+	 					dragModel.selection = null;
 	 			}
 	 		);
 			
