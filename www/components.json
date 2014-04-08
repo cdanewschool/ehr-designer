@@ -453,7 +453,9 @@
 						"values":
 						{
 							"type":"text",
-							"text":"me@example.com"
+							"text":"John Doe",
+							"tsize":"10",
+							"maxlength":"5"
 						}
 					},
 					{
