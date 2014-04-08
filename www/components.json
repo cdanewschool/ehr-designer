@@ -438,6 +438,71 @@
 										"values":["px","em"]
 									}
 								]
+							},
+							{
+								"id":"maxlength",
+								"name":"Maxlength",
+								"type":"int"
+							},
+							{
+								"id":"size",
+								"name":"Size",
+								"type":"int"
+							}
+						],
+						"values":
+						{
+							"type":"text",
+							"text":"me@example.com"
+						}
+					},
+					{
+						"abstract":true,
+						"properties":
+						[
+							{
+								"id":"placeholder",
+								"name":"Placeholder Text",
+								"type":"string"
+							},
+							{
+								"id":"text",
+								"editable":false,
+								"type":"string"
+							},
+							{
+								"id":"color",
+								"name":"Color",
+								"type":"color"
+							},
+							{
+								"id":"background-color",
+								"name":"Background Color",
+								"type":"color"
+							},
+							{
+								"id":"border-color",
+								"name":"Border Color",
+								"type":"color"
+							},
+							{
+								"id":"border-width",
+								"name":"Border Width",
+								"type":"object",
+								"parseExpression":"(\\d*)([a-z]*)",
+								"properties": 
+								[
+									{
+										"id":"size",
+										"name":"",
+										"type":"int"
+									},
+									{
+										"id":"unit",
+										"type":"enum",
+										"values":["px","em"]
+									}
+								]
 							}
 						],
 						"values":

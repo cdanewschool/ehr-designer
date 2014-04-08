@@ -147,12 +147,38 @@
 						}"></select>
 			</div>
 			
-			<div ng-if='definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="textinput" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"'>
+			<div ng-if='definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"' resizable>
 				<input 
 					class="form-control target" 
 					type="{{definition.values.type}}" 
 					placeholder="{{definition.values.placeholder}}" 
 					value="{{!definition.values.placeholder ? definition.values.text : ''}}"
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}">
+			</div>
+			
+			<div ng-if='definition.cid=="textinput"' resizable>
+				<input 
+					class="form-control target" 
+					type="{{definition.values.type}}" 
+					placeholder="{{definition.values.placeholder}}" 
+					value="{{!definition.values.placeholder ? definition.values.text : ''}}"
+					maxlength="{{definition.values.maxlength}}"
+					size="{{definition.values.size}}"
 					ng-style="
 						{
 							'background-color':definition.values['background-color'],
