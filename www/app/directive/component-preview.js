@@ -37,6 +37,14 @@ app.directive
 							
 							scope.id = FactoryService.uniqueId();
 							scope.componentDefinition = library.componentsIndexed[ scope.definition.cid ];
+							
+							//	handle an unrecognized/invalid component id
+							if( !scope.componentDefinition )
+							{
+								scope.componentDefinition = { container: false };
+								scope.definition = { cid: null };
+							}
+							
 							scope.showBorder = scope.componentDefinition.container;
 							scope.isDroppable = (!scope.isStatic && scope.definition.cid!='label' && scope.definition.cid!='image');
 							scope.isDraggable = !scope.isStatic;
