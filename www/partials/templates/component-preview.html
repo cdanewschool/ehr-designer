@@ -61,7 +61,7 @@
 			</div>
 			
 			<div ng-if='definition.cid=="textinput"' resizable>
-				<input class="form-control target" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}">
+				<input class="form-control target" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}" size="{{definition.values.tsize}}" maxlength="{{definition.values.maxlength}}">
 			</div>
 			
 			<div ng-if='definition.cid=="checkbox" || definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="radio" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"' resizable>

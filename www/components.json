@@ -394,14 +394,26 @@
 								"id":"placeholder",
 								"name":"Placeholder",
 								"type":"string"
+							},
+							{
+    							"id":"tsize",
+								"name":"Size",
+								"type":"string"
+							},
+							{
+    							"id":"maxlength",
+								"name":"Maxlength",
+								"type":"string"
 							}
 						],
 						"values":
 						{
 							"label":"",
 							"type":"text",
-							"text":"My text",
-							"placeholder":"Placeholder"
+							"text":"",
+							"placeholder":"Placeholder",
+							"tsize":"10",
+							"maxlength":"5"
 						}
 					},
 					{
