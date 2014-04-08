@@ -65,6 +65,17 @@ app.controller
 	 			}
 	 		};
 	 		
+	 		var rgbToHex = function(r, g, b) 
+	 		{
+	 			var componentToHex = function(c) 
+	 			{
+	 			    var hex = c.toString(16);
+	 			    return hex.length == 1 ? "0" + hex : hex;
+	 			};
+	 			
+	 		    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+	 		};
+	 		
 	 		var setDefaultProperties = function(definition,instance)
 	 		{
 	 			angular.forEach
@@ -140,7 +151,16 @@ app.controller
 		 						}
 		 						else
 		 						{
-		 							instance.values[property.id] = getDefault( property );
+		 							var value = cssValue;
+			 						
+		 							//	if color and in rgb, convert to hex
+			 						if( property.type=='color' && value.match(/rgb\((\d*),\s*(\d*),\s*(\d*)\)/) )
+			 						{
+			 							var rgb = value.match(/rgb\((\d*),\s*(\d*),\s*(\d*)\)/);
+			 							value = '#' + ((1 << 24) + (parseInt(rgb[1]) << 16) + (parseInt(rgb[2]) << 8) + parseInt(rgb[3])).toString(16).substr(1);
+			 						}
+			 						
+		 							instance.values[property.id] = value;
 		 						}
 		 					}
 		 					else if( definition.values[property.id] )

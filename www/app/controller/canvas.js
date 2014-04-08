@@ -116,6 +116,12 @@ app.controller
 						if( !exists )
 							target.properties.push( source.properties[p] );											
 					};
+					
+					for(p in source.values)
+					{
+						if( !target.values[p] )
+							target.values[p] = source.values[p];											
+					};
 				};
 				
 				return dataService.getComponents().then

@@ -108,8 +108,8 @@
 		"subcomponents":
 		[
 			{
-				"id":"label",
-				"name":"Label",
+				"id":"text",
+				"name":"Text",
 				"container":false,
 				"properties":
 				[
@@ -117,6 +117,11 @@
 						"id":"text",
 						"name":"Text",
 						"type":"string"
+					},
+					{
+						"id":"color",
+						"name":"Color",
+						"type":"color"
 					},
 					{
 						"id":"font-size",
@@ -140,7 +145,7 @@
 				],
 				"values":
 				{
-					"text":"Label"
+					"text":"Text"
 				}
 			},
 			{
@@ -172,11 +177,26 @@
 								"values":["px","em"]
 							}
 						]
+					},
+					{
+						"id":"color",
+						"name":"Color",
+						"type":"color"
+					},
+					{
+						"id":"background-color",
+						"name":"Background Color",
+						"type":"color"
+					},
+					{
+						"id":"border-color",
+						"name":"Border Color",
+						"type":"color"
 					}
 				],
 				"values":
 				{
-					"text":"Button"
+					"text":"My Button"
 				},
 				"subcomponents":
 				[
@@ -193,8 +213,7 @@
 						],
 						"values":
 						{
-							"src":"http://wiki.tripwireinteractive.com/images/4/47/Placeholder.png",
-							"text":"Click here"
+							"src":"http://wiki.tripwireinteractive.com/images/4/47/Placeholder.png"
 						}
 					}
 				]
@@ -210,6 +229,35 @@
 						"id":"src",
 						"name":"Source",
 						"type":"string"
+					},
+					{
+						"id":"background-color",
+						"name":"Background Color",
+						"type":"color"
+					},
+					{
+						"id":"border-color",
+						"name":"Border Color",
+						"type":"color"
+					},
+					{
+						"id":"border-width",
+						"name":"Border Width",
+						"type":"object",
+						"parseExpression":"(\\d*)([a-z]*)",
+						"properties": 
+						[
+							{
+								"id":"size",
+								"name":"",
+								"type":"int"
+							},
+							{
+								"id":"unit",
+								"type":"enum",
+								"values":["px","em"]
+							}
+						]
 					}
 				],
 				"values":
@@ -245,30 +293,6 @@
 				"subcomponents":[]
 			},
 			{
-				"id":"list",
-				"name":"List",
-				"abstract":true,
-				"autoLayoutChildren":true,
-				"description":"Arrange a group of items horizontally or vertically",
-				"properties":
-				[
-					{
-						"id":"direction",
-						"name":"Direction",
-						"type":"enum",
-						"values":["horizontal","vertical"]
-					},
-					{
-						"id":"items",
-						"name":"Items",
-						"type":"array"
-					}
-				],
-				"subcomponents":
-				[
-				]
-			},
-			{
 				"id":"dropdown",
 				"name":"Dropdown",
 				"abstract":false,
@@ -279,6 +303,40 @@
 						"id":"items",
 						"name":"Items",
 						"type":"array"
+					},
+					{
+						"id":"color",
+						"name":"Text Color",
+						"type":"color"
+					},
+					{
+						"id":"background-color",
+						"name":"Background Color",
+						"type":"color"
+					},
+					{
+						"id":"border-color",
+						"name":"Border Color",
+						"type":"color"
+					},
+					{
+						"id":"border-width",
+						"name":"Border Width",
+						"type":"object",
+						"parseExpression":"(\\d*)([a-z]*)",
+						"properties": 
+						[
+							{
+								"id":"size",
+								"name":"",
+								"type":"int"
+							},
+							{
+								"id":"unit",
+								"type":"enum",
+								"values":["px","em"]
+							}
+						]
 					}
 				],
 				"values":
@@ -289,10 +347,10 @@
 							"label":"My Item",
 							"value":"item"
 						}
-					]	
+					],
+					"color": "#000000"
 				}
 			},
-			
 			{
 				"id":"input",
 				"name":"Form Field",
@@ -303,7 +361,6 @@
 					{
 						"id":"type",
 						"editable":"false"
-						
 					}
 				],
 				"subcomponents":
@@ -318,65 +375,18 @@
 								"id":"label",
 								"name":"Label",
 								"type":"string"
-							}
-						],
-						"values":
-						{
-							"type":"checkbox",
-							"label":"Checkbox"
-						}
-					},
-					{
-						"id":"date",
-						"name":"Date Field",
-						"abstract":false,
-						"properties":
-						[
+							},
 							{
-								"id":"text",
-								"name":"Text",
-								"type":"string"
+								"id":"color",
+								"name":"Text Color",
+								"type":"color"
 							}
 						],
 						"values":
 						{
-							"type":"date"
-						}
-					},
-					{
-						"id":"datetime",
-						"name":"Datetime Field",
-						"abstract":false,
-						"properties":
-						[
-							{
-								"id":"text",
-								"name":"Text",
-								"type":"string"
-							}
-						],
-						"values":
-						{
-							"type":"datetime"
-						}
-					},
-					{
-						"id":"email",
-						"description":"An input field that includes client-side email validation",
-						"name":"Email Field",
-						"abstract":false,
-						"properties":
-						[
-							{
-								"id":"text",
-								"name":"Text",
-								"type":"string"
-							}
-						],
-						"values":
-						{
-							"text":"user@provider.com",
-							"type":"email"
+							"color":"#000000",
+							"label":"Checkbox",
+							"type":"checkbox"
 						}
 					},
 					{
@@ -386,32 +396,129 @@
 						"properties":
 						[
 							{
-								"id":"text",
-								"name":"Text",
+								"id":"placeholder",
+								"name":"Placeholder Text",
 								"type":"string"
 							},
 							{
-								"id":"placeholder",
-								"name":"Placeholder",
+								"id":"text",
+								"editable":false,
 								"type":"string"
+							},
+							{
+								"id":"color",
+								"name":"Color",
+								"type":"color"
+							},
+							{
+								"id":"background-color",
+								"name":"Background Color",
+								"type":"color"
+							},
+							{
+								"id":"border-color",
+								"name":"Border Color",
+								"type":"color"
+							},
+							{
+								"id":"border-width",
+								"name":"Border Width",
+								"type":"object",
+								"parseExpression":"(\\d*)([a-z]*)",
+								"properties": 
+								[
+									{
+										"id":"size",
+										"name":"",
+										"type":"int"
+									},
+									{
+										"id":"unit",
+										"type":"enum",
+										"values":["px","em"]
+									}
+								]
 							}
 						],
 						"values":
 						{
-							"label":"",
 							"type":"text",
-							"text":"My text",
-							"placeholder":"Placeholder"
-						}
-					},
-					{
-						"id":"month",
-						"name":"Month Field",
-						"abstract":false,
-						"values":
-						{
-							"type":"month"
-						}
+							"text":"me@example.com"
+						},
+						"subcomponents":
+						[
+							{
+								"id":"date",
+								"name":"Date Field",
+								"values":
+								{
+									"type":"date"
+								}
+							},
+							{
+								"id":"email",
+								"description":"An input field that includes client-side email validation",
+								"name":"Email Field",
+								"values":
+								{
+									"type":"email",
+									"text":"user@provider.com"
+								}
+							},
+							{
+								"id":"search",
+								"name":"Search Field",
+								"values":
+								{
+									"text":"My search",
+									"type":"search"
+								}
+							},
+							{
+								"id":"url",
+								"description":"An input field that includes client-side url validation",
+								"name":"URL Field",
+								"values":
+								{
+									"text":"http://google.com",
+									"type":"url"
+								}
+							},
+							{
+								"id":"month",
+								"name":"Month Field",
+								"values":
+								{
+									"type":"month"
+								}
+							},
+							{
+								"id":"tel",
+								"description":"An input field that includes client-side telephone number validation",
+								"name":"Telephone Field",
+								"values":
+								{
+									"text":"888-888-8888",
+									"type":"tel"
+								}
+							},
+							{
+								"id":"time",
+								"name":"Time Field",
+								"values":
+								{
+									"type":"time"
+								}
+							},
+							{
+								"id":"week",
+								"name":"Week Field",
+								"values":
+								{
+									"type":"week"
+								}
+							}
+						]
 					},
 					{
 						"id":"number",
@@ -436,8 +543,24 @@
 							},
 							{
 								"id":"value",
+								"editable":false,
 								"name":"Default Value",
 								"type":"int"
+							},
+							{
+								"id":"color",
+								"name":"Color",
+								"type":"color"
+							},
+							{
+								"id":"background-color",
+								"name":"Background Color",
+								"type":"color"
+							},
+							{
+								"id":"border-color",
+								"name":"Border Color",
+								"type":"color"
 							}
 						],
 						"values":
@@ -472,60 +595,27 @@
 								"id":"label",
 								"name":"Label",
 								"type":"string"
+							},
+							{
+								"id":"color",
+								"name":"Color",
+								"type":"color"
+							},
+							{
+								"id":"background-color",
+								"name":"Background Color",
+								"type":"color"
+							},
+							{
+								"id":"border-color",
+								"name":"Border Color",
+								"type":"color"
 							}
 						],
 						"values":
 						{
 							"type":"radio",
 							"label":"Radio button"
-						}
-					},
-					{
-						"id":"search",
-						"name":"Search Field",
-						"abstract":false,
-						"values":
-						{
-							"type":"search"
-						}
-					},
-					{
-						"id":"tel",
-						"description":"An input field that includes client-side telephone number validation",
-						"name":"Telephone Field",
-						"abstract":false,
-						"values":
-						{
-							"text":"888-888-8888",
-							"type":"tel"
-						}
-					},
-					{
-						"id":"time",
-						"name":"Time Field",
-						"abstract":false,
-						"values":
-						{
-							"type":"time"
-						}
-					},
-					{
-						"id":"url",
-						"description":"An input field that includes client-side url validation",
-						"name":"URL Field",
-						"abstract":false,
-						"values":
-						{
-							"type":"url"
-						}
-					},
-					{
-						"id":"week",
-						"name":"Week Field",
-						"abstract":false,
-						"values":
-						{
-							"type":"week"
 						}
 					}
 				]

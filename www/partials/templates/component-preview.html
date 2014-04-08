@@ -9,14 +9,22 @@
 				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService'></component-preview>
 			</div>
 			
-			<div ng-if='definition.cid=="image"' class='img' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
-				<img class='target' ng-src='{{definition.values.src}}'>
-			</div>
-			
-			<div ng-if='definition.cid=="label"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
+			<div ng-if='definition.cid=="text"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<span 
 					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
-					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit,'margin-top':definition.values.margin.top+'px','margin-right':definition.values.margin.right+'px','margin-bottom':definition.values.margin.bottom+'px','margin-left':definition.values.margin.left+'px'}">
+					ng-style="
+						{
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}">
 					{{definition.values.text ? definition.values.text : componentDefinition.name}}
 				</span>
 			</div>
@@ -24,8 +32,28 @@
 			<div ng-if='definition.cid=="button"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<button 
 					class="btn btn-default target" 
-					ng-class="{'text-left':definition.values.text-align=='left','text-center':definition.values.text-align=='center','text-right':definition.values.text-align=='right'}"
-					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit}">
+					ng-class="
+						{
+							'text-left':definition.values.text-align=='left',
+							'text-center':definition.values.text-align=='center',
+							'text-right':definition.values.text-align=='right'
+						}"
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}">
 					{{definition.values.text ? definition.values.text : componentDefinition.name}}
 				</button>
 			</div>
@@ -33,13 +61,53 @@
 			<div ng-if='definition.cid=="iconbutton"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
 				<button 
 					class="btn btn-default target"
-					ng-class="{'text-left':definition.values.text-align=='left','text-center':definition.values.text-align=='center','text-right':definition.values.text-align=='right'}"
-					ng-style="{'padding-top':definition.values.padding.top+'px','padding-right':definition.values.padding.right+'px','padding-bottom':definition.values.padding.bottom+'px','padding-left':definition.values.padding.left+'px','font-size':definition.values['font-size'].size+definition.values['font-size'].unit}">
+					ng-class="
+						{
+							'text-left':definition.values.text-align=='left',
+							'text-center':definition.values.text-align=='center',
+							'text-right':definition.values.text-align=='right'
+						}"
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}">
 					<span class="glyphicon">
 						<img ng-src='{{definition.values.src}}' style="height:14px;" />
 					</span> 
 					{{definition.values.text ? definition.values.text : componentDefinition.name}}
 				</button>
+			</div>
+			
+			<div ng-if='definition.cid=="image"' class='img' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
+				<img class='target' ng-src='{{definition.values.src}}' 
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}">
 			</div>
 			
 			<div ng-if='definition.cid=="grid"' ng-mouseenter='dragService.dragModel.hover=definition'>
@@ -57,19 +125,104 @@
 			</div>
 			
 			<div ng-if='definition.cid=="dropdown"' resizable>
-				<select class="form-control target" ng-model="definition.values.items[0]" ng-options="v.label for v in definition.values.items"></select>
+				<select 
+					class="form-control target" 
+					ng-model="definition.values.items[0]" 
+					ng-options="v.label for v in definition.values.items"
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}"></select>
 			</div>
 			
-			<div ng-if='definition.cid=="textinput"' resizable>
-				<input class="form-control target" type="text" placeholder="{{definition.values.placeholder}}" value="{{definition.values.text}}">
+			<div ng-if='definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="textinput" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"'>
+				<input 
+					class="form-control target" 
+					type="{{definition.values.type}}" 
+					placeholder="{{definition.values.placeholder}}" 
+					value="{{!definition.values.placeholder ? definition.values.text : ''}}"
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}">
 			</div>
 			
-			<div ng-if='definition.cid=="checkbox" || definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="radio" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"' resizable>
-				<input class="target" ng-class="{'form-control':(definition.cid!='checkbox' && definition.cid!='radio')}" type="{{definition.values.type}}" ng-checked="definition.cid=='checkbox' || definition.cid=='radio'"> {{definition.values.label}}
+			<div ng-if='definition.cid=="checkbox" || definition.cid=="radio"'>
+				<span ng-style="
+						{
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit
+						}">
+					<input 
+						class="target" 
+						type="{{definition.values.type}}" 
+						ng-checked="true" 
+						ng-value="definition.values.value"
+						ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}"> {{definition.values.label}}</span>
 			</div>
 			
-			<div ng-if='definition.cid=="number" || definition.cid=="range"' resizable>
-				<input class="target" ng-class="{'form-control':(definition.cid!='range')}" type="{{definition.values.type}}" ng-value="definition.values.value" ng-attr-min="definition.values.min" ng-attr-max="definition.values.max" ng-attr-step="definition.values.step"> {{definition.values.label}}
+			<div ng-if='definition.cid=="number" || definition.cid=="range"'>
+				<input 
+					class="target" 
+					ng-class="{'form-control':(definition.cid!='range')}" 
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'border-color':definition.values['border-color'],
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
+						}"
+					type="{{definition.values.type}}" 
+					value="{{definition.values.value}}" 
+					min="{{definition.values.min}}" 
+					max="{{definition.values.max}}" 
+					step="{{definition.values.step}}"> 
 			</div>
 			
 		</div>
