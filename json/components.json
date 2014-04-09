@@ -111,6 +111,7 @@
 				"id":"text",
 				"name":"Text",
 				"container":false,
+				"binding":"single",
 				"properties":
 				[
 					{
@@ -139,6 +140,11 @@
 								"id":"unit",
 								"type":"enum",
 								"values":["px","em"]
+							},
+							{
+								"id":"text-decoration",
+								"type":"enum",
+								"values":["overline","line-through","underline"]
 							}
 						]
 					}
@@ -152,6 +158,7 @@
 				"id":"button",
 				"name":"Button",
 				"container":false,
+				"binding":"single",
 				"properties":
 				[
 					{
@@ -297,6 +304,7 @@
 				"name":"Dropdown",
 				"abstract":false,
 				"container":false,
+				"binding":"multiple",
 				"properties":
 				[
 					{
@@ -345,11 +353,65 @@
 					[
 						{
 							"label":"My Item",
-							"value":"item"
+							"id":"item"
 						}
 					],
 					"color": "#000000"
 				}
+			},
+			{
+				"id":"radio",
+				"name":"Radio Button",
+				"container":false,
+				"binding":"multiple",
+				"abstract":false,
+				"properties":
+				[
+					{
+						"id":"color",
+						"name":"Color",
+						"type":"color"
+					},
+					{
+						"id":"background-color",
+						"name":"Background Color",
+						"type":"color"
+					},
+					{
+						"id":"border-color",
+						"name":"Border Color",
+						"type":"color"
+					}
+				],
+				"values":
+				{
+					"type":"radio",
+					"items":
+					[
+						{
+							"label":"My Radio",
+							"id":"item"
+						}
+					]
+				},
+				"subcomponents":
+				[
+					{
+						"id":"checkbox",
+						"name":"Checkbox",
+						"values":
+						{
+							"type":"checkbox",
+							"items":
+							[
+								{
+									"label":"My Checkbox",
+									"id":"item"
+								}
+							]
+						}
+					}
+				]
 			},
 			{
 				"id":"input",
@@ -365,30 +427,6 @@
 				],
 				"subcomponents":
 				[
-					{
-						"id":"checkbox",
-						"name":"Checkbox",
-						"abstract":false,
-						"properties":
-						[
-							{
-								"id":"label",
-								"name":"Label",
-								"type":"string"
-							},
-							{
-								"id":"color",
-								"name":"Text Color",
-								"type":"color"
-							}
-						],
-						"values":
-						{
-							"color":"#000000",
-							"label":"Checkbox",
-							"type":"checkbox"
-						}
-					},
 					{
 						"id":"textinput",
 						"name":"Input Field",
@@ -651,39 +689,6 @@
 								}
 							}
 						]
-					},
-					{
-						"id":"radio",
-						"name":"Radio Button",
-						"abstract":false,
-						"properties":
-						[
-							{
-								"id":"label",
-								"name":"Label",
-								"type":"string"
-							},
-							{
-								"id":"color",
-								"name":"Color",
-								"type":"color"
-							},
-							{
-								"id":"background-color",
-								"name":"Background Color",
-								"type":"color"
-							},
-							{
-								"id":"border-color",
-								"name":"Border Color",
-								"type":"color"
-							}
-						],
-						"values":
-						{
-							"type":"radio",
-							"label":"Radio button"
-						}
 					}
 				]
 			}

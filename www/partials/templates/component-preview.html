@@ -25,7 +25,7 @@
 							'padding-bottom':definition.values.padding.bottom+'px',
 							'padding-left':definition.values.padding.left+'px'
 						}">
-					{{definition.values.text ? definition.values.text : componentDefinition.name}}
+					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
 				</span>
 			</div>
 			
@@ -127,8 +127,8 @@
 			<div ng-if='definition.cid=="dropdown"' resizable>
 				<select 
 					class="form-control target" 
-					ng-model="definition.values.items[0]" 
-					ng-options="v.label for v in definition.values.items"
+					ng-model="definition[ definition.datamap && definition.datamap.value ? 'datamap' : 'values' ][ definition.datamap && definition.datamap.value ? 'value' : 'items' ][0].id" 
+					ng-options="v.id as v.label for v in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.items)"
 					ng-style="
 						{
 							'background-color':definition.values['background-color'],
@@ -196,18 +196,20 @@
 							'padding-left':definition.values.padding.left+'px'
 						}">
 			</div>
-			
+
 			<div ng-if='definition.cid=="checkbox" || definition.cid=="radio"'>
-				<span ng-style="
+				<span ng-repeat="item in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.items)"
+						ng-style="
 						{
 							'color':definition.values.color,
 							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit
 						}">
 					<input 
 						class="target" 
-						type="{{definition.values.type}}" 
-						ng-checked="true" 
-						ng-value="definition.values.value"
+						type="{{definition.values.type}}"
+						name="radiogroup" 
+						ng-checked="$first" 
+						ng-value="item.id"
 						ng-style="
 						{
 							'background-color':definition.values['background-color'],
@@ -221,7 +223,7 @@
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
 							'padding-left':definition.values.padding.left+'px'
-						}"> {{definition.values.label}}</span>
+						}"> {{item.label}}</span>
 			</div>
 			
 			<div ng-if='definition.cid=="number" || definition.cid=="range"'>

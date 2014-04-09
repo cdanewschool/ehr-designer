@@ -29,7 +29,8 @@
 							<div ng-switch="property.type">
 								
 								<div class="col-sm-8" ng-switch-when="string">
-									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" history-action="Changed {{property.id}} from %oldValue% to %value%">
+									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" history-action="Changed {{property.id}} from %oldValue% to %value%" ng-disabled="property.id=='text' && component.datamap && component.datamap.value">
+									<span class="text-muted small" ng-show="property.id=='text' && component.dataMap">Disabled due to data mapping</span>
 								</div>
 								
 								<div class="col-sm-8" ng-switch-when="int">
@@ -88,12 +89,51 @@
 						
 					</div>
 			
+					<div class="form-group" ng-show="component.binding">
+						
+						<label class="control-label col-sm-4 small">Bind to</label>
+						
+						<div class="col-sm-8" ng-show="component.binding=='single'">
+							
+							<div class="row">
+							
+								<div class="col-sm-6">
+									<select class="form-control input-sm" ng-model="component.datamap.type_id" ng-options="t.id as t.label for t in [{id:undefined,label:'------'}].concat(library.sampleDataTypes)"></select>
+								</div>
+								
+								<div class="col-sm-6">
+									<select class="form-control input-sm" ng-model="component.datamap.field_id" ng-options="t.id as t.label for t in [{id:undefined,label:'.______'}].concat(propertyInspector.selectedDataType.fields)" ng-show="propertyInspector.selectedDataType"></select>
+								</div>
+								
+							</div>
+							
+							<div class="row" ng-show="propertyInspector.selectedDataType && propertyInspector.selectedDataTypeField">
+							
+								<div class="col-sm-12">
+									<select class="form-control input-sm" ng-model="component.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(propertyInspector.selectedDataTypeData)" ng-show="propertyInspector.selectedDataTypeField"></select>
+								</div>
+								
+							</div>
+							
+						</div>
+						
+						<div class="col-sm-8" ng-show="component.binding=='multiple'">
+							
+							<div class="row">
+							
+								<div class="col-sm-12">
+									<select class="form-control input-sm" ng-model="component.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(library.sampleData.bundle)  | filter : {'content.entry':'!null'}"></select>
+								</div>
+								
+							</div>
+							
+						</div>
+						
+					</div>
+					
 				</form>
 		
 		    </accordion-group>
-		    
-			<accordion-group heading="Data">
-			</accordion-group>
 			
 		</accordion>
 	

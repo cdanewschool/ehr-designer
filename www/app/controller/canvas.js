@@ -84,17 +84,57 @@ app.controller
 					}
 				};
 				
+				if( !library.sampleData )
+					getSampleData();
+				
 				if( !library.components )
-					$scope.getComponents().then( initProject );
+					getComponents().then( initProject );
 				else
 					initProject();
 			};
 			
-			$scope.getComponents = function()
+			var getSampleData = function()
+			{
+				return dataService.getSampleData().then
+				(
+					function(data)
+					{
+						var sampleData = {};
+						
+						angular.forEach
+						(
+							data.data,
+							function(item)
+							{
+								var resourceTypeId = item.content.resourceType.toLowerCase();
+								
+								if( resourceTypeId == "patient" )
+								{
+									if( !sampleData[resourceTypeId] )
+										sampleData[resourceTypeId] = [];
+									
+									sampleData[resourceTypeId].push( item );
+								}
+								else if( resourceTypeId == "bundle" )
+								{
+									if( !sampleData[resourceTypeId] )
+										sampleData[resourceTypeId] = [];
+									
+									sampleData[resourceTypeId].push( item );
+								}
+							}
+						);
+						
+						library.sampleData = sampleData;
+					}
+				);
+			};
+			
+			var getComponents = function()
 			{
 				var sync = function(target,source)
 				{
-					var inheritableProperties = ['autoLayoutChildren','container','resizable'];
+					var inheritableProperties = ['autoLayoutChildren','binding','container','resizable'];
 					
 					//	copy inheritable attributes from parent
 					for(var p in inheritableProperties)

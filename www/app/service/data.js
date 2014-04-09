@@ -9,6 +9,10 @@ app.service
 	 			getComponents:function()
 	 			{
 	 				return $http.get("components.json");
+	 			},
+	 			getSampleData:function()
+	 			{
+	 				return $http.get("sample-data.json");
 	 			}
 	 		};
 	 	}

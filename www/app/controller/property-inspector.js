@@ -2,14 +2,189 @@ app.controller
 (
 	'PropertyInspectorCtrl',
 	[
-	 	'$scope','library','DragService',
-	 	function($scope,library,dragService)
+	 	'$scope','propertyInspector','library','DragService',
+	 	function($scope,propertyInspector,library,dragService)
 	 	{
+	 		$scope.propertyInspector = propertyInspector;
 	 		$scope.dragService = dragService;
 	 		
 	 		$scope.component = null;
 	 		$scope.definition = null;
 	 		$scope.locked = {};
+
+	 		var bindMapping = function()
+	 		{
+	 			if( !$scope.component ) return;
+	 			
+	 			if( $scope.component.binding == "single" )
+	 			{
+	 				if( !propertyInspector.selectedDataType || !propertyInspector.selectedData || !propertyInspector.selectedDataTypeField )
+		 			{
+		 				if( $scope.component.datamap )
+		 					$scope.component.datamap.value = null;
+		 				
+		 				return;
+		 			}
+		 			
+					angular.forEach
+					(
+						library.sampleData[$scope.component.datamap.type_id],
+						function(item)
+						{
+							if( item.id == $scope.component.datamap.data_id )
+							{
+								var resolvePath = function(obj,path)
+								{
+									var obj = angular.copy(obj);
+									
+									for(var i=0,parts=path.split( /[\]\.\[]+/ );i<parts.length;i++)
+									{
+										if( obj[ parts[i] ] )
+											obj = obj[ parts[i] ];
+									}
+									
+									return obj;
+								};
+								
+								$scope.component.datamap.value = resolvePath(item.content,$scope.component.datamap.field_id);
+							}
+						}
+					);
+	 			}
+	 			else if( $scope.component.binding == "multiple" )
+	 			{
+	 				if( !propertyInspector.selectedData )
+		 			{
+		 				if( $scope.component.datamap )
+		 					$scope.component.datamap.value = null;
+		 				
+		 				return;
+		 			}
+	 				
+	 				var value = [];
+	 				
+	 				angular.forEach
+					(
+						propertyInspector.selectedData.content.entry,
+						function(item)
+						{
+							value.push( {id:item.concept.coding.code.value,label:item.concept.coding.display.value});
+						}
+					);
+	 				
+	 				$scope.component.datamap.value = value;
+	 			}
+	 		};
+	 		
+	 		$scope.$watch
+	 		(
+	 			'component.datamap.type_id',
+	 			function(newVal,oldVal)
+	 			{
+	 				if(newVal != oldVal)
+	 				{
+	 					propertyInspector.selectedDataType = undefined;
+	 					
+	 					bindMapping();
+	 					
+	 					if( newVal )
+	 						angular.forEach
+	 						(
+	 							library.sampleDataTypes,
+	 							function(sampleDataType)
+	 							{
+	 								if( !propertyInspector.selectedDataType
+	 									&& sampleDataType.id == $scope.component.datamap.type_id )
+	 								{
+	 									propertyInspector.selectedDataType = sampleDataType;
+	 									
+	 									bindMapping();
+	 								}
+	 							}
+	 						);
+	 				}
+	 			}
+	 		);
+	 		
+	 		$scope.$watch
+	 		(
+	 			'component.datamap.field_id',
+	 			function(newVal,oldVal)
+	 			{
+	 				if( newVal != oldVal )
+	 				{
+	 					propertyInspector.selectedDataTypeField = undefined;
+	 					propertyInspector.selectedDataTypeDatum = undefined;
+	 					
+	 					bindMapping();
+	 					
+	 					if( newVal )
+	 						angular.forEach
+	 						(
+	 							propertyInspector.selectedDataType.fields,
+	 							function(sampleDataTypeField)
+	 							{
+	 								if( !propertyInspector.selectedDataTypeField 
+	 									&& sampleDataTypeField.id == $scope.component.datamap.field_id )
+	 								{
+	 									propertyInspector.selectedDataTypeField = sampleDataTypeField;
+	 									propertyInspector.selectedDataTypeData = library.sampleData[ $scope.component.datamap.type_id ];
+	 									
+	 									bindMapping();
+	 								}
+	 							}
+	 						);
+	 				}
+	 			}
+	 		);
+	 		
+	 		$scope.$watch
+	 		(
+	 			'component.datamap.data_id',
+	 			function(newVal,oldVal)
+	 			{
+	 				if( newVal != oldVal )
+	 				{
+	 					propertyInspector.selectedData = null;
+	 					
+	 					bindMapping();
+	 					
+	 					if( newVal && $scope.component.binding == "single" )
+	 					{
+	 						if( newVal )
+		 						angular.forEach
+		 						(
+		 							propertyInspector.selectedDataTypeData,
+		 							function(sampleDatum)
+		 							{
+		 								if( sampleDatum.id == $scope.component.datamap.data_id )
+		 								{
+		 									propertyInspector.selectedData = sampleDatum;
+		 									
+		 									bindMapping();
+		 								}
+		 							}
+		 						);
+	 					}
+	 					else if( newVal && $scope.component.binding == "multiple" )
+	 					{
+	 						angular.forEach
+	 						(
+	 							library.sampleData.bundle,
+	 							function(sampleDatum)
+	 							{
+	 								if( sampleDatum.id == $scope.component.datamap.data_id )
+	 								{
+	 									propertyInspector.selectedData = sampleDatum;
+	 									
+	 									bindMapping();
+	 								}
+	 							}
+	 						);
+	 					}
+	 				}
+	 			}
+	 		);
 	 		
 	 		$scope.$watch
 	 		(
