@@ -8,11 +8,11 @@ app.service
 	 		return {
 	 			getComponents:function()
 	 			{
-	 				return $http.get("components.json");
+	 				return $http.get("json/components.json");
 	 			},
 	 			getSampleData:function()
 	 			{
-	 				return $http.get("sample-data.json");
+	 				return $http.get("json/sample-data.json");
 	 			}
 	 		};
 	 	}
