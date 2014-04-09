@@ -1,0 +1,109 @@
+[
+	{
+		"id": "encounter-class",
+		"title": "Encounter Classes",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Encounter Class",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"inpatient"}, "display":{"value":"Inpatient"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"outpatient"}, "display":{"value":"Outpatient"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"ambulatory"}, "display":{"value":"Ambulatory"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"emergency"}, "display":{"value":"Emergency"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"home"}, "display":{"value":"Home"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"field"}, "display":{"value":"Field"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"daytime"}, "display":{"value":"Daytime"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/encounter-class)"}, "code":{"value":"virtual"}, "display":{"value":"Virtual"} } } }
+			]
+		}
+	},
+	{
+		"id": "valueset-administrative-gender",
+		"title": "Administrative Gender",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Administrative Gender Codes",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"F"}, "display":{"value":"Female"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"F"}, "display":{"value":"Male"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"UN"}, "display":{"value":"Undifferentiated"} } } }
+			]
+		}
+	},
+	{
+		"id": "valueset-condition-severity",
+		"title": "Condition Severities",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Condition Severities",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"255604002"}, "display":{"value":"Mild"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"6736007"}, "display":{"value":"Moderate"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"24484000"}, "display":{"value":"Severe"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"399166001"}, "display":{"value":"Fatal"} } } }
+			]
+		}
+	},
+	{
+		"id": "patient0",
+		"title": "Primary Patient",
+		"content": 
+		{
+			"resourceType": "Patient",
+			"name":
+			{
+				"use": "official",
+				"text": "Issac Goodman",
+				"family": "Goodman",
+				"given": "Issac"
+			},
+			"gender": 
+			{
+		    	"coding": 
+		    	[
+		      		{
+		        		"system": "http://hl7.org/fhir/v3/AdministrativeGender",
+		        		"code": "M",
+		        		"display": "Male"
+		      		}
+		    	]
+		  	},
+		  	"telecom": 
+		  	[
+    			{
+      				"system": "phone",
+      				"value": "(888) 888-8888",
+     	 			"use": "work"
+    			},
+    			{
+      				"system": "email",
+      				"value": "issac@goodman.com",
+     	 			"use": "work"
+    			}
+  			],
+  			"birthDate": "1974-12-25",
+  			"deceasedBoolean": false,
+			"address": 
+			[
+			    {
+					"use": "home",
+					"line": 
+					[
+			        	"9 Marble Terrace",
+			        	"Apartment 2"
+			      	],
+			      	"city": "Hastings-on-Hudson",
+			      	"state": "NY",
+			     	"zip": "10706"
+			    }
+			]
+		}	
+	}
+
+]
