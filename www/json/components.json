@@ -491,8 +491,8 @@
 						"values":
 						{
 							"type":"text",
-							"text":"John Doe",
-							"tsize":"10",
+							"placeholder":"John Doe",
+							"size":"10",
 							"maxlength":"5"
 						}
 					},
@@ -548,7 +548,7 @@
 						"values":
 						{
 							"type":"text",
-							"text":"me@example.com"
+							"placeholder":"me@example.com"
 						},
 						"subcomponents":
 						[
@@ -567,7 +567,7 @@
 								"values":
 								{
 									"type":"email",
-									"text":"user@provider.com"
+									"placeholder":"user@provider.com"
 								}
 							},
 							{
@@ -575,7 +575,7 @@
 								"name":"Search Field",
 								"values":
 								{
-									"text":"My search",
+									"placeholder":"My search",
 									"type":"search"
 								}
 							},
@@ -585,7 +585,7 @@
 								"name":"URL Field",
 								"values":
 								{
-									"text":"http://google.com",
+									"placeholder":"http://google.com",
 									"type":"url"
 								}
 							},
@@ -603,7 +603,7 @@
 								"name":"Telephone Field",
 								"values":
 								{
-									"text":"888-888-8888",
+									"placeholder":"888-888-8888",
 									"type":"tel"
 								}
 							},

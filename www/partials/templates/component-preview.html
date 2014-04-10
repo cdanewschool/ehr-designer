@@ -54,7 +54,7 @@
 							'padding-bottom':definition.values.padding.bottom+'px',
 							'padding-left':definition.values.padding.left+'px'
 						}">
-					{{definition.values.text ? definition.values.text : componentDefinition.name}}
+					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
 				</button>
 			</div>
 			
@@ -86,7 +86,7 @@
 					<span class="glyphicon">
 						<img ng-src='{{definition.values.src}}' style="height:14px;" />
 					</span> 
-					{{definition.values.text ? definition.values.text : componentDefinition.name}}
+					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
 				</button>
 			</div>
 			
