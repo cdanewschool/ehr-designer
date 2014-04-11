@@ -17,8 +17,8 @@ app.service
 (
 	'DragService',
 	[
-		'$rootScope','dragModel','canvas','library','FactoryService','HistoryService',
-		function($rootScope,dragModel,canvas,library,factory,historyService)
+		'$rootScope','dragModel','canvas','library','FactoryService','HistoryService','utilities',
+		function($rootScope,dragModel,canvas,library,factory,historyService,utilities)
 		{
 			$rootScope.$on
 	 		(
@@ -110,42 +110,10 @@ app.service
 						//	item has been dragged to a new parent component
 						if( target.id != dragModel.dragItem.pid )
 						{
-							var getParentById = function(id)
-							{
-								var search = function(item)
-								{
-									if(item.id == id)
-										return item;
-									
-									if( item.children )
-									{
-										for(var c in item.children)
-										{
-											var val = search(item.children[c]);
-											
-											if( val ) return val;
-										}
-									}
-									
-									return false;
-								};
-								
-								return search(canvas.currentPage);
-							};
-							
 							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
 							values = _.defaults( position, values );
 							
-							parentId = dragModel.dragItem.pid;
-							
-							var parent = getParentById(parentId);
-							
-							if( !parent )
-								throw new Error("no parent for " + dragModel.dragItem.pid);
-							
-							oldIndex = parent.children.indexOf(dragModel.dragItem);
-							
-							parent.children.splice( oldIndex, 1 );
+							utilities.remove(dragModel.dragItem);
 							
 							dragModel.dragItem.values = values;
 							dragModel.dragItem.pid = target.id;

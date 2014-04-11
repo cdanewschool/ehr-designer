@@ -2,8 +2,8 @@ app.controller
 (
 	'PropertyInspectorCtrl',
 	[
-	 	'$scope','propertyInspector','library','canvas',
-	 	function($scope,propertyInspector,library,canvas)
+	 	'$scope','$rootScope','propertyInspector','library','canvas',
+	 	function($scope,$rootScope,propertyInspector,library,canvas)
 	 	{
 	 		$scope.propertyInspector = propertyInspector;
 	 		
@@ -202,15 +202,19 @@ app.controller
 		 					$scope.definition = newVal.definition;
 		 					$scope.target = newVal.target;
 		 					
-		 					//	trigger a mouseleave and wait, so when properties are initialized from 
-		 					//	dragged instance we don't get values for hover state
-		 					angular.element($scope.target).trigger('mouseleave');
+		 					if( $scope.timeout )
+		 						clearTimeout($scope.timeout);
 		 					
-		 					setTimeout(init,500);
+		 					$scope.timeout = setTimeout(init,500);
 	 					}
 	 				}
 	 			}
 	 		);
+	 		
+	 		$scope.deleteComponent = function()
+	 		{
+				$rootScope.$emit('deleteComponent');
+	 		};
 	 		
 	 		$scope.propagateChange = function(property,values,value)
 	 		{
@@ -377,7 +381,7 @@ app.controller
 	 			
 	 			angular.element($scope.target).attr('data-initialized', 'true' );
 	 			
-	 			$scope.$apply();
+				$scope.$apply();
 	 		};
 	 	}
 	]

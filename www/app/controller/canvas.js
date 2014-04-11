@@ -2,8 +2,8 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$modal','$routeParams','canvas','library','template','history','Project','ProjectService','DataService','DragService','HistoryService','FactoryService','ENV',
-		function($scope,$rootScope,$location,$modal,$routeParams,canvas,library,template,history,Project,ProjectService,dataService,dragService,historyService,FactoryService,ENV)
+		'$scope','$rootScope','$location','$modal','$routeParams','canvas','library','template','history','Project','ProjectService','DataService','DragService','HistoryService','FactoryService','utilities','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,canvas,library,template,history,Project,ProjectService,dataService,dragService,historyService,FactoryService,utilities,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
@@ -16,6 +16,21 @@ app.controller
 			
 			$scope.messages = [];
 			$scope.errors = [];
+			
+			$rootScope.$on
+			(
+				'deleteComponent',
+				function()
+				{
+					if( !canvas.selection ) return;
+		 			
+		 			utilities.remove(canvas.selection.instance);
+		 			
+		 			historyService.save( "Removed " + canvas.selection.instance.cid );
+		 			
+		 			canvas.selection = null;
+				}
+			);
 			
 			$scope.$watch
 			(
@@ -334,6 +349,7 @@ app.controller
 				if( canvas.currentSection.children[id] )
 					canvas.currentPage = canvas.currentSection.children[id];
 			};
+			
 			$scope.clearCanvas = function()
 			{
 				canvas.currentPage.children = [];	

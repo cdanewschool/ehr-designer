@@ -1,9 +1,11 @@
-<div class="panel panel-default" ng-controller="PropertyInspectorCtrl">
+<div class="panel panel-default" >
 
-	<div class="panel-heading">Component Inspector <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="dragService.dragModel.selection=null">&times;</button></div>
-  
+	<div class="panel-heading">Component Inspector <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.selection=null">&times;</button></div>
+  	
 	<div class="panel-body" class="container">
-  
+  	
+  		<button class="btn btn-sm btn-primary btn-block" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteComponent()" style="margin-bottom:20px" history-action="Deleted {{property.id}}">Delete</button>
+
   		<accordion close-others="oneAtATime">
 
 			<accordion-group heading="Properties" is-open="true">
