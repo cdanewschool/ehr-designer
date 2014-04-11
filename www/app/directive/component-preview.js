@@ -15,6 +15,7 @@ app.directive
 			restrict : 'EA',
 			scope:{
 				isStatic: "=componentStatic",
+				canvas: "=canvas",
 				definition: "=componentDefinition",
 				dragService:"=dragService"
 			},
@@ -62,9 +63,9 @@ app.directive
 										e.stopImmediatePropagation();
 										
 										if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
-											scope.dragService.dragModel.selection = null;
+											scope.canvas.selection = null;
 										else
-											scope.dragService.dragModel.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
+											scope.canvas.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
 										
 										scope.$apply();
 									}

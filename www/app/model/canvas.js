@@ -18,7 +18,9 @@ app.service
 			currentPage: null,
 			
 			pendingSection: null,
-			pendingPage: null
+			pendingPage: null,
+			
+			selection: null
 		};
 	}
 );

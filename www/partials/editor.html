@@ -77,7 +77,7 @@
 <!-- canvas -->
 <div id="main" ng-init="init()">
 
-	<div ng-class="{minimized:dragService.dragModel.selection!=null}">
+	<div ng-class="{minimized:canvas.selection!=null}">
 	
 		<div class="clearfix">
 		
@@ -145,7 +145,7 @@
 		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
 			
 			<!-- canvas -->
-			<component-preview component-definition="canvas.currentPage" component-static="false" drag-service="dragService"></component-preview>
+			<component-preview component-definition="canvas.currentPage" component-static="false" drag-service="dragService" canvas="canvas"></component-preview>
 			
 			<!-- canvas bg -->
 			<svg preserveAspectRatio="none" ng-show="canvas.grid.visible">
@@ -165,6 +165,6 @@
 	
 	</div>
 	
-	<property-inspector id="properties" ng-class="{maximized:dragService.dragModel.selection!=null}" drag-service="dragService" />
+	<property-inspector id="properties" ng-class="{maximized:canvas.selection!=null}" drag-service="dragService" />
 	
 </div>

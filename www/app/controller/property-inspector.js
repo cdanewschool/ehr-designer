@@ -2,11 +2,10 @@ app.controller
 (
 	'PropertyInspectorCtrl',
 	[
-	 	'$scope','propertyInspector','library','DragService',
-	 	function($scope,propertyInspector,library,dragService)
+	 	'$scope','propertyInspector','library','canvas',
+	 	function($scope,propertyInspector,library,canvas)
 	 	{
 	 		$scope.propertyInspector = propertyInspector;
-	 		$scope.dragService = dragService;
 	 		
 	 		$scope.component = null;
 	 		$scope.definition = null;
@@ -188,7 +187,7 @@ app.controller
 	 		
 	 		$scope.$watch
 	 		(
-	 			'dragService.dragModel.selection',
+	 			'canvas.selection',
 	 			function(newVal,oldVal)
 	 			{
 	 				if( newVal != oldVal )
@@ -203,7 +202,11 @@ app.controller
 		 					$scope.definition = newVal.definition;
 		 					$scope.target = newVal.target;
 		 					
-		 					init();
+		 					//	trigger a mouseleave and wait, so when properties are initialized from 
+		 					//	dragged instance we don't get values for hover state
+		 					angular.element($scope.target).trigger('mouseleave');
+		 					
+		 					setTimeout(init,500);
 	 					}
 	 				}
 	 			}
@@ -353,8 +356,8 @@ app.controller
 	 		
 	 		var init = function()
 	 		{
-	 			//	do not re-initialize
 	 			if( angular.element($scope.target).attr('data-initialized') == 'true' ) return;
+	 			if( !$scope.definition ) return;
 	 			
 	 			setDefaultProperties( $scope.definition, $scope.component );
 	 			
@@ -368,6 +371,8 @@ app.controller
 	 			);
 	 			
 	 			angular.element($scope.target).attr('data-initialized', 'true' );
+	 			
+	 			$scope.$apply();
 	 		};
 	 	}
 	]
