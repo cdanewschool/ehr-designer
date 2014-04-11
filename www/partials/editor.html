@@ -66,7 +66,7 @@
 	    	<h6>Document JSON</h6>
 	    	<pre class="pre-scrollable">{{canvas.currentProject.content | json}}</pre>
 	    	
-	    	<button class="btn btn-primary btn-md" ng-if="DEBUG" ng-show="dragService.dragModel.selection" ng-click="exportSelectionDefinition()">Export</button>
+	    	<button class="btn btn-primary btn-md" ng-if="DEBUG" ng-show="canvas.selection" ng-click="exportSelectionDefinition()">Export</button>
 	    	
 	    </tab>
 	    
