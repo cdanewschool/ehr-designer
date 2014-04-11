@@ -308,7 +308,7 @@ app.controller
 			
 			$scope.deleteSection = function(section)
 			{
-				canvas.currentProject.children.splice( canvas.currentProject.children.indexOf(section),1 );
+				canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(section),1 );
 			};
 			
 			$scope.addPage = function()
