@@ -250,8 +250,12 @@ app.controller
 	 			    var hex = c.toString(16);
 	 			    return hex.length == 1 ? "0" + hex : hex;
 	 			};
+	 				
+	 			var hex = componentToHex(r) + componentToHex(g) + componentToHex(b);
 	 			
-	 		    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+	 			console.log( r,g,b,hex );
+	 			
+	 		    return "#" + hex;
 	 		};
 	 		
 	 		var setDefaultProperties = function(definition,instance)
@@ -331,10 +335,11 @@ app.controller
 		 						{
 		 							var value = cssValue;
 			 						
+		 							console.log( cssValue )
 		 							//	if color and in rgb, convert to hex
-			 						if( property.type=='color' && value.match(/rgb\((\d*),\s*(\d*),\s*(\d*)\)/) )
+			 						if( property.type=='color' && value.match(/rgba*\((\d*),\s*(\d*),\s*(\d*),*\s*(\d*)\)/) )
 			 						{
-			 							var rgb = value.match(/rgb\((\d*),\s*(\d*),\s*(\d*)\)/);
+			 							var rgb = value.match(/rgba*\((\d*),\s*(\d*),\s*(\d*),*\s*(\d*)\)/);
 			 							value = '#' + ((1 << 24) + (parseInt(rgb[1]) << 16) + (parseInt(rgb[2]) << 8) + parseInt(rgb[3])).toString(16).substr(1);
 			 						}
 			 						
