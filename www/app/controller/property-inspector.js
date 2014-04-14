@@ -2,8 +2,8 @@ app.controller
 (
 	'PropertyInspectorCtrl',
 	[
-	 	'$scope','$rootScope','propertyInspector','library','canvas',
-	 	function($scope,$rootScope,propertyInspector,library,canvas)
+	 	'$scope','$rootScope','propertyInspector','library','canvas','HistoryService',
+	 	function($scope,$rootScope,propertyInspector,library,canvas,history)
 	 	{
 	 		$scope.propertyInspector = propertyInspector;
 	 		
@@ -225,8 +225,10 @@ app.controller
 	 		
 	 		$scope.revertSize = function()
 	 		{
-	 			$scope.component.values.width=$scope.component.values.origWidth;
-	 			$scope.component.values.height=$scope.component.values.origHeight;
+	 			$scope.component.values.width = $scope.component.values.origWidth;
+	 			$scope.component.values.height = $scope.component.values.origHeight;
+	 			
+	 			history.save( "Resized to " + $scope.component.values.width + " x " + $scope.component.values.height );
 	 		};
 	 		
 	 		var getDefault = function(property)
@@ -343,7 +345,6 @@ app.controller
 		 						{
 		 							var value = cssValue;
 			 						
-		 							console.log( cssValue )
 		 							//	if color and in rgb, convert to hex
 			 						if( property.type=='color' && value.match(/rgba*\((\d*),\s*(\d*),\s*(\d*),*\s*(\d*)\)/) )
 			 						{
@@ -372,42 +373,6 @@ app.controller
 	 			if( angular.element($scope.target).attr('data-initialized') == 'true' ) return;
 	 			
 	 			if( !$scope.definition ) return;
-	 			
-	 			if( $scope.component.cid == "image" )
-				{
-	 				var storeDimensions = function()
-	 				{
-	 					//	TODO: we shouldnt' have to do this if properly cleaned up on destroy
-	 					if( !$scope.component ) return;
-	 					
-	 					$('<img/>')
-	 					.attr('src',$scope.component.values.src)
-	 					.load
-	 					(
-	 						function(e)
-	 						{
-	 							$scope.component.values.origWidth = $scope.component.values.width = this.width;
-	 							$scope.component.values.origHeight = $scope.component.values.height = this.height;
-	 							
-	 							$scope.$apply();
-	 						}
-	 					);
-	 				};
-	 				
-	 				$scope.$watch
-	 		 		(
-	 		 			'component.values.src',
-	 		 			function(newVal,oldVal)
-	 		 			{
-	 		 				if( newVal != oldVal )
-	 		 				{
-	 		 					storeDimensions();
-	 		 				}
-	 		 			}
-	 		 		);
-	 				
-	 				storeDimensions();
-				}
 	 			
 	 			setDefaultProperties( $scope.definition, $scope.component );
 	 			

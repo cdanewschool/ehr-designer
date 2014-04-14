@@ -71,6 +71,50 @@ app.directive
 									}
 								);
 							}
+
+				 			if( scope.definition.cid == "image" )
+							{
+				 				var storeDimensions = function(revert)
+				 				{
+				 					//	TODO: we shouldnt' have to do this if properly cleaned up on destroy
+				 					if( !scope.definition ) return;
+				 					
+				 					revert = revert || false;
+				 					
+				 					$('<img/>')
+				 						.attr('src',scope.definition.values.src)
+				 						.load
+					 					(
+					 						function(e)
+					 						{
+					 							scope.definition.values.origWidth = this.width;
+					 							scope.definition.values.origHeight = this.height;
+					 							
+					 							if( revert )
+					 							{
+					 								scope.definition.values.width = scope.definition.values.origWidth;
+						 							scope.definition.values.height = scope.definition.values.origHeight;
+					 							}
+					 							
+					 							scope.$apply();
+					 						}
+					 					);
+				 				};
+				 				
+				 				scope.$watch
+				 		 		(
+				 		 			'definition.values.src',
+				 		 			function(newVal,oldVal)
+				 		 			{
+				 		 				if( newVal != oldVal )
+				 		 				{
+				 		 					storeDimensions(true);
+				 		 				}
+				 		 			}
+				 		 		);
+				 				
+				 				storeDimensions();
+							}
 						};
 						
 						var update = function()

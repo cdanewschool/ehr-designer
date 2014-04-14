@@ -1,7 +1,7 @@
 app.directive
 (
 	'resizable',
-	function($parse,$compile,FactoryService)
+	function($parse,$compile,FactoryService,HistoryService)
 	{
 		return {
 			restrict : 'A',
@@ -20,8 +20,16 @@ app.directive
 								aspectRatio:true,
 								stop:function(event,ui)
 								{
-									scope.definition.values.width = ui.size.width;
-									scope.definition.values.height = ui.size.height;
+									scope.$apply
+									(
+										function()
+										{
+											scope.definition.values.width = ui.size.width;
+											scope.definition.values.height = ui.size.height;
+										}
+									);									
+									
+									HistoryService.save( "Resized to " + scope.definition.values.width + " x " + scope.definition.values.height );
 								}
 							}
 						);
