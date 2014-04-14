@@ -223,6 +223,12 @@ app.controller
 	 					values[p] = value;
 	 		};
 	 		
+	 		$scope.revertSize = function()
+	 		{
+	 			$scope.component.values.width=$scope.component.values.origWidth;
+	 			$scope.component.values.height=$scope.component.values.origHeight;
+	 		};
+	 		
 	 		var getDefault = function(property)
 	 		{
 	 			switch( property.type )
@@ -256,8 +262,6 @@ app.controller
 	 			};
 	 				
 	 			var hex = componentToHex(r) + componentToHex(g) + componentToHex(b);
-	 			
-	 			console.log( r,g,b,hex );
 	 			
 	 		    return "#" + hex;
 	 		};
@@ -366,7 +370,44 @@ app.controller
 	 		var init = function()
 	 		{
 	 			if( angular.element($scope.target).attr('data-initialized') == 'true' ) return;
+	 			
 	 			if( !$scope.definition ) return;
+	 			
+	 			if( $scope.component.cid == "image" )
+				{
+	 				var storeDimensions = function()
+	 				{
+	 					//	TODO: we shouldnt' have to do this if properly cleaned up on destroy
+	 					if( !$scope.component ) return;
+	 					
+	 					$('<img/>')
+	 					.attr('src',$scope.component.values.src)
+	 					.load
+	 					(
+	 						function(e)
+	 						{
+	 							$scope.component.values.origWidth = $scope.component.values.width = this.width;
+	 							$scope.component.values.origHeight = $scope.component.values.height = this.height;
+	 							
+	 							$scope.$apply();
+	 						}
+	 					);
+	 				};
+	 				
+	 				$scope.$watch
+	 		 		(
+	 		 			'component.values.src',
+	 		 			function(newVal,oldVal)
+	 		 			{
+	 		 				if( newVal != oldVal )
+	 		 				{
+	 		 					storeDimensions();
+	 		 				}
+	 		 			}
+	 		 		);
+	 				
+	 				storeDimensions();
+				}
 	 			
 	 			setDefaultProperties( $scope.definition, $scope.component );
 	 			

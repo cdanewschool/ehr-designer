@@ -5,11 +5,11 @@
 
 		<div class='content' style="width:100%;height:100%">
 			
-			<div ng-if='definition.cid=="ui_component"' ng-repeat="child in definition.children" resizable style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.dragModel.hover=definition'>
+			<div ng-if='definition.cid=="ui_component"' ng-repeat="child in definition.children" style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.dragModel.hover=definition'>
 				<component-preview component-definition='child' component-static="false" draggable drag-service='dragService' canvas='canvas'></component-preview>
 			</div>
 			
-			<div ng-if='definition.cid=="text"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
+			<div ng-if='definition.cid=="text"' ng-mouseenter='dragService.dragModel.hover=definition'>
 				<span 
 					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
 					ng-style="
@@ -29,7 +29,7 @@
 				</span>
 			</div>
 			
-			<div ng-if='definition.cid=="button" || definition.cid=="iconbutton"' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
+			<div ng-if='definition.cid=="button" || definition.cid=="iconbutton"' ng-mouseenter='dragService.dragModel.hover=definition'>
 				<button 
 					class="btn btn-default target" 
 					ng-class="
@@ -61,7 +61,16 @@
 				</button>
 			</div>
 			
-			<div ng-if='definition.cid=="image"' class='img' resizable ng-mouseenter='dragService.dragModel.hover=definition'>
+			<div 
+				ng-if='definition.cid=="image"' 
+				class='img' 
+				ng-mouseenter='dragService.dragModel.hover=definition' 
+				ng-style="
+					{
+						'width': definition.values['width'],
+						'height':definition.values['height']
+					}" 
+					resizable>
 				<img class='target' ng-src='{{definition.values.src}}' 
 					ng-style="
 						{
@@ -95,7 +104,7 @@
 				</table>
 			</div>
 			
-			<div ng-if='definition.cid=="dropdown"' resizable>
+			<div ng-if='definition.cid=="dropdown"'>
 				<select 
 					class="form-control target" 
 					ng-model="definition[ definition.datamap && definition.datamap.value ? 'datamap' : 'values' ][ definition.datamap && definition.datamap.value ? 'value' : 'items' ][0].id" 
@@ -118,7 +127,7 @@
 						}"></select>
 			</div>
 			
-			<div ng-if='definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"' resizable>
+			<div ng-if='definition.cid=="date" || definition.cid=="datetime" || definition.cid=="email" || definition.cid=="month" || definition.cid=="search" || definition.cid=="tel" || definition.cid=="time" || definition.cid=="url" || definition.cid=="week"'>
 				<input 
 					class="form-control target" 
 					type="{{definition.values.type}}" 
@@ -142,7 +151,7 @@
 						}">
 			</div>
 			
-			<div ng-if='definition.cid=="textinput"' resizable>
+			<div ng-if='definition.cid=="textinput"'>
 				<input 
 					class="form-control target" 
 					type="{{definition.values.type}}" 
