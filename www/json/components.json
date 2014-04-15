@@ -229,7 +229,7 @@
 				"id":"image",
 				"name":"Image",
 				"container":false,
-				"resizable":true,
+				"resizable":{ "constrain": true },
 				"properties":
 				[
 					{
@@ -277,6 +277,7 @@
 				"name":"Grid",
 				"autoLayoutChildren":true,
 				"description":"Arrange a group of items",
+				"resizable":true,
 				"properties":
 				[
 					{
@@ -290,6 +291,11 @@
 						"name":"Rows",
 						"type":"int",
 						"min":1
+					},
+					{
+						"id":"cell-size",
+						"editable":false,
+						"type":"Object"
 					}
 				],
 				"values":

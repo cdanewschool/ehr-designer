@@ -48,6 +48,9 @@ app.controller
 	 			$scope.col = col;
 	 			$scope.instanceDefinition = definition;
 	 			
+	 			if( !definition.values['cell-size'] )
+	 				definition.values['cell-size'] = {};
+	 				
 	 			update();
 	 		};
 	 		
@@ -56,8 +59,10 @@ app.controller
 	 			return item.parentIndex == $scope.cellIndex;
 	 		};
 	 		
-	 		$scope.onMouseEnter = function()
+	 		$scope.onMouseEnter = function(e)
 	 		{
+	 			e.stopImmediatePropagation();
+	 			
 	 			dragService.dragModel.hoverIndex = $scope.cellIndex;
 	 			dragService.dragModel.hover=$scope.instanceDefinition;
 	 		};

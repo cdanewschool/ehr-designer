@@ -70,7 +70,7 @@
 						'width': definition.values['width'],
 						'height':definition.values['height']
 					}" 
-					resizable>
+					resizable="definition.values">
 				<img class='target' ng-src='{{definition.values.src}}' 
 					ng-style="
 						{
@@ -95,9 +95,17 @@
 					<tr ng-repeat="r in [] | range:definition.values.rows">
 						 <td 
 						 	ng-controller="CellCtrl" 
-						 	ng-repeat="c in [] | range:definition.values.cols" ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
-						 	ng-mouseover='onMouseEnter()' ng-mouseout='dragService.dragModel.hoverIndex=null' 
-						 	ng-class='{border:showBorder, dropTarget:(showBorder && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}'> 
+						 	ng-repeat="c in [] | range:definition.values.cols" 
+						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
+						 	ng-mouseover="onMouseEnter($event)" 
+						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
+						 	ng-class="{border:showBorder, dropTarget:(showBorder && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	ng-style="
+							{
+								'width':  definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].width ? definition.values['cell-size'][cellIndex].width : false,
+								'height': definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].height ? definition.values['cell-size'][cellIndex].height : false
+							}" 
+						 	resizable="definition.values['cell-size'][cellIndex]"> 
 						 	<div><div ng-repeat="child in definition.children | filter: getCellChildren"><component-preview component-definition='child' component-static="false" draggable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>

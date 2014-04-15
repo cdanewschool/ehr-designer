@@ -12,20 +12,32 @@ app.directive
 					if( !scope.isStatic
 						&& scope.componentDefinition.resizable )
 					{
+						var constrain = scope.componentDefinition.resizable && (typeof scope.componentDefinition.resizable == 'object') && scope.componentDefinition.resizable.constrain;
+						
 						angular.element(element).resizable
 						(
 							{
 								ghost:true,
 								autoHide:true,
-								aspectRatio:true,
+								aspectRatio:constrain,
 								stop:function(event,ui)
 								{
+									var model = $parse(attrs.resizable);
+									
 									scope.$apply
 									(
 										function()
 										{
-											scope.definition.values.width = ui.size.width;
-											scope.definition.values.height = ui.size.height;
+											var model = $parse(attrs.resizable);
+											var vals = model(scope);
+											
+											if( !vals )
+												vals = {};
+											
+											vals.width = ui.size.width;
+											vals.height = ui.size.height;
+											
+											model.assign(scope,vals);
 										}
 									);									
 									
@@ -42,7 +54,7 @@ app.directive
 						}
 						catch(e){}
 					}
-				}
+				};
 				
 				scope.$watch
 				(

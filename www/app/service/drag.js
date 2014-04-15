@@ -36,11 +36,18 @@ app.service
 				
 				onDragStart: function(event,ui,item)
 				{
+					dragModel.dragging = true;
+					
 					dragModel.hover = null;
 					dragModel.hoverIndex = null;
 					dragModel.dragItem = item;
 					dragModel.dragProps = _.defaults(item.values||{},{width:event.toElement.scrollWidth,height:event.toElement.scrollHeight});
 					dragModel.dragElement = event.target;
+				},
+				
+				onDragStop: function(event,ui)
+				{
+					dragModel.dragging = false;
 				},
 				
 				onDrop: function(event,ui,target)
@@ -94,8 +101,13 @@ app.service
 					var componentId = dragModel.dragItem.cid + (dragModel.dragItem.id?"_" + dragModel.dragItem.id:"");	//	only used for console logging
 					
 					//	set hoverIndex if set
-					if( dragModel.hoverIndex !== null )
+					if( dragModel.hoverIndex !== null 
+						&& dragModel.dragItem.parentIndex !== dragModel.hoverIndex
+						&& dragModel.hover.id != dragModel.dragItem.id )
 					{
+						console.log(target,dragModel.dragItem)
+						ui.draggable.remove();
+						
 						dragModel.dragItem.parentIndex = dragModel.hoverIndex;
 						dragModel.hoverIndex = null;
 					}
@@ -110,6 +122,8 @@ app.service
 						//	item has been dragged to a new parent component
 						if( target.id != dragModel.dragItem.pid )
 						{
+							ui.draggable.remove();
+							
 							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
 							values = _.defaults( position, values );
 							
