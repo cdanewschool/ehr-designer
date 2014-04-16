@@ -16,7 +16,7 @@ app.controller
 			
 			$scope.messages = [];
 			$scope.errors = [];
-			
+					
 			$rootScope.$on
 			(
 				'deleteComponent',
@@ -294,7 +294,7 @@ app.controller
 				$scope.addSection();
 			};
 			
-			$scope.addSection = function()
+			$scope.addSection = function(manual)
 			{
 				var section = angular.copy( template.section );
 				section.name = "Section " + (canvas.currentProject.content.children.length + 1);
@@ -303,7 +303,10 @@ app.controller
 				
 				$scope.selectSectionByIndex( canvas.currentProject.content.children.length - 1 );
 				
-				$scope.addPage();
+				if(manual)
+					$scope.editItemProperties(canvas.currentSection, manual).then(function (){$scope.addPage(manual);});
+				else			
+					$scope.addPage(manual);
 			};
 			
 			$scope.deleteSection = function(section)
@@ -311,7 +314,7 @@ app.controller
 				canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(section),1 );
 			};
 			
-			$scope.addPage = function()
+			$scope.addPage = function(manual)
 			{
 				var page = FactoryService.componentInstance( library.componentsIndexed['ui_component'] );
 				page.name = "Page " + (canvas.currentSection.children.length+1);
@@ -319,6 +322,10 @@ app.controller
 				canvas.currentSection.children.push( page );
 				
 				$scope.selectPageByIndex( canvas.currentSection.children.length - 1 );
+				
+				if(manual)
+					$scope.editItemProperties(canvas.currentPage, manual);
+				
 			};
 			
 			$scope.deletePage = function(page)
@@ -353,6 +360,67 @@ app.controller
 			$scope.clearCanvas = function()
 			{
 				canvas.currentPage.children = [];	
+			};
+			
+			$scope.editCurrentItem = function()
+			{ 	
+				var item = null;
+				if( canvas.currentPage )
+		    		item = canvas.currentPage;
+		    	else if( canvas.currentSection )
+		    		item = canvas.currentSection;
+		    	else if( canvas.currentProject )
+		    		item = canvas.currentProject;
+				if(item)
+					$scope.editItemProperties(item);
+			};
+			
+			$scope.editItemProperties = function(item, isNew)
+			{    
+				if( !item ) return;
+			    
+			    var ModalCtrl = function($scope,$modalInstance,item)
+			    {
+			    	$scope.item = angular.copy(item);
+			      
+			      	$scope.save = function()
+			      	{
+			      		for(var p in $scope.item)
+			        		item[p] = $scope.item[p];
+			       
+			       		$modalInstance.close();
+			      	};
+			      
+			      	$scope.cancel = function()
+			      	{
+				       	if(item == canvas.currentPage && isNew)
+				       	{
+				       		canvas.currentSection.children.splice( canvas.currentSection.children.indexOf(item),1 );
+				    	 	canvas.currentPage = null;			    	   
+				       	}
+				       	else if(item == canvas.currentSection && isNew)
+				       	{
+				    		canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(item),1 );
+							canvas.currentSection = null;
+							canvas.currentPage = null;
+				       	}
+				       	
+						$modalInstance.dismiss('cancel');
+			      	};
+			    };
+			     
+			    var modalInstance = $modal.open
+			    (
+		    		 {
+		    			 templateUrl: 'popups/edit-item.html',
+					     controller: ModalCtrl,
+					     resolve: {
+					    	 item: function(){ return item; }
+					     }
+		    		 }
+			    );
+			    
+				return modalInstance.result;
 			};
 			
 			$scope.componentFilter = function(item)

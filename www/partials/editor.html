@@ -86,7 +86,9 @@
 				<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentSection"><a ng-click="canvas.currentPage = null">{{canvas.currentSection.name}}</a></li>
 				<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
 			</ol>
-		
+			
+			<a class="btn btn-link btn-nav text-muted small pull-left" ng-click="editCurrentItem()">Edit Properties</a>
+			
 			<div class="inline-block" style="width:400px; margin: 0px 10px">
 			
 				<div class="alert alert-warning alert-dismissable" ng-show="canvas.errors.length">
@@ -106,8 +108,8 @@
 			</div>
 			
 			<div class="btn-group pull-right">
-				<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addSection()"><span class="glyphicon glyphicon-plus" ng-disabled="!canvas.currentProject"> Section</button>
-				<button class="btn btn-default btn-small" ng-show="canvas.currentSection" ng-click="addPage()" ng-disabled="!canvas.currentSection"><span class="glyphicon glyphicon-plus"> Page</button>
+				<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addSection(true)"><span class="glyphicon glyphicon-plus" ng-disabled="!canvas.currentProject"> Section</button>
+				<button class="btn btn-default btn-small" ng-show="canvas.currentSection" ng-click="addPage(true)" ng-disabled="!canvas.currentSection"><span class="glyphicon glyphicon-plus"> Page</button>
 			</div>
 			
 		</div>
