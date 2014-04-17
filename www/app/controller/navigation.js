@@ -10,10 +10,9 @@ app.controller
 	 		$scope.navigation =
 				[
 				 	{title:"My Projects",url:"/myprojects"},
-				 	{title:"Editor",url:"/editor"},
 				 	{title:"About",url:"/about"}
 				 ];
-	 	
+	 		
 			$scope.setLocation = function(path)
 			{
 				$location.path(path);

@@ -12,7 +12,11 @@ app.service
 				visible: true,
 				snapTo:true
 			},
-			
+			hash:
+			{
+				current:null,
+				last:null
+			},
 			currentProject: null,
 			currentSection: null,
 			currentPage: null,

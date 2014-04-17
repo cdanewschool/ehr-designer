@@ -2,8 +2,8 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$modal','$routeParams','$q','canvas','library','template','history','Component','Project','ProjectService','DataService','DragService','HistoryService','FactoryService','utilities','ENV',
-		function($scope,$rootScope,$location,$modal,$routeParams,$q,canvas,library,template,history,Component,Project,ProjectService,dataService,dragService,historyService,FactoryService,utilities,ENV)
+		'$scope','$rootScope','$location','$modal','$routeParams','$q','canvas','library','template','history','Component','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,$q,canvas,library,template,history,Component,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
@@ -16,7 +16,8 @@ app.controller
 			
 			$scope.messages = [];
 			$scope.errors = [];
-					
+			
+			//	handle component deletion
 			$rootScope.$on
 			(
 				'deleteComponent',
@@ -24,10 +25,13 @@ app.controller
 				{
 					if( !canvas.selection ) return;
 		 			
+					//	remove it
 		 			utilities.remove(canvas.selection.instance);
 		 			
+		 			//	append to history
 		 			historyService.save( "Removed " + canvas.selection.instance.componentId );
 		 			
+		 			//	nullify current selection (hides property inspector)
 		 			canvas.selection = null;
 				}
 			);
@@ -37,13 +41,39 @@ app.controller
 				'canvas.currentProject',
 				function(newVal,oldVal)
 				{
-					if( newVal != oldVal && newVal )
+					if( newVal != oldVal )
 					{
-						$scope.selectSectionByIndex(0);
+						canvas.messages = [];
+						canvas.errors = [];
+						canvas.currentSection = null;
+						
+						//	select a section/page when a project is selected
+						if( newVal )
+						{
+							$scope.selectSectionByIndex(0);
+						}
+						//	otherwise nullify page/section
+						else
+						{
+							canvas.currentPage = null;
+						}
 					}
 				}
 			);
 			
+			//	deep watch project and update hash (and `dirty` flag) whenever it changes
+			$scope.$watch
+			(
+				'canvas.currentProject',
+				function(newVal,oldVal)
+				{
+					if( newVal != oldVal )
+						canvasService.updateHash(true,false);
+				},true
+			);
+			
+			//	shallow watch project and init factory service's unique id when a new project is set
+			//	(this handles loading existing projects and preventing id collision)
 			$scope.$watch
 	 		(
 	 			'canvas.currentPage',
@@ -70,12 +100,15 @@ app.controller
 	 					}
 	 					else
 	 					{
-	 						dragService.dragModel.selection = null;
+	 						canvas.selection = null;
 	 					}
 	 				}
 	 			}
 	 		);
 			
+			/**
+			 * Initializes controller by loading sample data, components and (optionally) a project
+			 */
 			$scope.init = function()
 			{
 				var initProject = function()
@@ -90,12 +123,14 @@ app.controller
 							function(response)
 							{
 								canvas.currentProject = response;
+								
+								canvasService.updateHash(true,true);
 							}
 						);
 					}
 					else if( !canvas.currentProject )
 					{
-						$scope.newProject();
+						$scope.newProject(true);
 					}
 				};
 				
@@ -104,7 +139,7 @@ app.controller
 				
 				if( !library.components )
 					getComponents().then( initProject );
-				else
+				else 
 					initProject();
 			};
 			
@@ -171,44 +206,9 @@ app.controller
 				return async.promise;
 			};
 			
-			$scope.saveProject = function()
+			$scope.saveProject = function(callback)
 			{
-				canvas.messages = [];
-				canvas.errors = [];
-				
-				if( canvas.currentProject._isNew === false ) 
-				{
-					canvas.currentProject.$update
-					(
-						{
-							projectId:canvas.currentProject._id
-						},
-						function(response)
-						{
-							canvas.currentProject = response;
-							
-							canvas.messages.push( "Saved" );
-						},
-						function(response)
-						{
-							if( response.data.errors )
-								for(var f in response.data.errors )
-									canvas.errors.push( response.data.errors[f].message );
-						}
-					);
-				}
-				else
-				{
-					canvas.currentProject.$save
-					(
-						function(response)
-						{
-							canvas.currentProject = response;
-							
-							console.log('saved',response);
-						}
-					);
-				}
+				canvasService.saveProject(callback);
 			};
 			
 			$scope.deleteProject = function()
@@ -240,16 +240,65 @@ app.controller
 				}
 			};
 			
-			$scope.newProject = function()
+			$scope.newProject = function(showEdit)
 			{
+				if( canvas.dirty )
+				{
+					navigation.showConfirm("You have unsaved changes. Would you like to save before creating a new project?").then
+					(
+						function()
+						{
+							$scope.saveProject
+							( 
+								function()
+								{
+									canvas.currentProject = null;
+									
+									$scope.newProject(showEdit); 
+								} 
+							);
+						},
+						function()
+						{
+							canvas.currentProject = null;
+							canvas.dirty = false;	//	shouldn't be needed
+							
+							$scope.newProject(showEdit); 
+						}
+					);
+					
+					return;
+				}
+				
 				canvas.currentProject = new Project();
 				canvas.currentProject.name = "My Project";
 				canvas.currentProject.content = angular.copy( template.document );
 				
-				$scope.addSection();
+				if(showEdit)
+				{
+					$scope.editItemProperties(canvas.currentProject, showEdit).then
+					(
+						//	user has provided a name and/or clicked "save"
+						function ()
+						{
+							$scope.addSection(showEdit);
+						},
+						//	user has clicked cancel
+						function()
+						{
+							canvas.currentProject = null;
+							
+							$location.path('/myprojects');
+						}
+					);
+				}
+				else
+				{
+					$scope.addSection(showEdit);
+				}
 			};
 			
-			$scope.addSection = function(manual)
+			$scope.addSection = function(showEdit)
 			{
 				var section = angular.copy( template.section );
 				section.name = "Section " + (canvas.currentProject.content.children.length + 1);
@@ -258,10 +307,10 @@ app.controller
 				
 				$scope.selectSectionByIndex( canvas.currentProject.content.children.length - 1 );
 				
-				if(manual)
-					$scope.editItemProperties(canvas.currentSection, manual).then(function (){$scope.addPage(manual);});
-				else			
-					$scope.addPage(manual);
+				if(showEdit)
+					$scope.editItemProperties(canvas.currentSection, showEdit).then(function (){$scope.addPage(showEdit);});
+				else
+					$scope.addPage();
 			};
 			
 			$scope.deleteSection = function(section)
@@ -269,7 +318,7 @@ app.controller
 				canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(section),1 );
 			};
 			
-			$scope.addPage = function(manual)
+			$scope.addPage = function(showEdit)
 			{
 				var page = FactoryService.componentInstance( library.componentsIndexed['ui_component'] );
 				page.name = "Page " + (canvas.currentSection.children.length+1);
@@ -278,9 +327,8 @@ app.controller
 				
 				$scope.selectPageByIndex( canvas.currentSection.children.length - 1 );
 				
-				if(manual)
-					$scope.editItemProperties(canvas.currentPage, manual);
-				
+				if(showEdit)
+					$scope.editItemProperties(canvas.currentPage, showEdit);
 			};
 			
 			$scope.deletePage = function(page)
@@ -295,7 +343,9 @@ app.controller
 			
 			$scope.selectSectionByIndex = function(id)
 			{
-				//TODO: validate id in range
+				if( id > canvas.currentProject.content.children - 1 ) 
+					return;
+				
 				canvas.currentSection = canvas.currentProject.content.children[id];
 				
 				$scope.selectPageByIndex(0);
@@ -334,10 +384,32 @@ app.controller
 			{    
 				if( !item ) return;
 			    
-			    var ModalCtrl = function($scope,$modalInstance,item)
+				var title = "Edit";
+				var message = null;
+				
+				if( item === canvas.currentPage )
+					title = "Page Properties";
+				else if( item === canvas.currentSection )
+					title = "Section Properties";
+				else if( item === canvas.currentProject )
+					title = "Project Properties";
+				
+				if( isNew )
+				{
+					if( item === canvas.currentPage )
+						message = "We've created a new <strong>page</strong> for your section. What would you like to call it?";
+					else if( item === canvas.currentSection )
+						message = "We've created a new <strong>section</strong> for your project. What would you like to call it?";
+					else if( item === canvas.currentProject )
+						message = "We've created a new <strong>project</strong> for you. What would you like to call it?";
+				}
+				
+			    var ModalCtrl = function($scope,$modalInstance,item,message,title)
 			    {
 			    	$scope.item = angular.copy(item);
-			      
+			    	$scope.message = message;
+			    	$scope.title = title;
+			    	
 			      	$scope.save = function()
 			      	{
 			      		for(var p in $scope.item)
@@ -370,7 +442,9 @@ app.controller
 		    			 templateUrl: 'popups/edit-item.html',
 					     controller: ModalCtrl,
 					     resolve: {
-					    	 item: function(){ return item; }
+					    	 item: function(){ return item; },
+					    	 message: function(){ return message; },
+					    	 title: function(){ return title; }
 					     }
 		    		 }
 			    );

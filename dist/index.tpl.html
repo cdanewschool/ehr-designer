@@ -23,8 +23,9 @@
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right" ng-show="currentUser">
-				<li ng-controller="CanvasCtrl" ng-show="location.path().indexOf('/editor')>-1 && canvas.currentProject"><a ng-click="saveProject()">Save</a></li>
-				<li ng-controller="CanvasCtrl" ng-show="location.path().indexOf('/editor')>-1 && canvas.currentProject && canvas.currentProject._isNew===false"><a confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteProject">Delete</a></li>
+				<li ng-controller="CanvasCtrl" ng-show="location.path().indexOf('/editor')>-1 && canvas.currentProject"><button class="btn btn-link navbar-btn" ng-click="saveProject()" ng-disabled="canvas.dirty===false">Save</button></li>
+				<li ng-controller="CanvasCtrl" ng-show="location.path().indexOf('/editor')>-1 && canvas.currentProject && canvas.currentProject._isNew===false"><button class="btn btn-link navbar-btn" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteProject">Delete</button></li>
+				<li ng-controller="CanvasCtrl"><button class="btn btn-link navbar-btn" ng-click="newProject(true);location.path('/editor')">New</button></li>
 				<li ng-controller="UserCtrl"><a ng-click="logout()">Logout</a></li>
 			</ul>
 		</div>
@@ -35,6 +36,7 @@
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery/dist/jquery.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery-ui/ui/minified/jquery-ui.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular/angular.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-base64/angular-base64.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-cookies/angular-cookies.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-http-auth/src/http-auth-interceptor.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-resource/angular-resource.min.js" -->

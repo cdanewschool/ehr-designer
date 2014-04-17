@@ -3,6 +3,7 @@
   "version": "0.0.0-1",
   "dependencies": {
     "angular": "latest",
+    "angular-base64": "2.0.1",
     "angular-cookies": "1.2.15",
     "angular-dragdrop": "1.0.5",
     "angular-http-auth": "1.2.1",
