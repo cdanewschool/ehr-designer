@@ -96,9 +96,9 @@ app.service
 					values = snap(values);
 					
 					var oldIndex = target.children.indexOf(dragModel.dragItem);
-					var parentId = target.cid + (target.id?"_" + target.id:"");
+					var parentId = target.componentId + (target.id?"_" + target.id:"");
 					
-					var componentId = dragModel.dragItem.cid + (dragModel.dragItem.id?"_" + dragModel.dragItem.id:"");	//	only used for console logging
+					var componentId = dragModel.dragItem.componentId + (dragModel.dragItem.id?"_" + dragModel.dragItem.id:"");	//	only used for console logging
 					
 					//	set hoverIndex if set
 					if( dragModel.hoverIndex !== null 
@@ -134,7 +134,7 @@ app.service
 							
 							target.children.push(dragModel.dragItem);
 							
-							historyService.save( "Detached " + library.componentsIndexed[dragModel.dragItem.cid].name + " from " + library.componentsIndexed[parent.cid].name + " to " + library.componentsIndexed[target.cid].name );
+							historyService.save( "Detached " + library.componentsIndexed[dragModel.dragItem.componentId].name + " from " + library.componentsIndexed[parent.componentId].name + " to " + library.componentsIndexed[target.componentId].name );
 							
 							//console.log("Re-parenting " + componentId + " from " + parentId + " to " + target.id, target, parent );
 						}
@@ -146,7 +146,7 @@ app.service
 							
 							target.children[oldIndex].values = values;
 							
-							historyService.save( "Repositioned " + library.componentsIndexed[dragModel.dragItem.cid].name );
+							historyService.save( "Repositioned " + library.componentsIndexed[dragModel.dragItem.componentId].name );
 							
 							//console.log("Updating " + componentId + " (" + parentId + ")", target );
 						}
@@ -160,7 +160,7 @@ app.service
 						
 						target.children.push( instance );
 						
-						historyService.save( "Added " + dragModel.dragItem.name + " to " + library.componentsIndexed[target.cid].name );
+						historyService.save( "Added " + dragModel.dragItem.name + " to " + library.componentsIndexed[target.componentId].name );
 					}
 				},
 				
@@ -172,7 +172,8 @@ app.service
 				
 				onOver: function(event,ui,item)
 				{
-					if( !library.componentsIndexed[item.cid].container ) 
+					console.log( item )
+					if( !library.componentsIndexed[item.componentId].container ) 
 						ui.helper.addClass("reject");
 					else
 						ui.helper.removeClass("reject");

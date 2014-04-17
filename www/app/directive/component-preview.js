@@ -37,20 +37,20 @@ app.directive
 							if( !scope.definition ) return;
 							
 							scope.id = FactoryService.uniqueId();
-							scope.componentDefinition = library.componentsIndexed[ scope.definition.cid ];
+							scope.componentDefinition = library.componentsIndexed[ scope.definition.componentId ];
 							
 							//	handle an unrecognized/invalid component id
 							if( !scope.componentDefinition )
 							{
 								scope.componentDefinition = { container: false };
-								scope.definition = { cid: null };
+								scope.definition = { componentId: null };
 							}
 							
 							scope.showBorder = scope.componentDefinition.container;
-							scope.isDroppable = (!scope.isStatic && scope.definition.cid!='label' && scope.definition.cid!='image');
+							scope.isDroppable = (!scope.isStatic && scope.definition.componentId!='label' && scope.definition.componentId!='image');
 							scope.isDraggable = !scope.isStatic;
 							
-							element.attr("data-component-id",scope.definition.cid);
+							element.attr("data-component-id",scope.definition.componentId);
 							
 							//	show properties menu on click
 							if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
@@ -72,7 +72,7 @@ app.directive
 								);
 							}
 
-				 			if( scope.definition.cid == "image" )
+				 			if( scope.definition.componentId == "image" )
 							{
 				 				var storeDimensions = function(revert)
 				 				{
@@ -81,6 +81,7 @@ app.directive
 				 					
 				 					revert = revert || false;
 				 					
+				 					console.log( scope.definition )
 				 					$('<img/>')
 				 						.attr('src',scope.definition.values.src)
 				 						.load
@@ -134,7 +135,7 @@ app.directive
 							var hasChildren = scope.definition.children
 												&& scope.definition.children.length;
 							
-							if( scope.definition.cid == "grid" )
+							if( scope.definition.componentId == "grid" )
 							{
 								w = 0;
 								h = 0;

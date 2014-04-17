@@ -295,7 +295,7 @@
 					{
 						"id":"cell-size",
 						"editable":false,
-						"type":"Object"
+						"type":"object"
 					}
 				],
 				"values":

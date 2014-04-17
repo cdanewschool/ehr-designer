@@ -381,7 +381,7 @@ app.controller
 	 				$scope.component.children,
 	 				function(child)
 	 				{
-	 					setDefaultProperties(library.componentsIndexed[ child.cid ],child); 
+	 					setDefaultProperties(library.componentsIndexed[ child.componentId ],child); 
 	 				}
 	 			);
 	 			

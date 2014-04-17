@@ -12,15 +12,17 @@ app.service
 				{
 					var clone = angular.copy(definition);
 					clone.id = this.uniqueId();
+					clone.componentId = definition.id;
 					clone.values = _.defaults(values,definition.values);
 					
-					var disclude = ["abstract","autoLayoutChildren","container","name","properties","resizable","subcomponents"];
+					var blacklist = ["$$hashKey","$delete","$get","$query","$remove","$save","__v","_id","abstract","autoLayoutChildren","container","created","name","properties","resizable","subcomponents"];
 					
 					for(var p in definition)
-						if( disclude.indexOf(p) > -1 )
+						if( blacklist.indexOf(p) > -1 )
 							delete clone[p];
 					
-					if( parent ) clone.pid = parent.id;
+					if( parent ) 
+						clone.pid = parent.id;
 					
 					if( clone.children ) 
 					{

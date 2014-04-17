@@ -2,8 +2,8 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$modal','$routeParams','canvas','library','template','history','Project','ProjectService','DataService','DragService','HistoryService','FactoryService','utilities','ENV',
-		function($scope,$rootScope,$location,$modal,$routeParams,canvas,library,template,history,Project,ProjectService,dataService,dragService,historyService,FactoryService,utilities,ENV)
+		'$scope','$rootScope','$location','$modal','$routeParams','$q','canvas','library','template','history','Component','Project','ProjectService','DataService','DragService','HistoryService','FactoryService','utilities','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,$q,canvas,library,template,history,Component,Project,ProjectService,dataService,dragService,historyService,FactoryService,utilities,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
@@ -26,7 +26,7 @@ app.controller
 		 			
 		 			utilities.remove(canvas.selection.instance);
 		 			
-		 			historyService.save( "Removed " + canvas.selection.instance.cid );
+		 			historyService.save( "Removed " + canvas.selection.instance.componentId );
 		 			
 		 			canvas.selection = null;
 				}
@@ -147,98 +147,28 @@ app.controller
 			
 			var getComponents = function()
 			{
-				var sync = function(target,source)
-				{
-					var inheritableProperties = ['autoLayoutChildren','binding','container','resizable'];
-					
-					//	copy inheritable attributes from parent
-					for(var p in inheritableProperties)
-						if( _.has(source,inheritableProperties[p]) && !_.has(target,inheritableProperties[p]) )
-							target[inheritableProperties[p]] = source[inheritableProperties[p]];
-					
-					//	copy properties from parent
-					for(p in source.properties)
-					{
-						var exists = false;
-						var property = source.properties[p];
-						
-						for(var p2 in target.properties)
-						{
-							if( target.properties[p2].id == property.id )
-								exists = true;
-						}
-						
-						if( !exists )
-							target.properties.push( source.properties[p] );											
-					};
-					
-					for(p in source.values)
-					{
-						if( !target.values[p] )
-							target.values[p] = source.values[p];											
-					};
-				};
+				var async = $q.defer();
 				
-				return dataService.getComponents().then
+				Component.get
 				(
-					function(data)
+					{},
+					function(components)
 					{
-						function parse(c,components)
-						{
-							if( c.cid )
-							{
-								angular.forEach
-								(
-									components,
-									function(component)
-									{
-										if( component.cid == c.cid )
-										{
-											sync(c,component);
-										}
-									}
-								);
-							}
-							else
-							{
-								c.cid = c.id;
-								delete c.id;
-							}
-							
-							components = components || [];
-							components.push( c );
-							
-							if( !c.properties ) c.properties = [];
-							
-							if( c.subcomponents )
-							{
-								for(var d in c.subcomponents)
-								{
-									var child = c.subcomponents[d];
-									
-									if( !child.properties ) child.properties = [];
-									
-									sync(child,c);
-									
-									parse(child,components);
-								};
-							}
-							
-							return components;
-						}
-						
-						var components = parse(data.data[0]);
 						var componentsIndexed = {};
 						
 						for(var c in components)
-							componentsIndexed[ components[c].cid ] = components[c];
+							componentsIndexed[ components[c].id ] = components[c];
 						
 						library.components = components;
 						library.componentsIndexed = componentsIndexed;
 						
+						async.resolve();
+						
 						console.log( "components loaded", library.components, library.componentsIndexed );
 					}
 				);
+				
+				return async.promise;
 			};
 			
 			$scope.save = function()
