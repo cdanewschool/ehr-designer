@@ -5,6 +5,8 @@ app.controller
 	 	'$scope','$location',
 		function($scope,$location)
 		{
+	 		$scope.location = $location;
+	 		
 	 		$scope.navigation =
 				[
 				 	{title:"My Projects",url:"/myprojects"},

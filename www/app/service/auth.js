@@ -27,7 +27,7 @@ app.factory
 			
 			logout: function(callback)
 			{
-				Session.delete
+				Session.remove
 				(
 					function(res)
 					{
@@ -64,7 +64,6 @@ app.factory
 				(
 					function(user)
 					{
-						console.log(user)
 						$rootScope.currentUser = user;
 					}
 				);

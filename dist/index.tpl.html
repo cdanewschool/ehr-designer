@@ -19,11 +19,12 @@
 			</div>
 			
 			<ul class="nav navbar-nav" ng-show="currentUser">
-				<li ng-repeat="link in navigation"><a ng-click="setLocation(link.url)">{{link.title}}</a></li>
+				<li ng-repeat="link in navigation"><a href="{{link.url}}">{{link.title}}</a></li>
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right" ng-show="currentUser">
-				<li ng-controller="CanvasCtrl" ng-show="canvas.currentPage.children.length"><button class="btn navbar-btn" ng-click="save()">Save</button></li>
+				<li ng-controller="CanvasCtrl" ng-show="location.path().indexOf('/editor')>-1 && canvas.currentProject"><a ng-click="saveProject()">Save</a></li>
+				<li ng-controller="CanvasCtrl" ng-show="location.path().indexOf('/editor')>-1 && canvas.currentProject && canvas.currentProject._isNew===false"><a confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteProject">Delete</a></li>
 				<li ng-controller="UserCtrl"><a ng-click="logout()">Logout</a></li>
 			</ul>
 		</div>

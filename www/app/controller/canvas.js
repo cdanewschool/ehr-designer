@@ -171,12 +171,12 @@ app.controller
 				return async.promise;
 			};
 			
-			$scope.save = function()
+			$scope.saveProject = function()
 			{
 				canvas.messages = [];
 				canvas.errors = [];
 				
-				if( canvas.currentProject._id) 
+				if( canvas.currentProject._isNew === false ) 
 				{
 					canvas.currentProject.$update
 					(
@@ -188,16 +188,12 @@ app.controller
 							canvas.currentProject = response;
 							
 							canvas.messages.push( "Saved" );
-							
-							console.log('updated',response);
 						},
 						function(response)
 						{
 							if( response.data.errors )
 								for(var f in response.data.errors )
 									canvas.errors.push( response.data.errors[f].message );
-							
-							console.log(response,canvas.errors);
 						}
 					);
 				}
@@ -212,6 +208,35 @@ app.controller
 							console.log('saved',response);
 						}
 					);
+				}
+			};
+			
+			$scope.deleteProject = function()
+			{
+				if( canvas.currentProject._isNew === false ) 
+				{
+					canvas.currentProject.$remove
+					(
+						{
+							projectId:canvas.currentProject._id
+						},
+						function(response)
+						{
+							canvas.currentProject = null;
+							canvas.currentSection = null;
+							canvas.currentPage = null;
+							
+							$location.path( '/myprojects' );
+						}
+					);
+				}
+				else
+				{
+					canvas.currentProject = null;
+					canvas.currentSection = null;
+					canvas.currentPage = null;
+					
+					$location.path( '/myprojects' );
 				}
 			};
 			
