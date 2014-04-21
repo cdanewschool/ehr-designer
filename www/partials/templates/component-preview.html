@@ -190,7 +190,16 @@
 						ng-style="
 						{
 							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+							'display':definition.values['direction']=='horizontal'?'inline-block':'block',
+							'margin-top':definition.values.margin.top+'px',
+							'margin-right':definition.values.margin.right+'px',
+							'margin-bottom':definition.values.margin.bottom+'px',
+							'margin-left':definition.values.margin.left+'px',
+							'padding-top':definition.values.padding.top+'px',
+							'padding-right':definition.values.padding.right+'px',
+							'padding-bottom':definition.values.padding.bottom+'px',
+							'padding-left':definition.values.padding.left+'px'
 						}">
 					<input 
 						class="target" 
@@ -202,15 +211,7 @@
 						{
 							'background-color':definition.values['background-color'],
 							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'margin-top':definition.values.margin.top+'px',
-							'margin-right':definition.values.margin.right+'px',
-							'margin-bottom':definition.values.margin.bottom+'px',
-							'margin-left':definition.values.margin.left+'px',
-							'padding-top':definition.values.padding.top+'px',
-							'padding-right':definition.values.padding.right+'px',
-							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit
 						}"> {{item.label}}</span>
 			</div>
 			

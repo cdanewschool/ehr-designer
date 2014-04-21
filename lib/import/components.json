@@ -379,6 +379,12 @@
 						"type":"array"
 					},
 					{
+						"id":"direction",
+						"name":"Direction",
+						"type":"enum",
+						"values":["horizontal","vertical"]
+					},
+					{
 						"id":"color",
 						"name":"Color",
 						"type":"color"
@@ -397,11 +403,12 @@
 				"values":
 				{
 					"type":"radio",
+					"direction":"horizontal",
+					"margin": {"top":0,"right":10,"bottom":0,"left":0},
 					"items":
 					[
 						{
-							"label":"My Radio",
-							"id":"item"
+							"label":"My Radio"
 						}
 					]
 				},
@@ -416,8 +423,7 @@
 							"items":
 							[
 								{
-									"label":"My Checkbox",
-									"id":"item"
+									"label":"My Checkbox"
 								}
 							]
 						}
