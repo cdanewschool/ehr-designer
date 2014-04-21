@@ -30,8 +30,8 @@ var fixtures =
 [
     {
     	itemName:'Component',
-    	schema:'Component',
-        data:'Components',
+    	schema:'component',
+        data:'components',
         collection:'components'
     }
 ];
