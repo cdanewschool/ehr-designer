@@ -5,6 +5,8 @@ pre { font-size:.7em }
 div[ng-view] { height:100%;min-height:100%;position:relative; }
 h4.panel-title { font-size: 12px; }
 
+a[ng-click] { cursor: pointer; }
+
 /*	workspace	*/
 #sidebar { width: 20%; height: 100%; background: rgba(255, 255, 255, .5); padding: 10px; float:left }
 
