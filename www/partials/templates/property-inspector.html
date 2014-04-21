@@ -36,7 +36,7 @@
 								
 								<div class="col-sm-8" ng-switch-when="string">
 									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" history-action="Changed {{property.id}} from %oldValue% to %value%" ng-disabled="property.id=='text' && component.datamap && component.datamap.value">
-									<span class="text-muted small" ng-show="property.id=='text' && component.dataMap">Disabled due to data mapping</span>
+									<span class="text-muted small" ng-show="property.id=='text' && component.datamap">Disabled due to data mapping</span>
 								</div>
 								
 								<div class="col-sm-8" ng-switch-when="int">
@@ -56,6 +56,38 @@
 											<button type="button" class="close" ng-class="{active:component.values[property.id]==='transparent'}" ng-click="component.values[property.id]='transparent'">&times;</button>
 										</div>
 									</div>
+								</div>
+								
+								<div class="col-sm-8" ng-switch-when="array">
+									
+									<div class="row">
+										<div ng-class="{'col-sm-10':propertyInspector.itemLabel,'col-sm-12':!propertyInspector.itemLabel}">
+											<input class="form-control input-md" type="text" ng-model="propertyInspector.itemLabel" placeholder="New item" ng-disabled="property.id=='items' && component.datamap && component.datamap.value">
+											<span class="text-muted small" ng-show="property.id=='items' && component.datamap && component.datamap.value">Disabled due to data mapping</span>
+										</div>
+										<div class="col-sm-2" ng-show="propertyInspector.itemLabel">
+											<button type="button" class="close" ng-click="addArrayItem(property);">&#43;</button>
+										</div>
+									</div>
+									
+									<div ng-hide="property.id=='items' && component.datamap && component.datamap.value">
+									
+										<h6 class="text-muted">Existing Items:</h6>
+									
+										<div ui-sortable ng-model="component.values[property.id]">
+											
+											<div class="row" ng-repeat="item in component.values[property.id]">
+												<div class="col-sm-10 text-muted small">
+													{{$index+1}}. {{item.label}}
+												</div>
+												<div class="col-sm-2">
+													<button type="button" class="close" ng-click="deleteArrayItem(property,$index);">&#45;</button>
+												</div>
+											</div>
+										</div>
+									
+									</div>
+									
 								</div>
 								
 								<div class="col-sm-8"  ng-switch-when="object">

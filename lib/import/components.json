@@ -374,6 +374,11 @@
 				"properties":
 				[
 					{
+						"id":"items",
+						"name":"Items",
+						"type":"array"
+					},
+					{
 						"id":"color",
 						"name":"Color",
 						"type":"color"

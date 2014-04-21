@@ -10,7 +10,7 @@ app.controller
 	 		$scope.component = null;
 	 		$scope.definition = null;
 	 		$scope.locked = {};
-
+	 		
 	 		var bindMapping = function()
 	 		{
 	 			if( !$scope.component ) return;
@@ -231,6 +231,32 @@ app.controller
 	 			history.save( "Resized to " + $scope.component.values.width + " x " + $scope.component.values.height );
 	 		};
 	 		
+	 		$scope.addArrayItem = function(property)
+	 		{
+	 			if( !propertyInspector.itemLabel ) return;
+	 			
+	 			if( !$scope.component.values[property.id] ) 
+	 				$scope.component.values[property.id] = new Array();
+	 			
+	 			$scope.component.values[property.id].push( {label:propertyInspector.itemLabel} );
+	 			
+	 			for(var i=0;i<$scope.component.values[property.id].length;i++)
+	 				$scope.component.values[property.id][i].index = i;
+	 			
+	 			history.save( "Added <strong>" + propertyInspector.itemLabel + "</strong> to " + property.id );
+	 			
+	 			propertyInspector.itemLabel = null;
+	 		};
+	 		
+	 		$scope.deleteArrayItem = function(property,index)
+	 		{
+	 			var value = $scope.component.values[property.id][index];
+	 			
+	 			$scope.component.values[property.id].splice( index, 1 );
+	 			
+	 			history.save( "Removed <strong>" + value.label + "</strong> from " + property.id );
+	 		};
+	 		
 	 		var getDefault = function(property)
 	 		{
 	 			switch( property.type )
@@ -373,6 +399,8 @@ app.controller
 	 			if( angular.element($scope.target).attr('data-initialized') == 'true' ) return;
 	 			
 	 			if( !$scope.definition ) return;
+	 			
+	 			propertyInspector.itemLabel = null;
 	 			
 	 			setDefaultProperties( $scope.definition, $scope.component );
 	 			
