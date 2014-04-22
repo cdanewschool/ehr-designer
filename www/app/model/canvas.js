@@ -23,6 +23,7 @@ app.service
 			
 			pendingSection: null,
 			pendingPage: null,
+			previewing: false,
 			
 			selection: null
 		};

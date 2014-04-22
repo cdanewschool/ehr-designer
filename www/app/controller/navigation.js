@@ -2,10 +2,11 @@ app.controller
 (
 	'NavigationCtrl',
 	[
-	 	'$scope','$location',
-		function($scope,$location)
+	 	'$scope','$location','canvas',
+		function($scope,$location,canvas)
 		{
 	 		$scope.location = $location;
+	 		$scope.canvas = canvas;
 	 		
 	 		$scope.navigation =
 				[

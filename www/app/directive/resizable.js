@@ -1,7 +1,7 @@
 app.directive
 (
 	'resizable',
-	function($parse,$compile,FactoryService,HistoryService)
+	function($parse,$compile,canvas,FactoryService,HistoryService)
 	{
 		return {
 			restrict : 'A',
@@ -9,7 +9,8 @@ app.directive
 			{
 				var update = function()
 				{
-					if( !scope.isStatic
+					if( !canvas.previewing
+						&& !scope.isStatic
 						&& scope.componentDefinition.resizable )
 					{
 						var constrain = scope.componentDefinition.resizable && (typeof scope.componentDefinition.resizable == 'object') && scope.componentDefinition.resizable.constrain;
@@ -58,7 +59,7 @@ app.directive
 				
 				scope.$watch
 				(
-					'isStatic + scope.componentDefinition.container',
+					'isStatic + scope.componentDefinition.container + canvas.previewing',
 					function(newVal,oldVal)
 					{
 						if( newVal != oldVal )

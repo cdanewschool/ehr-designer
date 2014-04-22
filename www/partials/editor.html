@@ -1,5 +1,5 @@
 <!-- sidebar -->
-<div id="sidebar">
+<div id="sidebar" ng-show="!canvas.previewing">
 
 	<tabset>
 		
@@ -79,7 +79,7 @@
 
 	<div ng-class="{minimized:canvas.selection!=null}">
 	
-		<div class="clearfix">
+		<div class="clearfix" ng-show="!canvas.previewing">
 		
 			<ol class="breadcrumb pull-left">
 				<li ng-class="{active:canvas.currentSection==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentSection = null; canvas.currentPage = null">{{canvas.currentProject.name}}</a></li>
@@ -150,7 +150,7 @@
 			<component-preview component-definition="canvas.currentPage" component-static="false" drag-service="dragService" canvas="canvas"></component-preview>
 			
 			<!-- canvas bg -->
-			<svg preserveAspectRatio="none" ng-show="canvas.grid.visible">
+			<svg preserveAspectRatio="none" ng-show="!canvas.previewing && canvas.grid.visible">
 				<defs>
 					<pattern id="minorGrid" ng-attr-width="{{canvas.grid.size/canvas.grid.subdivisions}}" ng-attr-height="{{canvas.grid.size/canvas.grid.subdivisions}}" patternUnits="userSpaceOnUse">
 						<path ng-attr-d="M {{canvas.grid.size/canvas.grid.subdivisions}} 0 L 0 0 0 {{canvas.grid.size/canvas.grid.subdivisions}}" fill="none" ng-attr-stroke="{{canvas.grid.color}}" stroke-width="1"/>
@@ -167,6 +167,6 @@
 	
 	</div>
 	
-	<property-inspector id="properties" ng-class="{maximized:canvas.selection!=null}" drag-service="dragService" />
+	<property-inspector id="properties" ng-class="{maximized:!canvas.previewing && canvas.selection!=null}" drag-service="dragService" />
 	
 </div>

@@ -32,48 +32,67 @@ app.directive
 					pre: function preLink(scope, element, attrs) {},
 					post: function postLink(scope,element,attrs)
 					{
+						//	mouseenter handler
+						scope.mouseenter = function()
+						{
+							if( !scope.canvas.previewing )
+								scope.dragService.dragModel.hover = scope.definition;
+						};
+						
 						var init = function()
 						{
 							if( !scope.definition ) return;
 							
-							scope.id = FactoryService.uniqueId();
-							scope.componentDefinition = library.componentsIndexed[ scope.definition.componentId ];
+							//	set up scope
+							if( !scope.id ) scope.id = FactoryService.uniqueId();
 							
-							//	handle an unrecognized/invalid component id
-							if( !scope.componentDefinition )
+							//	set component's definition, handling an unrecognized/invalid component id
+							if( !(scope.componentDefinition = library.componentsIndexed[scope.definition.componentId]) )
 							{
 								scope.componentDefinition = { container: false };
 								scope.definition = { componentId: null };
 							}
 							
-							scope.showBorder = scope.componentDefinition.container;
-							scope.isDroppable = (!scope.isStatic && scope.definition.componentId!='label' && scope.definition.componentId!='image');
-							scope.isDraggable = !scope.isStatic;
+							//	whether in preview mode or not
+							var previewing = scope.canvas && scope.canvas.previewing;
 							
+							scope.showBorder = (!previewing && scope.componentDefinition.container);
+							scope.isDroppable = (!previewing && !scope.isStatic && scope.definition.componentId!='label' && scope.definition.componentId!='image');
+							scope.isDraggable = (!previewing && !scope.isStatic);
+							
+							//	store the component's id on the associated dom el so we can easily get the corresponding definition (see drag service)
 							element.attr("data-component-id",scope.definition.componentId);
 							
 							//	show properties menu on click
-							if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
+							if( (attrs.componentStatic == undefined || attrs.componentStatic != "true") )
 							{
-								element.on
-								(
-									'mousedown',
-									function(e)
-									{
-										e.stopImmediatePropagation();
+								if( !previewing )
+								{
+									element.on
+									(
+										'mousedown.select',
+										function(e)
+										{
+											e.stopImmediatePropagation();
 										
-										if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
-											scope.canvas.selection = null;
-										else
-											scope.canvas.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
-										
-										scope.$apply();
-									}
-								);
+											if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
+												scope.canvas.selection = null;
+											else
+												scope.canvas.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
+											
+											scope.$apply();
+										}
+									);
+								}
+								else
+								{
+									element.off('mousedown.select');
+								}
 							}
-
+							
 				 			if( scope.definition.componentId == "image" )
 							{
+								//	store original dimensions on init and <src> change
 				 				var storeDimensions = function(revert)
 				 				{
 				 					//	TODO: we shouldnt' have to do this if properly cleaned up on destroy
@@ -81,7 +100,6 @@ app.directive
 				 					
 				 					revert = revert || false;
 				 					
-				 					console.log( scope.definition )
 				 					$('<img/>')
 				 						.attr('src',scope.definition.values.src)
 				 						.load
@@ -174,7 +192,7 @@ app.directive
 							if( values.top ) 
 								el.css("top",values.top + "px");				
 						};
-						
+
 						if( !scope.definition ) 
 						{
 							scope.$watch
@@ -209,6 +227,18 @@ app.directive
 							
 							update();
 						}
+						
+						scope.$watch
+						(
+							'canvas.previewing',
+							function(newVal,oldVal)
+							{
+								if( newVal != oldVal )
+								{
+									init();
+								}
+							}
+						);
 						
 						$compile(element)(scope);
 					}

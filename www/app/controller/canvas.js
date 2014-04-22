@@ -298,6 +298,11 @@ app.controller
 				}
 			};
 			
+			$scope.previewProject = function()
+			{
+				canvas.previewing = true;
+			};
+			
 			$scope.addSection = function(showEdit)
 			{
 				var section = angular.copy( template.section );
