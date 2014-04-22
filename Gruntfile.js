@@ -3,6 +3,29 @@ module.exports = function(grunt)
 	grunt.initConfig
 	(
 		{
+			/*
+			 * build 
+			 */
+			shell:
+			{
+				build: {
+					command: [
+					          'npm install',
+					          'grunt html2js',
+					          'grunt build:accordion:collapse:dropdownToggle:modal:tabs'
+					          ].join('&&'),
+					options: {
+						execOptions: {
+							cwd: 'www/bower_components/angular-ui-bootstrap/'
+						},
+						failOnError:true,
+						stdout:true,
+						stderror:true
+					}
+					
+				}
+			},
+			
 			includeSource:
 			{
 				options:
@@ -59,13 +82,15 @@ module.exports = function(grunt)
 	
 	grunt.loadNpmTasks('grunt-include-source');
 	grunt.loadNpmTasks('grunt-ng-constant');
+	grunt.loadNpmTasks('grunt-shell');
 	
 	grunt.registerTask
 	(
 		'default', 
 		[
-	   		'includeSource',
+		 	'includeSource',
 	   		'ngconstant:' + (grunt.option('environment')||'development'),
+	   		'shell:build'
 	    ]
 	);
 };
