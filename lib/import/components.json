@@ -140,11 +140,6 @@
 								"id":"unit",
 								"type":"enum",
 								"values":["px","em"]
-							},
-							{
-								"id":"text-decoration",
-								"type":"enum",
-								"values":["overline","line-through","underline"]
 							}
 						]
 					}

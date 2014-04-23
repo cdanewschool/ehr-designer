@@ -2,8 +2,8 @@ app.service
 (
 	'HistoryService',
 	[
-	 	'history','canvas',
-	 	function(history,canvas)
+	 	'$rootScope','history','canvas',
+	 	function($rootScope,history,canvas)
 	 	{
 	 		var id = 0;
 	 		
@@ -23,6 +23,16 @@ app.service
 	 					history.actions.splice(0,history.actions.length-history.maxSize);
 	 				
 	 				history.currentAction = action;
+	 				
+	 				$rootScope.safeApply = function(fn) 
+	 				{
+	 					var phase = $rootScope.$$phase;
+	 					
+	 					if(phase == '$apply' || phase == '$digest')
+	 						$rootScope.$eval(fn);
+	 					else
+	 						$rootScope.$apply(fn);
+	 				}();
 	 				
 	 				id++;
 	 			},

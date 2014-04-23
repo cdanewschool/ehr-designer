@@ -4,6 +4,8 @@ app.service
 	function()
 	{
 		return {
+			fieldWithFocus:null,
+			
 			itemLabel:null,
 			
 			selectedDataType: undefined,

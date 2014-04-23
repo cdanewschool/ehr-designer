@@ -13,7 +13,7 @@ app.service
 					var clone = angular.copy(definition);
 					clone.id = this.uniqueId();
 					clone.componentId = definition.id;
-					clone.values = _.defaults(values,definition.values);
+					clone.values = _.defaults(values,angular.copy(definition.values));
 					
 					var blacklist = ["$$hashKey","$delete","$get","$query","$remove","$save","__v","_id","abstract","autoLayoutChildren","container","created","name","properties","resizable","subcomponents"];
 					

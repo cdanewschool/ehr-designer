@@ -160,7 +160,7 @@ app.service
 						
 						target.children.push( instance );
 						
-						historyService.save( "Added " + dragModel.dragItem.name + " to " + library.componentsIndexed[target.componentId].name );
+						historyService.save( "Added a new " + dragModel.dragItem.name );
 					}
 				},
 				
