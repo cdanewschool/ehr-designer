@@ -74,7 +74,7 @@ app.service
 				 if( updateSaved )
 					 canvas.hash.last = $base64.encode( JSON.stringify(canvas.currentProject) );
 				
-				 canvas.dirty = (canvas.currentPage!=null && canvas.hash.current !== canvas.hash.last) ? true : false;
+				 canvas.dirty = ((canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) || (canvas.currentPage!=null && canvas.hash.current !== canvas.hash.last) || (canvas.currentSection!=null && canvas.hash.current !== canvas.hash.last)) ? true : false;
 			 }
 		 };
 		 
