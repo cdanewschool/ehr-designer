@@ -2,8 +2,8 @@ app.service
 (
 	'CanvasService',
 	[
-	 '$rootScope','$base64','canvas',
-	 function($rootScope,$base64,canvas)
+	 '$rootScope','$base64','canvas','history',
+	 function($rootScope,$base64,canvas,history)
 	 {
 		 $rootScope.$on
 		 (
@@ -27,8 +27,10 @@ app.service
 				  * Saving the project causes an issue where property updates don't propagate to the underlying
 				  * object, so we clone it instead
 				  */
+				 
 				 var __currentProject = angular.copy(canvas.currentProject);
-				
+				 __currentProject.history = $base64.encode( JSON.stringify(history.actions) );
+				 
 				 if( __currentProject._isNew === false ) 
 				 {
 					__currentProject.$update
@@ -58,7 +60,11 @@ app.service
 					(
 						function(response)
 						{
+							canvas.currentProject._isNew = false;
+							
 							service.updateHash(false,true);
+							
+							canvas.messages.push( "Saved" );
 							
 							callback();
 						}
@@ -68,11 +74,13 @@ app.service
 			 
 			 updateHash: function(update,updateSaved)
 			 {
+				 var content = canvas.currentProject ? canvas.currentProject.content : null;
+				 
 				 if( update )
-					 canvas.hash.current = $base64.encode( JSON.stringify(canvas.currentProject) );
+					 canvas.hash.current = $base64.encode( JSON.stringify(content) );
 				
 				 if( updateSaved )
-					 canvas.hash.last = $base64.encode( JSON.stringify(canvas.currentProject) );
+					 canvas.hash.last = $base64.encode( JSON.stringify(content) );
 				
 				 canvas.dirty = ((canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) || (canvas.currentPage!=null && canvas.hash.current !== canvas.hash.last) || (canvas.currentSection!=null && canvas.hash.current !== canvas.hash.last)) ? true : false;
 			 }

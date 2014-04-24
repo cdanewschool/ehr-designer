@@ -5,8 +5,6 @@ app.service
 	 	'$rootScope','history','canvas',
 	 	function($rootScope,history,canvas)
 	 	{
-	 		var id = 0;
-	 		
 	 		return {
 	 			
 	 			save: function(name)
@@ -15,7 +13,7 @@ app.service
 	 					&& history.actions.indexOf(history.currentAction) < history.actions.length - 1 )
 	 					history.actions.splice(history.actions.indexOf(history.currentAction)+1);
 	 				
-	 				var action = {id: id, name:name, content: angular.copy(canvas.currentProject), date:new Date()	};
+	 				var action = {id: history.id, name:name, content: angular.copy(canvas.currentProject.content), date:new Date()	};
 	 				history.actions.push( action );
 	 				
 	 				//	truncate list of actions
@@ -34,13 +32,13 @@ app.service
 	 						$rootScope.$apply(fn);
 	 				}();
 	 				
-	 				id++;
+	 				history.id++;
 	 			},
 	 			
 	 			revert: function(action)
 	 			{
-	 				canvas.currentProject = action.content;
-	 				
+	 				canvas.currentProject.content = action.content;
+	 				console.log(canvas.currentProject.content)
 	 				history.currentAction = action;
 	 			}
 	 		};

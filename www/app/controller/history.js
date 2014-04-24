@@ -1,16 +1,3 @@
-app.service
-(
-	'history',
-	function()
-	{
-		return {
-			actions: [],
-			currentAction: null,
-			maxSize: 10
-		};
-	}
-);
-
 app.controller
 (
 	'HistoryCtrl',

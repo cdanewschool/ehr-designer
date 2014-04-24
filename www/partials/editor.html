@@ -82,7 +82,7 @@
 		<div class="clearfix" ng-show="!canvas.previewing">
 		
 			<ol class="breadcrumb pull-left">
-				<li ng-class="{active:canvas.currentSection==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentSection = null; canvas.currentPage = null">{{canvas.currentProject.name}}</a></li>
+				<li ng-class="{active:canvas.currentSection==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentSection = null; canvas.currentPage = null">{{canvas.currentProject.content.name}}</a></li>
 				<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentSection"><a ng-click="canvas.currentPage = null">{{canvas.currentSection.name}}</a></li>
 				<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
 			</ol>

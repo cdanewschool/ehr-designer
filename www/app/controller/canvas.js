@@ -2,8 +2,8 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$modal','$routeParams','$q','canvas','library','template','history','Component','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
-		function($scope,$rootScope,$location,$modal,$routeParams,$q,canvas,library,template,history,Component,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
+		'$scope','$rootScope','$location','$modal','$routeParams','$q','$base64','canvas','library','template','history','Component','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,$q,$base64,canvas,library,template,history,Component,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
@@ -55,6 +55,25 @@ app.controller
 						//	otherwise nullify page/section
 						else
 						{
+							canvas.currentPage = null;
+						}
+					}
+				}
+			);
+			
+			//	refresh section/page on history load
+			$scope.$watch
+			(
+				'canvas.currentProject.content',
+				function(newVal,oldVal)
+				{
+					if( newVal != oldVal )
+					{
+						if( newVal )
+							$scope.selectSectionByIndex(0);
+						else
+						{
+							canvas.currentSection = null;
 							canvas.currentPage = null;
 						}
 					}
@@ -124,7 +143,32 @@ app.controller
 							{
 								canvas.currentProject = response;
 								
+								//	init local history with saved actions
+								if( canvas.currentProject.history )
+								{
+									var id = 0;
+									var actions = JSON.parse( $base64.decode( canvas.currentProject.history ) );
+									
+									angular.forEach
+									(
+										actions,
+										function(action)
+										{
+											action.id = id++;
+										}
+									);
+									
+									history.id = id + 1;
+									history.actions = actions;
+									history.currentAction = history.actions[ history.actions.length-1 ];
+								}
+								
 								canvasService.updateHash(true,true);
+							},
+							function(response,err)
+							{
+								if( response.status == 500 )
+									$location.path( '/myprojects' )
 							}
 						);
 					}
@@ -270,13 +314,15 @@ app.controller
 					return;
 				}
 				
+				var project = angular.copy( template.document );
+				project.name = "My Project";
+				
 				canvas.currentProject = new Project();
-				canvas.currentProject.name = "My Project";
-				canvas.currentProject.content = angular.copy( template.document );
+				canvas.currentProject.content = project;
 				
 				if(showEdit)
 				{
-					$scope.editItemProperties(canvas.currentProject, showEdit).then
+					$scope.editItemProperties(canvas.currentProject.content, showEdit).then
 					(
 						//	user has provided a name and/or clicked "save"
 						function ()
@@ -375,12 +421,13 @@ app.controller
 			$scope.editCurrentItem = function()
 			{ 	
 				var item = null;
+				
 				if( canvas.currentPage )
 		    		item = canvas.currentPage;
 		    	else if( canvas.currentSection )
 		    		item = canvas.currentSection;
 		    	else if( canvas.currentProject )
-		    		item = canvas.currentProject;
+		    		item = canvas.currentProject.content;
 				if(item)
 					$scope.editItemProperties(item);
 			};
@@ -396,7 +443,7 @@ app.controller
 					title = "Page Properties";
 				else if( item === canvas.currentSection )
 					title = "Section Properties";
-				else if( item === canvas.currentProject )
+				else if( item === canvas.currentProject.content )
 					title = "Project Properties";
 				
 				if( isNew )
@@ -405,7 +452,7 @@ app.controller
 						message = "We've created a new <strong>page</strong> for your section. What would you like to call it?";
 					else if( item === canvas.currentSection )
 						message = "We've created a new <strong>section</strong> for your project. What would you like to call it?";
-					else if( item === canvas.currentProject )
+					else if( item === canvas.currentProject.content )
 						message = "We've created a new <strong>project</strong> for you. What would you like to call it?";
 				}
 				
@@ -419,7 +466,17 @@ app.controller
 			      	{
 			      		for(var p in $scope.item)
 			        		item[p] = $scope.item[p];
-			       
+			      		
+			      		if( !isNew )	//	should really be an additional flag, like isAuto
+			      		{
+			      			if( item === canvas.currentPage )
+				      			historyService.save( "Changed page properties" );
+							else if( item === canvas.currentSection )
+								historyService.save( "Changed section properties" );
+							else if( item === canvas.currentProject.content )
+								historyService.save( "Changed project properties" );
+			      		}
+			      		
 			       		$modalInstance.close();
 			      	};
 			      
