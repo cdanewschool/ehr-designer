@@ -7,7 +7,17 @@
 			<div class="panel-heading"><h1 class="panel-title">Login</h1></div>
 			
 			<div class="panel-body">
-
+			
+				<div class="alert alert-success alert-dismissable" ng-show="success">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="success=null">&times;</button>
+					{{success}}
+				</div>
+				
+				<div class="alert alert-warning alert-dismissable" ng-show="error">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="error=null">&times;</button>
+					{{error}}
+				</div>
+				
 				<form name="form" role="form" ng-submit="login(form)" novalidate>
 		
 					<div class="form-group" ng-class="{'has-error': form.email.$error.mongoose}">

@@ -32,7 +32,13 @@ app.run
 	{
 		var bounce = function()
 		{
-			if (!$rootScope.currentUser && (['/login', '/logout', '/signup'].indexOf($location.path()) == -1 )) 
+			// trim query string from path
+			var path = $location.path();
+			
+			if( path.indexOf("?")>-1 )
+				path = path.substr(0,path.indexOf("?") );
+			
+			if (!$rootScope.currentUser && (['/login', '/logout', '/signup'].indexOf(path) == -1 )) 
 			{
 				Auth.currentUser();
 		    }

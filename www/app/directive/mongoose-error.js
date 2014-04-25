@@ -12,7 +12,7 @@ app.directive
 			{
 				element.on
 				(
-					'keydown',
+					'focusin',
 					function() 
 					{
 						return ngModel.$setValidity('mongoose', true);

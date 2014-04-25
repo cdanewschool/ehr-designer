@@ -49,7 +49,14 @@ app.factory
 					user,
 					function(user)
 					{
-						$location.path("/");
+						var path = "/login";
+						
+						$location.search('success','Account created. Please login.');
+						
+						if( !user.confirmed )
+							$location.search('success','A confirmation email was sent to "' + user.email + '". Please confirm your account before logging in.');
+						
+						$location.path( path );
 					},
 					function(err) 
 					{

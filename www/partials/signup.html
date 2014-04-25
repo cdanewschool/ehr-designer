@@ -9,30 +9,60 @@
 			<div class="panel-body">
 				
 				<form name="form" role="form" ng-submit="signup(form)" novalidate>
-		
+					
+					<div class="form-group" ng-class="{'has-warning': form.nameFirst.$dirty || form.nameLast.$dirty,'has-success': (form.nameFirst.$valid && form.nameFirst.$dirty && !form.nameFirst.$error.mongoose) && (form.nameLast.$valid && form.nameLast.$dirty && !form.nameLast.$error.mongoose),'has-error': ((form.nameFirst.$invalid && form.nameFirst.$dirty) || form.nameFirst.$error.mongoose) && ((form.nameLast.$invalid && form.nameLast.$dirty) || form.nameLast.$error.mongoose)}">
+						<label>Full Name</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<input type="name" name="nameFirst" class="form-control" ng-model="user.nameFirst" placeholder="Enter first name" mongoose-error>
+								<p class="help-block"
+									ng-show="form.nameFirst.$error.mongoose">
+									{{ errors.nameFirst }}
+								</p>
+							</div>
+							<div class="col-sm-6">
+								<input type="name" name="nameLast" class="form-control" ng-model="user.nameLast" placeholder="Enter last name" mongoose-error>
+								<p class="help-block"
+									ng-show="form.nameLast.$error.mongoose">
+									{{ errors.nameLast }}
+								</p>
+							</div>
+						</div>
+						
+					</div>
+					
 					<div class="form-group" ng-class="{'has-warning': form.email.$dirty,'has-success': form.email.$valid && form.email.$dirty && !form.email.$error.mongoose,'has-error': form.email.$invalid && form.email.$dirty || form.email.$error.mongoose}">
 						<label>Email</label>
 						<input type="email" name="email" class="form-control" ng-model="user.email" placeholder="Enter email" mongoose-error>
-						<p class="help-block"
-		                  	ng-show="form.email.$error.email && !form.email.$focused">
-							Not a valid email.
-						</p>
 						<p class="help-block"
 							ng-show="form.email.$error.mongoose">
 							{{ errors.email }}
 						</p>
 					</div>
 					
-					<div class="form-group" ng-class="{'has-warning': form.email.$dirty,'has-success': form.password.$valid && form.password.$dirty && !form.password.$error.mongoose,'has-error': form.password.$invalid && form.password.$dirty || form.password.$error.mongoose}">
+					<div class="form-group" ng-class="{'has-warning': form.password.$dirty,'has-success': form.password.$valid && form.password.$dirty && !form.password.$error.mongoose,'has-error': form.password.$invalid && form.password.$dirty || form.password.$error.mongoose}">
 						<label>Password</label>
 						<input type="password" name="password" class="form-control" ng-model="user.password" placeholder="Enter password" mongoose-error>
 						<p class="help-block"
-		                  	ng-show="form.password.$error.password && !form.password.$focused">
+		                  	ng-show="!form.password.$error.mongoose && form.password.$error.mongoose && !form.password.$focused">
 							Not a valid password.
 						</p>
 						<p class="help-block"
 							ng-show="form.password.$error.mongoose">
 							{{ errors.password }}
+						</p>
+					</div>
+					
+					<div class="form-group" ng-class="{'has-warning': form.passwordConfirm.$dirty,'has-success': form.passwordConfirm.$valid && form.passwordConfirm.$dirty && !form.passwordConfirm.$error.mongoose,'has-error': form.passwordConfirm.$invalid && form.passwordConfirm.$dirty || form.passwordConfirm.$error.mongoose}">
+						<label>Confirm Password</label>
+						<input type="password" name="passwordConfirm" class="form-control" ng-model="user.passwordConfirm" placeholder="Enter password again" mongoose-error>
+						<p class="help-block"
+		                  	ng-show="!form.passwordConfirm.$error.mongoose && form.passwordConfirm.$error.mongoose && !form.passwordConfirm.$focused">
+							Not a valid password.
+						</p>
+						<p class="help-block"
+							ng-show="form.passwordConfirm.$error.mongoose">
+							{{ errors.passwordConfirm }}
 						</p>
 					</div>
 					

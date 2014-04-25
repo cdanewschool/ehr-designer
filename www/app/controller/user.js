@@ -1,11 +1,29 @@
 app.controller
 (
 	'UserCtrl',
-	function($rootScope,$scope,$location,Auth)
+	function($rootScope,$scope,$location,$routeParams,Auth)
 	{
+		$scope.success = null;
+		$scope.error = null;
+		
 		$scope.errors = {};
 		$scope.user = {};
 
+		if( $routeParams )
+		{
+			if( $routeParams.success )
+			{
+				$scope.success = $routeParams.success;
+				delete $location.$$search.success;
+			}
+			
+			if( $routeParams.error )
+			{
+				$scope.error = $routeParams.error;
+				delete $location.$$search.error;
+			}
+		}
+		
 		$scope.login = function(form)
 		{
 			Auth.login
@@ -16,8 +34,10 @@ app.controller
 				},
 				function(err)
 				{
+					$scope.success = null;
+					$scope.error = null;
+					
 					$scope.errors = {};
-					$scope.error = {};
 					
 					if( !err )
 					{
@@ -35,7 +55,7 @@ app.controller
 							}
 						);
 						
-						$scope.error.other = err.message;
+						$scope.error = err.message;
 					}
 				}
 			);
@@ -50,7 +70,7 @@ app.controller
 					if( !err )
 						$location.path('/');
 				}
-			)
+			);
 		};
 		
 		$scope.signup = function(form)
@@ -59,17 +79,19 @@ app.controller
 			(
 				{
 					email:$scope.user.email,
-					password:$scope.user.password
+					nameFirst:$scope.user.nameFirst,
+					nameLast:$scope.user.nameLast,
+					password:$scope.user.password,
+					passwordConfirm:$scope.user.passwordConfirm
 				},
 				function(err)
 				{
+					$scope.success = null;
+					$scope.error = null;
+					
 					$scope.errors = {};
 					
-					if( !err )
-					{
-						
-					}
-					else
+					if( err )
 					{
 						angular.forEach
 						(
@@ -77,6 +99,7 @@ app.controller
 							function(error,field)
 							{
 								form[field].$setValidity('mongoose',false);
+								
 								$scope.errors[field] = error.message;
 							}
 						);
