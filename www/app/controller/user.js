@@ -1,7 +1,8 @@
 app.controller
 (
 	'UserCtrl',
-	function($rootScope,$scope,$location,$routeParams,Auth)
+	
+	function($rootScope,$scope,$location,$routeParams,Auth,navigation,canvas)
 	{
 		$scope.success = null;
 		$scope.error = null;
@@ -61,16 +62,55 @@ app.controller
 			);
 		};
 		
+		
 		$scope.logout = function()
 		{
-			Auth.logout
-			(
-				function(err)
-				{
-					if( !err )
-						$location.path('/');
-				}
-			);
+			var logout = function(){
+				Auth.logout
+				(
+						function(err)
+						{
+							if( !err )
+								$location.path('/');
+						}
+				);
+			};
+			
+			if( !canvas.dirty )
+			{
+				console.log($scope.canvas.dirty);
+				logout();
+			}
+			else
+			{
+				console.log(canvas.dirty);
+				navigation.showConfirm("You have unsaved changes. Would you like to save before creating a new project?").then
+				(
+					function()
+					{
+						$rootScope.$emit
+						(
+							"saveProject",
+							[
+							 function()
+							 {
+								 canvas.dirty = false;
+								 canvas.currentProject = null;
+								 logout();
+							 }
+							]
+						);	
+						
+					},
+					function()
+					{
+						canvas.dirty = false;
+						canvas.currentProject = null;
+						logout();				
+					}
+				);
+			}
+			
 		};
 		
 		$scope.signup = function(form)
