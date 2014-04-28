@@ -46,7 +46,7 @@ app.service
 				{
 					var path = $location.path();
 					
-					if( path.indexOf("/editor") == -1 )
+					if( path.indexOf("/editor") == -1 && $rootScope.currentUser)
 					{
 						if( canvas.dirty )
 						{
@@ -63,11 +63,15 @@ app.service
 										 function()
 										 {
 											 canvas.dirty = false;
-											
 											 $location.path( path );
 										 }
 										]
 									);
+								},
+								function()
+								{
+									canvas.dirty = false;
+									$location.path( path );									
 								}
 							);
 						}
