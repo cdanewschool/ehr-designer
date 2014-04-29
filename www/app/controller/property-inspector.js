@@ -326,7 +326,13 @@ app.controller
 	 					
 	 					return 0;
 	 					
-	 					break;		
+	 					break;
+	 					
+	 				case "color":
+	 					
+	 					return "#000000";
+	 					
+	 					break;
 	 			}
 	 		};
 	 		
@@ -345,6 +351,9 @@ app.controller
 	 		
 	 		var setDefaultProperties = function(definition,instance)
 	 		{
+	 			if( !instance.values )
+	 				instance.values = {};
+	 			
 	 			angular.forEach
 	 			(
 	 				definition.properties,
@@ -430,7 +439,8 @@ app.controller
 		 							instance.values[property.id] = value;
 		 						}
 		 					}
-		 					else if( definition.values[property.id] )
+		 					else if( definition.values 
+		 							&& definition.values[property.id] )
 		 					{
 		 						instance.values[property.id] = definition.values[property.id];
 		 					}

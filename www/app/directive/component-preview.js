@@ -23,11 +23,6 @@ app.directive
 			replace:true,
 			compile:function(element,attrs)
 			{
-				if( attrs.componentStatic == undefined || attrs.componentStatic != "true" )
-				{
-					element.attr("droppable","true");
-				};
-				
 				return {
 					pre: function preLink(scope, element, attrs) {},
 					post: function postLink(scope,element,attrs)
@@ -35,7 +30,7 @@ app.directive
 						//	mouseenter handler
 						scope.mouseenter = function()
 						{
-							if( !scope.canvas.previewing )
+							if( !scope.canvas.previewing && scope.dragService )
 								scope.dragService.dragModel.hover = scope.definition;
 						};
 						

@@ -2,7 +2,7 @@
   "name": "ehr-designer",
   "version": "0.0.0-1",
   "dependencies": {
-    "angular": "1.2.6",
+    "angular": "^1.2",
     "angular-base64": "2.0.1",
     "angular-cookies": "1.2.15",
     "angular-dragdrop": "1.0.5",

@@ -147,7 +147,7 @@
 		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
 			
 			<!-- canvas -->
-			<component-preview component-definition="canvas.currentPage" component-static="false" drag-service="dragService" canvas="canvas"></component-preview>
+			<component-preview component-definition="canvas.currentPage" component-static="false" droppable drag-service="dragService" canvas="canvas"></component-preview>
 			
 			<!-- canvas bg -->
 			<svg preserveAspectRatio="none" ng-show="!canvas.previewing && canvas.grid.visible">

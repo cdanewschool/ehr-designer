@@ -4,6 +4,7 @@ app.service
 	function()
 	{
 		return {
+			dragging:false,
 			dragProps:null,
 			dragItem:null,
 			dropTarget:null,
@@ -105,7 +106,6 @@ app.service
 						&& dragModel.dragItem.parentIndex !== dragModel.hoverIndex
 						&& dragModel.hover.id != dragModel.dragItem.id )
 					{
-						console.log(target,dragModel.dragItem)
 						ui.draggable.remove();
 						
 						dragModel.dragItem.parentIndex = dragModel.hoverIndex;
@@ -172,7 +172,6 @@ app.service
 				
 				onOver: function(event,ui,item)
 				{
-					console.log( item )
 					if( !library.componentsIndexed[item.componentId].container ) 
 						ui.helper.addClass("reject");
 					else
@@ -191,7 +190,7 @@ app.service
 				
 				acceptDrop: function(item)
 				{
-					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[dragModel.dropTarget.attr("data-component-id")].container : true;
+					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container : true;
 					
 					return acceptable;
 				}

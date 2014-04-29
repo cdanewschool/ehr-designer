@@ -41,8 +41,12 @@
 									<input class="form-control input-sm" type="number" ng-model="component.values[property.id]" min="0" history-action history-action-property="property" history-action-component="component">
 								</div>
 								
+								<div class="col-sm-8" ng-switch-when="boolean">
+									<input class="form-control input-sm" type="checkbox" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component">
+								</div>
+								
 								<div class="col-sm-8"  ng-switch-when="enum">
-									<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t as t for t in property.values" history-action history-action-property="property" history-action-component="component"></select>
+									<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t.label as t.value for t in property.values" history-action history-action-property="property" history-action-component="component"></select>
 								</div>
 								
 								<div class="col-sm-8" ng-switch-when="color">
@@ -108,7 +112,7 @@
 												
 												<div ng-switch-when="enum">
 													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t as t for t in subProperty.values" history-action history-action-property="property" history-action-component="component"></select>
+													<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t.label as t.value for t in subProperty.values" history-action history-action-property="property" history-action-component="component"></select>
 												</div>
 											
 											</div>

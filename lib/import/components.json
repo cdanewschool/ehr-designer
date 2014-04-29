@@ -65,7 +65,7 @@
 					{
 						"id":"unit",
 						"type":"enum",
-						"values":["px","em"]
+						"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 					}
 				]
 			},
@@ -100,7 +100,7 @@
 					{
 						"id":"unit",
 						"type":"enum",
-						"values":["px","em"]
+						"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 					}
 				]
 			}
@@ -139,7 +139,7 @@
 							{
 								"id":"unit",
 								"type":"enum",
-								"values":["px","em"]
+								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 							}
 						]
 					}
@@ -176,7 +176,7 @@
 							{
 								"id":"unit",
 								"type":"enum",
-								"values":["px","em"]
+								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 							}
 						]
 					},
@@ -257,7 +257,7 @@
 							{
 								"id":"unit",
 								"type":"enum",
-								"values":["px","em"]
+								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 							}
 						]
 					}
@@ -298,7 +298,28 @@
 					"cols":2,
 					"rows":2
 				},
-				"subcomponents":[]
+				"subcomponents":
+				[
+					{
+						"id":"table",
+						"name":"Table",
+						"binding":"multiple",
+						"properties":
+						[
+							{
+								"id":"headers",
+								"type":"array"
+							}
+						],
+						"values":
+						{
+							"headers":
+							[
+								"Name","Email","Phone"
+							]
+						}
+					}
+				]
 			},
 			{
 				"id":"dropdown",
@@ -343,7 +364,7 @@
 							{
 								"id":"unit",
 								"type":"enum",
-								"values":["px","em"]
+								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 							}
 						]
 					}
@@ -377,7 +398,7 @@
 						"id":"direction",
 						"name":"Direction",
 						"type":"enum",
-						"values":["horizontal","vertical"]
+						"values":[{"value":"horizontal","label":"Horizontal"},{"value":"vertical","label":"Vertical"}]
 					},
 					{
 						"id":"color",
@@ -485,7 +506,7 @@
 									{
 										"id":"unit",
 										"type":"enum",
-										"values":["px","em"]
+										"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 									}
 								]
 							},
@@ -552,7 +573,7 @@
 									{
 										"id":"unit",
 										"type":"enum",
-										"values":["px","em"]
+										"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 									}
 								]
 							}
@@ -703,6 +724,63 @@
 						]
 					}
 				]
+			},
+			{
+				"id":"tabs",
+				"name":"Tabs",
+				"abstract":false,
+				"container":false,
+				"resizable":true,
+				"properties":
+				[
+					{
+						"id":"items",
+						"name":"Items",
+						"type":"array"
+					},
+					{
+						"id":"font-size",
+						"name":"Font Size",
+						"type":"object",
+						"parseExpression":"(\\d*)([a-z]*)",
+						"properties": 
+						[
+							{
+								"id":"size",
+								"name":"",
+								"type":"int"
+							},
+							{
+								"id":"unit",
+								"type":"enum",
+								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
+							}
+						]
+					},
+					{
+						"id":"background-color",
+						"name":"Background Color",
+						"type":"color"
+					},
+					{
+						"id":"color",
+						"name":"Color",
+						"type":"color"
+					},
+					{
+						"id":"tab-disabled-background-color",
+						"name":"Disabled Tab Background Color",
+						"type":"color"
+					}
+				],
+				"values":
+				{
+					"background-color": "#ffffff",
+					"color": "#ffffff",
+					"items":[{"label":"Tab 1"},{"label":"Tab 2"}],
+					"font-size": {"size":14,"unit":"px"},
+					"tab-disabled-background-color": "#ffffff"
+				}
 			}
 		]
 	}	

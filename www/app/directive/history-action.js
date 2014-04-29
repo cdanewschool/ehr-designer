@@ -26,6 +26,7 @@ app.directive
 						
 							//	if color and in rgb, convert to hex
  						if( property.type=='color' 
+ 							&& computedValue
  							&& computedValue.match(/rgba*\((\d*),\s*(\d*),\s*(\d*),*\s*(\d*)\)/) )
  						{
  							if( computedValue == "rgba(0, 0, 0, 0)" )
