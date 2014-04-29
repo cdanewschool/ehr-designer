@@ -257,19 +257,19 @@ app.controller
 	 		
 	 		$scope.addArrayItem = function(property)
 	 		{
-	 			if( !propertyInspector.itemLabel ) return;
+	 			if( !propertyInspector.itemLabels[property.id] ) return;
 	 			
 	 			if( !$scope.component.values[property.id] ) 
 	 				$scope.component.values[property.id] = new Array();
 	 			
-	 			$scope.component.values[property.id].push( {label:propertyInspector.itemLabel} );
+	 			$scope.component.values[property.id].push( {label:propertyInspector.itemLabels[property.id]} );
 	 			
 	 			for(var i=0;i<$scope.component.values[property.id].length;i++)
 	 				$scope.component.values[property.id][i].index = i;
 	 			
-	 			history.save( "Added <strong>" + propertyInspector.itemLabel + "</strong> to " + $scope.component.componentId + "'s " + property.id );
+	 			history.save( "Added <strong>" + propertyInspector.itemLabels[property.id] + "</strong> to " + $scope.component.componentId + "'s " + property.id );
 	 			
-	 			propertyInspector.itemLabel = null;
+	 			propertyInspector.itemLabels[property.id] = null;
 	 		};
 	 		
 	 		$scope.deleteArrayItem = function(property,index)

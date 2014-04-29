@@ -15,7 +15,7 @@ app.service
 					clone.componentId = definition.id;
 					clone.values = _.defaults(values,angular.copy(definition.values));
 					
-					var blacklist = ["$$hashKey","$delete","$get","$query","$remove","$save","__v","_id","abstract","autoLayoutChildren","container","created","name","properties","resizable","subcomponents"];
+					var blacklist = ["$$hashKey","$delete","$get","$query","$remove","$save","__v","_id","abstract","container","created","name","properties","resizable","subcomponents"];
 					
 					for(var p in definition)
 						if( blacklist.indexOf(p) > -1 )

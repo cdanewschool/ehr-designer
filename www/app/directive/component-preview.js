@@ -51,7 +51,8 @@ app.directive
 							//	whether in preview mode or not
 							var previewing = scope.canvas && scope.canvas.previewing;
 							
-							scope.showBorder = (!previewing && scope.componentDefinition.container);
+							scope.showBorder = (!previewing && scope.componentDefinition.container===true);
+							scope.cellsAreDroppable = (!previewing && scope.componentDefinition.container==="cell");
 							scope.isDroppable = (!previewing && !scope.isStatic && scope.definition.componentId!='label' && scope.definition.componentId!='image');
 							scope.isDraggable = (!previewing && !scope.isStatic);
 							
@@ -129,6 +130,19 @@ app.directive
 				 				
 				 				storeDimensions();
 							}
+				 			
+				 			if( scope.componentDefinition.properties["auto-layout-children"] )
+				 			{
+				 				scope.$watch
+								(
+									'definition.values["auto-layout-children"]',
+									function(newVal,oldVal)
+									{
+										if( newVal != oldVal )
+											update();
+									}
+								);
+				 			}
 						};
 						
 						var update = function()
@@ -138,21 +152,13 @@ app.directive
 							//	calculate size
 							var values = scope.definition && scope.definition.values ? scope.definition.values : {width:-1,height:-1};
 							
-							var w = values.width,h = values.height;
-							
-							var padding = _.defaults(values.padding||{},{top:0,right:0,bottom:0,left:0});
-							
-							w = values.width || 0;
-							h = values.height || 0;
-							
 							var hasChildren = scope.definition.children
 												&& scope.definition.children.length;
 							
-							if( scope.definition.componentId == "grid" )
+							if( scope.cellsAreDroppable
+								&& scope.definition.values 
+								&& scope.definition.values['auto-layout-children'] == true )
 							{
-								w = 0;
-								h = 0;
-								
 								//	lay-out children
 								for(var i = 0;i < scope.definition.children.length;i++)
 								{
@@ -164,27 +170,15 @@ app.directive
 								}
 							}
 							
-							var borderThickness = 2;	//TODO: get dynamically?
-							
-							if( scope.componentDefinition 
-									&& hasChildren )
-							{
-								if( w > -1 )
-									w += (padding.left + padding.right) + (borderThickness*2);
-								
-								if( h > -1 )
-									h += (padding.top + padding.bottom) + (borderThickness*2);
-							}
-							
 							var el = angular.element(element);
 							
 							if( values.position ) 
 								el.css("position",values.position);
 							
-							if( values.left ) 
+							if( values.left !== undefined ) 
 								el.css("left",values.left + "px");
 							
-							if( values.top ) 
+							if( values.top !== undefined ) 
 								el.css("top",values.top + "px");				
 						};
 
@@ -219,6 +213,8 @@ app.directive
 										update();
 								},true
 							);
+							
+							
 							
 							update();
 						}

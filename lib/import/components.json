@@ -3,7 +3,6 @@
 		"id":"ui_component",
 		"name":"UI Component",
 		"abstract":true,
-		"autoLayoutChildren":false,
 		"container":true,
 		"resizable":false,
 		"properties":
@@ -270,7 +269,7 @@
 			{
 				"id":"grid",
 				"name":"Grid",
-				"autoLayoutChildren":true,
+				"container":"cell",
 				"description":"Arrange a group of items",
 				"resizable":true,
 				"properties":
@@ -291,10 +290,16 @@
 						"id":"cell-size",
 						"editable":false,
 						"type":"object"
+					},
+					{
+						"id":"auto-layout-children",
+						"name":"Layout children",
+						"type":"boolean"
 					}
 				],
 				"values":
 				{
+					"auto-layout-children":true,
 					"cols":2,
 					"rows":2
 				},
@@ -303,20 +308,63 @@
 					{
 						"id":"table",
 						"name":"Table",
-						"binding":"multiple",
 						"properties":
 						[
 							{
 								"id":"headers",
+								"name":"Headers",
 								"type":"array"
+							},
+							{
+								"id":"bordered",
+								"name":"Bordered",
+								"type":"boolean"
+							},
+							{
+								"id":"striped",
+								"name":"Striped Rows",
+								"type":"boolean"
+							},
+							{
+								"id":"font-size",
+								"name":"Font Size",
+								"type":"object",
+								"parseExpression":"(\\d*)([a-z]*)",
+								"properties": 
+								[
+									{
+										"id":"size",
+										"name":"",
+										"type":"int"
+									},
+									{
+										"id":"unit",
+										"type":"enum",
+										"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
+									}
+								]
+							},
+							{
+								"id":"background-color",
+								"name":"Background Color",
+								"type":"color"
+							},
+							{
+								"id":"color",
+								"name":"Color",
+								"type":"color"
 							}
 						],
 						"values":
 						{
-							"headers":
-							[
-								"Name","Email","Phone"
-							]
+							"background-color": "#ffffff",
+							"bordered":true,
+							"headers":[{"label":"Name"},{"label":"Gender"}],
+							"color": "#000000",
+							"cols":2,
+							"rows":1,
+							"font-size":{"size":14,"unit":"px"},
+							"striped":true
 						}
 					}
 				]
@@ -758,6 +806,11 @@
 						]
 					},
 					{
+						"id":"auto-layout-children",
+						"name":"Layout children",
+						"type":"boolean"
+					},
+					{
 						"id":"background-color",
 						"name":"Background Color",
 						"type":"color"
@@ -775,6 +828,7 @@
 				],
 				"values":
 				{
+					"auto-layout-children":false,
 					"background-color": "#ffffff",
 					"color": "#ffffff",
 					"items":[{"label":"Tab 1"},{"label":"Tab 2"}],

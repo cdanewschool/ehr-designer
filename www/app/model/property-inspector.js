@@ -6,7 +6,7 @@ app.service
 		return {
 			fieldWithFocus:null,
 			
-			itemLabel:null,
+			itemLabels:{},
 			
 			selectedDataType: undefined,
 			selectedDataTypeField: undefined,

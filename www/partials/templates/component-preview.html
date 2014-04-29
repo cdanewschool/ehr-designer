@@ -229,7 +229,7 @@
 						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
 						 	ng-mouseover="onMouseEnter($event)" 
 						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
-						 	ng-class="{border:showBorder, dropTarget:(showBorder && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
 						 	ng-style="
 							{
 								'width':  definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].width ? definition.values['cell-size'][cellIndex].width : false,
@@ -237,6 +237,31 @@
 							}" 
 						 	resizable="definition.values['cell-size'][cellIndex]"> 
 						 	<div><div ng-repeat="child in definition.children | filter: getCellChildren"><component-preview component-definition='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+						 </td>
+					</tr>
+				</table>
+			</div>
+			
+			<div ng-if='definition.componentId=="table"' ng-mouseenter='mouseenter'>
+				<table class="table table-condensed" ng-class="{'table-bordered':definition.values.bordered,'table-striped':definition.values.striped}" 
+					ng-style="
+						{
+							'background-color':definition.values['background-color'],
+							'color':definition.values.color,
+							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit
+						}">
+					<thead ng-show="definition.values.headers">
+						<th ng-repeat="header in definition.values.headers">{{header.label}}</th>
+					</thead>
+					<tr ng-repeat="r in [] | range:definition.values.rows">
+						 <td 
+						 	ng-controller="CellCtrl" 
+						 	ng-repeat="c in [] | range:definition.values.cols" 
+						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
+						 	ng-mouseover="onMouseEnter($event)" 
+						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
+						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	><div><div ng-repeat="child in definition.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview component-definition='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>

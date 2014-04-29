@@ -44,6 +44,8 @@ app.service
 					dragModel.dragItem = item;
 					dragModel.dragProps = _.defaults(item.values||{},{width:event.toElement.scrollWidth,height:event.toElement.scrollHeight});
 					dragModel.dragElement = event.target;
+					
+					dragModel.startPosition = { left: ui.helper.css('left'), top: ui.helper.css('top') };
 				},
 				
 				onDragStop: function(event,ui)
@@ -53,9 +55,24 @@ app.service
 				
 				onDrop: function(event,ui,target)
 				{
+					var revert = function()
+					{
+						ui.draggable.css('left',dragModel.startPosition.left);
+						ui.draggable.css('top',dragModel.startPosition.top);
+					};
+					
 					if( !dragModel.dropTarget ) return;
 					if( target == dragModel.dragItem ) return;
-					if( !library.componentsIndexed[angular.element(event.target).attr('data-component-id')].container  ) return;
+					
+					var targetDefinition = library.componentsIndexed[angular.element(event.target).attr('data-component-id')];
+					
+					if( targetDefinition.container===false  ) return;
+					
+					if( targetDefinition.container === 'cell' 
+						&& target.values['auto-layout-children'] == true
+						&& target.id == dragModel.dragItem.pid 
+						&& dragModel.dragItem.parentIndex == dragModel.hoverIndex ) 
+						return revert();
 					
 					//	utility function for massaging points if snapping turned on
 					var snap = function( offset )
@@ -97,9 +114,6 @@ app.service
 					values = snap(values);
 					
 					var oldIndex = target.children.indexOf(dragModel.dragItem);
-					var parentId = target.componentId + (target.id?"_" + target.id:"");
-					
-					var componentId = dragModel.dragItem.componentId + (dragModel.dragItem.id?"_" + dragModel.dragItem.id:"");	//	only used for console logging
 					
 					//	set hoverIndex if set
 					if( dragModel.hoverIndex !== null 
@@ -135,8 +149,6 @@ app.service
 							target.children.push(dragModel.dragItem);
 							
 							historyService.save( "Detached " + library.componentsIndexed[dragModel.dragItem.componentId].name + " from " + library.componentsIndexed[parent.componentId].name + " to " + library.componentsIndexed[target.componentId].name );
-							
-							//console.log("Re-parenting " + componentId + " from " + parentId + " to " + target.id, target, parent );
 						}
 						else
 						{
@@ -147,8 +159,6 @@ app.service
 							target.children[oldIndex].values = values;
 							
 							historyService.save( "Repositioned " + library.componentsIndexed[dragModel.dragItem.componentId].name );
-							
-							//console.log("Updating " + componentId + " (" + parentId + ")", target );
 						}
 					}
 					//	item has been freshly added to stage
@@ -172,7 +182,7 @@ app.service
 				
 				onOver: function(event,ui,item)
 				{
-					if( !library.componentsIndexed[item.componentId].container ) 
+					if( library.componentsIndexed[item.componentId].container===false ) 
 						ui.helper.addClass("reject");
 					else
 						ui.helper.removeClass("reject");
@@ -190,7 +200,7 @@ app.service
 				
 				acceptDrop: function(item)
 				{
-					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container : true;
+					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
 					
 					return acceptable;
 				}

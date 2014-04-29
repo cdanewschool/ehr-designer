@@ -42,7 +42,7 @@
 								</div>
 								
 								<div class="col-sm-8" ng-switch-when="boolean">
-									<input class="form-control input-sm" type="checkbox" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component">
+									<input type="checkbox" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component">
 								</div>
 								
 								<div class="col-sm-8"  ng-switch-when="enum">
@@ -63,11 +63,11 @@
 								<div class="col-sm-8" ng-switch-when="array">
 									
 									<div class="row">
-										<div ng-class="{'col-sm-10':propertyInspector.itemLabel,'col-sm-12':!propertyInspector.itemLabel}">
-											<input class="form-control input-md" type="text" ng-model="propertyInspector.itemLabel" placeholder="New item" ng-disabled="property.id=='items' && component.datamap && component.datamap.value">
+										<div ng-class="{'col-sm-10':propertyInspector.itemLabels[property.id],'col-sm-12':!propertyInspector.itemLabels[property.id]}">
+											<input class="form-control input-md" type="text" ng-model="propertyInspector.itemLabels[property.id]" placeholder="Add new" ng-disabled="property.id=='items' && component.datamap && component.datamap.value">
 											<span class="text-muted small" ng-show="property.id=='items' && component.datamap && component.datamap.value">Disabled due to data mapping</span>
 										</div>
-										<div class="col-sm-2" ng-show="propertyInspector.itemLabel">
+										<div class="col-sm-2" ng-show="propertyInspector.itemLabels[property.id]">
 											<button type="button" class="close" ng-click="addArrayItem(property);">&#43;</button>
 										</div>
 									</div>
