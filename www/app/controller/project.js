@@ -12,7 +12,7 @@ app.controller
 	 			Project.query
 	 			(
 	 				{
-	 					userid: $rootScope.currentUser._id
+	 					userId: $rootScope.currentUser._id
 	 				},
 	 				function(response)
 	 				{
