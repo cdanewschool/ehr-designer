@@ -25,6 +25,11 @@ app.service
 			pendingPage: null,
 			previewing: false,
 			
+			privacyOptions: 
+				[
+				 	{value:"private",label:"Private"},
+				 	{value:"public",label:"Public"}
+				 ],
 			selection: null
 		};
 	}

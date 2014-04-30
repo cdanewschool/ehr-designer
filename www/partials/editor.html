@@ -1,6 +1,20 @@
 <!-- sidebar -->
 <div id="sidebar" ng-show="!canvas.previewing">
-
+	
+	<div class="alert alert-warning alert-dismissable" ng-show="canvas.errors.length">
+		<button type="button" class="close" aria-hidden="true" ng-click="canvas.errors = []">&times;</button>
+		<ul class="list-unstyled">
+			<li class="small" ng-repeat="error in canvas.errors">{{error}}</li>
+		</ul>
+	</div>
+	
+	<div class="alert alert-warning alert-dismissable" ng-show="canvas.messages.length">
+		<button type="button" class="close" aria-hidden="true" ng-click="canvas.messages = []">&times;</button>
+		<ul class="list-unstyled">
+			<li class="small" ng-repeat="message in canvas.messages">{{message}}</li>
+		</ul>
+	</div>
+	
 	<tabset>
 		
 		<!--	component library -->
@@ -52,7 +66,7 @@
 	    	<div class="panel panel-default">
 	    		<div class="panel-body">
 		    		<div id="history" class="list-group" ng-show="history.actions.length">
-						<a class="list-group-item small" ng-repeat="action in history.actions | orderBy:date" ng-click="revert(action)" ng-class="{active:action==history.currentAction}" ng-disabled="action.id>history.currentAction.id" ng-bind-html="action.name"></a>
+						<a class="list-group-item small" ng-repeat="action in history.actions track by $index | orderBy:date" ng-click="revert(action)" ng-class="{active:action==history.currentAction}" ng-disabled="action.id>history.currentAction.id" ng-bind-html="action.name"></a>
 					</div>
 					<span class="small text-muted" ng-show="!history.actions.length">No history to show</span>
 				</div>
@@ -79,54 +93,73 @@
 
 	<div ng-class="{minimized:canvas.selection!=null}">
 	
-		<div class="clearfix" ng-show="!canvas.previewing">
+		<div class="row clearfix" ng-show="!canvas.previewing">
 		
-			<ol class="breadcrumb pull-left">
-				<li ng-class="{active:canvas.currentSection==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentSection = null; canvas.currentPage = null">{{canvas.currentProject.content.name}}</a></li>
-				<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentSection"><a ng-click="canvas.currentPage = null">{{canvas.currentSection.name}}</a></li>
-				<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
-			</ol>
+			<div class="col-sm-8">
 			
-			<a class="btn btn-link btn-nav text-muted small pull-left" ng-click="editCurrentItem()">Edit Properties</a>
-			
-			<div class="inline-block" style="width:400px; margin: 0px 10px">
-			
-				<div class="alert alert-warning alert-dismissable" ng-show="canvas.errors.length">
-					<button type="button" class="close" aria-hidden="true" ng-click="canvas.errors = []">&times;</button>
-					<ul class="list-unstyled">
-						<li class="small" ng-repeat="error in canvas.errors">{{error}}</li>
-					</ul>
-				</div>
+				<ol class="breadcrumb pull-left">
+					<li ng-class="{active:canvas.currentSection==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentSection = null; canvas.currentPage = null">{{canvas.currentProject.content.name}}</a></li>
+					<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentSection"><a ng-click="canvas.currentPage = null">{{canvas.currentSection.name}}</a></li>
+					<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
+				</ol>
 				
-				<div class="alert alert-warning alert-dismissable" ng-show="canvas.messages.length">
-					<button type="button" class="close" aria-hidden="true" ng-click="canvas.messages = []">&times;</button>
-					<ul class="list-unstyled">
-						<li class="small" ng-repeat="message in canvas.messages">{{message}}</li>
-					</ul>
-				</div>
+				<a class="btn btn-link btn-nav text-muted small pull-left" ng-click="editCurrentItem()">Edit Properties</a>
 				
 			</div>
 			
-			<div class="btn-group pull-right">
-				<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addSection(true)"><span class="glyphicon glyphicon-plus" ng-disabled="!canvas.currentProject"> Section</button>
-				<button class="btn btn-default btn-small" ng-show="canvas.currentSection" ng-click="addPage(true)" ng-disabled="!canvas.currentSection"><span class="glyphicon glyphicon-plus"> Page</button>
+			<div class="col-sm-4">
+				
+				<div class="btn-group pull-right">
+					<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addSection(true)"><span class="glyphicon glyphicon-plus" ng-disabled="!canvas.currentProject"> Section</button>
+					<button class="btn btn-default btn-small" ng-show="canvas.currentSection" ng-click="addPage(true)" ng-disabled="!canvas.currentSection"><span class="glyphicon glyphicon-plus"> Page</button>
+				</div>
+				
 			</div>
 			
 		</div>
 		
 		<!-- sections in document -->
 		<div ng-if="canvas.currentProject && !canvas.currentSection">
-			<div class="alert alert-danger" ng-if="canvas.pendingSection!=null">
+			
+			<div class="row alert alert-danger" ng-if="canvas.pendingSection!=null">
+				
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.pendingSection=null">&times;</button>
 				<strong>Really delete this section and all of its pages?</strong>
 				<div class="btns">
 					<button type="button" class="btn btn-default" ng-click="canvas.pendingSection=null">No</button> <button type="button" class="btn btn-danger" ng-click="deleteSection(canvas.pendingSection); canvas.pendingSection = null">Yes</button>
 				</div>
+				
 			</div>
+			
+			<div class="well well-sm">
+				
+				<h4>Project Settings</h4>
+				
+				<form role="form" class="form-horizontal">
+			
+					<div class="form-group">
+						<label class="col-sm-2 control-label" style="text-align:left">This project is</label>
+						<div class="col-sm-4">
+							
+							<div>
+								<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions"></select>
+							</div>
+							
+							<span ng-show="canvas.currentProject.sharing=='private'" class="help-block">Only you will be able to see this project</span>
+							<span ng-show="canvas.currentProject.sharing=='public'" class="help-block">Everyone be able to see this project</span>
+							
+						</div>
+					</div>
+					
+				</form>
+				
+			</div>
+			
 			<div class="page thumb" ng-repeat="section in canvas.currentProject.content.children">
 				<a ng-click="selectSection(section)">{{section.name}}</a>
 				<a class="small" ng-click="canvas.pendingSection=section">Delete</a>
 			</div>
+			
 		</div>
 		
 		<!-- pages in section-->
