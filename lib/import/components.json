@@ -300,6 +300,7 @@
 				"values":
 				{
 					"auto-layout-children":true,
+					"cell-size":{},
 					"cols":2,
 					"rows":2
 				},

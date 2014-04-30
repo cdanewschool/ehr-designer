@@ -351,9 +351,6 @@ app.controller
 	 		
 	 		var setDefaultProperties = function(definition,instance)
 	 		{
-	 			if( !instance.values )
-	 				instance.values = {};
-	 			
 	 			angular.forEach
 	 			(
 	 				definition.properties,

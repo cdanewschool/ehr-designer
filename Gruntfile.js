@@ -12,7 +12,7 @@ module.exports = function(grunt)
 					command: [
 					          'npm install',
 					          'grunt html2js',
-					          'grunt build:accordion:collapse:dropdownToggle:modal:tabs'
+					          'grunt build:accordion:collapse:dropdownToggle:modal:tabs:tooltip'
 					          ].join('&&'),
 					options: {
 						execOptions: {

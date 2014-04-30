@@ -48,9 +48,6 @@ app.controller
 	 			$scope.col = col;
 	 			$scope.instanceDefinition = definition;
 	 			
-	 			if( !definition.values['cell-size'] )
-	 				definition.values['cell-size'] = {};
-	 				
 	 			update();
 	 		};
 	 		

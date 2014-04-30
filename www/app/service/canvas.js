@@ -74,15 +74,15 @@ app.service
 			 
 			 updateHash: function(update,updateSaved)
 			 {
-				 var content = canvas.currentProject ? canvas.currentProject.content : null;
+				 var content = canvas.currentProject ? angular.copy(canvas.currentProject.content) : null;
 				 
 				 if( update )
 					 canvas.hash.current = $base64.encode( JSON.stringify(content) );
 				
 				 if( updateSaved )
 					 canvas.hash.last = $base64.encode( JSON.stringify(content) );
-				
-				 canvas.dirty = ((canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) || (canvas.currentPage!=null && canvas.hash.current !== canvas.hash.last) || (canvas.currentSection!=null && canvas.hash.current !== canvas.hash.last)) ? true : false;
+				 
+				 canvas.dirty = (canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) ? true : false;
 			 }
 		 };
 		 
