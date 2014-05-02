@@ -31,6 +31,8 @@ app.factory
 				(
 					function(res)
 					{
+						$rootScope.currentUser = null;
+						
 						$cookieStore.remove('user');
 						
 						return callback();
