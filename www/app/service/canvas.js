@@ -2,8 +2,8 @@ app.service
 (
 	'CanvasService',
 	[
-	 '$rootScope','$base64','canvas','history',
-	 function($rootScope,$base64,canvas,history)
+	 '$rootScope','$base64','$q','canvas','history','library','Component',
+	 function($rootScope,$base64,$q,canvas,history,library,Component)
 	 {
 		 $rootScope.$on
 		 (
@@ -74,7 +74,7 @@ app.service
 			 
 			 updateHash: function(update,updateSaved)
 			 {
-				 var content = canvas.currentProject ? angular.copy(canvas.currentProject.content) : null;
+				 var content = canvas.currentProject ? angular.copy(canvas.currentProject) : null;
 				 
 				 if( update )
 					 canvas.hash.current = $base64.encode( JSON.stringify(content) );
@@ -83,7 +83,33 @@ app.service
 					 canvas.hash.last = $base64.encode( JSON.stringify(content) );
 				 
 				 canvas.dirty = (canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) ? true : false;
-			 }
+			 },
+			 
+			 getComponents: function()
+			 {
+				 var async = $q.defer();
+				
+				 Component.get
+				 (
+					{},
+					function(components)
+					{
+						var componentsIndexed = {};
+						
+						for(var c in components)
+							componentsIndexed[ components[c].id ] = components[c];
+						
+						library.components = components;
+						library.componentsIndexed = componentsIndexed;
+						
+						async.resolve();
+						
+						console.log( "components loaded", library.components, library.componentsIndexed );
+					}
+				);
+				
+				return async.promise;
+			}
 		 };
 		 
 		 return service;

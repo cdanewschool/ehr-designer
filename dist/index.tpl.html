@@ -31,15 +31,18 @@
 		          	</ul>
 		          	
 		        </li>
-		        
-		        <li ng-repeat="link in navigation">
-					<a href="{{link.url}}">{{link.title}}</a>
-				</li>
 				
 			</ul>
 			
-			<ul class="nav navbar-nav navbar-right" ng-show="currentUser">
-				<li ng-controller="UserCtrl"><a ng-click="logout()"><span class="text-muted">Logout</span></a></li>
+			<ul class="nav navbar-nav">
+				<li><a href="/browse">Browse</a></li>
+				<li ng-show="currentUser"><a href="/myprojects">My Projects</a></li>
+				<li><a href="/about">About</a></li>
+			</ul>
+			
+			<ul class="nav navbar-nav navbar-right" ng-controller="UserCtrl">
+				<li ng-show="!currentUser"><a href="/login"><span class="text-primary">Login</span></a></li>
+				<li ng-show="currentUser"><a ng-click="logout()"><span class="text-muted">Logout</span></a></li>
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right" ng-show="location.path().indexOf('/editor')>-1">

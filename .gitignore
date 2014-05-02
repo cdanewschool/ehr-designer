@@ -4,5 +4,6 @@
 bower_components/
 node_modules/
 www/app/config.js
+www/images/projects/
 
 index.html

@@ -17,7 +17,9 @@ app.config
 			 	.when("/",{templateUrl:"partials/main.html",controller:"UserCtrl"})
 			 	.when("/login",{templateUrl:"partials/login.html",controller:"UserCtrl"})
 			 	.when("/signup",{templateUrl:"partials/signup.html",controller:"UserCtrl"})
-			 	.when("/myprojects",{templateUrl:"partials/myprojects.html",controller:"ProjectCtrl"})
+			 	.when("/browse",{templateUrl:"partials/browse.html",controller:"BrowseCtrl"})
+			 	.when("/browse/:projectId",{templateUrl:"partials/browse.html",controller:"BrowseCtrl"})
+			 	.when("/myprojects",{templateUrl:"partials/myprojects.html",controller:"BrowseCtrl"})
 			 	.when("/editor",{templateUrl:"partials/editor.html",controller:"CanvasCtrl"})
 			 	.when("/editor/:projectId",{templateUrl:"partials/editor.html",controller:"CanvasCtrl"})
 			 	.when("/about",{templateUrl:"partials/about.html"})
@@ -32,13 +34,16 @@ app.run
 	{
 		var bounce = function()
 		{
-			// trim query string from path
+			// trim path
 			var path = $location.path();
 			
 			if( path.indexOf("?")>-1 )
 				path = path.substr(0,path.indexOf("?") );
 			
-			if (!$rootScope.currentUser && (['/login', '/logout', '/signup'].indexOf(path) == -1 )) 
+			if( path.lastIndexOf("/")>0 )
+				path = path.substr(0,path.lastIndexOf("/") );
+			
+			if (!$rootScope.currentUser && (['/about','/browse','/login','/logout', '/signup'].indexOf(path) == -1 )) 
 			{
 				Auth.currentUser();
 		    }

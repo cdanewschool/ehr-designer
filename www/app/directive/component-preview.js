@@ -9,7 +9,7 @@
 app.directive
 (
 	'componentPreview',
-	function($parse,$compile,library,FactoryService)
+	function($parse,$compile,library,canvas,FactoryService)
 	{
 		return {
 			restrict : 'EA',
@@ -60,7 +60,8 @@ app.directive
 							element.attr("data-component-id",scope.definition.componentId);
 							
 							//	show properties menu on click
-							if( (attrs.componentStatic == undefined || attrs.componentStatic != "true") )
+							if( scope.canvas 
+								&& (attrs.componentStatic == undefined || attrs.componentStatic != "true") )
 							{
 								if( !previewing )
 								{

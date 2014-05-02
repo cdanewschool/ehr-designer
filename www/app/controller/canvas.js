@@ -2,8 +2,8 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$modal','$routeParams','$q','$base64','canvas','library','template','history','Component','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
-		function($scope,$rootScope,$location,$modal,$routeParams,$q,$base64,canvas,library,template,history,Component,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
+		'$scope','$rootScope','$location','$modal','$routeParams','$base64','canvas','library','template','history','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,$base64,canvas,library,template,history,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
@@ -33,6 +33,15 @@ app.controller
 		 			
 		 			//	nullify current selection (hides property inspector)
 		 			canvas.selection = null;
+				}
+			);
+			
+			$rootScope.$on
+			(
+				'$locationChangeStart',
+				function()
+				{
+					canvas.previewing  =false;
 				}
 			);
 			
@@ -167,6 +176,11 @@ app.controller
 							},
 							function(response,err)
 							{
+								if( response.status == 403 )
+								{
+									$location.path( '/browse' );
+								}
+								
 								if( response.status == 500 )
 									$location.path( '/myprojects' )
 							}
@@ -182,7 +196,7 @@ app.controller
 					getSampleData();
 				
 				if( !library.components )
-					getComponents().then( initProject );
+					canvasService.getComponents().then( initProject );
 				else 
 					initProject();
 			};
@@ -222,32 +236,6 @@ app.controller
 						library.sampleData = sampleData;
 					}
 				);
-			};
-			
-			var getComponents = function()
-			{
-				var async = $q.defer();
-				
-				Component.get
-				(
-					{},
-					function(components)
-					{
-						var componentsIndexed = {};
-						
-						for(var c in components)
-							componentsIndexed[ components[c].id ] = components[c];
-						
-						library.components = components;
-						library.componentsIndexed = componentsIndexed;
-						
-						async.resolve();
-						
-						console.log( "components loaded", library.components, library.componentsIndexed );
-					}
-				);
-				
-				return async.promise;
 			};
 			
 			$scope.saveProject = function(callback)
@@ -319,6 +307,7 @@ app.controller
 				
 				canvas.currentProject = new Project();
 				canvas.currentProject.content = project;
+				canvas.currentProject.sharing = "private";
 				
 				if(showEdit)
 				{

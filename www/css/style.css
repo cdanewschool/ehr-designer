@@ -40,6 +40,14 @@ a[ng-click] { cursor: pointer; }
 
 .component-preview:not(.static).ng-data-drag.ui-draggable > div > .content > div:hover { background-color: #eee; }
 
+#project-preview {
+	position:absolute;
+	left:0px;
+	top:180px;
+	width:1000px;
+	height:800px;
+}
+
 .dropTarget { border: dashed 2px rgba(0, 0, 0, 1) !important;  }
 
 .thumb {
@@ -118,10 +126,8 @@ span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outlin
 	height: 100%;
 }
 
-//	debug styles
-/*
-.component-preview { border: solid 1px #1BBFA1; }
-.component-preview > div { border: solid 1px #7E7180; }
-.component-preview > div > .content { border: solid 1px #FF4F4B; }
-.component-preview > div > .content > div { border: solid 1px #133640; }
-*/
+/*	jqueryui overrides	*/
+.ui-state-disabled
+{
+	opacity: 1;
+}
