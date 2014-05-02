@@ -25,7 +25,7 @@ app.config
 			 	.when("/about",{templateUrl:"partials/about.html"})
 			 	.otherwise({redirectUrl:"/"});
 		 }
-	 ]	
+	 ]
 );
 
 app.run
@@ -43,7 +43,7 @@ app.run
 			if( path.lastIndexOf("/")>0 )
 				path = path.substr(0,path.lastIndexOf("/") );
 			
-			if (!$rootScope.currentUser && (['/about','/browse','/login','/logout', '/signup'].indexOf(path) == -1 )) 
+			if (!$rootScope.currentUser && (['/about','/browse','/login','/signup'].indexOf(path) == -1 )) 
 			{
 				Auth.currentUser();
 		    }

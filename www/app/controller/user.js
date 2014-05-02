@@ -9,7 +9,7 @@ app.controller
 		
 		$scope.errors = {};
 		$scope.user = {};
-
+		
 		if( $routeParams )
 		{
 			if( $routeParams.success )
@@ -65,25 +65,24 @@ app.controller
 		
 		$scope.logout = function()
 		{
-			var logout = function(){
+			var logout = function()
+			{
 				Auth.logout
 				(
-						function(err)
-						{
-							if( !err )
-								$location.path('/');
-						}
+					function(err)
+					{
+						if( !err )
+							$location.path('/');
+					}
 				);
 			};
 			
 			if( !canvas.dirty )
 			{
-				console.log($scope.canvas.dirty);
 				logout();
 			}
 			else
 			{
-				console.log(canvas.dirty);
 				navigation.showConfirm("You have unsaved changes. Would you like to save before creating a new project?").then
 				(
 					function()
@@ -110,7 +109,6 @@ app.controller
 					}
 				);
 			}
-			
 		};
 		
 		$scope.signup = function(form)
