@@ -150,6 +150,14 @@ app.controller
 							},
 							function(response)
 							{
+								//	disallow editing projects logged-in user does not own
+								if( response.creator._id != $rootScope.currentUser._id )
+								{
+									$location.path('/myprojects');
+									
+									return;
+								}
+								
 								canvas.currentProject = response;
 								
 								//	init local history with saved actions
