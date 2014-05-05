@@ -74,6 +74,16 @@ app.service
 						&& dragModel.dragItem.parentIndex == dragModel.hoverIndex ) 
 						return revert();
 					
+					var isNew = false;
+					
+					if( dragModel.dragItem.hasOwnProperty('__v') )
+					{
+						dragItem = angular.copy( dragModel.dragItem );
+						isNew = true;
+					}
+					else
+						dragItem = dragModel.dragItem;
+					
 					//	utility function for massaging points if snapping turned on
 					var snap = function( offset )
 					{
@@ -96,7 +106,7 @@ app.service
 							left: ui.offset.left - dragModel.dropTarget.offset().left,
 							top: ui.offset.top - dragModel.dropTarget.offset().top
 						},
-						dragModel.dragItem.values
+						dragItem.values
 					);
 					
 					//	set width, height and position if none
@@ -113,42 +123,42 @@ app.service
 					//	snap points to grid
 					values = snap(values);
 					
-					var oldIndex = target.children.indexOf(dragModel.dragItem);
+					var oldIndex = target.children.indexOf(dragItem);
 					
 					//	set hoverIndex if set
 					if( dragModel.hoverIndex !== null 
-						&& dragModel.dragItem.parentIndex !== dragModel.hoverIndex
-						&& dragModel.hover.id != dragModel.dragItem.id )
+						&& dragItem.parentIndex !== dragModel.hoverIndex
+						&& dragModel.hover.id != dragItem.id )
 					{
-						ui.draggable.remove();
+						if( !isNew ) ui.draggable.remove();
 						
-						dragModel.dragItem.parentIndex = dragModel.hoverIndex;
+						dragItem.parentIndex = dragModel.hoverIndex;
 						dragModel.hoverIndex = null;
 					}
-					else if( dragModel.dragItem.pid && target.id != dragModel.dragItem.pid )
+					else if( dragItem.pid && target.id != dragItem.pid )
 					{
-						delete dragModel.dragItem.parentIndex;
+						delete dragItem.parentIndex;
 					}
 					
 					//	item has already been added to stage
-					if( dragModel.dragItem.pid )
+					if( dragItem.pid )
 					{
 						//	item has been dragged to a new parent component
-						if( target.id != dragModel.dragItem.pid )
+						if( target.id != dragItem.pid )
 						{
 							ui.draggable.remove();
 							
 							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
 							values = _.defaults( position, values );
 							
-							utilities.remove(dragModel.dragItem);
+							utilities.remove(dragItem);
 							
-							dragModel.dragItem.values = values;
-							dragModel.dragItem.pid = target.id;
+							dragItem.values = values;
+							dragItem.pid = target.id;
 							
-							target.children.push(dragModel.dragItem);
+							target.children.push(dragItem);
 							
-							historyService.save( "Detached " + library.componentsIndexed[dragModel.dragItem.componentId].name + " from " + library.componentsIndexed[parent.componentId].name + " to " + library.componentsIndexed[target.componentId].name );
+							historyService.save( "Detached " + library.componentsIndexed[dragItem.componentId].name + " from " + library.componentsIndexed[parent.componentId].name + " to " + library.componentsIndexed[target.componentId].name );
 						}
 						else
 						{
@@ -158,7 +168,7 @@ app.service
 							
 							target.children[oldIndex].values = values;
 							
-							historyService.save( "Repositioned " + library.componentsIndexed[dragModel.dragItem.componentId].name );
+							historyService.save( "Repositioned " + library.componentsIndexed[dragItem.componentId].name );
 						}
 					}
 					//	item has been freshly added to stage
@@ -166,11 +176,11 @@ app.service
 					{
 						values = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
 						
-						var instance = factory.componentInstance(dragModel.dragItem,values,target);
+						var instance = factory.componentInstance(dragItem,values,target);
 						
 						target.children.push( instance );
 						
-						historyService.save( "Added a new " + dragModel.dragItem.name );
+						historyService.save( "Added a new " + dragItem.name );
 					}
 				},
 				
