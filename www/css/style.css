@@ -1,5 +1,5 @@
 html, body { height: 100%; }
-
+body { padding-top: 70px; }
 pre { font-size:.7em }
 
 div[ng-view] { height:100%;min-height:100%;position:relative; }
@@ -79,7 +79,7 @@ a[ng-click] { cursor: pointer; }
 
 .inline-block { display: inline-block; }
 
-td > div:empty { min-width: 20px; min-height: 20px; }
+td > div:first-child:empty { min-width: 20px; min-height: 20px; }
 
 input.document-title { border: none; width: auto; box-shadow: none; -webkit-box-shadow: none; }
 span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outline: none; padding: 5px 10px; }
