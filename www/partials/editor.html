@@ -1,5 +1,5 @@
 <!-- sidebar -->
-<div id="sidebar" ng-show="!canvas.previewing">
+<div id="sidebar" ng-show="!canvas.previewing" property-inspector-minimizer>
 	
 	<div class="alert alert-warning alert-dismissable" ng-show="canvas.errors.length">
 		<button type="button" class="close" aria-hidden="true" ng-click="canvas.errors = []">&times;</button>
@@ -98,7 +98,7 @@
 </div>
 
 <!-- canvas -->
-<div id="main" ng-init="init()">
+<div id="main" ng-init="init()" property-inspector-minimizer>
 
 	<div ng-class="{minimized:canvas.selection!=null}">
 	

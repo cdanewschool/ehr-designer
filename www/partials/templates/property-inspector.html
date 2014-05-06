@@ -1,122 +1,114 @@
 <div class="panel panel-default" >
 
-	<div class="panel-heading">Component Inspector <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.selection=null">&times;</button></div>
+	<div class="panel-heading">Property Inspector <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.selection=null">&times;</button></div>
   	
 	<div class="panel-body" class="container">
   	
-  		<accordion close-others="oneAtATime">
-
-			<accordion-group heading="Properties" is-open="true">
-		   	
-		   		<form role="form" class="form-horizontal">
+  		<form role="form" class="form-horizontal">
 					
-					<div class="form-group" ng-if="component.componentId=='image'">
-						<button type="button" class="btn btn-xs btn-link" ng-click="revertSize()" ng-disabled="component.values.width==component.values.origWidth && component.values.height==component.values.origHeight">Revert to original size ({{component.values.origWidth}} x {{component.values.origHeight}})</button>
-					</div>
-					
-					<div ng-repeat="property in definition.properties | filter:{editable:'!'}">
-				
-						<div class="form-group">
-							
-							<label class="control-label col-sm-4 small">
-							
-								{{property.name}} 
-								
-								<div>
-									<button type="button" class="btn btn-default btn-xs" ng-show="property.lockable" ng-class="{active:locked[property.id]===true}" ng-click="locked[property.id]=!locked[property.id]">
-										<span class="glyphicon glyphicon-link"></span>
-									</button>
-								</div>
-								
-							</label>
+			<div class="form-group" ng-if="component.componentId=='image'">
+				<button type="button" class="btn btn-xs btn-link" ng-click="revertSize()" ng-disabled="component.values.width==component.values.origWidth && component.values.height==component.values.origHeight">Revert to original size ({{component.values.origWidth}} x {{component.values.origHeight}})</button>
+			</div>
+			
+			<div ng-repeat="property in definition.properties | filter:{editable:'!'}">
 		
-							<div ng-switch="property.type">
-								
-								<div class="col-sm-8" ng-switch-when="string">
-									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component" ng-disabled="property.id=='text' && component.datamap && component.datamap.value">
-									<span class="text-muted small" ng-show="property.id=='text' && component.datamap">Disabled due to data mapping</span>
+				<div class="form-group">
+					
+					<label class="control-label col-sm-4 small">
+					
+						{{property.name}} 
+						
+						<div>
+							<button type="button" class="btn btn-default btn-xs" ng-show="property.lockable" ng-class="{active:locked[property.id]===true}" ng-click="locked[property.id]=!locked[property.id]">
+								<span class="glyphicon glyphicon-link"></span>
+							</button>
+						</div>
+						
+					</label>
+
+					<div ng-switch="property.type">
+						
+						<div class="col-sm-8" ng-switch-when="string">
+							<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component" ng-disabled="property.id=='text' && component.datamap && component.datamap.value">
+							<span class="text-muted small" ng-show="property.id=='text' && component.datamap">Disabled due to data mapping</span>
+						</div>
+						
+						<div class="col-sm-8" ng-switch-when="int">
+							<input class="form-control input-sm" type="number" ng-model="component.values[property.id]" min="0" history-action history-action-property="property" history-action-component="component">
+						</div>
+						
+						<div class="col-sm-8" ng-switch-when="boolean">
+							<input type="checkbox" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component">
+						</div>
+						
+						<div class="col-sm-8"  ng-switch-when="enum">
+							<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t.label as t.value for t in property.values" history-action history-action-property="property" history-action-component="component"></select>
+						</div>
+						
+						<div class="col-sm-8" ng-switch-when="color">
+							<div class="row">
+								<div class="col-sm-10">
+									<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" colorpicker history-action history-action-property="property" history-action-component="component">
 								</div>
-								
-								<div class="col-sm-8" ng-switch-when="int">
-									<input class="form-control input-sm" type="number" ng-model="component.values[property.id]" min="0" history-action history-action-property="property" history-action-component="component">
+								<div class="col-sm-2">
+									<button type="button" class="close" ng-class="{active:component.values[property.id]==='transparent'}" ng-click="setColorToTransparent(property)">&times;</button>
 								</div>
-								
-								<div class="col-sm-8" ng-switch-when="boolean">
-									<input type="checkbox" ng-model="component.values[property.id]" history-action history-action-property="property" history-action-component="component">
+							</div>
+						</div>
+						
+						<div class="col-sm-8" ng-switch-when="array">
+							
+							<div class="row">
+								<div ng-class="{'col-sm-10':propertyInspector.itemLabels[property.id],'col-sm-12':!propertyInspector.itemLabels[property.id]}">
+									<input class="form-control input-md" type="text" ng-model="propertyInspector.itemLabels[property.id]" placeholder="Add new" ng-disabled="property.id=='items' && component.datamap && component.datamap.value">
+									<span class="text-muted small" ng-show="property.id=='items' && component.datamap && component.datamap.value">Disabled due to data mapping</span>
 								</div>
-								
-								<div class="col-sm-8"  ng-switch-when="enum">
-									<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t.label as t.value for t in property.values" history-action history-action-property="property" history-action-component="component"></select>
+								<div class="col-sm-2" ng-show="propertyInspector.itemLabels[property.id]">
+									<button type="button" class="close" ng-click="addArrayItem(property);">&#43;</button>
 								</div>
-								
-								<div class="col-sm-8" ng-switch-when="color">
-									<div class="row">
-										<div class="col-sm-10">
-											<input class="form-control input-sm" type="text" ng-model="component.values[property.id]" colorpicker history-action history-action-property="property" history-action-component="component">
+							</div>
+							
+							<div ng-hide="property.id=='items' && component.datamap && component.datamap.value">
+							
+								<h6 class="text-muted">Existing Items:</h6>
+							
+								<div ui-sortable ng-model="component.values[property.id]">
+									
+									<div class="row" ng-repeat="item in component.values[property.id]">
+										<div class="col-sm-10 text-muted small">
+											{{$index+1}}. {{item.label}}
 										</div>
 										<div class="col-sm-2">
-											<button type="button" class="close" ng-class="{active:component.values[property.id]==='transparent'}" ng-click="setColorToTransparent(property)">&times;</button>
+											<button type="button" class="close" ng-click="deleteArrayItem(property,$index);">&#45;</button>
 										</div>
 									</div>
 								</div>
+							
+							</div>
+							
+						</div>
+						
+						<div class="col-sm-8"  ng-switch-when="object">
+						
+							<div class="row">
+							
+								<div class="col-xs-6" ng-repeat="subProperty in property.properties | filter:{editable:'!'}">
 								
-								<div class="col-sm-8" ng-switch-when="array">
+									<div ng-switch="subProperty.type">
 									
-									<div class="row">
-										<div ng-class="{'col-sm-10':propertyInspector.itemLabels[property.id],'col-sm-12':!propertyInspector.itemLabels[property.id]}">
-											<input class="form-control input-md" type="text" ng-model="propertyInspector.itemLabels[property.id]" placeholder="Add new" ng-disabled="property.id=='items' && component.datamap && component.datamap.value">
-											<span class="text-muted small" ng-show="property.id=='items' && component.datamap && component.datamap.value">Disabled due to data mapping</span>
+										<div ng-switch-when="string">
+											<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
+											<input class="form-control input-sm" type="text" ng-model="component.values[property.id][subProperty.id]" history-action history-action-property="property" history-action-component="component">
 										</div>
-										<div class="col-sm-2" ng-show="propertyInspector.itemLabels[property.id]">
-											<button type="button" class="close" ng-click="addArrayItem(property);">&#43;</button>
-										</div>
-									</div>
-									
-									<div ng-hide="property.id=='items' && component.datamap && component.datamap.value">
-									
-										<h6 class="text-muted">Existing Items:</h6>
-									
-										<div ui-sortable ng-model="component.values[property.id]">
-											
-											<div class="row" ng-repeat="item in component.values[property.id]">
-												<div class="col-sm-10 text-muted small">
-													{{$index+1}}. {{item.label}}
-												</div>
-												<div class="col-sm-2">
-													<button type="button" class="close" ng-click="deleteArrayItem(property,$index);">&#45;</button>
-												</div>
-											</div>
-										</div>
-									
-									</div>
-									
-								</div>
-								
-								<div class="col-sm-8"  ng-switch-when="object">
-								
-									<div class="row">
-									
-										<div class="col-xs-6" ng-repeat="subProperty in property.properties | filter:{editable:'!'}">
 										
-											<div ng-switch="subProperty.type">
-											
-												<div ng-switch-when="string">
-													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<input class="form-control input-sm" type="text" ng-model="component.values[property.id][subProperty.id]" history-action history-action-property="property" history-action-component="component">
-												</div>
-												
-												<div ng-switch-when="int">
-													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<input class="form-control input-sm" type="number" ng-model="component.values[property.id][subProperty.id]" ng-change="propagateChange(property,subProperty,component.values[property.id],component.values[property.id][subProperty.id])" min="{{component.values[property.id].min}}" history-action history-action-property="property" history-action-component="component">
-												</div>
-												
-												<div ng-switch-when="enum">
-													<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
-													<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t.label as t.value for t in subProperty.values" history-action history-action-property="property" history-action-component="component"></select>
-												</div>
-											
-											</div>
-											
+										<div ng-switch-when="int">
+											<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
+											<input class="form-control input-sm" type="number" ng-model="component.values[property.id][subProperty.id]" ng-change="propagateChange(property,subProperty,component.values[property.id],component.values[property.id][subProperty.id])" min="{{component.values[property.id].min}}" history-action history-action-property="property" history-action-component="component">
+										</div>
+										
+										<div ng-switch-when="enum">
+											<label class="small text-muted" ng-show="subProperty.name">{{subProperty.name}}</label>
+											<select class="form-control input-sm" ng-model="component.values[property.id][subProperty.id]" ng-options="t.label as t.value for t in subProperty.values" history-action history-action-property="property" history-action-component="component"></select>
 										</div>
 									
 									</div>
@@ -126,67 +118,65 @@
 							</div>
 							
 						</div>
-						
+					
 					</div>
-			
-					<div class="form-group" ng-show="component.binding">
-						
-						<label class="control-label col-sm-4 small">Bind to</label>
-						
-						<div class="col-sm-8" ng-show="component.binding=='single'">
-							
-							<div class="row">
-							
-								<div class="col-sm-6">
-									<select class="form-control input-sm" ng-model="component.datamap.type_id" ng-options="t.id as t.label for t in [{id:undefined,label:'------'}].concat(library.sampleDataTypes)"></select>
-								</div>
-								
-								<div class="col-sm-6">
-									<select class="form-control input-sm" ng-model="component.datamap.field_id" ng-options="t.id as t.label for t in [{id:undefined,label:'.______'}].concat(propertyInspector.selectedDataType.fields)" ng-show="propertyInspector.selectedDataType"></select>
-								</div>
-								
-							</div>
-							
-							<div class="row" ng-show="propertyInspector.selectedDataType && propertyInspector.selectedDataTypeField">
-							
-								<div class="col-sm-12">
-									<select class="form-control input-sm" ng-model="component.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(propertyInspector.selectedDataTypeData)" ng-show="propertyInspector.selectedDataTypeField"></select>
-								</div>
-								
-							</div>
-							
+					
+				</div>
+				
+			</div>
+	
+			<div class="form-group" ng-show="component.binding">
+				
+				<label class="control-label col-sm-4 small">Bind to</label>
+				
+				<div class="col-sm-8" ng-show="component.binding=='single'">
+					
+					<div class="row">
+					
+						<div class="col-sm-6">
+							<select class="form-control input-sm" ng-model="component.datamap.type_id" ng-options="t.id as t.label for t in [{id:undefined,label:'------'}].concat(library.sampleDataTypes)"></select>
 						</div>
 						
-						<div class="col-sm-8" ng-show="component.binding=='multiple'">
-							
-							<div class="row">
-							
-								<div class="col-sm-12">
-									<select class="form-control input-sm" ng-model="component.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(library.sampleData.bundle)  | filter : {'content.entry':'!null'}"></select>
-								</div>
-								
-							</div>
-							
+						<div class="col-sm-6">
+							<select class="form-control input-sm" ng-model="component.datamap.field_id" ng-options="t.id as t.label for t in [{id:undefined,label:'.______'}].concat(propertyInspector.selectedDataType.fields)" ng-show="propertyInspector.selectedDataType"></select>
 						</div>
 						
 					</div>
 					
-				</form>
-		
-				<div class="btn-group btn-group-justified">
-  					<div class="btn-group">
-  						<button type="button" class="btn btn-deafult" ng-click="restoreDefaults()">Restore Defaults</button>
-  					</div>
-  					<div class="btn-group">
-  						<button type="button" class="btn btn-danger" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteComponent" history-action="Deleted {{property.id}}">Delete</button>
-  					</div>
+					<div class="row" ng-show="propertyInspector.selectedDataType && propertyInspector.selectedDataTypeField">
+					
+						<div class="col-sm-12">
+							<select class="form-control input-sm" ng-model="component.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(propertyInspector.selectedDataTypeData)" ng-show="propertyInspector.selectedDataTypeField"></select>
+						</div>
+						
+					</div>
+					
 				</div>
-		
-		    </accordion-group>
+				
+				<div class="col-sm-8" ng-show="component.binding=='multiple'">
+					
+					<div class="row">
+					
+						<div class="col-sm-12">
+							<select class="form-control input-sm" ng-model="component.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(library.sampleData.bundle)  | filter : {'content.entry':'!null'}"></select>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>
 			
-		</accordion>
-	
-		
+		</form>
+
+		<div class="btn-group btn-group-justified">
+					<div class="btn-group">
+						<button type="button" class="btn btn-deafult" ng-click="restoreDefaults()">Restore Defaults</button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-danger" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteComponent" history-action="Deleted {{property.id}}">Delete</button>
+					</div>
+		</div>
 		
 	</div>
 	

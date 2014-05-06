@@ -70,12 +70,14 @@ app.directive
 										'click.select',
 										function(e)
 										{
-											e.stopImmediatePropagation();
-										
 											if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
 												scope.canvas.selection = null;
 											else
+											{
+												e.stopImmediatePropagation();
+												
 												scope.canvas.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
+											}
 											
 											scope.$apply();
 										}
