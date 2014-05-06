@@ -249,7 +249,7 @@
 								'width':  definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].width ? definition.values['cell-size'][cellIndex].width : false,
 								'height': definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].height ? definition.values['cell-size'][cellIndex].height : false
 							}" 
-						 	resizable="definition.values['cell-size'][cellIndex]"> 
+						 	resizable="definition.values['cell-size']" resizable-config="{handles:'e,s'}" resizable-cell="{cols:definition.values.cols,rows:definition.values.rows,index:cellIndex}"> 
 						 	<div><div ng-repeat="child in definition.children | filter: getCellChildren"><component-preview component-definition='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
