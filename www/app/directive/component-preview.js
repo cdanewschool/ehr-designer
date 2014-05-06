@@ -67,7 +67,7 @@ app.directive
 								{
 									element.on
 									(
-										'mousedown.select',
+										'click.select',
 										function(e)
 										{
 											e.stopImmediatePropagation();
@@ -83,7 +83,7 @@ app.directive
 								}
 								else
 								{
-									element.off('mousedown.select');
+									element.off('click.select');
 								}
 							}
 							
@@ -132,7 +132,8 @@ app.directive
 				 				storeDimensions();
 							}
 				 			
-				 			if( scope.componentDefinition.properties["auto-layout-children"] )
+				 			if( scope.componentDefinition.properties
+				 				&& scope.componentDefinition.properties["auto-layout-children"] )
 				 			{
 				 				scope.$watch
 								(
@@ -158,7 +159,8 @@ app.directive
 							
 							if( scope.cellsAreDroppable
 								&& scope.definition.values 
-								&& scope.definition.values['auto-layout-children'] == true )
+								&& scope.definition.values['auto-layout-children'] == true 
+								&& hasChildren )
 							{
 								//	lay-out children
 								for(var i = 0;i < scope.definition.children.length;i++)

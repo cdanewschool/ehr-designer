@@ -33,6 +33,12 @@ var fixtures =
     	schema:'component',
         data:'components',
         collection:'components'
+    },
+    {
+    	itemName:'Template',
+    	schema:'template',
+        data:'templates',
+        collection:'templates'
     }
 ];
 

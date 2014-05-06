@@ -204,7 +204,7 @@ app.controller
 					getSampleData();
 				
 				if( !library.components )
-					canvasService.getComponents().then( initProject );
+					canvasService.getComponents().then( canvasService.getTemplates ).then( initProject );
 				else 
 					initProject();
 			};
@@ -408,6 +408,40 @@ app.controller
 			{
 				if( canvas.currentSection.children[id] )
 					canvas.currentPage = canvas.currentSection.children[id];
+			};
+			
+			$scope.setTemplate = function(template)
+			{
+				if( !canvas.currentPage ) return;
+				
+				if( canvas.currentPage.children.length 
+					&& canvas.currentPage.children[0].id == template.id )
+				{
+					canvas.errors = ['Template "' + template.name + '" already set for this page'];
+					
+					return;
+				}
+				
+				var template = angular.copy(template);
+				template.pid = canvas.currentPage.id;
+				
+				if( canvas.currentPage.children.length )
+				{
+					navigation.showConfirm("Setting a template will overwrite the page's current contents. Proceed?").then
+					(
+						function()
+						{
+							canvas.currentPage.children = [ template ];
+						},
+						function()
+						{
+						}
+					);
+				}
+				else
+				{
+					canvas.currentPage.children = [ template ];
+				}
 			};
 			
 			$scope.clearCanvas = function()

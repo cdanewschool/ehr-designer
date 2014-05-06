@@ -34,7 +34,6 @@
 					</accordion>
 				</div>
 			</div>
-			
 	    </tab>
 	    
 		<!-- 	settings -->
@@ -42,6 +41,16 @@
 	    	
 	    	<div class="panel panel-default">
 	    		<div class="panel-body">
+	    			<accordion close-others="oneAtATime">
+			    		<accordion-group heading="Template" is-open="true">
+			    			<div class="list-group" ng-repeat="template in library.templates">
+			    				<a ng-click="setTemplate(template)" class="list-group-item">
+			    					<component-preview component-definition="template" component-static="true" style="width:100%;height:100px"></component-preview>
+			    					<h4>{{template.name}}</h4>
+			    				</a>
+					  		</div>
+						</accordion-group>
+					</accordion>
 		    		<accordion close-others="oneAtATime">
 				    	<accordion-group heading="Grid" is-open="true">
 				    		<accordion close-others="oneAtATime">

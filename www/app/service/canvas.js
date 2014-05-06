@@ -2,8 +2,8 @@ app.service
 (
 	'CanvasService',
 	[
-	 '$rootScope','$base64','$q','canvas','history','library','Component',
-	 function($rootScope,$base64,$q,canvas,history,library,Component)
+	 '$rootScope','$base64','$q','canvas','history','library','Component','Template',
+	 function($rootScope,$base64,$q,canvas,history,library,Component,Template)
 	 {
 		 $rootScope.$on
 		 (
@@ -105,6 +105,26 @@ app.service
 						async.resolve();
 						
 						console.log( "components loaded", library.components, library.componentsIndexed );
+					}
+				);
+				
+				return async.promise;
+			},
+			
+			getTemplates: function()
+			{
+				 var async = $q.defer();
+				
+				 Template.get
+				 (
+					{},
+					function(templates)
+					{
+						library.templates = templates;
+						
+						async.resolve();
+						
+						console.log( "templates loaded", library.templates );
 					}
 				);
 				

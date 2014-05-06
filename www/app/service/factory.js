@@ -10,6 +10,8 @@ app.service
 	 			
 				componentInstance: function(definition,values,parent)
 				{
+					values = values || {};
+					
 					var clone = angular.copy(definition);
 					clone.id = this.uniqueId();
 					clone.componentId = definition.id;
