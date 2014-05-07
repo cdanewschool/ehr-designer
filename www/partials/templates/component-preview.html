@@ -34,7 +34,7 @@
 			</div>
 			
 			<div 
-				ng-if='definition.componentId=="button" || definition.componentId=="iconbutton"' 
+				ng-if='definition.componentId=="button"' 
 				ng-mouseenter='dragService.onOver(definition)'>
 				<button 
 					class="btn btn-default target" 
@@ -61,7 +61,7 @@
 							'padding-left':definition.values.padding.left+'px',
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
-					<span class="glyphicon" ng-if="definition.componentId=='iconbutton'">
+					<span class="glyphicon" ng-if="definition.values.src">
 						<img ng-src='{{definition.values.src}}' style="height:14px;" />
 					</span> 
 					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
@@ -122,7 +122,7 @@
 						}"></select>
 			</div>
 			
-			<div ng-if='definition.componentId=="date" || definition.componentId=="datetime" || definition.componentId=="email" || definition.componentId=="month" || definition.componentId=="search" || definition.componentId=="tel" || definition.componentId=="time" || definition.componentId=="url" || definition.componentId=="week"'>
+			<div ng-if='definition.componentId=="dateinput" || definition.componentId=="telephoneinput"'>
 				<input 
 					class="form-control target" 
 					type="{{definition.values.type}}" 
@@ -146,7 +146,7 @@
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 			</div>
-			
+			 
 			<div ng-if='definition.componentId=="textinput"'>
 				<input 
 					class="form-control target" 
@@ -206,10 +206,10 @@
 						}"> {{item.label}}</span>
 			</div>
 			
-			<div ng-if='definition.componentId=="number" || definition.componentId=="range"'>
+			<div ng-if='definition.componentId=="numberinput"'>
 				<input 
 					class="target" 
-					ng-class="{'form-control':(definition.componentId!='range')}" 
+					ng-class="{'form-control':(definition.values.type!='range')}" 
 					ng-style="
 						{
 							'background-color':definition.values['background-color'],
