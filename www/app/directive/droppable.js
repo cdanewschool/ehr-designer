@@ -12,7 +12,7 @@ app.directive
 				element.removeAttr("droppable");
 				
 				element.attr("data-drop","true");
-				element.attr("jqyoui-droppable","{multiple:'true', stack:'true', onDrop: 'dragService.onDrop(definition)', onOver:'dragService.onOver(definition)'}");
+				element.attr("jqyoui-droppable","{multiple:'true', stack:'true', onDrop: 'dragService.onDrop(definition)', onOver:'dragService.onDragOver(definition)'}");
 				element.attr("data-jqyoui-options","{accept:dragService.acceptDrop,greedy:'true',tolerance:'pointer'}");
 				
 				return {

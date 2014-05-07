@@ -55,16 +55,6 @@ app.controller
 	 		{
 	 			return item.parentIndex == $scope.cellIndex;
 	 		};
-	 		
-	 		$scope.onMouseEnter = function(e)
-	 		{
-	 			if( $scope.isStatic ) return;
-	 			
-	 			e.stopImmediatePropagation();
-	 			
-	 			dragService.dragModel.hoverIndex = $scope.cellIndex;
-	 			dragService.dragModel.hover=$scope.instanceDefinition;
-	 		};
 	 	}
 	 ]
 );

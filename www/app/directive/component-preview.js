@@ -27,13 +27,6 @@ app.directive
 					pre: function preLink(scope, element, attrs) {},
 					post: function postLink(scope,element,attrs)
 					{
-						//	mouseenter handler
-						scope.mouseenter = function()
-						{
-							if( !scope.canvas.previewing && scope.dragService )
-								scope.dragService.dragModel.hover = scope.definition;
-						};
-						
 						var init = function()
 						{
 							if( !scope.definition ) return;

@@ -21,16 +21,13 @@ app.directive
 						{ 
 							var update = function()
 							{
-								if( scope.canvas.previewing )
-								{
-									$timeout
-									(
-										function()
-										{
-											iElement.draggable( scope.canvas.previewing ? 'disable' : 'enable')
-										},100
-									);
-								}
+								$timeout
+								(
+									function()
+									{
+										iElement.draggable( scope.canvas.previewing ? 'disable' : 'enable')
+									},100
+								);
 							};
 			        	   
 			        	   	scope.$watch
@@ -38,7 +35,8 @@ app.directive
 			        	   		'canvas.previewing',
 			        	   		function(newVal,oldVal)
 			        	   		{
-			        	   			update();
+			        	   			if( newVal != oldVal )
+			        	   				update();
 			        	   		}
 			        	   	);
 			        	   	

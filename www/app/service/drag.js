@@ -61,7 +61,6 @@ app.service
 						ui.draggable.css('top',dragModel.startPosition.top);
 					};
 					
-					if( !dragModel.dropTarget ) return;
 					if( target == dragModel.dragItem ) return;
 					
 					var targetDefinition = library.componentsIndexed[angular.element(event.target).attr('data-component-id')];
@@ -75,6 +74,8 @@ app.service
 						return revert();
 					
 					var isNew = false;
+					
+					var dropTarget = angular.element(event.target);
 					
 					if( dragModel.dragItem.hasOwnProperty('__v') )
 					{
@@ -103,8 +104,8 @@ app.service
 					var values = _.defaults
 					(
 						{
-							left: ui.offset.left - dragModel.dropTarget.offset().left,
-							top: ui.offset.top - dragModel.dropTarget.offset().top
+							left: ui.offset.left - dropTarget.offset().left,
+							top: ui.offset.top - dropTarget.offset().top
 						},
 						dragItem.values
 					);
@@ -148,7 +149,7 @@ app.service
 						{
 							ui.draggable.remove();
 							
-							var position = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
+							var position = snap( {left:ui.offset.left - dropTarget.offset().left,top:ui.offset.top - dropTarget.offset().top});
 							values = _.defaults( position, values );
 							
 							utilities.remove(dragItem);
@@ -174,7 +175,7 @@ app.service
 					//	item has been freshly added to stage
 					else
 					{
-						values = snap( {left:ui.offset.left - dragModel.dropTarget.offset().left,top:ui.offset.top - dragModel.dropTarget.offset().top});
+						values = snap( {left:ui.offset.left - dropTarget.offset().left,top:ui.offset.top - dropTarget.offset().top});
 						
 						var instance = factory.componentInstance(dragItem,values,target);
 						
@@ -187,10 +188,10 @@ app.service
 				onDrag: function(event,ui,item)
 				{
 					//console.log( event.target, event.currentTarget )
-					//console.log( 'drag', ui.offset.left + "," + ui.offset.top, dragModel.dropTarget ? dragModel.dropTarget.offset().left + "," + dragModel.dropTarget.offset().top : '', event.clientX + "," + event.clientY, (event.clientX - ui.offset.left) + ", " + (event.clientY - ui.offset.top) );
+					//console.log( 'drag', ui.offset.left + "," + ui.offset.top, dropTarget ? dropTarget.offset().left + "," + dropTarget.offset().top : '', event.clientX + "," + event.clientY, (event.clientX - ui.offset.left) + ", " + (event.clientY - ui.offset.top) );
 				},
 				
-				onOver: function(event,ui,item)
+				onDragOver: function(event,ui,item)
 				{
 					if( library.componentsIndexed[item.componentId].container===false ) 
 						ui.helper.addClass("reject");
@@ -202,10 +203,19 @@ app.service
 						return;
 					}
 					
-					dragModel.dropTarget = angular.element(event.target);
 					dragModel.hover = item;
+					dragModel.dropTarget = event.target;
 					
 					$rootScope.$apply();
+				},
+				
+				onOver: function(definition,index)
+				{
+					if( !canvas.previewing )
+					{
+						dragModel.hover = definition;
+						dragModel.hoverIndex = index;
+					}
 				},
 				
 				acceptDrop: function(item)
