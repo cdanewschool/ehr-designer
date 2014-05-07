@@ -26,7 +26,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
 				</span>
@@ -57,7 +58,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 					<span class="glyphicon" ng-if="definition.componentId=='iconbutton'">
 						<img ng-src='{{definition.values.src}}' style="height:14px;" />
@@ -91,7 +93,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 			</div>
 			
@@ -114,7 +117,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}"></select>
 			</div>
 			
@@ -138,7 +142,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 			</div>
 			
@@ -164,7 +169,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 			</div>
 
@@ -182,7 +188,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 					<input 
 						class="target" 
@@ -216,7 +223,8 @@
 							'padding-top':definition.values.padding.top+'px',
 							'padding-right':definition.values.padding.right+'px',
 							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
+							'padding-left':definition.values.padding.left+'px',
+							'pointer-events':canvas.previewing?'auto':'none'
 						}"
 					type="{{definition.values.type}}" 
 					value="{{definition.values.value}}" 
