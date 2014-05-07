@@ -25,7 +25,7 @@ app.controller
 	 		
 	 		$scope.placeChild = function(item)
 	 		{
-	 			var index = $scope.definition.values.items.indexOf(item);
+	 			var index = $scope.definition.values.tabs.indexOf(item);
 	 			
 	 			if( !$scope.definition.children )
 	 				$scope.definition.children = [];
@@ -36,11 +36,11 @@ app.controller
 	 		
 	 		var initTabs = function(l)
 	 		{
-	 			l = l || $scope.definition.values.items.length;
+	 			l = l || $scope.definition.values.tabs.length;
 	 			
 	 			var tabs = $scope.tabs.splice(0,l);
 					
-				for(var i=$scope.tabs.length-1;i<$scope.definition.values.items.length;i++)
+				for(var i=$scope.tabs.length-1;i<$scope.definition.values.tabs.length;i++)
 				{
 					tabs.push( {active:i==0} );
 				}
@@ -50,7 +50,7 @@ app.controller
 	 		
 	 		$scope.$watchCollection
 	 		(
-	 			'definition.values.items',
+	 			'definition.values.tabs',
 	 			function(newVal,oldVal)
 	 			{
 	 				if( newVal != oldVal )

@@ -20,6 +20,7 @@ a[ng-click] { cursor: pointer; }
 #main > div:nth-child(2) { display: none; width:0%; height: 100%; float: left; background: #fff; position: relative; }
 #main > div:nth-child(2).maximized { display: block; width: 25%; }
 
+.ui-draggable { cursor: move }
 .ui-draggable-dragging { pointer-events:none; }
 .ui-draggable-dragging.reject { color: #ff3300; }
 

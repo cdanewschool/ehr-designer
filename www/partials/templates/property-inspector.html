@@ -42,7 +42,7 @@
 						</div>
 						
 						<div class="col-sm-8"  ng-switch-when="enum">
-							<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t.label as t.value for t in property.values" history-action history-action-property="property" history-action-component="component"></select>
+							<select class="form-control input-sm" ng-model="component.values[property.id]" ng-options="t.value as t.label for t in property.values" history-action history-action-property="property" history-action-component="component"></select>
 						</div>
 						
 						<div class="col-sm-8" ng-switch-when="color">
@@ -74,12 +74,12 @@
 							
 								<div ui-sortable ng-model="component.values[property.id]">
 									
-									<div class="row" ng-repeat="item in component.values[property.id]">
+									<div class="row ui-draggable" ng-repeat="item in component.values[property.id]">
 										<div class="col-sm-10 text-muted small">
-											{{$index+1}}. {{item.label}}
+											<input class="form-control input-sm" type="text" ng-model="item.label">
 										</div>
 										<div class="col-sm-2">
-											<button type="button" class="close" ng-click="deleteArrayItem(property,$index);">&#45;</button>
+											<button ng-show="!$first" type="button" class="close" ng-click="deleteArrayItem(property,$index);">&#45;</button>
 										</div>
 									</div>
 								</div>

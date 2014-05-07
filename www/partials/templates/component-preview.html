@@ -101,8 +101,8 @@
 			<div ng-if='definition.componentId=="dropdown"'>
 				<select 
 					class="form-control target" 
-					ng-model="definition[ definition.datamap && definition.datamap.value ? 'datamap' : 'values' ][ definition.datamap && definition.datamap.value ? 'value' : 'items' ][0].id" 
-					ng-options="v.id as v.label for v in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.items)"
+					ng-model="definition[ definition.datamap && definition.datamap.value ? 'datamap' : 'values' ][ definition.datamap && definition.datamap.value ? 'value' : 'options' ][0].id" 
+					ng-options="v.id as v.label for v in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.options)"
 					ng-style="
 						{
 							'background-color':definition.values['background-color'],
@@ -175,22 +175,23 @@
 			</div>
 
 			<div ng-if='definition.componentId=="checkbox" || definition.componentId=="radio"'>
-				<span ng-repeat="item in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.items)"
-						ng-style="
-						{
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'display':definition.values['direction']=='horizontal'?'inline-block':'block',
-							'margin-top':definition.values.margin.top+'px',
-							'margin-right':definition.values.margin.right+'px',
-							'margin-bottom':definition.values.margin.bottom+'px',
-							'margin-left':definition.values.margin.left+'px',
-							'padding-top':definition.values.padding.top+'px',
-							'padding-right':definition.values.padding.right+'px',
-							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px',
-							'pointer-events':canvas.previewing?'auto':'none'
-						}">
+				<span 
+					ng-repeat="item in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.options)"
+					ng-style="
+					{
+						'color':definition.values.color,
+						'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
+						'display':definition.values['direction']=='horizontal'?'inline-block':'block',
+						'margin-top':definition.values.margin.top+'px',
+						'margin-right':definition.values.margin.right+'px',
+						'margin-bottom':definition.values.margin.bottom+'px',
+						'margin-left':definition.values.margin.left+'px',
+						'padding-top':definition.values.padding.top+'px',
+						'padding-right':definition.values.padding.right+'px',
+						'padding-bottom':definition.values.padding.bottom+'px',
+						'padding-left':definition.values.padding.left+'px',
+						'pointer-events':canvas.previewing?'auto':'none'
+					}">
 					<input 
 						class="target" 
 						type="{{definition.values.type}}"
@@ -299,7 +300,7 @@
 							'color':definition.values.color,
 							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit
 						}" 
-						ng-repeat="item in definition.values.items" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active" >
+						ng-repeat="item in definition.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active" >
 						<div resizable="definition.values" ng-style="
 						{
 							'background-color':definition.values['background-color'],

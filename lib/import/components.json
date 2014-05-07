@@ -379,8 +379,8 @@
 				"properties":
 				[
 					{
-						"id":"items",
-						"name":"Items",
+						"id":"options",
+						"name":"Options",
 						"type":"array"
 					},
 					{
@@ -420,7 +420,7 @@
 				],
 				"values":
 				{
-					"items":
+					"options":
 					[
 						{
 							"label":"My Item",
@@ -439,8 +439,8 @@
 				"properties":
 				[
 					{
-						"id":"items",
-						"name":"Items",
+						"id":"options",
+						"name":"Options",
 						"type":"array"
 					},
 					{
@@ -470,7 +470,7 @@
 					"type":"radio",
 					"direction":"horizontal",
 					"margin": {"top":0,"right":10,"bottom":0,"left":0},
-					"items":
+					"options":
 					[
 						{
 							"label":"My Radio"
@@ -485,7 +485,7 @@
 						"values":
 						{
 							"type":"checkbox",
-							"items":
+							"options":
 							[
 								{
 									"label":"My Checkbox"
@@ -783,8 +783,8 @@
 				"properties":
 				[
 					{
-						"id":"items",
-						"name":"Items",
+						"id":"tabs",
+						"name":"Tab Names",
 						"type":"array"
 					},
 					{
@@ -832,7 +832,7 @@
 					"auto-layout-children":false,
 					"background-color": "#ffffff",
 					"color": "#ffffff",
-					"items":[{"label":"Tab 1"},{"label":"Tab 2"}],
+					"tabs":[{"label":"Tab 1"},{"label":"Tab 2"}],
 					"font-size": {"size":14,"unit":"px"},
 					"tab-disabled-background-color": "#ffffff"
 				}
