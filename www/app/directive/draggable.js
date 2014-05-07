@@ -25,6 +25,8 @@ app.directive
 								(
 									function()
 									{
+										if( !iElement.data('ui-draggable') ) return;
+										
 										iElement.draggable( scope.canvas.previewing ? 'disable' : 'enable')
 									},100
 								);

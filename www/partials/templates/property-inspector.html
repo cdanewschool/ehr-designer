@@ -1,8 +1,8 @@
-<div class="panel panel-default" >
+<div class="panel panel-default">
 
 	<div class="panel-heading">Property Inspector <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.selection=null">&times;</button></div>
   	
-	<div class="panel-body" class="container">
+	<div class="panel-body">
   	
   		<form role="form" class="form-horizontal">
 					
@@ -68,11 +68,11 @@
 								</div>
 							</div>
 							
-							<div ng-hide="property.id=='items' && component.datamap && component.datamap.value">
+							<div ng-hide="property.id=='options' && component.datamap && component.datamap.value">
 							
 								<h6 class="text-muted">Existing Items:</h6>
 							
-								<div ui-sortable ng-model="component.values[property.id]">
+								<div ui-sortable ng-model="component.values[property.id]" style="height: 100%">
 									
 									<div class="row ui-draggable" ng-repeat="item in component.values[property.id]">
 										<div class="col-sm-10 text-muted small">
@@ -125,7 +125,7 @@
 				
 			</div>
 	
-			<div class="form-group" ng-show="component.binding">
+			<div ng-show="component.binding">
 				
 				<label class="control-label col-sm-4 small">Bind to</label>
 				
@@ -168,16 +168,20 @@
 			</div>
 			
 		</form>
-
-		<div class="btn-group btn-group-justified">
-					<div class="btn-group">
-						<button type="button" class="btn btn-deafult" ng-click="restoreDefaults()">Restore Defaults</button>
-					</div>
-					<div class="btn-group">
-						<button type="button" class="btn btn-danger" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteComponent" history-action="Deleted {{property.id}}">Delete</button>
-					</div>
-		</div>
 		
 	</div>
 	
+	<div class="panel-footer">
+		
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<button type="button" class="btn btn-deafult" ng-click="restoreDefaults()">Restore Defaults</button>
+				</div>
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteComponent" history-action="Deleted {{property.id}}">Delete</button>
+				</div>
+			</div>
+		
+		</div>
+		
 </div>

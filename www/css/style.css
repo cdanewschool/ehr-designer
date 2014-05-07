@@ -12,8 +12,11 @@ a[ng-click] { cursor: pointer; }
 
 #main { width: 80%; height: 100%; float:left; }
 
-#canvas { width:100%; height: 100%; position:absolute; left:0px; top: 45px; }
-#canvas > svg, #canvas > .component-preview { position:absolute; left:0px; top: 0px; width: 100%; height: 100% }
+#canvas, #project-preview  { width:1280px; height: 1050px; position:absolute; left:0px; top: 45px; }
+#canvas > svg, #canvas > .component-preview,
+#project-preview > svg, #project-preview > .component-preview { position:absolute; left:0px; top: 0px; width: 100%; height: 100% }
+
+#project-preview { top:180px; }
 
 #main > div:nth-child(1){ width: 100%; height: 100%; position: relative; float: left; }
 #main > div:nth-child(1).minimized { width: 75%; }
@@ -41,13 +44,7 @@ a[ng-click] { cursor: pointer; }
 
 .component-preview:not(.static).ng-data-drag.ui-draggable > div > .content > div:hover { background-color: #eee; }
 
-#project-preview {
-	position:absolute;
-	left:0px;
-	top:180px;
-	width:1000px;
-	height:800px;
-}
+#properties { z-index:1; }
 
 .dropTarget { border: dashed 2px rgba(0, 0, 0, 1) !important;  }
 
