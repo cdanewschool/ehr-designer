@@ -33,6 +33,8 @@ a[ng-click] { cursor: pointer; }
 
 .component-preview > div { width:100%; height:100%; position: relative; }
 .component-preview:not(.previewing) > div.active { box-shadow: 0px 0px 10px rgba(0, 0, 0, .5); padding: 3px; background-color: #fff; }
+.component-preview:not(.previewing) > div.active .target { background-color: #eee; }
+
 .component-preview > div > .content { position: relative; top: 0px; left: 0px; z-index: 1; }
 .component-preview:not(.static) > div > .content > div.img { width: auto; height: auto; }
 .component-preview:not(.static) > div > .content div.img > img { width: 100%; height: 100%; }
@@ -76,6 +78,7 @@ a[ng-click] { cursor: pointer; }
 .border-left { border-left: solid 1px; }
 
 .inline-block { display: inline-block; }
+.full-width { width:100%;height:100%;}
 
 td > div:first-child:empty { min-width: 20px; min-height: 20px; }
 

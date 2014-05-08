@@ -280,8 +280,14 @@
 					},
 					{
 						"id":"auto-layout-children",
-						"name":"Layout children",
+						"name":"Tile children",
 						"type":"boolean"
+					},
+					{
+						"id":"vertical-align",
+						"name":"Vertical Align",
+						"type":"enum",
+						"values":[{"value":"top","label":"Top"},{"value":"middle","label":"Middle"},{"value":"bottom","label":"Bottom"}]
 					}
 				],
 				"values":
@@ -289,7 +295,8 @@
 					"auto-layout-children":true,
 					"cell-size":{},
 					"cols":2,
-					"rows":2
+					"rows":2,
+					"vertical-align":"top"
 				},
 				"subcomponents":
 				[
@@ -403,8 +410,9 @@
 								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 							}
 						]
-					}
+					}					
 				],
+				"ignoreProperties":["padding"],
 				"values":
 				{
 					"options":

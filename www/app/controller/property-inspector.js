@@ -272,13 +272,15 @@ app.controller
 	 			propertyInspector.itemLabels[property.id] = null;
 	 		};
 	 		
-	 		$scope.deleteArrayItem = function(property,index)
+	 		$scope.deleteArrayItem = function(event,property,index)
 	 		{
+	 			event.stopPropagation();
+	 			
 	 			var value = $scope.component.values[property.id][index];
 	 			
 	 			$scope.component.values[property.id].splice( index, 1 );
 	 			
-	 			history.save( "Removed <strong>" + value.label + "</strong> from " + $scope.component.componentId + "'s " + property.id );
+	 			history.save( "Removed <strong>" + value.label + "</strong> from " + $scope.component.componentId + " " + property.id );
 	 		};
 	 		
 	 		$scope.restoreDefaults = function()
@@ -307,171 +309,11 @@ app.controller
 	 			history.save( "Changed " + $scope.component.componentId + "'s " + property.id + " from " + oldVal + " to <strong>transparent</strong>" );
 	 		};
 	 		
-	 		var getDefault = function(property)
-	 		{
-	 			switch( property.type )
-	 			{
-	 				case "object":
-	 					
-	 					var vals = {};
-						
-						for(var p in property.properties)
-							vals[ property.properties[p].id ] = getDefault(property.properties[p]);
-						
-						return vals;
-						
-						break;
-					
-	 				case "int":
-	 					
-	 					return 0;
-	 					
-	 					break;
-	 					
-	 				case "color":
-	 					
-	 					return "#000000";
-	 					
-	 					break;
-	 			}
-	 		};
-	 		
-	 		var rgbToHex = function(r, g, b) 
-	 		{
-	 			var componentToHex = function(c) 
-	 			{
-	 			    var hex = c.toString(16);
-	 			    return hex.length == 1 ? "0" + hex : hex;
-	 			};
-	 				
-	 			var hex = componentToHex(r) + componentToHex(g) + componentToHex(b);
-	 			
-	 		    return "#" + hex;
-	 		};
-	 		
-	 		var setDefaultProperties = function(definition,instance)
-	 		{
-	 			angular.forEach
-	 			(
-	 				definition.properties,
-	 				function(property)
-	 				{
-	 					if( !instance.values[property.id] )
-	 					{
-	 						//	 init properties of type object to empty object to prevent null pointer exception
-		 					if( property.type == "object" )
-		 						instance.values[property.id] = {};
-		 					
-		 					//	sync existing css to supported component properties
-		 					if( angular.element($scope.target).css(property.id) )
-		 					{
-		 						var cssValue = angular.element($scope.target).css(property.id);
-		 						
-		 						if( property.parseExpression )
-		 						{
-		 							var valueParts = cssValue.match( new RegExp(property.parseExpression) );
-		 							valueParts = _.compact(valueParts);
-		 							
-		 							if( valueParts ) valueParts.shift();	//	first element is just the matched string, which we don't need
-		 							
-		 							//	handle padding/margin seperately, due to shorthand syntax
-		 							if( valueParts 
-		 								&& (property.id == "padding" || property.id == "margin" ) )
-			 						{
-		 								//	two values specified (first applies to top/bottom, second to left/righ) so double the array
-			 							if( valueParts.length == 4 )
-			 							{
-			 								valueParts = valueParts.concat( valueParts.slice(0) );
-			 							}
-			 							//	one value specified, so clone the array 3 times
-			 							else if( valueParts.length == 2 )
-			 							{
-			 								var l = valueParts.length;
-			 								
-			 								for(var i = 0;i<3;i++)
-			 									valueParts = valueParts.concat( valueParts.slice(0,l) );
-			 							}
-			 							
-			 							//	grab the unit for the first value and apply universally
-			 							var unit = valueParts[1];
-			 							
-			 							for(var i=valueParts.length;i>0;i--)
-			 								if( isNaN(valueParts[i]) )
-			 									valueParts.splice(i,1);
-			 							
-			 							valueParts.push( unit );
-			 						}
-		 							
-		 							//	iterate over parsed property values and set on instance
-		 							angular.forEach
-		 				 			(
-		 				 				valueParts,
-		 				 				function(value,index)
-		 				 				{
-		 				 					if( value!= "" )
-		 				 					{
-		 				 						//	convert numeric values to Number
-			 				 					if( !isNaN(parseFloat(value)) )
-			 				 						value = parseFloat(value);
-			 				 					
-			 				 					if( property.type == "object" )
-			 				 						instance.values[property.id][ property.properties[index].id ] = value;
-			 				 					else
-			 				 						instance.values[property.id] = value;
-		 				 					}
-		 				 				}
-		 				 			);
-		 						}
-		 						else
-		 						{
-		 							var value = cssValue;
-			 						
-		 							//	if color and in rgb, convert to hex
-			 						if( property.type=='color' && value.match(/rgba*\((\d*),\s*(\d*),\s*(\d*),*\s*(\d*)\)/) )
-			 						{
-			 							var rgb = value.match(/rgba*\((\d*),\s*(\d*),\s*(\d*),*\s*(\d*)\)/);
-			 							value = '#' + ((1 << 24) + (parseInt(rgb[1]) << 16) + (parseInt(rgb[2]) << 8) + parseInt(rgb[3])).toString(16).substr(1);
-			 						}
-			 						
-		 							instance.values[property.id] = value;
-		 						}
-		 					}
-		 					else if( definition.values 
-		 							&& definition.values[property.id] )
-		 					{
-		 						instance.values[property.id] = definition.values[property.id];
-		 					}
-		 					else
-		 					{
-		 						instance.values[property.id] = getDefault( property );
-		 					}
-	 					}
-	 				}
-	 			);
-	 		};
-	 		
 	 		var init = function()
 	 		{
-	 			if( angular.element($scope.target).attr('data-initialized') == 'true' ) return;
-	 			
 	 			if( !$scope.definition ) return;
 	 			
-	 			propertyInspector.itemLabel = null;
-	 			
-	 			setDefaultProperties( $scope.definition, $scope.component );
-	 			
-	 			angular.forEach
-	 			(
-	 				$scope.component.children,
-	 				function(child)
-	 				{
-	 					setDefaultProperties(library.componentsIndexed[ child.componentId ],child); 
-	 				}
-	 			);
-	 			
-	 			angular.element($scope.target).attr('data-initialized', 'true' );
-	 			
-				$scope.$apply();
+	 			propertyInspector.itemLabels = {};
 	 		};
 	 	}
 	]

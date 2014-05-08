@@ -167,7 +167,13 @@ app.service
 							var position = snap( {left:ui.position.left,top:ui.position.top});
 							values = _.defaults( position, values );
 							
-							target.children[oldIndex].values = values;
+							try{
+								target.children[oldIndex].values = values;
+							}
+							catch(e)
+							{
+								console.log( target.children, oldIndex );
+							}
 							
 							historyService.save( "Repositioned " + library.componentsIndexed[dragItem.componentId].name );
 						}
@@ -209,8 +215,10 @@ app.service
 					$rootScope.$apply();
 				},
 				
-				onOver: function(definition,index)
+				onOver: function(event,definition,index)
 				{
+					event.stopPropagation();
+					
 					if( !canvas.previewing )
 					{
 						dragModel.hover = definition;
