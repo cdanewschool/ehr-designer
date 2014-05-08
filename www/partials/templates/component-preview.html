@@ -1,4 +1,5 @@
-<div class='component-preview' ng-class='{static:isStatic,root:!definition.pid,previewing:canvas && canvas.previewing,"full-width":definition.values.width && definition.values.width=="100%" || definition.values.height && definition.values.height=="100%"}'>
+<div class='component-preview' ng-class='{static:isStatic,root:!definition.pid,previewing:canvas && canvas.previewing,"full-width":definition.isTemplate && (definition.values.width && definition.values.width=="100%" || definition.values.height && definition.values.height=="100%")}'>
+
 	<!-- border -->
 	<div  ng-class='{border:(showBorder && definition.componentId!="grid"), active:(canvas.selection.instance==definition), dropTarget:(showBorder && definition.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
 
@@ -85,7 +86,9 @@
 							'padding-right':definition.values.padding.right+definition.values.padding.unit,
 							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
 							'padding-left':definition.values.padding.left+definition.values.padding.unit,
-							'pointer-events':canvas.previewing?'auto':'none'
+							'pointer-events':canvas.previewing?'auto':'none',
+							'width':definition.values.width,
+							'height':definition.values.height
 						}">
 			</div>
 			

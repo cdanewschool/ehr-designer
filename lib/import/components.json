@@ -250,6 +250,8 @@
 				],
 				"values":
 				{
+					"width":"30px",
+					"height":"30px",
 					"src":"images/placeholder.png"
 				}
 			},
