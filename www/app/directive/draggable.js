@@ -12,7 +12,7 @@ app.directive
 				element.removeAttr("draggable");
 				
 				element.attr("data-drag",true);
-				element.attr("jqyoui-draggable","{animate: false, onStart: 'dragService.onDragStart(definition)', onStop: 'dragService.onDragStop()', onDrag: 'dragService.onDrag(definition)', placeholder:'keep'}");
+				element.attr("jqyoui-draggable","{animate: false, onStart: 'dragService.onDragStart(instance)', onStop: 'dragService.onDragStop()', onDrag: 'dragService.onDrag(instance)', placeholder:'keep'}");
 				element.attr("data-jqyoui-options","{appendTo: 'body', cancel: '.previewing', helper: 'clone', revert: 'invalid'}");
 
 				return {

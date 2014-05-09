@@ -26,7 +26,7 @@
 			    			<accordion close-others="oneAtATime" ng-repeat="component in library.components | filter:componentFilter">
 			    				<accordion-group heading="{{component.name}}" is-open="false" style="border-radius:0px">
 			    					<p ng-show="component.description" class="small">{{component.description}}</p>
-					  				<component-preview component-definition="component" component-static="true" draggable drag-service="dragService" style="height:30px"></component-preview>
+					  				<component-preview component-instance="component" component-static="true" draggable drag-service="dragService" style="height:30px"></component-preview>
 					  			</accordion-group>
 					  		</accordion>
 						</accordion-group>
@@ -45,7 +45,7 @@
 			    		<accordion-group heading="Template" is-open="true">
 			    			<div class="list-group" ng-repeat="template in library.templates">
 			    				<a ng-click="setTemplate(template)" class="list-group-item">
-			    					<component-preview component-definition="template" component-static="true" style="width:100%;height:100px"></component-preview>
+			    					<component-preview component-instance="template" component-static="true" style="width:100%;height:100px"></component-preview>
 			    					<h4>{{template.name}}</h4>
 			    				</a>
 					  		</div>
@@ -189,7 +189,7 @@
 		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
 			
 			<!-- canvas -->
-			<component-preview component-definition="canvas.currentPage" component-static="false" droppable drag-service="dragService" canvas="canvas"></component-preview>
+			<component-preview component-instance="canvas.currentPage" component-static="false" droppable drag-service="dragService" canvas="canvas"></component-preview>
 			
 			<!-- canvas bg -->
 			<svg preserveAspectRatio="none" ng-show="!canvas.previewing && canvas.grid.visible">

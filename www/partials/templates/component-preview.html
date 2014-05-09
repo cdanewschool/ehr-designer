@@ -1,332 +1,332 @@
-<div class='component-preview' ng-class='{static:isStatic,root:!definition.pid,previewing:canvas && canvas.previewing,"full-width":definition.isTemplate && (definition.values.width && definition.values.width=="100%" || definition.values.height && definition.values.height=="100%")}'>
-
+<div class='component-preview' ng-class='{static:isStatic,root:!instance.pid,previewing:canvas && canvas.previewing,"full-width":instance.isTemplate && (instance.values.width && instance.values.width=="100%" || instance.values.height && instance.values.height=="100%")}'>
+	
 	<!-- border -->
-	<div  ng-class='{border:(showBorder && definition.componentId!="grid"), active:(canvas.selection.instance==definition), dropTarget:(showBorder && definition.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
+	<div  ng-class='{border:(showBorder && instance.componentId!="grid"), active:(canvas.selection.instance==instance), dropTarget:(showBorder && instance.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
 
 		<div class='content' style="width:100%;height:100%">
 			
-			<div ng-if='definition.componentId=="ui_component"' ng-repeat="child in definition.children" style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.onOver($event,definition)'>
-				<component-preview component-definition='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview>
+			<div ng-if='instance.componentId=="ui_component"' ng-repeat="child in instance.children" style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.onOver($event,instance)'>
+				<component-preview component-instance='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview>
 			</div>
 			
-			<div ng-if='definition.componentId=="text"' ng-mouseenter='dragService.onOver($event,definition)'>
+			<div ng-if='instance.componentId=="text"' ng-mouseenter='dragService.onOver($event,instance)'>
 				<span 
 					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
 					ng-style="
 						{
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
-							'padding-top':definition.values.padding.top+definition.values.padding.unit,
-							'padding-right':definition.values.padding.right+definition.values.padding.unit,
-							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-							'padding-left':definition.values.padding.left+definition.values.padding.unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
-					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
+					{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.text}}
 				</span>
 			</div>
 			
 			<div 
-				ng-if='definition.componentId=="button"' 
-				ng-mouseenter='dragService.onOver($event,definition)'>
+				ng-if='instance.componentId=="button"' 
+				ng-mouseenter='dragService.onOver($event,instance)'>
 				<button 
 					class="btn btn-default target" 
 					ng-class="
 						{
-							'text-left':definition.values.text-align=='left',
-							'text-center':definition.values.text-align=='center',
-							'text-right':definition.values.text-align=='right'
+							'text-left':instance.values.text-align=='left',
+							'text-center':instance.values.text-align=='center',
+							'text-right':instance.values.text-align=='right'
 						}"
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
-							'padding-top':definition.values.padding.top+definition.values.padding.unit,
-							'padding-right':definition.values.padding.right+definition.values.padding.unit,
-							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-							'padding-left':definition.values.padding.left+definition.values.padding.unit,
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
-					<span class="glyphicon" ng-if="definition.values.src">
-						<img ng-src='{{definition.values.src}}' style="height:14px;" />
+					<span class="glyphicon" ng-if="instance.values.src">
+						<img ng-src='{{instance.values.src}}' style="height:14px;" />
 					</span> 
-					{{definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.text}}
+					{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.text}}
 				</button>
 			</div>
 			
 			<div 
-				ng-if='definition.componentId=="image"' 
+				ng-if='instance.componentId=="image"' 
 				class='img' 
-				ng-mouseenter='dragService.onOver($event,definition)'
-				resizable="definition.values">
-				<img class='target' ng-src='{{definition.values.src}}' 
+				ng-mouseenter='dragService.onOver($event,instance)'
+				resizable="instance.values">
+				<img class='target' ng-src='{{instance.values.src}}' 
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
-							'padding-top':definition.values.padding.top+definition.values.padding.unit,
-							'padding-right':definition.values.padding.right+definition.values.padding.unit,
-							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-							'padding-left':definition.values.padding.left+definition.values.padding.unit,
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none',
-							'width':definition.values.width,
-							'height':definition.values.height
+							'width':instance.values.width,
+							'height':instance.values.height
 						}">
 			</div>
 			
-			<div ng-if='definition.componentId=="dropdown"'>
+			<div ng-if='instance.componentId=="dropdown"'>
 				<select 
 					class="form-control target" 
-					ng-model="definition[ definition.datamap && definition.datamap.value ? 'datamap' : 'values' ][ definition.datamap && definition.datamap.value ? 'value' : 'options' ][0].id" 
-					ng-options="v.id as v.label for v in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.options)"
+					ng-model="instance[ instance.datamap && instance.datamap.value ? 'datamap' : 'values' ][ instance.datamap && instance.datamap.value ? 'value' : 'options' ][0].id" 
+					ng-options="v.id as v.label for v in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.options)"
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}"></select>
 			</div>
 			
-			<div ng-if='definition.componentId=="dateinput" || definition.componentId=="telephoneinput"'>
+			<div ng-if='instance.componentId=="dateinput" || instance.componentId=="telephoneinput"'>
 				<input 
 					class="form-control target" 
-					type="{{definition.values.type}}" 
-					placeholder="{{definition.values.placeholder}}" 
-					value="{{!definition.values.placeholder ? definition.values.text : ''}}"
+					type="{{instance.values.type}}" 
+					placeholder="{{instance.values.placeholder}}" 
+					value="{{!instance.values.placeholder ? instance.values.text : ''}}"
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
-							'padding-top':definition.values.padding.top+definition.values.padding.unit,
-							'padding-right':definition.values.padding.right+definition.values.padding.unit,
-							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-							'padding-left':definition.values.padding.left+definition.values.padding.unit,
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 			</div>
 			 
-			<div ng-if='definition.componentId=="textinput"'>
+			<div ng-if='instance.componentId=="textinput"'>
 				<input 
 					class="form-control target" 
-					type="{{definition.values.type}}" 
-					placeholder="{{definition.values.placeholder}}" 
-					value="{{!definition.values.placeholder ? definition.values.text : ''}}"
-					maxlength="{{definition.values.maxlength}}"
-					size="{{definition.values.size}}"
+					type="{{instance.values.type}}" 
+					placeholder="{{instance.values.placeholder}}" 
+					value="{{!instance.values.placeholder ? instance.values.text : ''}}"
+					maxlength="{{instance.values.maxlength}}"
+					size="{{instance.values.size}}"
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
-							'padding-top':definition.values.padding.top+definition.values.padding.unit,
-							'padding-right':definition.values.padding.right+definition.values.padding.unit,
-							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-							'padding-left':definition.values.padding.left+definition.values.padding.unit,
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
 			</div>
 
 			<div 
-				ng-if='definition.componentId=="checkbox" || definition.componentId=="radio"' 
+				ng-if='instance.componentId=="checkbox" || instance.componentId=="radio"' 
 				ng-style="
 					{
-						'margin-top':definition.values.margin.top+definition.values.margin.unit,
-						'margin-right':definition.values.margin.right+definition.values.margin.unit,
-						'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-						'margin-left':definition.values.margin.left+definition.values.margin.unit
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit
 					}">
 				<span 
-					ng-repeat="item in (definition.datamap && definition.datamap.value ? definition.datamap.value : definition.values.options)"
+					ng-repeat="item in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.options)"
 					ng-style="
 					{
-						'color':definition.values.color,
-						'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-						'display':definition.values['direction']=='horizontal'?'inline-block':'block',
-						'padding-top':definition.values.padding.top+definition.values.padding.unit,
-						'padding-right':definition.values.padding.right+definition.values.padding.unit,
-						'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-						'padding-left':definition.values.padding.left+definition.values.padding.unit,
+						'color':instance.values.color,
+						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+						'display':instance.values['direction']=='horizontal'?'inline-block':'block',
+						'padding-top':instance.values.padding.top+instance.values.padding.unit,
+						'padding-right':instance.values.padding.right+instance.values.padding.unit,
+						'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+						'padding-left':instance.values.padding.left+instance.values.padding.unit,
 						'pointer-events':canvas.previewing?'auto':'none'
 					}">
 					<input 
 						class="target" 
-						type="{{definition.values.type}}"
+						type="{{instance.values.type}}"
 						name="radiogroup" 
 						ng-checked="$first" 
 						ng-value="item.id"
 						ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit
 						}"> {{item.label}}</span>
 			</div>
 			
-			<div ng-if='definition.componentId=="numberinput"'>
+			<div ng-if='instance.componentId=="numberinput"'>
 				<input 
 					class="target" 
-					ng-class="{'form-control':(definition.values.type!='range')}" 
+					ng-class="{'form-control':(instance.values.type!='range')}" 
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'border-color':definition.values['border-color'],
-							'border-width':definition.values['border-width'].size+definition.values['border-width'].unit,
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit,
-							'padding-top':definition.values.padding.top+definition.values.padding.unit,
-							'padding-right':definition.values.padding.right+definition.values.padding.unit,
-							'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-							'padding-left':definition.values.padding.left+definition.values.padding.unit,
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}"
-					type="{{definition.values.type}}" 
-					value="{{definition.values.value}}" 
-					min="{{definition.values.min}}" 
-					max="{{definition.values.max}}" 
-					step="{{definition.values.step}}"> 
+					type="{{instance.values.type}}" 
+					value="{{instance.values.value}}" 
+					min="{{instance.values.min}}" 
+					max="{{instance.values.max}}" 
+					step="{{instance.values.step}}"> 
 			</div>
 			
 			<div 
-				ng-if='definition.componentId=="grid"' 
-				ng-mouseenter='dragService.onOver($event,definition)'
+				ng-if='instance.componentId=="grid"' 
+				ng-mouseenter='dragService.onOver($event,instance)'
 				ng-style="
 					{
-						'width':  !isStatic && definition.isTemplate ? '100%' : 'auto',
-						'height': !isStatic && definition.isTemplate ? '100%' : 'auto'
+						'width':  !isStatic && instance.isTemplate ? '100%' : 'auto',
+						'height': !isStatic && instance.isTemplate ? '100%' : 'auto'
 					}">
 				<table ng-style="
 							{
-								'width': definition.isTemplate && definition.values.width ? definition.values.width : 'inherit',
-								'height': definition.isTemplate && definition.values.height ? definition.values.height : 'inherit'
+								'width': instance.isTemplate && instance.values.width ? instance.values.width : 'inherit',
+								'height': instance.isTemplate && instance.values.height ? instance.values.height : 'inherit'
 							}">
-					<tr ng-repeat="r in [] | range:definition.values.rows">
+					<tr ng-repeat="r in [] | range:instance.values.rows">
 						 <td 
 						 	ng-controller="CellCtrl" 
-						 	ng-repeat="c in [] | range:definition.values.cols" 
+						 	ng-repeat="c in [] | range:instance.values.cols" 
 						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
 						 	ng-mouseover="dragService.onOver($event,definition,cellIndex)" 
 						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
-						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==instance.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
 						 	ng-style="
 							{
-								'width':  definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].width ? definition.values['cell-size'][cellIndex].width : false,
-								'height': definition.values['cell-size'][cellIndex] && definition.values['cell-size'][cellIndex].height ? definition.values['cell-size'][cellIndex].height : false,
-								'margin-top':definition.values.margin.top+definition.values.margin.unit,
-								'margin-right':definition.values.margin.right+definition.values.margin.unit,
-								'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-								'margin-left':definition.values.margin.left+definition.values.margin.unit,
-								'padding-top':definition.values.padding.top+definition.values.padding.unit,
-								'padding-right':definition.values.padding.right+definition.values.padding.unit,
-								'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-								'padding-left':definition.values.padding.left+definition.values.padding.unit,
-								'vertical-align':definition.values['vertical-align']
+								'width':  instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].width ? instance.values['cell-size'][cellIndex].width : false,
+								'height': instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].height ? instance.values['cell-size'][cellIndex].height : false,
+								'margin-top':instance.values.margin.top+instance.values.margin.unit,
+								'margin-right':instance.values.margin.right+instance.values.margin.unit,
+								'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+								'margin-left':instance.values.margin.left+instance.values.margin.unit,
+								'padding-top':instance.values.padding.top+instance.values.padding.unit,
+								'padding-right':instance.values.padding.right+instance.values.padding.unit,
+								'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+								'padding-left':instance.values.padding.left+instance.values.padding.unit,
+								'vertical-align':instance.values['vertical-align']
 							}" 
-						 	resizable="definition.values['cell-size']" resizable-config="{handles:'e,s'}" resizable-cell="{cols:definition.values.cols,rows:definition.values.rows,index:cellIndex}"> 
-						 	<div><div ng-repeat="child in definition.children | filter: getCellChildren" style="display:inline-block"><component-preview component-definition='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+						 	resizable="instance.values['cell-size']" resizable-config="{handles:'e,s'}" resizable-cell="{cols:instance.values.cols,rows:instance.values.rows,index:cellIndex}"> 
+						 	<div><div ng-repeat="child in instance.children | filter: getCellChildren" style="display:inline-block"><component-preview component-instance='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>
 			</div>
 			
-			<div ng-if='definition.componentId=="table"' ng-mouseenter='dragService.onOver($event,definition)'>
-				<table class="table table-condensed" ng-class="{'table-bordered':definition.values.bordered,'table-striped':definition.values.striped}" 
+			<div ng-if='instance.componentId=="table"' ng-mouseenter='dragService.onOver($event,instance)'>
+				<table class="table table-condensed" ng-class="{'table-bordered':instance.values.bordered,'table-striped':instance.values.striped}" 
 					ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit,
-							'margin-top':definition.values.margin.top+definition.values.margin.unit,
-							'margin-right':definition.values.margin.right+definition.values.margin.unit,
-							'margin-bottom':definition.values.margin.bottom+definition.values.margin.unit,
-							'margin-left':definition.values.margin.left+definition.values.margin.unit
+							'background-color':instance.values['background-color'],
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit
 						}">
-					<thead ng-show="definition.values.headers">
-						<th ng-repeat="header in definition.values.headers">{{header.label}}</th>
+					<thead ng-show="instance.values.headers">
+						<th ng-repeat="header in instance.values.headers">{{header.label}}</th>
 					</thead>
-					<tr ng-repeat="r in [] | range:definition.values.rows">
+					<tr ng-repeat="r in [] | range:instance.values.rows">
 						 <td 
 						 	ng-controller="CellCtrl" 
-						 	ng-repeat="c in [] | range:definition.values.cols" 
+						 	ng-repeat="c in [] | range:instance.values.cols" 
 						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
 						 	ng-mouseover="dragService.onOver($event,definition,cellIndex)" 
 						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
-						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==definition.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==instance.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
 						 	ng-style="
 							{
-								'padding-top':definition.values.padding.top+definition.values.padding.unit,
-								'padding-right':definition.values.padding.right+definition.values.padding.unit,
-								'padding-bottom':definition.values.padding.bottom+definition.values.padding.unit,
-								'padding-left':definition.values.padding.left+definition.values.padding.unit,
+								'padding-top':instance.values.padding.top+instance.values.padding.unit,
+								'padding-right':instance.values.padding.right+instance.values.padding.unit,
+								'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+								'padding-left':instance.values.padding.left+instance.values.padding.unit,
 								'vertical-align': 'top'
-							}"><div><div ng-repeat="child in definition.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview component-definition='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+							}"><div><div ng-repeat="child in instance.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview component-instance='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>
 			</div>
 			
-			<div ng-if='definition.componentId=="tabs"' ng-controller="TabCtrl">
+			<div ng-if='instance.componentId=="tabs"' ng-controller="TabCtrl">
 				<tabset>
 					<tab ng-style="
 						{
-							'background-color':definition.values['tab-disabled-background-color'],
-							'color':definition.values.color,
-							'font-size':definition.values['font-size'].size+definition.values['font-size'].unit
+							'background-color':instance.values['tab-disabled-background-color'],
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit
 						}" 
-						ng-repeat="item in definition.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active" >
-						<div resizable="definition.values" ng-style="
+						ng-repeat="item in instance.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active" >
+						<div resizable="instance.values" ng-style="
 						{
-							'background-color':definition.values['background-color'],
-							'margin-top':definition.values.margin.top+'px',
-							'margin-right':definition.values.margin.right+'px',
-							'margin-bottom':definition.values.margin.bottom+'px',
-							'margin-left':definition.values.margin.left+'px',
-							'padding-top':definition.values.padding.top+'px',
-							'padding-right':definition.values.padding.right+'px',
-							'padding-bottom':definition.values.padding.bottom+'px',
-							'padding-left':definition.values.padding.left+'px'
-						}"><component-preview component-definition="definition.children[$index]" droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
+							'background-color':instance.values['background-color'],
+							'margin-top':instance.values.margin.top+'px',
+							'margin-right':instance.values.margin.right+'px',
+							'margin-bottom':instance.values.margin.bottom+'px',
+							'margin-left':instance.values.margin.left+'px',
+							'padding-top':instance.values.padding.top+'px',
+							'padding-right':instance.values.padding.right+'px',
+							'padding-bottom':instance.values.padding.bottom+'px',
+							'padding-left':instance.values.padding.left+'px'
+						}"><component-preview component-instance="instance.children[$index]" droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
 					</tab>
 				</tabset>
 			</div>

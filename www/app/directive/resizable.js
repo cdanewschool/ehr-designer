@@ -11,9 +11,9 @@ app.directive
 				{
 					if( !canvas.previewing
 						&& !scope.isStatic
-						&& scope.componentDefinition.resizable )
+						&& scope.definition.resizable )
 					{
-						var constrain = scope.componentDefinition.resizable && (typeof scope.componentDefinition.resizable == 'object') && scope.componentDefinition.resizable.constrain;
+						var constrain = scope.definition.resizable && (typeof scope.definition.resizable == 'object') && scope.definition.resizable.constrain;
 						
 						var options = 
 						{
@@ -80,7 +80,7 @@ app.directive
 									}
 								);									
 								
-								HistoryService.save( "Resized to " + scope.definition.values.width + " x " + scope.definition.values.height );
+								HistoryService.save( "Resized to " + scope.instance.values.width + " x " + scope.instance.values.height );
 							}
 						};
 						
@@ -101,7 +101,7 @@ app.directive
 				
 				scope.$watch
 				(
-					'isStatic + scope.componentDefinition.container + canvas.previewing',
+					'isStatic + scope.definition.container + canvas.previewing',
 					function(newVal,oldVal)
 					{
 						if( newVal != oldVal )

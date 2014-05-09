@@ -73,17 +73,10 @@ app.service
 						&& dragModel.dragItem.parentIndex == dragModel.hoverIndex ) 
 						return revert();
 					
-					var isNew = false;
+					var isNew = dragModel.dragItem.hasOwnProperty('__v');
 					
 					var dropTarget = angular.element(event.target);
-					
-					if( dragModel.dragItem.hasOwnProperty('__v') )
-					{
-						dragItem = angular.copy( dragModel.dragItem );
-						isNew = true;
-					}
-					else
-						dragItem = dragModel.dragItem;
+					var dragItem = dragModel.dragItem;
 					
 					//	utility function for massaging points if snapping turned on
 					var snap = function( offset )
@@ -124,8 +117,6 @@ app.service
 					//	snap points to grid
 					values = snap(values);
 					
-					var oldIndex = target.children.indexOf(dragItem);
-					
 					//	set hoverIndex if set
 					if( dragModel.hoverIndex !== null 
 						&& dragItem.parentIndex !== dragModel.hoverIndex
@@ -163,6 +154,17 @@ app.service
 						}
 						else
 						{
+							var oldIndex = -1;
+							
+							for(var i=0;i<target.children.length;i++)
+							{
+								if( JSON.stringify(target.children[i]) === JSON.stringify(dragItem) )
+								{
+									oldIndex = i;
+									continue;
+								}
+							}
+							
 							//	item has been repositioned
 							var position = snap( {left:ui.position.left,top:ui.position.top});
 							values = _.defaults( position, values );

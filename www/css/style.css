@@ -30,20 +30,15 @@ a[ng-click] { cursor: pointer; }
 .component-preview { display:inline-block; position: relative; width: auto; height: auto; }
 .component-preview.root.previewing { border: solid 1px; margin-left: 20px; }
 .component-preview.minimized { width: 75%; }
-
 .component-preview > div { width:100%; height:100%; position: relative; }
 .component-preview:not(.previewing) > div.active { box-shadow: 0px 0px 10px rgba(0, 0, 0, .5); padding: 3px; background-color: #fff; }
 .component-preview:not(.previewing) > div.active .target { background-color: #eee; }
-
 .component-preview > div > .content { position: relative; top: 0px; left: 0px; z-index: 1; }
 .component-preview:not(.static) > div > .content > div.img { width: auto; height: auto; }
 .component-preview:not(.static) > div > .content div.img > img { width: 100%; height: 100%; }
 .component-preview.static > div > .content > div.img, .component-preview.static > div > .content div.img > img { height: 100%; }
-
 .component-preview > div > .content:first-child { display: inline-block; }	/*	ensures element returns a width	*/
-
 .component-preview.static { width: auto; }
-
 .component-preview:not(.static).ng-data-drag.ui-draggable > div > .content > div:hover { background-color: #eee; }
 
 #properties { z-index:1; }
@@ -69,6 +64,10 @@ a[ng-click] { cursor: pointer; }
 	width: 200px;
 	height: 100px;
 }
+
+/*	media broser	*/
+.media-list { overflow-x: scroll; overflow-y: hidden; height: 150px; white-space: nowrap }
+.media-list > .thumbnail { display: inline-block; margin-right: 10px; }
 
 /*	utility	*/
 .border { border: dashed 2px rgba(200, 200, 200, 1); border-collapse:collapse; }

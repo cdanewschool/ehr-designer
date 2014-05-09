@@ -1,0 +1,52 @@
+<div class="modal-header" ng-init="find(true)">
+	<button type="button" class="close btn-lg" ng-click="$dismiss()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Media Browser</h4>
+</div>
+
+<div class="modal-body">
+	
+	<div ng-show="images && images.length">
+		
+		<h5>My Images</h5>
+		
+		<div class="media-list">
+		
+			<div ng-repeat="image in images | orderBy : 'created' : true" class="thumbnail">
+				 
+				 <div>
+				 	<a ng-click="$close(image)"><img ng-src="/image/?id={{image.id}}" style="height:100px"></a>
+				 </div>
+				 
+				 <a ng-click="delete(image)">Delete</a>
+				 
+			</div>
+			
+		</div>
+		
+	</div>
+	
+	<div>
+	
+		<h4>Upload</h4>
+		
+		<form name="form" role="form">
+		
+			<div class="form-group">
+				<input name="file" type="file" file-model="$parent.data">
+				<p class="help-block"
+					ng-show="$parent.errors.file">
+					{{$parent.errors.file}}
+				</p>
+			</div>
+			
+			<button class="btn btn-primary btn-sm" ng-disabled="!$parent.data" ng-click="upload()">Upload</button>
+			
+		</form>
+		
+	</div>
+	
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-default btn-lg" ng-click="$dismiss()">Close</button>
+</div>

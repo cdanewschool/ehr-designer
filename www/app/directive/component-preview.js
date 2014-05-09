@@ -9,7 +9,7 @@
 app.directive
 (
 	'componentPreview',
-	function($parse,$compile,$timeout,library,canvas,FactoryService)
+	function($rootScope,$parse,$compile,$timeout,library,canvas,FactoryService)
 	{
 		var getDefault = function(property)
  		{
@@ -163,7 +163,7 @@ app.directive
 			scope:{
 				isStatic: "=componentStatic",
 				canvas: "=canvas",
-				definition: "=componentDefinition",
+				instance: "=componentInstance",
 				dragService:"=dragService"
 			},
 			templateUrl:"partials/templates/component-preview.html",
@@ -176,34 +176,34 @@ app.directive
 					{
 						var init = function()
 						{
-							if( !scope.definition ) return;
+							if( !scope.instance ) return;
 							
 							//	set up scope
 							if( !scope.id ) scope.id = FactoryService.uniqueId();
 							
 							//	set component's definition, handling an unrecognized/invalid component id
-							if( !(scope.componentDefinition = library.componentsIndexed[scope.definition.componentId]) )
+							if( !(scope.definition = library.componentsIndexed[scope.instance.componentId]) )
 							{
-								scope.componentDefinition = { container: false };
-								scope.definition = { componentId: null };
+								scope.definition = { container: false };
+								scope.instance = { componentId: null };
 							}
 							
 							//	whether in preview mode or not
 							var previewing = scope.canvas && scope.canvas.previewing;
 							
-							scope.showBorder = (!previewing && scope.componentDefinition.container===true);
-							scope.cellsAreDroppable = (!previewing && scope.componentDefinition.container==="cell");
-							scope.isDroppable = (!previewing && !scope.isStatic && scope.definition.componentId!='label' && scope.definition.componentId!='image');
+							scope.showBorder = (!previewing && scope.definition.container===true);
+							scope.cellsAreDroppable = (!previewing && scope.definition.container==="cell");
+							scope.isDroppable = (!previewing && !scope.isStatic && scope.instance.componentId!='label' && scope.instance.componentId!='image');
 							scope.isDraggable = (!previewing && !scope.isStatic);
 							
 							//	store the component's id on the associated dom el so we can easily get the corresponding definition (see drag service)
-							element.attr("data-component-id",scope.definition.componentId);
+							element.attr("data-component-id",scope.instance.componentId);
 							
 							$timeout
 							(
 								function()
 								{
-									setDefaultProperties( scope.componentDefinition, scope.definition, angular.element(element).find('.target')[0] );
+									setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
 								},1
 							);
 							
@@ -218,13 +218,13 @@ app.directive
 										'click.select',
 										function(e)
 										{
-											if( !scope.definition.pid )	//	temp hack to disallow editing root canvas
+											if( !scope.instance.pid )	//	temp hack to disallow editing root canvas
 												scope.canvas.selection = null;
 											else
 											{
 												e.stopImmediatePropagation();
 												
-												scope.canvas.selection = {definition:scope.componentDefinition, instance: scope.definition, target: element.find('.target').get(0) };
+												scope.canvas.selection = {definition:scope.definition, instance: scope.instance, target: element.find('.target').get(0) };
 											}
 											
 											scope.$apply();
@@ -237,29 +237,29 @@ app.directive
 								}
 							}
 							
-				 			if( scope.definition.componentId == "image" )
+				 			if( scope.instance.componentId == "image" )
 							{
 								//	store original dimensions on init and <src> change
 				 				var storeDimensions = function(revert)
 				 				{
 				 					//	TODO: we shouldnt' have to do this if properly cleaned up on destroy
-				 					if( !scope.definition ) return;
+				 					if( !scope.instance ) return;
 				 					
 				 					revert = revert || false;
 				 					
 				 					$('<img/>')
-				 						.attr('src',scope.definition.values.src)
+				 						.attr('src',scope.instance.values.src)
 				 						.load
 					 					(
 					 						function(e)
 					 						{
-					 							scope.definition.values.origWidth = this.width;
-					 							scope.definition.values.origHeight = this.height;
+					 							scope.instance.values.origWidth = this.width;
+					 							scope.instance.values.origHeight = this.height;
 					 							
 					 							if( revert )
 					 							{
-					 								scope.definition.values.width = scope.definition.values.origWidth;
-						 							scope.definition.values.height = scope.definition.values.origHeight;
+					 								scope.instance.values.width = scope.instance.values.origWidth;
+						 							scope.instance.values.height = scope.instance.values.origHeight;
 					 							}
 					 							
 					 							scope.$apply();
@@ -269,7 +269,7 @@ app.directive
 				 				
 				 				scope.$watch
 				 		 		(
-				 		 			'definition.values.src',
+				 		 			'instance.values.src',
 				 		 			function(newVal,oldVal)
 				 		 			{
 				 		 				if( newVal != oldVal )
@@ -282,12 +282,12 @@ app.directive
 				 				storeDimensions();
 							}
 				 			
-				 			if( scope.definition.values
-				 				&& scope.definition.values["auto-layout-children"]!==undefined )
+				 			if( scope.instance.values
+				 				&& scope.instance.values["auto-layout-children"]!==undefined )
 				 			{
 				 				scope.$watch
 								(
-									'definition.values["auto-layout-children"]',
+									'instance.values["auto-layout-children"]',
 									function(newVal,oldVal)
 									{
 										if( newVal != oldVal )
@@ -299,23 +299,23 @@ app.directive
 						
 						var update = function()
 						{
-							if( !scope.definition ) return;
+							if( !scope.instance ) return;
 							
 							//	calculate size
-							var values = scope.definition && scope.definition.values ? scope.definition.values : {width:-1,height:-1};
+							var values = scope.instance && scope.instance.values ? scope.instance.values : {width:-1,height:-1};
 							
-							var hasChildren = scope.definition.children
-												&& scope.definition.children.length;
+							var hasChildren = scope.instance.children
+												&& scope.instance.children.length;
 							
 							if( scope.cellsAreDroppable
-								&& scope.definition.values 
-								&& scope.definition.values['auto-layout-children'] == true 
+								&& scope.instance.values 
+								&& scope.instance.values['auto-layout-children'] == true 
 								&& hasChildren )
 							{
 								//	lay-out children
-								for(var i = 0;i < scope.definition.children.length;i++)
+								for(var i = 0;i < scope.instance.children.length;i++)
 								{
-									var child = scope.definition.children[i];
+									var child = scope.instance.children[i];
 									
 									child.values.left = 0;
 									child.values.top = 0;
@@ -335,11 +335,11 @@ app.directive
 								el.css("top",values.top + "px");				
 						};
 
-						if( !scope.definition ) 
+						if( !scope.instance ) 
 						{
 							scope.$watch
 							(
-								'definition',
+								'instance',
 								function(newVal,oldVal)
 								{
 									if( newVal != oldVal )
@@ -359,7 +359,7 @@ app.directive
 						{
 							scope.$watch
 							(
-								'definition',
+								'instance',
 								function(newVal,oldVal)
 								{
 									if( newVal != oldVal )
@@ -378,6 +378,31 @@ app.directive
 								if( newVal != oldVal )
 								{
 									init();
+								}
+							}
+						);
+						
+						$rootScope.$on
+						(
+							'restoreDefaults',
+							function(e,args)
+							{
+								if( args 
+									&& args[0] === scope.instance )
+								{
+									scope.instance.values = angular.copy(scope.definition.values);
+						 			scope.instance.datamap = null;
+						 			
+						 			$timeout
+					 				(
+					 					function()
+					 					{
+					 						setDefaultProperties( scope.definition, scope.instance );
+					 						
+					 						scope.$apply();
+					 					},
+					 					1000
+					 				);
 								}
 							}
 						);
