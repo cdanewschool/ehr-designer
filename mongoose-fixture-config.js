@@ -44,6 +44,8 @@ var fixtures =
 
 // load fixture listings
 fixtureConfig.fixtureListings.set('all', fixtures);
+fixtureConfig.fixtureListings.set('components', [fixtures[0]]);
+fixtureConfig.fixtureListings.set('templates', [fixtures[1]]);
 
 // export the config
 module.exports = fixtureConfig;
