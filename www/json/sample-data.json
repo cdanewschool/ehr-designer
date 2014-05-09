@@ -74,6 +74,10 @@
 		      		}
 		    	]
 		  	},
+		  	"photo":
+		  	{
+		  		"url": "images/default/patient.jpg"
+		  	},
 		  	"telecom": 
 		  	[
     			{

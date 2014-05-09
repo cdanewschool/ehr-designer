@@ -21,7 +21,8 @@ app.service
 			 		 	{ label: ".gender",id: "gender.coding[0].display" },
 			 		 	{ label: ".birthdate",id: "birthDate" },
 			 		 	{ label: ".email",id: "telecom.system[1].value" },
-			 		 	{ label: ".phone",id: "telecom.system[0].value" }
+			 		 	{ label: ".phone",id: "telecom.system[0].value" },
+			 		 	{ label: ".picture",id: "photo.url" }
 			 		 ]
 			 	}
 			]

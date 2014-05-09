@@ -29,9 +29,9 @@
 					<div ng-switch="property.type">
 						
 						<div class="col-sm-8" ng-switch-when="string">
-							<input class="form-control input-sm" type="text" ng-model="instance.values[property.id]" history-action history-action-property="property" history-action-component="component" ng-disabled="property.id=='text' && instance.datamap && instance.datamap.value">
-							<span class="text-muted small" ng-show="property.id=='text' && instance.datamap">Disabled due to data mapping</span>
-							<div ng-show="property.id=='src'">
+							<input class="form-control input-sm" type="text" ng-model="instance.values[property.id]" history-action history-action-property="property" history-action-component="component" ng-disabled="(property.id=='text' || property.id=='src') && (instance.datamap && instance.datamap.value)">
+							<span class="text-muted small" ng-show="(property.id=='text' || property.id=='src') && (instance.datamap && instance.datamap.value)">Disabled due to data mapping</span>
+							<div ng-show="property.id=='src' && !(instance.datamap && instance.datamap.value)">
 								<button type="button" class="btn btn-link btn-xs" ng-click="selectMedia(instance.values,property)">Media Browser</button>
 							</div>
 						</div>
@@ -127,21 +127,21 @@
 				</div>
 				
 			</div>
-	
+			
 			<div ng-show="instance.binding">
 				
 				<label class="control-label col-sm-4 small">Bind to</label>
 				
-				<div class="col-sm-8" ng-show="instance.binding=='single'">
+				<div class="col-sm-8" ng-show="instance.binding.dataType=='object'">
 					
 					<div class="row">
 					
 						<div class="col-sm-6">
-							<select class="form-control input-sm" ng-model="instance.datamap.type_id" ng-options="t.id as t.label for t in [{id:undefined,label:'------'}].concat(library.sampleDataTypes)"></select>
+							<select class="form-control input-sm" ng-model="instance.datamap.type_id" ng-options="t.id as t.label for t in [{id:undefined,label:'------'}].concat(library.sampleDataTypes) | filter:includeBindableDataType"></select>
 						</div>
 						
 						<div class="col-sm-6">
-							<select class="form-control input-sm" ng-model="instance.datamap.field_id" ng-options="t.id as t.label for t in [{id:undefined,label:'.______'}].concat(propertyInspector.selectedDataType.fields)" ng-show="propertyInspector.selectedDataType"></select>
+							<select class="form-control input-sm" ng-model="instance.datamap.field_id" ng-options="t.id as t.label for t in [{id:undefined,label:'.______'}].concat(propertyInspector.selectedDataType.fields) | filter:includeBindableField" ng-show="propertyInspector.selectedDataType"></select>
 						</div>
 						
 					</div>
@@ -156,7 +156,7 @@
 					
 				</div>
 				
-				<div class="col-sm-8" ng-show="instance.binding=='multiple'">
+				<div class="col-sm-8" ng-show="instance.binding.dataType=='list'">
 					
 					<div class="row">
 					

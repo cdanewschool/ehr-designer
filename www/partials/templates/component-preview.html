@@ -70,7 +70,7 @@
 				class='img' 
 				ng-mouseenter='dragService.onOver($event,instance)'
 				resizable="instance.values">
-				<img class='target' ng-src='{{instance.values.src}}' 
+				<img class='target' ng-src='{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.src}}' 
 					ng-style="
 						{
 							'background-color':instance.values['background-color'],

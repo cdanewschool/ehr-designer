@@ -110,7 +110,7 @@
 				"id":"text",
 				"name":"Text",
 				"container":false,
-				"binding":"single",
+				"binding":{"dataType":"object"},
 				"properties":
 				[
 					{
@@ -152,7 +152,7 @@
 				"id":"button",
 				"name":"Button",
 				"container":false,
-				"binding":"single",
+				"binding":{"dataType":"object"},
 				"properties":
 				[
 					{
@@ -203,7 +203,7 @@
 				"values":
 				{
 					"text":"My Button",
-					"src":"images/placeholder.png"
+					"src":"images/default/placeholder.png"
 				}
 			},
 			{
@@ -211,6 +211,7 @@
 				"name":"Image",
 				"container":false,
 				"resizable":{ "constrain": true },
+				"binding":{"dataType":"object","fields":[{"id":"patient","path":"photo.url"}]},
 				"properties":
 				[
 					{
@@ -252,7 +253,7 @@
 				{
 					"width":"30px",
 					"height":"30px",
-					"src":"images/placeholder.png"
+					"src":"images/default/placeholder.png"
 				}
 			},
 			{
@@ -371,7 +372,7 @@
 				"name":"Dropdown",
 				"abstract":false,
 				"container":false,
-				"binding":"multiple",
+				"binding":{"dataType":"list"},
 				"properties":
 				[
 					{
@@ -431,7 +432,7 @@
 				"id":"radio",
 				"name":"Radio Button",
 				"container":false,
-				"binding":"multiple",
+				"binding":{"dataType":"list"},
 				"abstract":false,
 				"properties":
 				[

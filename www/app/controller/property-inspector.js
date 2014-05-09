@@ -14,10 +14,10 @@ app.controller
 	 		//	sets a component's value(s) to a dummy datum, vs. a manually entered value
 	 		var bindMapping = function()
 	 		{
-	 			if( !$scope.instance || !$scope.instance.datamap ) return;
+	 			if( !$scope.instance || !$scope.instance.datamap || !$scope.instance.binding ) return;
 	 			
 	 			//	component supports mapping to a single object property
-	 			if( $scope.instance.binding == "single" )
+	 			if( $scope.instance.binding.dataType == "object" )
 	 			{
 	 				//	nullify and return if not all selections have been made
 	 				if( !propertyInspector.selectedDataType || !propertyInspector.selectedData || !propertyInspector.selectedDataTypeField )
@@ -59,7 +59,7 @@ app.controller
 					);
 	 			}
 	 			//	component supports binding to a list of items
-	 			else if( $scope.instance.binding == "multiple" )
+	 			else if( $scope.instance.binding.dataType === "list" )
 	 			{
 	 				//	 nullify and return if not all selections have been made
 	 				if( !propertyInspector.selectedData )
@@ -164,7 +164,7 @@ app.controller
 	 					
 	 					bindMapping();
 	 					
-	 					if( newVal && $scope.instance.binding == "single" )
+	 					if( newVal && $scope.instance.binding.dataType == "object" )
 	 					{
 	 						if( newVal )
 		 						angular.forEach
@@ -181,7 +181,7 @@ app.controller
 		 							}
 		 						);
 	 					}
-	 					else if( newVal && $scope.instance.binding == "multiple" )
+	 					else if( newVal && $scope.instance.binding.dataType === "list" )
 	 					{
 	 						angular.forEach
 	 						(
@@ -324,6 +324,46 @@ app.controller
 	 						
 	 				}
 	 			);
+	 		};
+	 		
+	 		$scope.includeBindableDataType = function(dataType)
+	 		{
+	 			if( !$scope.definition || !$scope.definition.binding ) return false;
+	 			if( dataType && !dataType.id ) return true;
+	 			
+	 			if( $scope.definition.binding.dataType === "object" 
+	 				&& $scope.definition.binding.fields )
+	 			{
+	 				for( var f in $scope.definition.binding.fields )
+	 					if( $scope.definition.binding.fields[f].id === dataType.id )
+	 						return true;
+	 				
+	 				return false;
+	 			} 				
+	 			
+	 			return $scope.definition.binding.dataType === "object";
+	 		};
+	 		
+	 		$scope.includeBindableField = function(field)
+	 		{
+	 			if( !$scope.definition || !$scope.definition.binding ) return false;
+	 			if( field && !field.id ) return true;
+	 			
+	 			if( $scope.definition.binding.dataType === "object" 
+	 				&& $scope.definition.binding.fields
+	 				&& field )
+	 			{
+	 				for( var f in $scope.definition.binding.fields )
+	 				{
+	 					if( $scope.definition.binding.fields[f].path === field.id )
+	 						return true;
+	 				}
+	 				
+	 				return false;
+	 			}
+	 				
+	 			
+	 			return $scope.definition.binding.dataType === "object";
 	 		};
 	 		
 	 		var init = function()

@@ -248,7 +248,7 @@ app.directive
 				 					revert = revert || false;
 				 					
 				 					$('<img/>')
-				 						.attr('src',scope.instance.values.src)
+				 						.attr('src',scope.instance.datamap && scope.instance.datamap.value ? scope.instance.datamap.value : scope.instance.values.src)
 				 						.load
 					 					(
 					 						function(e)
@@ -272,7 +272,19 @@ app.directive
 				 		 			'instance.values.src',
 				 		 			function(newVal,oldVal)
 				 		 			{
-				 		 				if( newVal != oldVal )
+				 		 				if( newVal != oldVal && newVal )
+				 		 				{
+				 		 					storeDimensions(true);
+				 		 				}
+				 		 			}
+				 		 		);
+				 				
+				 				scope.$watch
+				 		 		(
+				 		 			'instance.datamap.value',
+				 		 			function(newVal,oldVal)
+				 		 			{
+				 		 				if( newVal != oldVal && newVal )
 				 		 				{
 				 		 					storeDimensions(true);
 				 		 				}
