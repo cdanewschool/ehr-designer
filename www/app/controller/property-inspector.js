@@ -317,6 +317,11 @@ app.controller
 	 				function(image)
 	 				{
 	 					values[property.id] = "/image/?id=" + image.id;
+	 					
+	 					if( image.contentType == "image/png" 
+	 						&& values['background-color'] )
+	 						values['background-color'] = "transparent";
+	 						
 	 				}
 	 			);
 	 		};
