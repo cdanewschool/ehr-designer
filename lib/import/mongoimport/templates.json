@@ -1,0 +1,1 @@
+{ "created" : { "$date" : 1399660606900 }, "id" : "1x2", "name" : "1x2", "componentId" : "grid", "_id" : { "$oid" : "536d203e14700e011a24def2" }, "values" : { "height" : "100%", "width" : "100%", "rows" : 2, "cols" : 1, "cell-size" : { "0" : { "height" : "50%", "width" : "100%" }, "1" : { "height" : "50%", "width" : "100%" } }, "auto-layout-children" : false }, "__v" : 0 }
