@@ -44,9 +44,12 @@ app.directive
 											//	resize width for all cells in the corresponding column
 											if ( ui.originalSize.width !== ui.size.width ) 
 											{
-												for(var i=0,col = cellData.index%cellData.cols;i<cellData.cols*cellData.rows;i++)
+												var cols = cellData.index%cellData.cols;
+												var cells = cellData.cols*cellData.rows;
+												
+												for(var i=0,col = cols;i<cells;i++)
 												{
-													if(col == i%cellData.cols)
+													if(col == i%cellData.cols || cellData.tiled===false)
 													{
 														if( !vals[i] ) vals[i] = {};
 										        		
@@ -87,6 +90,7 @@ app.directive
 						if( attrs.resizableConfig )
 							options = _.defaults(scope.$eval(attrs.resizableConfig),options);
 						
+						console.log( scope.definition.componentId, options )
 						angular.element(element).resizable(options);
 					}
 					else

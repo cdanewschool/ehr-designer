@@ -245,8 +245,8 @@
 						 <td 
 						 	ng-controller="CellCtrl" 
 						 	ng-repeat="c in [] | range:instance.values.cols" 
-						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
-						 	ng-mouseover="dragService.onOver($event,definition,cellIndex)" 
+						 	ng-init="init($parent.$index,$parent.$parent.$index,instance)" 
+						 	ng-mouseover="onOver($event)" 
 						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
 						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==instance.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
 						 	ng-style="
@@ -314,19 +314,25 @@
 							'color':instance.values.color,
 							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit
 						}" 
-						ng-repeat="item in instance.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active" >
-						<div resizable="instance.values" ng-style="
-						{
-							'background-color':instance.values['background-color'],
-							'margin-top':instance.values.margin.top+'px',
-							'margin-right':instance.values.margin.right+'px',
-							'margin-bottom':instance.values.margin.bottom+'px',
-							'margin-left':instance.values.margin.left+'px',
-							'padding-top':instance.values.padding.top+'px',
-							'padding-right':instance.values.padding.right+'px',
-							'padding-bottom':instance.values.padding.bottom+'px',
-							'padding-left':instance.values.padding.left+'px'
-						}"><component-preview component-instance="instance.children[$index]" droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
+						ng-repeat="item in instance.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active">
+						<div 
+							resizable="instance.values['cell-size']"
+							resizable-config="{handles:'e,s'}" 
+							resizable-cell="{cols:instance.values.tabs.length,rows:1,index:$index,tiled:false}"
+							ng-style="
+							{
+								'width':  instance.values['cell-size'][$index] && instance.values['cell-size'][$index].width ? instance.values['cell-size'][$index].width : false,
+								'height': instance.values['cell-size'][$index] && instance.values['cell-size'][$index].height ? instance.values['cell-size'][$index].height : false,
+								'background-color':instance.values['background-color'],
+								'margin-top':instance.values.margin.top+'px',
+								'margin-right':instance.values.margin.right+'px',
+								'margin-bottom':instance.values.margin.bottom+'px',
+								'margin-left':instance.values.margin.left+'px',
+								'padding-top':instance.values.padding.top+'px',
+								'padding-right':instance.values.padding.right+'px',
+								'padding-bottom':instance.values.padding.bottom+'px',
+								'padding-left':instance.values.padding.left+'px'
+							}"><component-preview component-instance="instance.children[$index]" droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
 					</tab>
 				</tabset>
 			</div>

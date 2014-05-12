@@ -51,6 +51,15 @@ app.controller
 	 			update();
 	 		};
 	 		
+	 		$scope.onOver = function($event)
+	 		{
+	 			if( $scope.isStatic ) return;
+	 			
+	 			$event.stopPropagation();
+	 			
+	 			dragService.onOver($event,$scope.instanceDefinition,$scope.cellIndex);
+	 		};
+	 		
 	 		$scope.getCellChildren = function(item)
 	 		{
 	 			return item.parentIndex == $scope.cellIndex;

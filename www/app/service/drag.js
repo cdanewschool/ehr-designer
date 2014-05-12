@@ -219,8 +219,6 @@ app.service
 				
 				onOver: function(event,definition,index)
 				{
-					event.stopPropagation();
-					
 					if( !canvas.previewing )
 					{
 						dragModel.hover = definition;
