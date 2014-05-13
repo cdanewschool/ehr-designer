@@ -1,20 +1,21 @@
 <div class="modal-header">
-	<button type="button" class="close btn-lg" ng-click="cancel()" aria-hidden="true">&times;</button>
+	<button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
     <h4 class="modal-title">{{title}}</h4>
 </div>
 
 <div class="modal-body">
 	<p ng-if="message" ng-bind-html="message"></p>
-	<form name="form" role="form" ng-submit="save()">
+	<form role="form">
 		<div class="form-group">	
 			<label ng-if="!message">Name</label>
-			<input class="form-control input-lg" type="text" required ng-model="item.name">		
+			<input class="form-control input-lg" type="text" ng-model="item.name">			
 		</div>
-		<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-		<button type="button" class="btn btn-default btn-lg" ng-click="cancel()">Cancel</button>
 	</form>	
 </div>
 
 <div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<button ng-disabled="!item.name" type="button" class="btn btn-primary" ng-click="save()">OK</button>
 </div>
+
 
