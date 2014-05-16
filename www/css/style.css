@@ -126,6 +126,11 @@ span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outlin
 	height: 100%;
 }
 
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  z-index: 1029;
+}
+
 /*	jqueryui overrides	*/
 .ui-state-disabled
 {

@@ -2,8 +2,8 @@ app.controller
 (
 	'CanvasCtrl',
 	[
-		'$scope','$rootScope','$location','$modal','$routeParams','$base64','canvas','library','template','history','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
-		function($scope,$rootScope,$location,$modal,$routeParams,$base64,canvas,library,template,history,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
+		'$scope','$rootScope','$location','$modal','$routeParams','$base64','$tutorial','canvas','library','template','history','Project','CanvasService','DataService','DragService','HistoryService','FactoryService','navigation','utilities','ENV',
+		function($scope,$rootScope,$location,$modal,$routeParams,$base64,$tutorial,canvas,library,template,history,Project,canvasService,dataService,dragService,historyService,FactoryService,navigation,utilities,ENV)
 		{
 			$scope.canvas = canvas;
 			$scope.history = history;
@@ -534,6 +534,7 @@ app.controller
 		    		 {
 		    			 templateUrl: 'popups/edit-item.html',
 					     controller: ModalCtrl,
+					     backdrop: $tutorial.running() ? 'static' : true,
 					     resolve: {
 					    	 item: function(){ return item; },
 					    	 message: function(){ return message; },
