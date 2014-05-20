@@ -1,6 +1,6 @@
 [
-	{
-		"id": "encounter-class",
+    {
+    	"id": "encounter-class",
 		"title": "Encounter Classes",
 		"content":
 		{
@@ -29,8 +29,31 @@
 			"entry": 
 			[
 				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"F"}, "display":{"value":"Female"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"F"}, "display":{"value":"Male"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"M"}, "display":{"value":"Male"} } } },
 				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"UN"}, "display":{"value":"Undifferentiated"} } } }
+			]
+		}
+	},
+    {
+    	"id": "valueset-marital-status",
+		"title": "Marital Status",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Marital Status",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"A"}, "display":{"value":"Annulled"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"D"}, "display":{"value":"Divorced"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"I"}, "display":{"value":"Interlocutory"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"L"}, "display":{"value":"Legally Separated"} } } },
+    			{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"M"}, "display":{"value":"Married"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"P"}, "display":{"value":"Polygamous"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"S"}, "display":{"value":"Never Married"} } } },
+    			{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"T"}, "display":{"value":"Domestic partner"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"U"}, "display":{"value":"Unmarried"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"W"}, "display":{"value":"Widowed"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/MaritalStatus"}, "code":{"value":"UNK"}, "display":{"value":"Unknown"} } } }                
 			]
 		}
 	},
@@ -47,6 +70,59 @@
 				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"6736007"}, "display":{"value":"Moderate"} } } },
 				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"24484000"}, "display":{"value":"Severe"} } } },
 				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"399166001"}, "display":{"value":"Fatal"} } } }
+			]
+		}
+	},
+    {
+    	"id": "valueset-condition-status",
+		"title": "Condition Status",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Condition Status",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"provisional"}, "display":{"value":"This is a tentative diagnosis - still a candidate that is under consideration."} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"working"}, "display":{"value":"The patient is being treated on the basis that this is the condition, but it is still not confirmed."} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"confirmed"}, "display":{"value":"There is sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition."} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"refuted"}, "display":{"value":"This condition has been ruled out by diagnostic and clinical evidence."} } } }
+			]
+		}
+	},
+        {
+		"id": "valueset-address-use",
+		"title": "Address Use",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Address Use",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"BAD"}, "display":{"value":"bad address"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"CONF"}, "display":{"value":"confidential address"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"H"}, "display":{"value":"home address"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"HP"}, "display":{"value":"primary home"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"HV"}, "display":{"value":"vacation home"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"MC"}, "display":{"value":"mobile contact"} } } },                
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"OLD"}, "display":{"value":"no longer in use"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"TMP"}, "display":{"value":"temporary address"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"WP"}, "display":{"value":"work place"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"PST"}, "display":{"value":"postal address"} } } }			
+			]
+		}
+	},
+    {
+    	"id": "valueset-living-arrangement",
+		"title": "Living Arrangement",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Living Arrangement",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"HL"}, "display":{"value":"homeless"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"I"}, "display":{"value":"institution"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"PR"}, "display":{"value":"private residence"} } } }
 			]
 		}
 	},
