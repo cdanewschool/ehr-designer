@@ -1,9 +1,13 @@
 <div class="container">
 
-	<h4>Tutorials</h4>
+	<div ng-show="currentUser">
 	
-	<div ng-controller="TutorialCtrl">
-		<a ng-tutorial ng-tutorial-id="createProject">Creating a New Project</a>
+		<h4>Tutorials</h4>
+	
+		<div ng-controller="TutorialCtrl" >
+			<a ng-tutorial ng-tutorial-id="createProject">Creating a New Project</a>
+		</div>
+	
 	</div>
 	
 </div>
