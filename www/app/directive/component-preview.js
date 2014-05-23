@@ -165,7 +165,7 @@ app.directive
 				dragService:"=dragService",
 				instance: "=componentInstance",
 				isStatic: "=componentStatic",
-				isDragPreview: "=dragPreview"
+				simpleRender: "=simpleRender"
 			},
 			templateUrl:"partials/templates/component-preview.html",
 			replace:true,
@@ -200,7 +200,7 @@ app.directive
 							//	store the component's id on the associated dom el so we can easily get the corresponding definition (see drag service)
 							element.attr("data-component-id",scope.instance.componentId);
 							
-							if( scope.isDragPreview!==true ) 
+							if( !scope.simpleRender ) 
 							{
 								$timeout
 								(

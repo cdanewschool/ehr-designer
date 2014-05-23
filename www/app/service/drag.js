@@ -242,7 +242,7 @@ app.service
 					scope.component = library.componentsIndexed[ angular.element(target).attr("data-component-id") ];
 					scope.dragService = this;
 					
-					var clone = angular.element('<component-preview component-instance="component" component-static="false" drag-preview="true" draggable drag-service="dragService"></component-preview>');
+					var clone = angular.element('<component-preview component-instance="component" draggable drag-service="dragService"></component-preview>');
 					$compile(clone)(scope);
 					
 					return $("<div></div>").append(clone);
