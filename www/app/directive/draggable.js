@@ -13,7 +13,7 @@ app.directive
 				
 				element.attr("data-drag",true);
 				element.attr("jqyoui-draggable","{animate: false, onStart: 'dragService.onDragStart(instance)', onStop: 'dragService.onDragStop()', onDrag: 'dragService.onDrag(instance)', placeholder:'keep'}");
-				element.attr("data-jqyoui-options","{appendTo: 'body', cancel: '.previewing', helper: 'clone', revert: 'invalid'}");
+				element.attr("data-jqyoui-options","{appendTo: 'body', cancel: '.previewing', helper: dragService.getDragPreview, revert: 'invalid'}");
 
 				return {
 						pre: function preLink(scope, iElement, iAttrs, controller) {},
@@ -42,7 +42,7 @@ app.directive
 			        	   		}
 			        	   	);
 			        	   	
-			        	   	$compile(iElement,scope.canvas.previewing)(scope);
+			        	   	$compile(iElement)(scope);
 			        	   
 			        	   	update();
 			           }

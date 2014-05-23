@@ -9,7 +9,7 @@
 app.directive
 (
 	'componentPreview',
-	function($rootScope,$parse,$compile,$timeout,library,canvas,FactoryService)
+	function($rootScope,$compile,$timeout,library,canvas,FactoryService)
 	{
 		var getDefault = function(property)
  		{
@@ -161,10 +161,11 @@ app.directive
 		return {
 			restrict : 'EA',
 			scope:{
-				isStatic: "=componentStatic",
 				canvas: "=canvas",
+				dragService:"=dragService",
 				instance: "=componentInstance",
-				dragService:"=dragService"
+				isStatic: "=componentStatic",
+				isDragPreview: "=dragPreview"
 			},
 			templateUrl:"partials/templates/component-preview.html",
 			replace:true,
@@ -199,13 +200,16 @@ app.directive
 							//	store the component's id on the associated dom el so we can easily get the corresponding definition (see drag service)
 							element.attr("data-component-id",scope.instance.componentId);
 							
-							$timeout
-							(
-								function()
-								{
-									setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
-								},1
-							);
+							if( scope.isDragPreview!==true ) 
+							{
+								$timeout
+								(
+									function()
+									{
+										setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
+									},1
+								);
+							}
 							
 							//	show properties menu on click
 							if( scope.canvas 
@@ -344,7 +348,7 @@ app.directive
 								el.css("left",values.left + "px");
 							
 							if( values.top !== undefined ) 
-								el.css("top",values.top + "px");				
+								el.css("top",values.top + "px");
 						};
 
 						if( !scope.instance ) 

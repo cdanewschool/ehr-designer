@@ -90,7 +90,6 @@ app.directive
 						if( attrs.resizableConfig )
 							options = _.defaults(scope.$eval(attrs.resizableConfig),options);
 						
-						console.log( scope.definition.componentId, options )
 						angular.element(element).resizable(options);
 					}
 					else

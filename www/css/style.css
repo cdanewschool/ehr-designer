@@ -102,7 +102,15 @@ span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outlin
 	margin-top: 20px;
 }
 
+.library > .panel-group > .panel > .panel-collapse > .panel-body { padding: 0px; }
+.library-category .panel-default > .panel-heading { background-color: #fff; }
+.library-category > .panel-group > .panel > .panel-collapse > .panel-body { padding: 0px; }
+.library > .panel-group > .panel > .panel-collapse > .panel-body > .list-group, 
+.library-category > .panel-group > .panel > .panel-collapse > .panel-body > .list-group { font-size: 12px; margin-bottom:0px; }
+.library > .panel-group > .panel > .panel-collapse > .panel-body  > .list-group > .list-group-item, 
+.library-category > .panel-group > .panel > .panel-collapse > .panel-body > .list-group > .list-group-item { padding: 10px 30px; border:0px; }
 /*	bootstrap overrides	*/
+
 .panel-group { margin-bottom: 0px; }
 
 .list-group > a[disabled] {

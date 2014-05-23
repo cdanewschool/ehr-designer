@@ -1,7 +1,9 @@
-<div class='component-preview' ng-class='{static:isStatic,root:!instance.pid,previewing:canvas && canvas.previewing,"full-width":instance.isTemplate && (instance.values.width && instance.values.width=="100%" || instance.values.height && instance.values.height=="100%")}'>
+<div class='component-preview'  ng-class='{static:isStatic,root:!instance.pid,previewing:canvas && canvas.previewing,"full-width":instance.isTemplate && (instance.values.width && instance.values.width=="100%" || instance.values.height && instance.values.height=="100%")}'>
+	
+	<span ng-if="isStatic">{{definition.name}}</span>
 	
 	<!-- border -->
-	<div  ng-class='{border:(showBorder && instance.componentId!="grid"), active:(canvas.selection.instance==instance), dropTarget:(showBorder && instance.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
+	<div ng-if="!isStatic" ng-class='{border:(showBorder && instance.componentId!="grid"), active:(canvas.selection.instance==instance), dropTarget:(showBorder && instance.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
 
 		<div class='content' style="width:100%;height:100%">
 			
@@ -28,6 +30,52 @@
 						}">
 					{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.text}}
 				</span>
+			</div>
+			
+			<div 
+				ng-if='instance.componentId=="paragraph"' ng-mouseenter='dragService.onOver($event,instance)' 
+				resizable="instance.values" resizable-config="{handles:'e'}">
+				<p 
+					class='target'
+					ng-style="
+						{
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
+							'pointer-events':canvas.previewing?'auto':'none',
+							'width':instance.values.width
+						}">
+					{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.text}}
+				</p>
+			</div>
+			
+			
+			<div ng-if='instance.componentId=="link"' ng-mouseenter='dragService.onOver($event,instance)'>
+				<a
+					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
+					ng-style="
+						{
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
+							'pointer-events':canvas.previewing?'auto':'none'
+						}">
+					{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.text}}
+				</a>
 			</div>
 			
 			<div 
@@ -66,6 +114,42 @@
 			</div>
 			
 			<div 
+				ng-if='instance.componentId=="buttonbar" || instance.componentId=="linkbar"' 
+				ng-mouseenter='dragService.onOver($event,instance)'
+				class="btn-group">
+				<button 
+					ng-repeat="item in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.items)"
+					class="btn target" 
+					ng-class="
+						{
+							'text-left':instance.values.text-align=='left',
+							'text-center':instance.values.text-align=='center',
+							'text-right':instance.values.text-align=='right',
+							'btn-default':instance.componentId=='buttonbar',
+							'btn-link':instance.componentId=='linkbar'
+						}"
+					ng-style="
+						{
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
+							'pointer-events':canvas.previewing?'auto':'none'
+						}">
+					{{item.label}}
+				</button>
+			</div>
+			
+			<div 
 				ng-if='instance.componentId=="image"' 
 				class='img' 
 				ng-mouseenter='dragService.onOver($event,instance)'
@@ -92,11 +176,79 @@
 						}">
 			</div>
 			
-			<div ng-if='instance.componentId=="dropdown"'>
-				<select 
+			<select 
+				ng-if='instance.componentId=="dropdown"'
+				class="form-control target" 
+				ng-model="instance[ instance.datamap && instance.datamap.value ? 'datamap' : 'values' ][ instance.datamap && instance.datamap.value ? 'value' : 'options' ][0].id" 
+				ng-options="v.id as v.label for v in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.options)"
+				ng-style="
+					{
+						'background-color':instance.values['background-color'],
+						'border-color':instance.values['border-color'],
+						'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+						'color':instance.values.color,
+						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit,
+						'pointer-events':canvas.previewing?'auto':'none'
+					}"></select>
+			
+			<input 
+				ng-if='instance.componentId=="dateinput" || instance.componentId=="telephoneinput"'
+				class="form-control target" 
+				type="{{instance.values.type}}" 
+				placeholder="{{instance.values.placeholder}}" 
+				value="{{!instance.values.placeholder ? instance.values.text : ''}}"
+				ng-style="
+					{
+						'background-color':instance.values['background-color'],
+						'border-color':instance.values['border-color'],
+						'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+						'color':instance.values.color,
+						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit,
+						'padding-top':instance.values.padding.top+instance.values.padding.unit,
+						'padding-right':instance.values.padding.right+instance.values.padding.unit,
+						'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+						'padding-left':instance.values.padding.left+instance.values.padding.unit,
+						'pointer-events':canvas.previewing?'auto':'none'
+					}">
+			 
+			<input 
+				ng-if='instance.componentId=="textinput"'
+				class="form-control target" 
+				type="{{instance.values.type}}" 
+				placeholder="{{instance.values.placeholder}}" 
+				value="{{!instance.values.placeholder ? instance.values.text : ''}}"
+				maxlength="{{instance.values.maxlength}}"
+				size="{{instance.values.size}}"
+				ng-style="
+					{
+						'background-color':instance.values['background-color'],
+						'border-color':instance.values['border-color'],
+						'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+						'color':instance.values.color,
+						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit,
+						'padding-top':instance.values.padding.top+instance.values.padding.unit,
+						'padding-right':instance.values.padding.right+instance.values.padding.unit,
+						'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+						'padding-left':instance.values.padding.left+instance.values.padding.unit,
+						'pointer-events':canvas.previewing?'auto':'none'
+					}">
+
+			<div ng-if='instance.componentId=="textarea"' resizable="instance.values" resizable-config="{handles:'e,s'}">
+				<textarea 
 					class="form-control target" 
-					ng-model="instance[ instance.datamap && instance.datamap.value ? 'datamap' : 'values' ][ instance.datamap && instance.datamap.value ? 'value' : 'options' ][0].id" 
-					ng-options="v.id as v.label for v in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.options)"
+					placeholder="{{instance.values.placeholder}}"
 					ng-style="
 						{
 							'background-color':instance.values['background-color'],
@@ -108,62 +260,62 @@
 							'margin-right':instance.values.margin.right+instance.values.margin.unit,
 							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
 							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
-						}"></select>
+						}" >{{!instance.values.placeholder ? instance.values.text : ''}}</textarea>
 			</div>
 			
-			<div ng-if='instance.componentId=="dateinput" || instance.componentId=="telephoneinput"'>
-				<input 
-					class="form-control target" 
-					type="{{instance.values.type}}" 
-					placeholder="{{instance.values.placeholder}}" 
-					value="{{!instance.values.placeholder ? instance.values.text : ''}}"
+			<ol 
+				ng-if="instance.componentId=='list' && instance.values['liststyle']=='ordered'" 
+				ng-class="{'list-inline':instance.values['direction']=='horizontal'}"
+				ng-style="
+					{
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit
+					}">
+				<li 
+					ng-repeat="item in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.items)"
 					ng-style="
-						{
-							'background-color':instance.values['background-color'],
-							'border-color':instance.values['border-color'],
-							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
-							'color':instance.values.color,
-							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
-							'margin-top':instance.values.margin.top+instance.values.margin.unit,
-							'margin-right':instance.values.margin.right+instance.values.margin.unit,
-							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
-							'margin-left':instance.values.margin.left+instance.values.margin.unit,
-							'padding-top':instance.values.padding.top+instance.values.padding.unit,
-							'padding-right':instance.values.padding.right+instance.values.padding.unit,
-							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
-							'padding-left':instance.values.padding.left+instance.values.padding.unit,
-							'pointer-events':canvas.previewing?'auto':'none'
-						}">
-			</div>
-			 
-			<div ng-if='instance.componentId=="textinput"'>
-				<input 
-					class="form-control target" 
-					type="{{instance.values.type}}" 
-					placeholder="{{instance.values.placeholder}}" 
-					value="{{!instance.values.placeholder ? instance.values.text : ''}}"
-					maxlength="{{instance.values.maxlength}}"
-					size="{{instance.values.size}}"
+					{
+						'color':instance.values.color,
+						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+						'padding-top':instance.values.padding.top+instance.values.padding.unit,
+						'padding-right':instance.values.padding.right+instance.values.padding.unit,
+						'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+						'padding-left':instance.values.padding.left+instance.values.padding.unit,
+						'pointer-events':canvas.previewing?'auto':'none'
+					}">{{item.label}}</li>
+			</ol>
+			
+			<ul 
+				ng-if="instance.componentId=='list' && instance.values['liststyle']!='ordered'" 
+				ng-class="{'list-unstyled':instance.values['liststyle']=='none','list-inline':instance.values['direction']=='horizontal'}"
+				ng-style="
+					{
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit
+					}">
+				<li 
+					ng-repeat="item in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.items)"
 					ng-style="
-						{
-							'background-color':instance.values['background-color'],
-							'border-color':instance.values['border-color'],
-							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
-							'color':instance.values.color,
-							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
-							'margin-top':instance.values.margin.top+instance.values.margin.unit,
-							'margin-right':instance.values.margin.right+instance.values.margin.unit,
-							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
-							'margin-left':instance.values.margin.left+instance.values.margin.unit,
-							'padding-top':instance.values.padding.top+instance.values.padding.unit,
-							'padding-right':instance.values.padding.right+instance.values.padding.unit,
-							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
-							'padding-left':instance.values.padding.left+instance.values.padding.unit,
-							'pointer-events':canvas.previewing?'auto':'none'
-						}">
-			</div>
-
+					{
+						'color':instance.values.color,
+						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+						'padding-top':instance.values.padding.top+instance.values.padding.unit,
+						'padding-right':instance.values.padding.right+instance.values.padding.unit,
+						'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+						'padding-left':instance.values.padding.left+instance.values.padding.unit,
+						'pointer-events':canvas.previewing?'auto':'none'
+					}">{{item.label}}</li>
+			</ul>
+			
 			<div 
 				ng-if='instance.componentId=="checkbox" || instance.componentId=="radio"' 
 				ng-style="

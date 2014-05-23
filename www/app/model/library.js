@@ -5,6 +5,7 @@ app.service
 	{
 		return {
 			components:null,
+			componentsByCategory:null,
 			componentsIndexed:null,
 			
 			sampleData:null,

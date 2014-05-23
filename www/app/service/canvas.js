@@ -94,11 +94,24 @@ app.service
 					{},
 					function(components)
 					{
+						var componentsByCategory = {};
 						var componentsIndexed = {};
 						
 						for(var c in components)
+						{
 							componentsIndexed[ components[c].id ] = components[c];
-						
+							
+							if( !components[c].abstract 
+								&& components[c].category )
+							{
+								if( !componentsByCategory[ components[c].category ] )
+									componentsByCategory[ components[c].category ] = {name:components[c].category,components:[]};
+								
+								componentsByCategory[ components[c].category ].components.push( components[c] );
+							}
+						}
+							
+						library.componentsByCategory = componentsByCategory;
 						library.components = components;
 						library.componentsIndexed = componentsIndexed;
 						

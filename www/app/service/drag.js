@@ -18,8 +18,8 @@ app.service
 (
 	'DragService',
 	[
-		'$rootScope','dragModel','canvas','library','FactoryService','HistoryService','utilities',
-		function($rootScope,dragModel,canvas,library,factory,historyService,utilities)
+		'$rootScope','$compile','dragModel','canvas','library','FactoryService','HistoryService','utilities',
+		function($rootScope,$compile,dragModel,canvas,library,factory,historyService,utilities)
 		{
 			$rootScope.$on
 	 		(
@@ -231,6 +231,21 @@ app.service
 					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
 					
 					return acceptable;
+				},
+				
+				getDragPreview: function(event,item)
+				{
+					var target = event.currentTarget;
+					
+					var scope = $rootScope.$new(true);
+					scope.canvas = canvas;
+					scope.component = library.componentsIndexed[ angular.element(target).attr("data-component-id") ];
+					scope.dragService = this;
+					
+					var clone = angular.element('<component-preview component-instance="component" component-static="false" drag-preview="true" draggable drag-service="dragService"></component-preview>');
+					$compile(clone)(scope);
+					
+					return $("<div></div>").append(clone);
 				}
 			};
 		}

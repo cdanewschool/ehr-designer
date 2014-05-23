@@ -109,6 +109,7 @@
 			{
 				"id":"text",
 				"name":"Text",
+				"category":"Text",
 				"container":false,
 				"binding":{"dataType":"object"},
 				"properties":
@@ -146,11 +147,69 @@
 				"values":
 				{
 					"text":"Text"
-				}
+				},
+				"subcomponents":
+				[
+					{
+						"id":"paragraph",
+						"name":"Paragraph",
+						"category":"Text",
+						"resizable":true,
+						"binding":{"dataType":"object"},
+						"values":
+						{
+							"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+							"width":100
+						}
+					},
+					{
+						"id":"link",
+						"name":"Link",
+						"category":"Text",
+						"binding":{"dataType":"object"},
+						"properties":
+						[
+							{
+								"id":"text",
+								"name":"Text",
+								"type":"string"
+							},
+							{
+								"id":"color",
+								"name":"Color",
+								"type":"color"
+							},
+							{
+								"id":"font-size",
+								"name":"Font Size",
+								"type":"object",
+								"parseExpression":"(\\d*)([a-z]*)",
+								"properties": 
+								[
+									{
+										"id":"size",
+										"name":"",
+										"type":"int"
+									},
+									{
+										"id":"unit",
+										"type":"enum",
+										"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
+									}
+								]
+							}
+						],
+						"values":
+						{
+							"text":"My Link"
+						}
+					}
+				]
 			},
 			{
 				"id":"button",
 				"name":"Button",
+				"category":"Buttons",
 				"container":false,
 				"binding":{"dataType":"object"},
 				"properties":
@@ -204,11 +263,56 @@
 				{
 					"text":"My Button",
 					"src":"images/default/placeholder.png"
-				}
+				},
+				"subcomponents":
+				[
+					{
+						"id":"buttonbar",
+						"name":"Button Bar",
+						"category":"Buttons",
+						"container":false,
+						"binding":{"dataType":"list"},
+						"ignoreProperties":["text","src"],
+						"properties":
+						[
+							{
+								"id":"items",
+								"name":"Items",
+								"type":"array"
+							}
+						],
+						"values":
+						{
+							"items":
+							[
+								{ "label":"Button 1" },
+								{ "label":"Button 2" }
+							]
+						},
+						"subcomponents":
+						[
+							{
+								"id":"linkbar",
+								"name":"Link Bar",
+								"category":"Buttons",
+								"ignoreProperties":["background-color","border-color"],
+								"values":
+								{
+									"items":
+									[
+										{ "label":"Link 1" },
+										{ "label":"Link 2" }
+									]
+								}
+							}
+						]
+					}
+				]
 			},
 			{
 				"id":"image",
 				"name":"Image",
+				"category":"Other",
 				"container":false,
 				"resizable":{ "constrain": true },
 				"binding":{"dataType":"object","fields":[{"id":"patient","path":"photo.url"}]},
@@ -259,6 +363,7 @@
 			{
 				"id":"grid",
 				"name":"Grid",
+				"category":"Containers",
 				"container":"cell",
 				"description":"Arrange a group of items",
 				"resizable":true,
@@ -306,6 +411,7 @@
 					{
 						"id":"table",
 						"name":"Table",
+						"category":"Containers",
 						"properties":
 						[
 							{
@@ -370,6 +476,7 @@
 			{
 				"id":"dropdown",
 				"name":"Dropdown",
+				"category":"Input Fields",
 				"abstract":false,
 				"container":false,
 				"binding":{"dataType":"list"},
@@ -431,6 +538,7 @@
 			{
 				"id":"radio",
 				"name":"Radio Button",
+				"category":"Buttons",
 				"container":false,
 				"binding":{"dataType":"list"},
 				"abstract":false,
@@ -480,6 +588,7 @@
 					{
 						"id":"checkbox",
 						"name":"Checkbox",
+						"category":"Buttons",
 						"values":
 						{
 							"type":"checkbox",
@@ -492,6 +601,56 @@
 						}
 					}
 				]
+			},
+			{
+				"id":"list",
+				"name":"List",
+				"category":"Text",
+				"container":false,
+				"binding":{"dataType":"list"},
+				"abstract":false,
+				"properties":
+				[
+					{
+						"id":"items",
+						"name":"Items",
+						"type":"array"
+					},
+					{
+						"id":"direction",
+						"name":"Direction",
+						"type":"enum",
+						"values":[{"value":"horizontal","label":"Horizontal"},{"value":"vertical","label":"Vertical"}]
+					},
+					{
+						"id":"color",
+						"name":"Color",
+						"type":"color"
+					},
+					{
+						"id":"liststyle",
+						"name":"List Style",
+						"type":"enum",
+						"values":[{"value":"ordered","label":"Ordered"},{"value":"unordered","label":"Unordered"},{"value":"none","label":"None"}]
+					}
+				],
+				"values":
+				{
+					"direction":"vertical",
+					"liststyle":"ordered",
+					"items":
+					[
+						{
+							"label":"Apple"
+						},
+						{
+							"label":"Orange"
+						},
+						{
+							"label":"Banana"
+						}
+					]
+				}				
 			},
 			{
 				"abstract":true,
@@ -537,7 +696,8 @@
 				[
 					{
 						"id":"textinput",
-						"name":"Input Field",
+						"name":"Input Fields",
+						"category":"Input Fields",
 						"abstract":false,
 						"properties":
 						[
@@ -578,6 +738,7 @@
 					},
 					{
 						"id":"dateinput",
+						"category":"Input Fields",
 						"name":"Date Input",
 						"abstract":false,
 						"properties":
@@ -596,6 +757,7 @@
 					},
 					{
 						"id":"numberinput",
+						"category":"Input Fields",
 						"name":"Number Field",
 						"abstract":false,
 						"properties":
@@ -638,6 +800,7 @@
 					},
 					{
 						"id":"telephoneinput",
+						"category":"Input Fields",
 						"name":"Telephone Field",
 						"abstract":false,
 						"values":
@@ -645,12 +808,31 @@
 							"placeholder":"888-888-8888",
 							"type":"tel"
 						}
+					},
+					{
+						"id":"textarea",
+						"name":"Text Area",
+						"category":"Input Fields",
+						"abstract":false,
+						"resizable":true,
+						"properties":
+						[
+							{
+								"id":"placeholder",
+								"name":"Placeholder Text",
+								"type":"string"
+							}
+						],
+						"values":
+						{
+						}
 					}
 				]
 			},
 			{
 				"id":"tabs",
 				"name":"Tabs",
+				"category":"Containers",
 				"abstract":false,
 				"container":false,
 				"resizable":true,

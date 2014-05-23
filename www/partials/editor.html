@@ -21,16 +21,27 @@
 	    <tab heading="Library" class="small">
 	    	<div class="panel panel-default">
 				<div class="panel-body">
-			    	<accordion close-others="oneAtATime">
-			    		<accordion-group heading="Basic Components" is-open="true">
-			    			<accordion close-others="oneAtATime" ng-repeat="component in library.components | filter:componentFilter">
-			    				<accordion-group heading="{{component.name}}" is-open="false" style="border-radius:0px">
-			    					<p ng-show="component.description" class="small">{{component.description}}</p>
-					  				<component-preview component-instance="component" component-static="true" draggable drag-service="dragService" style="height:30px"></component-preview>
+			    	<accordion class="library" close-others="oneAtATime">
+			    		<accordion-group heading="EHR Components"></accordion-group>
+			    		<accordion-group heading="UI Elements" is-open="true">
+			    			<div class="list-group" >
+     							<a ng-repeat="component in library.components | filter:{'category':'!',abstract:'!'} | orderBy:'name'" class="list-group-item">
+     								<component-preview component-instance="component" component-static="true" draggable drag-service="dragService" drag-preview="true"></component-preview>
+     							</a>
+     						</div>
+			    			<accordion class="library-category" close-others="oneAtATime" ng-repeat="category in library.componentsByCategory | orderBy:'name'">
+			    				<accordion-group is-open="openTab" style="border-radius:0px">
+			    					<accordion-heading>
+            							{{category.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': openTab, 'glyphicon-chevron-right': !openTab}"></i>
+        							</accordion-heading>
+        							<div class="list-group">
+        								<a ng-repeat="component in category.components | filter:componentFilter | orderBy:'name'" class="list-group-item">
+        									<component-preview component-instance="component" component-static="true" draggable drag-service="dragService" drag-preview="true"></component-preview>
+        								</a>
+        							</div>
 					  			</accordion-group>
 					  		</accordion>
 						</accordion-group>
-						<accordion-group heading="Modules"></accordion-group>
 					</accordion>
 				</div>
 			</div>
