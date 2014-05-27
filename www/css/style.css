@@ -42,7 +42,7 @@ a[ng-click] { cursor: pointer; }
 .component-preview.static { width: auto; }
 .component-preview:not(.static).ng-data-drag.ui-draggable > div > .content > div:hover { background-color: #eee; }
 
-.dropTarget { border: dashed 2px rgba(0, 0, 0, 1) !important;  }
+.dropTarget { border: dashed 1px rgba(0, 0, 0, 1) !important;  }
 
 .thumb {
 	background: #eee;
@@ -69,7 +69,7 @@ a[ng-click] { cursor: pointer; }
 .media-list > .thumbnail { display: inline-block; margin-right: 10px; }
 
 /*	utility	*/
-.border { border: dashed 2px rgba(200, 200, 200, 1); border-collapse:collapse; }
+.border { border: dashed 1px rgba(200, 200, 200, 1); border-collapse:collapse; }
 .border-top { border-top: solid 1px; }
 .border-right { border-right: solid 1px; }
 .border-bottom { border-bottom: solid 1px; }
