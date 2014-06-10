@@ -24,8 +24,8 @@ app.directive
 								$timeout
 								(
 									function()
-									{
-										if( !iElement.data('ui-draggable') ) return;
+									{ //mk
+										if( !iElement.data('ui-draggable') || !scope.canvas ) return;
 										
 										iElement.draggable( scope.canvas.previewing ? 'disable' : 'enable')
 									},100

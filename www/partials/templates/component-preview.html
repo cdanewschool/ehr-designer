@@ -1,6 +1,6 @@
 <div class='component-preview'  ng-class='{static:isStatic,root:!instance.pid,previewing:canvas && canvas.previewing,"full-width":instance.isTemplate && (instance.values.width && instance.values.width=="100%" || instance.values.height && instance.values.height=="100%")}'>
 	
-	<span ng-if="simpleRender">{{definition.name}}</span>
+	<span ng-if="simpleRender">{{instance.name}}</span>
 	
 	<!-- border -->
 	<div ng-if="!simpleRender" ng-class='{border:(showBorder && instance.componentId!="grid"), active:(canvas.selection.instance==instance), dropTarget:(showBorder && instance.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">

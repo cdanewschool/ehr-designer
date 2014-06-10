@@ -29,7 +29,13 @@ var fixtureConfig = FixtureConfig({
 var fixtures = 
 [
     {
-    	itemName:'Component',
+    	itemName:'UIElement',
+    	schema:'element',
+        data:'elements',
+        collection:'elements'
+    },
+    {
+    	itemName:'UIComponent',
     	schema:'component',
         data:'components',
         collection:'components'
@@ -44,8 +50,9 @@ var fixtures =
 
 // load fixture listings
 fixtureConfig.fixtureListings.set('all', fixtures);
-fixtureConfig.fixtureListings.set('components', [fixtures[0]]);
-fixtureConfig.fixtureListings.set('templates', [fixtures[1]]);
+fixtureConfig.fixtureListings.set('elements', [fixtures[0]]);
+fixtureConfig.fixtureListings.set('components', [fixtures[1]]);
+fixtureConfig.fixtureListings.set('templates', [fixtures[2]]);
 
 // export the config
 module.exports = fixtureConfig;

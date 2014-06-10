@@ -63,7 +63,7 @@ app.service
 					
 					if( target == dragModel.dragItem ) return;
 					
-					var targetDefinition = library.componentsIndexed[angular.element(event.target).attr('data-component-id')];
+					var targetDefinition = library.elementsIndexed[angular.element(event.target).attr('data-component-id')];
 					
 					if( targetDefinition.container===false  ) return;
 					
@@ -150,7 +150,7 @@ app.service
 							
 							target.children.push(dragItem);
 							
-							historyService.save( "Detached " + library.componentsIndexed[dragItem.componentId].name + " from " + library.componentsIndexed[parent.componentId].name + " to " + library.componentsIndexed[target.componentId].name );
+							historyService.save( "Detached " + library.elementsIndexed[dragItem.componentId].name + " from " + library.elementsIndexed[parent.componentId].name + " to " + library.elementsIndexed[target.componentId].name );
 						}
 						else
 						{
@@ -177,7 +177,7 @@ app.service
 								console.log( target.children, oldIndex );
 							}
 							
-							historyService.save( "Repositioned " + library.componentsIndexed[dragItem.componentId].name );
+							historyService.save( "Repositioned " + library.elementsIndexed[dragItem.componentId].name );
 						}
 					}
 					//	item has been freshly added to stage
@@ -201,7 +201,7 @@ app.service
 				
 				onDragOver: function(event,ui,item)
 				{
-					if( library.componentsIndexed[item.componentId].container===false ) 
+					if( library.elementsIndexed[item.componentId].container===false ) 
 						ui.helper.addClass("reject");
 					else
 						ui.helper.removeClass("reject");
@@ -228,18 +228,18 @@ app.service
 				
 				acceptDrop: function(item)
 				{
-					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.componentsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
+					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
 					
 					return acceptable;
 				},
 				
-				getDragPreview: function(event,item)
+				getDragPreview: function(event)
 				{
 					var target = event.currentTarget;
 					
 					var scope = $rootScope.$new(true);
 					scope.canvas = canvas;
-					scope.component = library.componentsIndexed[ angular.element(target).attr("data-component-id") ];
+					scope.component = library.componentsIndexed[ angular.element(target).attr("data-id") ] || library.elementsIndexed[ angular.element(target).attr("data-component-id") ];
 					scope.dragService = this;
 					
 					var clone = angular.element('<component-preview component-instance="component" draggable drag-service="dragService"></component-preview>');

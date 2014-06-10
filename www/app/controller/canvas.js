@@ -204,7 +204,7 @@ app.controller
 					getSampleData();
 				
 				if( !library.components )
-					canvasService.getComponents().then( canvasService.getTemplates ).then( initProject );
+					canvasService.getElements().then( canvasService.getComponents ).then( canvasService.getTemplates ).then( initProject );
 				else 
 					initProject();
 			};
@@ -367,8 +367,8 @@ app.controller
 			};
 			
 			$scope.addPage = function(showEdit)
-			{
-				var page = FactoryService.componentInstance( library.componentsIndexed['ui_component'] );
+			{  //mk
+				var page =  FactoryService.componentInstance( library.elementsIndexed['ui_component'] );
 				page.name = "Page " + (canvas.currentSection.children.length+1);
 				
 				canvas.currentSection.children.push( page );
@@ -555,9 +555,12 @@ app.controller
 			{
 				$scope.exportSelectionDefinition = function()
 		 		{
-		 			var props = {id:"test",name:"test"};
-		 			var output = _.defaults(props,$scope.component);
+		 			var props = {id:"mycomponent",name:"My Component"};
+		 			var output = _.defaults(props,canvas.selection.instance);
 		 			
+		 			//TODO: strip root component's location property values (x,y)
+		 			
+		 			delete output['category'];
 		 			delete output['pid'];
 		 			
 		 			var ModalCtrl = function($scope,$modalInstance,content)

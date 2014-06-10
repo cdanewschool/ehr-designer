@@ -183,11 +183,16 @@ app.directive
 							if( !scope.id ) scope.id = FactoryService.uniqueId();
 							
 							//	set component's definition, handling an unrecognized/invalid component id
-							if( !(scope.definition = library.componentsIndexed[scope.instance.componentId]) )
+							if( !(scope.definition = library.elementsIndexed[scope.instance.componentId]) )
 							{
-								scope.definition = { container: false };
-								scope.instance = { componentId: null };
+								if( !(scope.definition = library.componentsIndexed[scope.instance.componentId]) )
+								{
+									scope.definition = { container: false };
+									scope.instance = { componentId: null };
+								}
 							}
+							
+							console.log( scope.definition );
 							
 							//	whether in preview mode or not
 							var previewing = scope.canvas && scope.canvas.previewing;
@@ -198,6 +203,7 @@ app.directive
 							scope.isDraggable = (!previewing && !scope.isStatic);
 							
 							//	store the component's id on the associated dom el so we can easily get the corresponding definition (see drag service)
+							element.attr("data-id",scope.instance.id);
 							element.attr("data-component-id",scope.instance.componentId);
 							
 							if( !scope.simpleRender ) 

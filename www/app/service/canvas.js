@@ -2,8 +2,8 @@ app.service
 (
 	'CanvasService',
 	[
-	 '$rootScope','$base64','$q','canvas','history','library','Component','Template',
-	 function($rootScope,$base64,$q,canvas,history,library,Component,Template)
+	 '$rootScope','$base64','$q','canvas','history','library','Element','Component','Template',
+	 function($rootScope,$base64,$q,canvas,history,library,Element,Component,Template)
 	 {
 		 $rootScope.$on
 		 (
@@ -85,8 +85,47 @@ app.service
 				 canvas.dirty = (canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) ? true : false;
 			 },
 			 
-			 getComponents: function()
+			 getElements: function()
 			 {
+				 var async = $q.defer();
+				
+				 Element.get
+				 (
+					{},
+					function(elements)
+					{
+						var elementsByCategory = {};
+						var elementsIndexed = {};
+						
+						for(var e in elements)
+						{
+							elementsIndexed[ elements[e].id ] = elements[e];
+							
+							if( !elements[e].abstract 
+								&& elements[e].category )
+							{
+								if( !elementsByCategory[ elements[e].category ] )
+									elementsByCategory[ elements[e].category ] = {name:elements[e].category,elements:[]};
+								
+								elementsByCategory[ elements[e].category ].elements.push( elements[e] );
+							}
+						}
+							
+						library.elementsByCategory = elementsByCategory;
+						library.elements = elements;
+						library.elementsIndexed = elementsIndexed;
+						
+						async.resolve();
+						
+						console.log( "elements loaded", library.elements, library.elementsIndexed );
+					}
+				);
+				
+				return async.promise;
+			},
+			
+			getComponents: function()
+			{
 				 var async = $q.defer();
 				
 				 Component.get
@@ -99,15 +138,18 @@ app.service
 						
 						for(var c in components)
 						{
-							componentsIndexed[ components[c].id ] = components[c];
+							var definition = library.elementsIndexed[ components[c].componentId ];
+							var component = _.defaults(components[c],definition);
+							
+							componentsIndexed[ components[c].id ] = component;
 							
 							if( !components[c].abstract 
 								&& components[c].category )
 							{
-								if( !componentsByCategory[ components[c].category ] )
-									componentsByCategory[ components[c].category ] = {name:components[c].category,components:[]};
+								if( !componentsByCategory[ component.category ] )
+									componentsByCategory[ component.category ] = {name:component.category,components:[]};
 								
-								componentsByCategory[ components[c].category ].components.push( components[c] );
+								componentsByCategory[ component.category ].components.push( component );
 							}
 						}
 							

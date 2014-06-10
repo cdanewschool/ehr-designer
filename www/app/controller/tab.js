@@ -31,7 +31,7 @@ app.controller
 	 				$scope.definition.children = [];
 	 			
 	 			if( !$scope.definition.children[index] )
-					$scope.definition.children[index] = factory.componentInstance( library.componentsIndexed['ui_component'],{} );
+					$scope.definition.children[index] = factory.componentInstance( library.elementsIndexed['ui_component'],{} );
 	 		};
 	 		
 	 		var initTabs = function(l)

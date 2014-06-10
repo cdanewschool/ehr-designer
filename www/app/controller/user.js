@@ -42,7 +42,7 @@ app.controller
 					
 					if( !err )
 					{
-						$location.path('/');
+						$location.path('/myprojects');
 					}
 					else
 					{
