@@ -142,6 +142,8 @@ app.controller
 				{
 					if( $routeParams.projectId )
 					{
+						canvas.currentProject = null;
+						
 						Project.get
 						(
 							{
