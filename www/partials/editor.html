@@ -71,7 +71,7 @@
 	    	<div class="panel panel-default">
 	    		<div class="panel-body">
 	    			<accordion close-others="oneAtATime">
-			    		<accordion-group heading="Template" is-open="true">
+			    		<accordion-group heading="Template" is-open="false">
 			    			<div class="list-group" ng-repeat="template in library.templates">
 			    				<a ng-click="setTemplate(template)" class="list-group-item">
 			    					<component-preview component-instance="template" component-static="true" style="width:100%;height:100px"></component-preview>
@@ -81,7 +81,7 @@
 						</accordion-group>
 					</accordion>
 		    		<accordion close-others="oneAtATime">
-				    	<accordion-group heading="Grid" is-open="true">
+				    	<accordion-group heading="Grid" is-open="false">
 				    		<accordion close-others="oneAtATime">
 								<ul class="list-group">
 									<li class="list-group-item"><label><input type="checkbox" ng-model="canvas.grid.visible"> Show</label></li>
@@ -92,6 +92,23 @@
 									<li class="list-group-item"><button class='btn btn-danger' ng-click="clearCanvas()">Clear Canvas</button></li>
 								</ul>
 							</accordion>
+						</accordion-group>
+					</accordion>
+					<accordion close-others="oneAtATime">
+			    		<accordion-group heading="Project Privacy" is-open="false">				
+							<div class="row">
+							<form role="form" class="form-horizontal">
+								<div class="form-group">
+										<div>
+											<label class="control-label" style="text-align:left"> This project is</label>
+											<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions"></select>
+										</div>
+									
+										<span ng-show="canvas.currentProject.sharing=='private'" class="help-block">Only you will be able to see</span>
+										<span ng-show="canvas.currentProject.sharing=='public'" class="help-block">For all users to see</span>			
+								</div>
+							</form>
+							</div>
 						</accordion-group>
 					</accordion>
 				</div>
@@ -157,29 +174,6 @@
 		<!-- pages in project-->
 		<div ng-if="canvas.currentProject && !canvas.currentPage">
 		
-			<div class="well well-sm">
-				
-				<h4>Project Settings</h4>
-				
-				<form role="form" class="form-horizontal">
-			
-					<div class="form-group">
-						<label class="col-sm-2 control-label" style="text-align:left">This project is</label>
-						<div class="col-sm-4">
-							
-							<div>
-								<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions"></select>
-							</div>
-							
-							<span ng-show="canvas.currentProject.sharing=='private'" class="help-block">Only you will be able to see this project</span>
-							<span ng-show="canvas.currentProject.sharing=='public'" class="help-block">Everyone be able to see this project</span>
-							
-						</div>
-					</div>
-					
-				</form>
-				
-			</div>
 			<div class="alert alert-danger" ng-if="canvas.pendingPage!=null">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.pendingPage=null">&times;</button>
 				<strong>Really delete this page?</strong>
