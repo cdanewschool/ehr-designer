@@ -78,8 +78,7 @@ a[ng-click] { cursor: pointer; }
 	padding: 30px;
 }
 
-
-/*	media broser	*/
+/*	media browser	*/
 .media-list { overflow-x: scroll; overflow-y: hidden; height: 150px; white-space: nowrap }
 .media-list > .thumbnail { display: inline-block; margin-right: 10px; }
 
@@ -124,6 +123,20 @@ span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outlin
 .library > .panel-group > .panel > .panel-collapse > .panel-body  > .list-group > .list-group-item, 
 .library-category > .panel-group > .panel > .panel-collapse > .panel-body > .list-group > .list-group-item { padding: 10px 30px; border:0px; }
 /*	bootstrap overrides	*/
+
+.project .badge {
+  background-image:url('../images/icons/icon_page.png');
+  background-repeat:no-repeat; 
+  background-color: transparent;
+  min-width: 25px;
+  font-size: 10px;
+  padding-top: 3px;
+  padding-right: 8px;
+  width: 25px;
+  height: 27px;
+  color: #428bca;
+  border-radius: 0px;
+}
 
 .panel-group { margin-bottom: 0px; }
 
