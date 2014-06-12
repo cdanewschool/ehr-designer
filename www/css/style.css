@@ -54,15 +54,30 @@ a[ng-click] { cursor: pointer; }
 	box-shadow: 2px 2px 1px #ccc;
 }
 
+.tile {
+	background: white;
+	color: white;
+	float:left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	padding: 30px;
+	border-style:solid;
+    border-color:#E6F1F5 #E6F1F5;
+    border-top-width:26px;
+    border-bottom-width:18px;
+}
+
 .page {
-	width: 100px;
-	height: 100px;
+	width: 164px;
+	height: 148px;
 }
 
 .project {
-	width: 200px;
-	height: 100px;
+	width: 204px;
+	height: 185px;
+	padding: 30px;
 }
+
 
 /*	media broser	*/
 .media-list { overflow-x: scroll; overflow-y: hidden; height: 150px; white-space: nowrap }

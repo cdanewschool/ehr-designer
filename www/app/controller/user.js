@@ -83,7 +83,7 @@ app.controller
 			}
 			else
 			{
-				navigation.showConfirm("You have unsaved changes. Would you like to save before creating a new project?").then
+				navigation.showConfirm("You have unsaved changes. Would you like to save?").then
 				(
 					function()
 					{

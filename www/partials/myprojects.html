@@ -1,11 +1,23 @@
-<div class="container-fluid" ng-init="find(true)">
-
-	<div class="project thumb" ng-repeat="project in projects">
+<div class="container" ng-init="find(true)">
+<div class="content-secondary" ng-controller="CanvasCtrl">
+	<div class="project tile">
 	
+		<div>
+			<div class="btn btn-link" style="font-size: 10px;" ng-click="newProject(true);location.path('/editor')"><span class="glyphicon glyphicon-plus"> CREATE PROJECT</div>
+		</div>
+	
+	</div>
+	
+	<div ng-repeat="project in projects">
+	<div class="project tile">
 		<h4><a href="/editor/{{project._id}}">{{project.content.name}}</a></h4>
 		
 		<div class="small text-muted">Created: {{project.created | date:'short'}}</div>
+		<div class="title" style="padding-left:2px;padding-right:2px"> 
+			<div style="padding-right:2px;"><img src="images/icons/icon_page.png" alt="page" /></div>
+		</div>	
+	</div>		
 		
 	</div>
-
+</div>
 </div>

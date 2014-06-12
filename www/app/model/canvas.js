@@ -18,10 +18,8 @@ app.service
 				last:null
 			},
 			currentProject: null,
-			currentSection: null,
 			currentPage: null,
-			
-			pendingSection: null,
+
 			pendingPage: null,
 			previewing: false,
 			

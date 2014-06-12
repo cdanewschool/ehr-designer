@@ -54,12 +54,12 @@ app.controller
 					{
 						canvas.messages = [];
 						canvas.errors = [];
-						canvas.currentSection = null;
+						canvas.currentPage = null;
 						
 						//	select a section/page when a project is selected
 						if( newVal )
 						{
-							$scope.selectSectionByIndex(0);
+							$scope.selectPageByIndex(0);
 						}
 						//	otherwise nullify page/section
 						else
@@ -79,10 +79,9 @@ app.controller
 					if( newVal != oldVal )
 					{
 						if( newVal )
-							$scope.selectSectionByIndex(0);
+							$scope.selectPageByIndex(0);
 						else
 						{
-							canvas.currentSection = null;
 							canvas.currentPage = null;
 						}
 					}
@@ -263,7 +262,6 @@ app.controller
 						function(response)
 						{
 							canvas.currentProject = null;
-							canvas.currentSection = null;
 							canvas.currentPage = null;
 							
 							$location.path( '/myprojects' );
@@ -273,7 +271,6 @@ app.controller
 				else
 				{
 					canvas.currentProject = null;
-					canvas.currentSection = null;
 					canvas.currentPage = null;
 					
 					$location.path( '/myprojects' );
@@ -284,7 +281,7 @@ app.controller
 			{
 				if( canvas.dirty )
 				{
-					navigation.showConfirm("You have unsaved changes. Would you like to save before creating a new project?").then
+					navigation.showConfirm("You have unsaved changes. Would you like to save?").then
 					(
 						function()
 						{
@@ -302,7 +299,6 @@ app.controller
 						{
 							canvas.currentProject = null;
 							canvas.dirty = false;	//	shouldn't be needed
-							
 							$scope.newProject(showEdit); 
 						}
 					);
@@ -324,20 +320,19 @@ app.controller
 						//	user has provided a name and/or clicked "save"
 						function ()
 						{
-							$scope.addSection(showEdit);
+							$scope.addPage(showEdit);
 						},
 						//	user has clicked cancel
 						function()
 						{
-							canvas.currentProject = null;
-							
+							canvas.currentProject = null;							
 							$location.path('/myprojects');
 						}
 					);
 				}
 				else
 				{
-					$scope.addSection(showEdit);
+					$scope.addPage(showEdit);
 				}
 			};
 			
@@ -346,34 +341,14 @@ app.controller
 				canvas.previewing = true;
 			};
 			
-			$scope.addSection = function(showEdit)
-			{
-				var section = angular.copy( template.section );
-				section.name = "Section " + (canvas.currentProject.content.children.length + 1);
-				
-				canvas.currentProject.content.children.push( section );
-				
-				$scope.selectSectionByIndex( canvas.currentProject.content.children.length - 1 );
-				
-				if(showEdit)
-					$scope.editItemProperties(canvas.currentSection, showEdit).then(function (){$scope.addPage(showEdit);});
-				else
-					$scope.addPage();
-			};
-			
-			$scope.deleteSection = function(section)
-			{
-				canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(section),1 );
-			};
-			
 			$scope.addPage = function(showEdit)
-			{  //mk
+			{  
 				var page =  FactoryService.componentInstance( library.elementsIndexed['ui_component'] );
-				page.name = "Page " + (canvas.currentSection.children.length+1);
+				page.name = "Page " + (canvas.currentProject.content.children.length+1);
 				
-				canvas.currentSection.children.push( page );
+				canvas.currentProject.content.children.push( page );
 				
-				$scope.selectPageByIndex( canvas.currentSection.children.length - 1 );
+				$scope.selectPageByIndex( canvas.currentProject.content.children.length - 1 );
 				
 				if(showEdit)
 					$scope.editItemProperties(canvas.currentPage, showEdit);
@@ -381,33 +356,18 @@ app.controller
 			
 			$scope.deletePage = function(page)
 			{
-				canvas.currentSection.children.splice( canvas.currentSection.children.indexOf(page),1 );
-			};
-			
-			$scope.selectSection = function(section)
-			{
-				$scope.selectSectionByIndex( canvas.currentProject.content.children.indexOf( section ) );
-			};
-			
-			$scope.selectSectionByIndex = function(id)
-			{
-				if( id > canvas.currentProject.content.children - 1 ) 
-					return;
-				
-				canvas.currentSection = canvas.currentProject.content.children[id];
-				
-				$scope.selectPageByIndex(0);
+				canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(page),1 );
 			};
 			
 			$scope.selectPage = function(page)
 			{
-				$scope.selectPageByIndex( canvas.currentSection.children.indexOf( page ) );
+				$scope.selectPageByIndex( canvas.currentProject.content.children.indexOf( page ) );
 			};
 			
 			$scope.selectPageByIndex = function(id)
 			{
-				if( canvas.currentSection.children[id] )
-					canvas.currentPage = canvas.currentSection.children[id];
+				if( canvas.currentProject.content.children[id] )
+					canvas.currentPage = canvas.currentProject.content.children[id];
 			};
 			
 			$scope.setTemplate = function(template)
@@ -455,8 +415,6 @@ app.controller
 				
 				if( canvas.currentPage )
 		    		item = canvas.currentPage;
-		    	else if( canvas.currentSection )
-		    		item = canvas.currentSection;
 		    	else if( canvas.currentProject )
 		    		item = canvas.currentProject.content;
 				if(item)
@@ -472,8 +430,6 @@ app.controller
 				
 				if( item === canvas.currentPage )
 					title = "Page Properties";
-				else if( item === canvas.currentSection )
-					title = "Section Properties";
 				else if( item === canvas.currentProject.content )
 					title = "Project Properties";
 				
@@ -481,8 +437,6 @@ app.controller
 				{
 					if( item === canvas.currentPage )
 						message = "We've created a new <strong>page</strong> for your section. What would you like to call it?";
-					else if( item === canvas.currentSection )
-						message = "We've created a new <strong>section</strong> for your project. What would you like to call it?";
 					else if( item === canvas.currentProject.content )
 						message = "We've created a new <strong>project</strong> for you. What would you like to call it?";
 				}
@@ -502,8 +456,6 @@ app.controller
 			      		{
 			      			if( item === canvas.currentPage )
 				      			historyService.save( "Changed page properties" );
-							else if( item === canvas.currentSection )
-								historyService.save( "Changed section properties" );
 							else if( item === canvas.currentProject.content )
 								historyService.save( "Changed project properties" );
 			      		}
@@ -515,16 +467,10 @@ app.controller
 			      	{
 				       	if(item == canvas.currentPage && isNew)
 				       	{
-				       		canvas.currentSection.children.splice( canvas.currentSection.children.indexOf(item),1 );
+				       		canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(item),1 );
 				    	 	canvas.currentPage = null;			    	   
 				       	}
-				       	else if(item == canvas.currentSection && isNew)
-				       	{
-				    		canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(item),1 );
-							canvas.currentSection = null;
-							canvas.currentPage = null;
-				       	}
-				       	
+				       				       	
 						$modalInstance.dismiss('cancel');
 			      	};
 			    };

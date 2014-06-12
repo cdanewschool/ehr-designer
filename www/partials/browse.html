@@ -34,13 +34,9 @@
 			<form role="form">
 				
 				<div class="row">
-				
+														
 					<div class="form-group col-sm-4">
-						<select class="form-control input-sm" ng-options="section.name for section in currentProject.content.children" ng-model="currentSection"></select>
-					</div>
-					
-					<div class="form-group col-sm-4">
-						<select class="form-control input-sm" ng-options="page.name for page in currentSection.children" ng-model="currentPage"></select>
+						<select class="form-control input-sm" ng-options="page.name for page in currentProject.content.children" ng-model="currentPage"></select>
 					</div>
 				
 				</div>
