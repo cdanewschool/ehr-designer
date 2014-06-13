@@ -408,7 +408,10 @@ app.controller
 			
 			$scope.clearCanvas = function()
 			{
-				canvas.currentPage.children = [];	
+				canvas.currentPage.children = [];
+				
+				//	append to history
+	 			historyService.save( "Cleared canvas" );
 			};
 			
 			$scope.editCurrentItem = function()
