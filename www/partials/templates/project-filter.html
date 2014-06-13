@@ -1,0 +1,10 @@
+<div class="pull-left">
+	<button class="btn btn-default btn-sm" ng-repeat="f in filters" ng-click="$parent.$parent.filter=f.value" ng-class="{active:filter==f.value}">{{f.label}}</button>
+</div>
+
+<div class="pull-right">
+	<div class="form-group has-feedback">
+		<input class="form-control" type="text" placeholder="Search" ng-model="$parent.search" >
+		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+	</div>
+</div>

@@ -1,21 +1,41 @@
-<div class="container" ng-init="find(true)">
+<div class="container" ng-init="find(true)" ng-controller="FilterCtrl">
 
-	<div class="content-secondary" ng-controller="CanvasCtrl">
+	<h1 class="page-title">My Projects</h1>
+	
+	<div id="project-filters" ng-include src="'partials/templates/project-filter.html'"></div>
+	
+	<div class="container" style="clear:both;">
 		
-		<div class="project tile">		
-			<button type="button" class="btn btn-link btn-sm" ng-click="newProject(true);location.path('/editor')">
-	 			<span class="glyphicon glyphicon-plus"></span> CREATE PROJECT
-			</button>
+		<div class="row" ng-controller="CanvasCtrl">
+			
+			<div class="col-md-4 tile new">
+				
+				<div class="thumbnail">
+					<img ng-click="newProject(true);location.path('/editor')" src="images/new-project.jpg"></a>
+				</div>
+				
+			</div>
+			
+			<div class="col-md-4 tile" ng-repeat="project in projects | filter : filterByTitle | orderBy : filter : filter!='content.name'">
+				
+				<div class="thumbnail">
+					<a href="/editor/{{project._id}}"><img ng-src="{{project.thumbnail}}" src-fallback="images/default/project.jpg"></a>
+				</div>
+				
+				<div class="caption">
+				
+					<h4>
+						<a href="/editor/{{project._id}}" class="pull-left">{{project.content.name}}</a>
+						<div class="small pull-right"><span class="badge text-primary">{{project.content.children.length}}</span></div>
+					</h4>
+					
+					<div class="small text-muted" style="clear:both">Created: {{project.created | date:'short'}}</div>
+				</div>
+				
+			</div>
+			
 		</div>
-		
-		<div ng-repeat="project in projects">
-			<div class="project tile">
-				<h4><a href="/editor/{{project._id}}">{{project.content.name}}</a></h4>
-				<div class="small"> <span class="badge text-primary">{{project.content.children.length}}</span></div>		
-				<div class="small text-muted">Created: {{project.created | date:'short'}}</div>						
-			</div>		
-		</div>
-		
+	
 	</div>
 	
 </div>

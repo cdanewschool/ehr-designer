@@ -1,19 +1,28 @@
-<div style="width:100%;height:100%;padding:20px;">
+<div class="container" ng-controller="FilterCtrl">
 	
-	<div ng-if="!currentProject" class="container-fluid" ng-init="find()">
+	<h1 class="page-title">Browse</h1>
+	
+	<div id="project-filters" ng-include src="'partials/templates/project-filter.html'"></div>
+	
+	<div ng-if="!currentProject" class="container" style="clear:both;" ng-init="find()">
 
 		<div class="row">
 		
-			<div class="col-sm-6 col-md-4" ng-repeat="project in projects | orderBy:'updated':true">
+			<div class="col-md-3 tile" ng-repeat="project in projects | filter : filterByTitle | orderBy : filter : filter!='content.name'">
 			
 				<div class="thumbnail">
-				
-					<a href="/browse/{{project._id}}"><img ng-src="{{project.thumbnail}}"></a>
-				 
+					
+					<a href="/browse/{{project._id}}"><img ng-src="{{project.thumbnail}}" src-fallback="images/default/project.jpg"></a>
+				 	
 					<div class="caption">
-						<h4><a href="/browse/{{project._id}}">{{project.content.name}}</a></h4>
-						<h6 class="small text-muted">by {{project.creator.nameFirst}} {{project.creator.nameLast}}</h6>
-						<div class="small text-muted">Updated on {{project.updated | date:'short'}}</div>
+					
+						<h4>
+							<a href="/browse/{{project._id}}" class="pull-left">{{project.content.name}}</a>
+							<div class="small pull-right"><span class="badge text-primary">{{project.content.children.length}}</span></div>
+						</h4>
+						
+						<h6 class="small text-muted" style="clear:both">by <span class="author">{{project.creator.nameFirst}} {{project.creator.nameLast}}</span></h6>
+						<div class="small text-muted">Modified: {{project.updated | date:'short'}}</div>
 					</div>
 					
 				</div>
@@ -24,7 +33,7 @@
 		
 	</div>
 	
-	<div ng-if="currentProject" style="width:100%;height:100%;">
+	<div ng-if="currentProject" style="clear:both;width:100%;height:100%;">
 	
 		<h3>{{currentProject.title}} <small>by {{currentProject.creator.nameFirst}} {{currentProject.creator.nameLast}}</small> <button ng-controller="NavigationCtrl" ng-click="setLocation('/browse/')" type="button" class="btn btn-link pull-right">Back</button></h3>
 		<h5>Last updated on {{currentProject.updated | date:small}} at {{currentProject.updated | date:'shortTime'}}</h5>

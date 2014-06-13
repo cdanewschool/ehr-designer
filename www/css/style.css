@@ -7,6 +7,64 @@ h4.panel-title { font-size: 12px; }
 
 a[ng-click] { cursor: pointer; }
 
+.page-title { text-align:center; margin-top: 20px; margin-bottom: 50px; font-size: 1.6em; }
+
+/*	my projcts/browse	*/
+#project-filters button { margin-right: 10px; }
+#project-filters .form-control-feedback { top: 0px; }
+
+/*
+.tile.col-md-4 {
+	width: 204px;
+	margin-right: 122px;
+	margin-bottom: 62px;
+}
+
+.tile.col-md-4.new {
+	width: 204px;
+}
+*/
+
+.tile.new {
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.tile > .caption .badge {
+  background-image:url('../images/icons/icon_page.png');
+  background-repeat:no-repeat; 
+  background-color: transparent;
+  min-width: 25px;
+  font-size: 10px;
+  padding-top: 3px;
+  padding-right: 8px;
+  width: 25px;
+  height: 27px;
+  color: #428bca;
+  border-radius: 0px;
+}
+
+.tile:not(.new) > .thumbnail {
+	background: white;
+	border-style: solid;
+    border-color: #E6F1F5 #E6F1F5;
+    border-top-width: 26px;
+    border-bottom-width: 18px;
+    width: 100%;
+}
+
+.tile > .caption a {
+	color: #000;
+}
+
+.tile > .caption .author {
+	text-transform: uppercase;
+}
+
 /*	workspace	*/
 #sidebar { width: 20%; height: 100%; background: rgba(255, 255, 255, .5); padding: 10px; float:left }
 
@@ -58,28 +116,9 @@ a[ng-click] { cursor: pointer; }
 	box-shadow: 2px 2px 1px #ccc;
 }
 
-.tile {
-	background: white;
-	color: white;
-	float:left;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	padding: 30px;
-	border-style:solid;
-    border-color:#E6F1F5 #E6F1F5;
-    border-top-width:26px;
-    border-bottom-width:18px;
-}
-
 .page {
 	width: 164px;
 	height: 148px;
-}
-
-.project {
-	width: 204px;
-	height: 185px;
-	padding: 30px;
 }
 
 /*	media browser	*/
@@ -126,22 +165,9 @@ span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outlin
 .library-category > .panel-group > .panel > .panel-collapse > .panel-body > .list-group { font-size: 12px; margin-bottom:0px; }
 .library > .panel-group > .panel > .panel-collapse > .panel-body  > .list-group > .list-group-item, 
 .library-category > .panel-group > .panel > .panel-collapse > .panel-body > .list-group > .list-group-item { padding: 10px 30px; border:0px; }
+
 /*	bootstrap overrides	*/
-
-.project .badge {
-  background-image:url('../images/icons/icon_page.png');
-  background-repeat:no-repeat; 
-  background-color: transparent;
-  min-width: 25px;
-  font-size: 10px;
-  padding-top: 3px;
-  padding-right: 8px;
-  width: 25px;
-  height: 27px;
-  color: #428bca;
-  border-radius: 0px;
-}
-
+.thumbnail { border: none; }
 .panel-group { margin-bottom: 0px; }
 
 .list-group > a[disabled] {

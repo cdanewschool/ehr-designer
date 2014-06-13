@@ -192,8 +192,6 @@ app.directive
 								}
 							}
 							
-							console.log( scope.definition );
-							
 							//	whether in preview mode or not
 							var previewing = scope.canvas && scope.canvas.previewing;
 							
