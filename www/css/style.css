@@ -77,9 +77,26 @@ a[ng-click] { cursor: pointer; }
 #project-preview { top:180px; }
 
 #main > div:nth-child(1){ width: 100%; height: 100%; position: relative; float: left; }
-#main > div:nth-child(1).minimized { width: 75%; }
 
-#properties { position: absolute; right: 0px; top:0px; width: 300px; height: auto; display: none; background: #fff; z-index:1; }
+#properties { 
+	position: fixed; 
+	right: 10px; 
+	top: 60px; 
+	width: 300px; 
+	display: none; 
+	background: #fff; 
+	z-index: 1; 
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+}
+
+#properties .panel-body {
+	max-height: 500px; 
+	overflow: hidden; 
+	overflow-y: scroll; 
+}
+
 #properties.maximized { display: block; }
 
 .ui-draggable { cursor: move }

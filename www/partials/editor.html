@@ -25,7 +25,7 @@
 			    		<accordion-group heading="EHR Components">
 			    			<div class="list-group" >
      							<a ng-repeat="component in library.components | filter:{'category':'!'} | orderBy:'name'" class="list-group-item">
-     								<component-preview component-instance="component" component-static="true" simple-render="true" draggable drag-service="dragService"></component-preview>
+     								<component-preview component-instance="component" component-static="true" simple-render="true" component-draggable drag-service="dragService"></component-preview>
      							</a>
      						</div>
 			    			<accordion class="library-category" close-others="oneAtATime" ng-repeat="category in library.componentsByCategory | orderBy:'name'">
@@ -35,7 +35,7 @@
         							</accordion-heading>
         							<div class="list-group">
         								<a ng-repeat="component in category.components | filter:componentFilter | orderBy:'name'" class="list-group-item">
-        									<component-preview component-instance="component" component-static="true" simple-render="true" draggable drag-service="dragService"></component-preview>
+        									<component-preview component-instance="component" component-static="true" simple-render="true" component-draggable drag-service="dragService"></component-preview>
         								</a>
         							</div>
 					  			</accordion-group>
@@ -44,7 +44,7 @@
 			    		<accordion-group heading="UI Elements" is-open="true">
 			    			<div class="list-group" >
      							<a ng-repeat="element in library.elements | filter:{'category':'!',abstract:'!'} | orderBy:'name'" class="list-group-item">
-     								<component-preview component-instance="element" component-static="true" simple-render="true" draggable drag-service="dragService"></component-preview>
+     								<component-preview component-instance="element" component-static="true" simple-render="true" component-draggable drag-service="dragService"></component-preview>
      							</a>
      						</div>
 			    			<accordion class="library-category" close-others="oneAtATime" ng-repeat="category in library.elementsByCategory | orderBy:'name'">
@@ -54,7 +54,7 @@
         							</accordion-heading>
         							<div class="list-group">
         								<a ng-repeat="element in category.elements | filter:componentFilter | orderBy:'name'" class="list-group-item">
-        									<component-preview component-instance="element" component-static="true" simple-render="true" draggable drag-service="dragService"></component-preview>
+        									<component-preview component-instance="element" component-static="true" simple-render="true" component-draggable drag-service="dragService"></component-preview>
         								</a>
         							</div>
 					  			</accordion-group>
@@ -209,7 +209,7 @@
 		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
 			
 			<!-- canvas -->
-			<component-preview component-instance="canvas.currentPage" component-static="false" droppable drag-service="dragService" canvas="canvas"></component-preview>
+			<component-preview component-instance="canvas.currentPage" component-static="false" component-droppable drag-service="dragService" canvas="canvas"></component-preview>
 			
 			<!-- canvas bg -->
 			<svg preserveAspectRatio="none" ng-show="!canvas.previewing && canvas.grid.visible">

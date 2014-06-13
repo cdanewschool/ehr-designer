@@ -2,8 +2,8 @@ app.controller
 (
 	'PropertyInspectorCtrl',
 	[
-	 	'$scope','$rootScope','$modal','propertyInspector','library','canvas','HistoryService',
-	 	function($scope,$rootScope,$modal,propertyInspector,library,canvas,history)
+	 	'$scope','$rootScope','$modal','propertyInspector','library','canvas','HistoryService','dragModel',
+	 	function($scope,$rootScope,$modal,propertyInspector,library,canvas,history,dragModel)
 	 	{
 	 		$scope.propertyInspector = propertyInspector;
 	 		
@@ -361,9 +361,13 @@ app.controller
 	 				
 	 				return false;
 	 			}
-	 				
 	 			
 	 			return $scope.definition.binding.dataType === "object";
+	 		};
+	 		
+	 		$scope.onSortableStart = function()
+	 		{
+	 			dragModel.dragItem = null;
 	 		};
 	 		
 	 		var init = function()

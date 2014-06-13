@@ -1,6 +1,6 @@
 app.directive
 (
-	'droppable',
+	'componentDroppable',
 	function($compile)
 	{
 		return {
@@ -9,7 +9,7 @@ app.directive
 			terminal: true,
 			compile: function compile(element,attrs)
 			{
-				element.removeAttr("droppable");
+				element.removeAttr("component-droppable");
 				
 				element.attr("data-drop","true");
 				element.attr("jqyoui-droppable","{multiple:'true', stack:'true', onDrop: 'dragService.onDrop(instance)', onOver:'dragService.onDragOver(instance)'}");

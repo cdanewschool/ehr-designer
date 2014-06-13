@@ -12,6 +12,8 @@ app.directive
 					'click',
 					function(event)
 					{
+						if( event.eventPhase > 1 ) return;
+						
 						//	if click was outside of property inspector, nullify current selection
 						if( !angular.element(event.target).closest('#properties').length )
 						{

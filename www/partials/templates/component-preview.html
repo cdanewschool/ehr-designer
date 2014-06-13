@@ -8,7 +8,7 @@
 		<div class='content' style="width:100%;height:100%">
 			
 			<div ng-if='instance.componentId=="ui_component"' ng-repeat="child in instance.children" style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.onOver($event,instance)'>
-				<component-preview component-instance='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview>
+				<component-preview component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview>
 			</div>
 			
 			<div ng-if='instance.componentId=="text"' ng-mouseenter='dragService.onOver($event,instance)'>
@@ -426,7 +426,7 @@
 							 			'text-align':child.values['halign']?child.values['halign']:false,
 							 			'top':child.values['valign']=='middle'?'50%':(child.values['valign']=='bottom'?'100%':false),
 							 			transform:child.values['valign']=='middle'?'translateY(-50%)':(child.values['valign']=='bottom'?'translateY(-100%)':false)
-							 		}"><component-preview component-instance='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+							 		}"><component-preview component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>
@@ -462,7 +462,7 @@
 								'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
 								'padding-left':instance.values.padding.left+instance.values.padding.unit,
 								'vertical-align': 'top'
-							}"><div><div ng-repeat="child in instance.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview component-instance='child' component-static="false" draggable droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+							}"><div><div ng-repeat="child in instance.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>
@@ -494,7 +494,7 @@
 								'padding-right':instance.values.padding.right+'px',
 								'padding-bottom':instance.values.padding.bottom+'px',
 								'padding-left':instance.values.padding.left+'px'
-							}"><component-preview component-instance="instance.children[$index]" droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
+							}"><component-preview component-instance="instance.children[$index]" component-droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
 					</tab>
 				</tabset>
 			</div>

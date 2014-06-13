@@ -61,6 +61,7 @@ app.service
 						ui.draggable.css('top',dragModel.startPosition.top);
 					};
 					
+					if( !dragModel.dragItem ) return;
 					if( target == dragModel.dragItem ) return;
 					
 					var targetDefinition = library.elementsIndexed[angular.element(event.target).attr('data-component-id')];
@@ -242,7 +243,7 @@ app.service
 					scope.component = library.componentsIndexed[ angular.element(target).attr("data-id") ] || library.elementsIndexed[ angular.element(target).attr("data-component-id") ];
 					scope.dragService = this;
 					
-					var clone = angular.element('<component-preview component-instance="component" draggable drag-service="dragService"></component-preview>');
+					var clone = angular.element('<component-preview component-instance="component" component-draggable drag-service="dragService"></component-preview>');
 					$compile(clone)(scope);
 					
 					return $("<div></div>").append(clone);
