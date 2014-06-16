@@ -52,7 +52,7 @@ app.service
 						{
 							event.preventDefault();
 							
-							navigation.showConfirm("You have unsaved changes. Save before leaving?").then
+							navigation.showConfirm("You have unsaved changes. Do you want to Save?").then
 							(
 								function()
 								{
