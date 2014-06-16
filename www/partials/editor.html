@@ -191,19 +191,12 @@
 			
 		<!-- pages in project-->
 		<div ng-if="canvas.currentProject && !canvas.currentPage">
-		
-			<div class="alert alert-danger" ng-if="canvas.pendingPage!=null">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="canvas.pendingPage=null">&times;</button>
-				<strong>Really delete this page?</strong>
-				<div class="btns">
-					<button type="button" class="btn btn-default" ng-click="canvas.pendingPage=null">No</button> <button type="button" class="btn btn-danger" ng-click="deletePage(canvas.pendingPage); canvas.pendingPage = null;">Yes</button>
-				</div>
-			</div>
+			
 			<div class="page tile" ng-repeat="page in canvas.currentProject.content.children">
 				<a ng-click="selectPage(page)">{{page.name}}</a>
-				<a class="small" ng-click="canvas.pendingPage=page">Delete</a>
+				<a class="small" confirm-dialog confirm-dialog-message="{{page.name}}" confirm-dialog-title="Delete this page?" confirm-dialog-no-button="Cancel" confirm-dialog-yes-button="Delete Page" confirm-dialog-callback="deletePage" confirm-dialog-callback-args="[page]">Delete</a>
 			</div>
-		
+			
 		</div>
 		
 		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
