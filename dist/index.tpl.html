@@ -24,9 +24,11 @@
 				<li><a href="/about">About</a></li>
 			</ul>
 			
-			<ul class="nav navbar-nav navbar-right">
+			<ul id="user-menu" class="nav navbar-nav navbar-right">
 				<li ng-show="!currentUser"><a href="/login"><span class="text-primary">Login</span></a></li>
-				<li ng-controller="UserCtrl" ng-show="currentUser"><a ng-click="logout()"><span class="text-muted">Logout</span></a></li>
+				<li ng-controller="UserCtrl" ng-show="currentUser"><p class="navbar-text">{{currentUser.nameFirst}} {{currentUser.nameLast}}</p></li>
+				<li><p class="navbar-text" ng-show="currentUser">|</p></li>
+				<li ng-controller="UserCtrl" ng-show="currentUser"><a ng-click="logout()"><span class="text-muted">Log out</span></a></li>
 			</ul>
 						
 		</div>

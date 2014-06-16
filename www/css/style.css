@@ -9,6 +9,20 @@ a[ng-click] { cursor: pointer; }
 
 .page-title { text-align:center; margin-top: 20px; margin-bottom: 50px; font-size: 1.6em; }
 
+#user-menu .navbar-text {
+	margin-left: 5px;
+	margin-right: 5px;
+	text-transform: uppercase;
+	font-size: small;
+}
+
+#user-menu a {
+	padding-left: 5px;
+	padding-right: 5px;
+	text-transform: uppercase;
+	font-size: small;
+}
+
 /*	my projcts/browse	*/
 #project-filters button { margin-right: 10px; }
 #project-filters .form-control-feedback { top: 0px; }
@@ -184,6 +198,10 @@ span[contenteditable=true]:focus { border: solid 1px; border-radius: 5px; outlin
 .library-category > .panel-group > .panel > .panel-collapse > .panel-body > .list-group > .list-group-item { padding: 10px 30px; border:0px; }
 
 /*	bootstrap overrides	*/
+.navbar-default { 
+	background-color: #fff;
+	border: none;
+}
 .thumbnail { border: none; }
 .panel-group { margin-bottom: 0px; }
 
