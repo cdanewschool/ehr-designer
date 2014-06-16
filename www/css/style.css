@@ -44,6 +44,10 @@ a[ng-click] { cursor: pointer; }
 
 .dropTarget { border: dashed 1px rgba(0, 0, 0, 1) !important;  }
 
+.grey{
+    color: #CCCCCC;
+}
+
 .thumb {
 	background: #eee;
 	color: #333;

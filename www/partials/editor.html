@@ -157,17 +157,35 @@
 					<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
 				</ol>
 				
-				<a class="btn btn-link btn-nav text-muted small pull-left" ng-click="editCurrentItem()">Edit Properties</a>
-				
+				<a class="btn btn-link btn-nav text-muted small pull-left" ng-click="editCurrentItem()">Edit Properties</a>				
+
 			</div>
 			
 			<div class="col-sm-4">
 				
 				<div class="btn-group pull-right">
-					<button class="btn btn-default btn-small" ng-show="canvas.currentProject" ng-click="addPage(true)" ng-disabled="!canvas.currentProject"><span class="glyphicon glyphicon-plus"> Page</button>
+					<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-click="addPage(true)" ng-disabled="!canvas.currentProject">
+	 					<span class="glyphicon glyphicon-plus grey"></span> PAGE
+	 				</button>
+					<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-click="saveProject()" ng-disabled="!canvas.currentProject || canvas.dirty===false">
+	 					<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> SAVE
+					</button>
+					<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
+	 					<img src="../images/icons/icon_preview.png" > PREVIEW
+					</button>
 				</div>
-				
+
 			</div>
+			
+		</div>
+		
+		<div ng-show="canvas.previewing">
+		
+			<div  class="btn-group pull-right">
+				<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-click="canvas.previewing=false"" ng-disabled="!canvas.currentProject">
+						<img src="../images/icons/icon_preview.png" > EXIT PREVIEW
+				</button>
+			</div>		
 			
 		</div>
 			

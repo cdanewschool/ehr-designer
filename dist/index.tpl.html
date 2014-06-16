@@ -17,23 +17,7 @@
 			<div class="navbar-header">
 				<span class="navbar-brand">EHR Designer</span>
 			</div>
-			
-			<ul class="nav navbar-nav" ng-show="currentUser && !canvas.previewing">
-			
-				<li class="dropdown">
-				
-          			<a class="dropdown-toggle">File <b class="caret"></b></a>
-          			
-		          	<ul class="dropdown-menu" ng-controller="CanvasCtrl">
-		          		<li><button class="btn btn-link" ng-click="newProject(true);location.path('/editor')">New</button></li>
-		            	<li><button class="btn btn-link" ng-disabled="!canvas.currentProject || canvas.dirty===false" ng-click="saveProject()">Save</button></li>
-		            	<li><button class="btn btn-link" ng-disabled="!canvas.currentProject || canvas.currentProject._isNew!==false" confirm-dialog confirm-dialog-message="Really delete?" confirm-dialog-callback="deleteProject">Delete</button></li>
-		          	</ul>
-		          	
-		        </li>
-				
-			</ul>
-			
+						
 			<ul class="nav navbar-nav">
 				<li><a href="/browse">Browse</a></li>
 				<li ng-controller="UserCtrl" ng-show="currentUser"><a href="/myprojects">My Projects</a></li>
@@ -44,13 +28,7 @@
 				<li ng-show="!currentUser"><a href="/login"><span class="text-primary">Login</span></a></li>
 				<li ng-controller="UserCtrl" ng-show="currentUser"><a ng-click="logout()"><span class="text-muted">Logout</span></a></li>
 			</ul>
-			
-			<ul class="nav navbar-nav navbar-right" ng-show="location.path().indexOf('/editor')>-1">
-				<li ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"><a><span class="glyphicon glyphicon-flash"></span></a></li>
-				<li ng-show="!canvas.previewing"><a ng-controller="CanvasCtrl" ng-click="previewProject()"><span class="text-primary">Preview</span></a></li>
-				<li ng-show="canvas.previewing"><a ng-click="canvas.previewing=false"><span class="text-primary">Exit</span></a></li>
-			</ul>
-			
+						
 		</div>
 		
 	</nav>
