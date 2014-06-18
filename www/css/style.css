@@ -5,6 +5,10 @@ pre { font-size:.7em }
 div[ng-view] { height:100%;min-height:100%;position:relative; }
 h4.panel-title { font-size: 12px; }
 
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
 a[ng-click] { cursor: pointer; }
 
 .page-title { text-align:center; margin-top: 20px; margin-bottom: 50px; font-size: 1.6em; }
