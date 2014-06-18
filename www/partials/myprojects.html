@@ -25,11 +25,14 @@
 				<div class="caption">
 				
 					<h4>
-						<a href="/editor/{{project._id}}" class="pull-left">{{project.content.name}}</a>
+ 						<a class="project-name" href="/editor/{{project._id}}" class="pull-left">{{project.content.name}}</a>
 						<div class="small pull-right"><span class="badge text-primary">{{project.content.children.length}}</span></div>
 					</h4>
 					
-					<div class="small text-muted" style="clear:both">Created: {{project.created | date:'short'}}</div>
+					<div class="footer">
+						<div class="small text-muted" style="clear:both">Modified: {{project.updated | date:'short'}} | Created: {{project.created | date:'short'}}</div>
+					</div>
+					
 				</div>
 				
 			</div>

@@ -2,7 +2,7 @@
 	
 	<h1 class="page-title">Browse</h1>
 	
-	<div id="project-filters" ng-include src="'partials/templates/project-filter.html'"></div>
+	<div id="project-filters" ng-show="!currentProject" ng-include src="'partials/templates/project-filter.html'"></div>
 	
 	<div ng-if="!currentProject" class="container" style="clear:both;" ng-init="find()">
 
@@ -17,12 +17,15 @@
 					<div class="caption">
 					
 						<h4>
-							<a href="/browse/{{project._id}}" class="pull-left">{{project.content.name}}</a>
+							<a class="project-name" href="/browse/{{project._id}}" class="pull-left">{{project.content.name}}</a>
 							<div class="small pull-right"><span class="badge text-primary">{{project.content.children.length}}</span></div>
 						</h4>
 						
-						<h6 class="small text-muted" style="clear:both">by <span class="author">{{project.creator.nameFirst}} {{project.creator.nameLast}}</span></h6>
-						<div class="small text-muted">Modified: {{project.updated | date:'short'}}</div>
+						<div class="footer">
+							<h6 class="small text-muted" style="clear:both">by <span class="author">{{project.creator.nameFirst}} {{project.creator.nameLast}}</span></h6>
+							<div class="small text-muted">Modified: {{project.updated | date:'short'}}</div>
+						</div>
+						
 					</div>
 					
 				</div>
