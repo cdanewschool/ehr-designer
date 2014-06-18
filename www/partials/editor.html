@@ -96,19 +96,16 @@
 					</accordion>
 					<accordion close-others="oneAtATime">
 			    		<accordion-group heading="Project Privacy" is-open="false">				
-							<div class="row">
-							<form role="form" class="form-horizontal">
+							<form role="form">
 								<div class="form-group">
-										<div>
-											<label class="control-label" style="text-align:left"> This project is</label>
-											<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions"></select>
-										</div>
-									
-										<span ng-show="canvas.currentProject.sharing=='private'" class="help-block">Only you will be able to see</span>
-										<span ng-show="canvas.currentProject.sharing=='public'" class="help-block">For all users to see</span>			
+									<div>
+										<label class="control-label" style="text-align:left"> This project is</label>
+										<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions"></select>
+									</div>
+									<span ng-show="canvas.currentProject.sharing=='private'" class="help-block">Only you will be able to see</span>
+									<span ng-show="canvas.currentProject.sharing=='public'" class="help-block">For all users to see</span>
 								</div>
 							</form>
-							</div>
 						</accordion-group>
 					</accordion>
 				</div>
@@ -164,14 +161,14 @@
 			<div class="col-sm-4">
 				
 				<div class="pull-right">
-					<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-click="addPage(true)" ng-disabled="!canvas.currentProject">
-	 					<span class="glyphicon glyphicon-plus grey"></span> PAGE
+					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="addPage(true)" ng-disabled="!canvas.currentProject">
+	 					<span class="glyphicon glyphicon-plus grey"></span> Page
 	 				</button>
-					<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-click="saveProject()" ng-disabled="!canvas.currentProject || canvas.dirty===false">
-	 					<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> SAVE
+					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="saveProject()" ng-disabled="!canvas.currentProject || canvas.dirty===false">
+	 					<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> Save
 					</button>
-					<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
-	 					<img src="../images/icons/icon_preview.png" > PREVIEW
+					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
+	 					<img src="../images/icons/icon_preview.png" > Preview
 					</button>
 				</div>
 
@@ -182,8 +179,8 @@
 		<div ng-show="canvas.previewing">
 		
 			<div class="pull-right">
-				<button type="button" class="btn btn-default btn-sm" ng-show="canvas.currentProject" ng-click="canvas.previewing=false"" ng-disabled="!canvas.currentProject">
-						<img src="../images/icons/icon_preview.png" > EXIT PREVIEW
+				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="canvas.previewing=false"" ng-disabled="!canvas.currentProject">
+						<img src="../images/icons/icon_preview.png" > Exit Preview
 				</button>
 			</div>		
 			
@@ -202,7 +199,7 @@
 		<div id="canvas" ng-class="{grid:canvas.showGrid}" ng-show="canvas.currentPage">
 			
 			<!-- canvas -->
-			<component-preview component-instance="canvas.currentPage" component-static="false" component-droppable drag-service="dragService" canvas="canvas"></component-preview>
+			<component-preview component-instance="canvas.currentPage" component-static="false" component-droppable drag-service="dragService" canvas="canvas" canvas-manager></component-preview>
 			
 			<!-- canvas bg -->
 			<svg preserveAspectRatio="none" ng-show="!canvas.previewing && canvas.grid.visible">
