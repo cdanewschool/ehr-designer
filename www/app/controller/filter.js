@@ -8,7 +8,7 @@ app.controller
 	 		$scope.filters = [
 	 		                  {value:'content.name',label:'Alphabetical'},
 	 		                  {value:'created',label:'Recently Created'},
-	 		                  {value:'modified',label:'Recently Modified'}
+	 		                  {value:'updated',label:'Recently Modified'}
 	 		                 ];
 	 		$scope.filter = $scope.filters[0].value;
 	 		
