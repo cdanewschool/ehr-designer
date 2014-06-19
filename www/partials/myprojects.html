@@ -11,7 +11,7 @@
 			<div class="col-md-4 tile new">
 				
 				<div class="thumbnail">
-					<img ng-click="newProject(true);location.path('/editor')" src="images/new-project.jpg"></a>
+					<img ng-click="newProject(true);location.path('/editor')" src="images/new-project.jpg">
 				</div>
 				
 			</div>
@@ -23,10 +23,12 @@
 				</div>
 				
 				<div class="caption">
-				
+					
 					<h4>
+						<a class="small pull-right" href="/browse/{{project._id}}" tooltip-placement="left" tooltip="PREVIEW"> <img src="../images/icons/icon_preview_25px.png" ></a>
+						<a class="small pull-right" ng-click="deleteProject(project)"tooltip-placement="left" tooltip="DELETE"> <img src="../images/icons/icon_trash_25px.png" ></a>
  						<a class="project-name" href="/editor/{{project._id}}" class="pull-left">{{project.content.name}}</a>
-						<div class="small pull-right"><span class="badge text-primary">{{project.content.children.length}}</span></div>
+						<a class="small pull-right" tooltip-placement="left" tooltip="PAGES IN PROJECT"><span class="badge text-primary">{{project.content.children.length}}</span></a>
 					</h4>
 					
 					<div class="footer">

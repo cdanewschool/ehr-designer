@@ -38,7 +38,7 @@
 	
 	<div ng-if="currentProject" style="clear:both;width:100%;height:100%;">
 	
-		<h3>{{currentProject.title}} <small>by {{currentProject.creator.nameFirst}} {{currentProject.creator.nameLast}}</small> <button ng-controller="NavigationCtrl" ng-click="setLocation('/browse/')" type="button" class="btn btn-link pull-right">Back</button></h3>
+		<h3>{{currentProject.title}} <small>by {{currentProject.creator.nameFirst}} {{currentProject.creator.nameLast}}</small></h3>
 		<h5>Last updated on {{currentProject.updated | date:small}} at {{currentProject.updated | date:'shortTime'}}</h5>
 		
 		<div class="well well-sm">

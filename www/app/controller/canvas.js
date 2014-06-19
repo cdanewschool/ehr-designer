@@ -252,31 +252,35 @@ app.controller
 				canvasService.saveProject(callback);
 			};
 			
-			$scope.deleteProject = function()
+			$scope.deleteProject = function(project)
 			{
-				if( canvas.currentProject._isNew === false ) 
-				{
-					canvas.currentProject.$remove
-					(
-						{
-							projectId:canvas.currentProject._id
-						},
-						function(response)
-						{
-							canvas.currentProject = null;
-							canvas.currentPage = null;
-							
-							$location.path( '/myprojects' );
-						}
-					);
-				}
-				else
-				{
-					canvas.currentProject = null;
-					canvas.currentPage = null;
-					
-					$location.path( '/myprojects' );
-				}
+				navigation.showConfirm("Are you sure you want to Delete this Project?").then
+				(
+					function()
+					{  	canvas.currentProject = project;
+						canvas.currentProject.$remove
+						(
+							{
+								projectId:canvas.currentProject._id
+							},
+							function()
+							{
+								var idx = $scope.projects.indexOf(project);
+								$scope.projects.splice(idx,1);
+								
+								canvas.currentProject = null;
+								$location.path( '/myprojects' );
+							}
+						);
+					},
+					function()
+					{
+						canvas.currentProject = null;
+						$location.path( '/myprojects' );
+					}
+				);
+				
+				return;
 			};
 			
 			$scope.newProject = function(showEdit)
