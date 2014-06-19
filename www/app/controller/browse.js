@@ -58,7 +58,7 @@ app.controller
 		 		};
 		 		
 	 			if( !library.components )
-	 				canvasService.getComponents().then( initProject );
+	 				canvasService.getElements().then( canvasService.getComponents ).then( canvasService.getTemplates ).then( initProject );
 	 			else
 	 				initProject();	 			
 			};
