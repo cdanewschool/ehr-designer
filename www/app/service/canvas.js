@@ -42,8 +42,6 @@ app.service
 						{
 							service.updateHash(false,true);
 							
-							canvas.messages.push( "Saved" );
-							
 							callback();
 						},
 						function(response)
@@ -63,8 +61,6 @@ app.service
 							canvas.currentProject._isNew = false;
 							
 							service.updateHash(false,true);
-							
-							canvas.messages.push( "Saved" );
 							
 							callback();
 						}

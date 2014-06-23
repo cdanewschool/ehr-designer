@@ -257,26 +257,21 @@ app.controller
 				navigation.showConfirm("Are you sure you want to Delete this Project?").then
 				(
 					function()
-					{  	canvas.currentProject = project;
-						canvas.currentProject.$remove
+					{ 
+						project.$remove
 						(
 							{
-								projectId:canvas.currentProject._id
+								projectId:project._id
 							},
 							function()
 							{
 								var idx = $scope.projects.indexOf(project);
 								$scope.projects.splice(idx,1);
-								
-								canvas.currentProject = null;
-								$location.path( '/myprojects' );
 							}
 						);
 					},
 					function()
 					{
-						canvas.currentProject = null;
-						$location.path( '/myprojects' );
 					}
 				);
 				
@@ -362,7 +357,18 @@ app.controller
 			
 			$scope.deletePage = function(page)
 			{
-				canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(page),1 );
+				navigation.showConfirm("Are you sure you want to Delete Page " + page.name + "?" ).then
+				(
+					function()
+					{  	canvas.currentProject.content.children.splice( canvas.currentProject.content.children.indexOf(page),1 );
+					},
+					function()
+					{
+					}
+				);
+				
+				return;
+				
 			};
 			
 			$scope.selectPage = function(page)
