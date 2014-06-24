@@ -14,10 +14,14 @@
     "angular-bootstrap-colorpicker": "latest",
     "angular-ui-bootstrap": "0.10.0",
     "angular-ui-sortable": "latest",
+    "angular-webstorage": "0.10.3",
     "bootstrap": "latest",
     "jquery": "2.1.0",
     "jquery-ui": "1.10.4",
     "underscore": "latest",
     "underscore.string": "latest"
+  },
+  "resolutions": {
+    "angular": "1.2.16"
   }
 }
