@@ -12,17 +12,11 @@ app.service
 				visible: true,
 				snapTo:true
 			},
-			hash:
-			{
-				current:null,
-				last:null
-			},
 			currentProject: null,
 			currentPage: null,
-
+			dirty: false,
 			pendingPage: null,
 			previewing: false,
-			
 			privacyOptions: 
 				[
 				 	{value:"private",label:"Private"},

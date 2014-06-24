@@ -5,7 +5,6 @@
  * itself and it's children, which can be component-previews themselves
  * (see component-preview.html). 
  */
-
 app.directive
 (
 	'componentPreview',
@@ -167,10 +166,50 @@ app.directive
 				isStatic: "=componentStatic",
 				simpleRender: "=simpleRender"
 			},
-			templateUrl:"partials/templates/component-preview.html",
-			replace:true,
+			templateUrl: "partials/templates/component-preview.html",
+			replace: true,
+			controller: function($scope)
+			{
+				this.onDrag = function(e,ui)
+				{
+					$scope.dragService.onDrag(e,ui,$scope.instance);
+				};
+				
+				this.onDragStart = function(e,ui)
+				{
+					$scope.dragService.onDragStart(e,ui,$scope.instance);
+				};
+				
+				this.onDragOver = function(e,ui)
+				{
+					$scope.dragService.onDragOver(e,ui,$scope.instance);
+				};
+				
+				this.onDragStop = function(e,ui)
+				{
+					$scope.dragService.onDragStop(e,ui);
+				};
+				
+				this.onDrop = function(e,ui)
+				{
+					$scope.dragService.onDrop(e,ui,$scope.instance);
+				};
+				
+				this.acceptDrop = function()
+				{
+					return $scope.dragService.acceptDrop($scope.instance);
+				};
+				
+				this.getDragPreview = function(e)
+				{
+					return $scope.dragService.getDragPreview(e);
+				};
+			},
 			compile:function(element,attrs)
 			{
+				var contents = element.contents().remove();
+	            var compiledContents;
+	            
 				return {
 					pre: function preLink(scope, element, attrs) {},
 					post: function postLink(scope,element,attrs)
@@ -195,60 +234,42 @@ app.directive
 							//	whether in preview mode or not
 							var previewing = scope.canvas && scope.canvas.previewing;
 							
-							scope.showBorder = (!previewing && scope.definition.container===true);
 							scope.cellsAreDroppable = (!previewing && scope.definition.container==="cell");
 							scope.isDroppable = (!previewing && !scope.isStatic && scope.instance.componentId!='label' && scope.instance.componentId!='image');
-							scope.isDraggable = (!previewing && !scope.isStatic);
 							
-							//	store the component's id on the associated dom el so we can easily get the corresponding definition (see drag service)
-							element.attr("data-id",scope.instance.id);
-							element.attr("data-component-id",scope.instance.componentId);
+							element
+								.attr("data-id",scope.instance.id)
+								.attr("data-component-id",scope.instance.componentId)
+								.toggleClass('static',scope.isStatic ? true : false)
+								.toggleClass('root',!scope.instance.pid ? true : false)
+								.toggleClass('full-width',scope.instance.isTemplate && (scope.instance.values.width && scope.instance.values.width=="100%" || scope.instance.values.height && scope.instance.values.height=="100%") ? true : false);
 							
-							if( !scope.simpleRender ) 
+							if( !scope.isStatic )
+								updateDynamicStyles();
+							
+							if( !scope.simpleRender 
+								&& !scope.isStatic )
 							{
-								$timeout
-								(
-									function()
-									{
-										setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
-									},1
-								);
-							}
-							
-							//	show properties menu on click
-							if( scope.canvas 
-								&& (attrs.componentStatic == undefined || attrs.componentStatic != "true") )
-							{
-								if( !previewing )
+								//	detect and clear `isNew` prop set on newly-added component's `values` obj by drag manager
+								if( scope.instance.values.isNew )
 								{
-									element.on
+									delete scope.instance.values.isNew;
+									
+									$timeout
 									(
-										'click.select',
-										function(e)
+										function()
 										{
-											if( !scope.instance.pid )	//	temp hack to disallow editing root canvas
-												scope.canvas.selection = null;
-											else
-											{
-												e.stopImmediatePropagation();
-												
-												scope.canvas.selection = {definition:scope.definition, instance: scope.instance, target: element.find('.target').get(0) };
-											}
-											
-											scope.$apply();
-										}
+											setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
+										},1
 									);
 								}
-								else
-								{
-									element.off('click.select');
-								}
 							}
 							
-				 			if( scope.instance.componentId == "image" )
+							//	do some things if this is a (non-static) image
+				 			if( scope.instance.componentId == "image"
+				 				&& !scope.isStatic )
 							{
-								//	store original dimensions on init and <src> change
-				 				var storeDimensions = function(revert)
+								var setImageSource = function(revert)
 				 				{
 				 					//	TODO: we shouldnt' have to do this if properly cleaned up on destroy
 				 					if( !scope.instance ) return;
@@ -275,33 +296,32 @@ app.directive
 					 					);
 				 				};
 				 				
+				 				//	store original image dimensions when source changes
 				 				scope.$watch
 				 		 		(
 				 		 			'instance.values.src',
 				 		 			function(newVal,oldVal)
 				 		 			{
 				 		 				if( newVal != oldVal && newVal )
-				 		 				{
-				 		 					storeDimensions(true);
-				 		 				}
+				 		 					setImageSource(true);
 				 		 			}
 				 		 		);
-				 				
-				 				scope.$watch
+				 		 		
+				 		 		scope.$watch
 				 		 		(
 				 		 			'instance.datamap.value',
 				 		 			function(newVal,oldVal)
 				 		 			{
 				 		 				if( newVal != oldVal && newVal )
-				 		 				{
-				 		 					storeDimensions(true);
-				 		 				}
+				 		 					setImageSource(true);
 				 		 			}
 				 		 		);
 				 				
-				 				storeDimensions();
+				 				setImageSource();
 							}
 				 			
+				 			//	if automatic laying-out of children is supported, listen
+				 			//	for changes to this property
 				 			if( scope.instance.values
 				 				&& scope.instance.values["auto-layout-children"]!==undefined )
 				 			{
@@ -320,6 +340,7 @@ app.directive
 						var update = function()
 						{
 							if( !scope.instance ) return;
+							if( scope.isStatic ) return;
 							
 							//	calculate size
 							var values = scope.instance && scope.instance.values ? scope.instance.values : {width:-1,height:-1};
@@ -354,7 +375,17 @@ app.directive
 							if( values.top !== undefined ) 
 								el.css("top",values.top + "px");
 						};
-
+						
+						var updateDynamicStyles = function()
+						{
+							var active = scope.canvas && scope.canvas.selection ? scope.canvas.selection.instance.id==scope.instance.id : false;
+							
+							element.toggleClass('previewing',active);
+							
+							angular.element('[data-id="'+scope.instance.id+'"] > .outline')
+								.toggleClass('droppable',scope.isDroppable ? true : false);
+						};
+						
 						if( !scope.instance ) 
 						{
 							scope.$watch
@@ -387,47 +418,66 @@ app.directive
 								},true
 							);
 							
+							scope.$watch
+							(
+								'canvas.previewing',
+								function(newVal,oldVal)
+								{
+									if( newVal != oldVal )
+									{
+										init();
+									}
+								}
+							);
+							
+							$rootScope.$on
+							(
+								'restoreDefaults',
+								function(e,args)
+								{
+									if( args 
+										&& args[0] === scope.instance )
+									{
+										scope.instance.values = angular.copy(scope.definition.values);
+							 			scope.instance.datamap = null;
+							 			
+							 			$timeout
+						 				(
+						 					function()
+						 					{
+						 						setDefaultProperties( scope.definition, scope.instance );
+						 						
+						 						scope.$apply();
+						 					},
+						 					1000
+						 				);
+									}
+								}
+							);
+							
 							update();
 						}
 						
-						scope.$watch
-						(
-							'canvas.previewing',
-							function(newVal,oldVal)
+						if( scope.simpleRender )
+						{
+							element.append(scope.instance.name);
+						}
+						else
+						{
+							if( !compiledContents ) 
 							{
-								if( newVal != oldVal )
-								{
-									init();
-								}
-							}
-						);
-						
-						$rootScope.$on
-						(
-							'restoreDefaults',
-							function(e,args)
-							{
-								if( args 
-									&& args[0] === scope.instance )
-								{
-									scope.instance.values = angular.copy(scope.definition.values);
-						 			scope.instance.datamap = null;
-						 			
-						 			$timeout
-					 				(
-					 					function()
-					 					{
-					 						setDefaultProperties( scope.definition, scope.instance );
-					 						
-					 						scope.$apply();
-					 					},
-					 					1000
-					 				);
-								}
-							}
-						);
-						
-						$compile(element)(scope);
+								compiledContents = $compile(contents);
+			                }
+							
+			                compiledContents
+			                (
+			                	scope, 
+			                	function(clone)
+			                	{
+			                		element.append(clone);
+			                	}
+			                );
+						}
 					}
 			    };
 			}

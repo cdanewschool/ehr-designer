@@ -40,7 +40,7 @@ app.service
 						},
 						function(response)
 						{
-							service.updateHash(false,true);
+							canvas.dirty = false;
 							
 							callback();
 						},
@@ -60,7 +60,7 @@ app.service
 						{
 							canvas.currentProject._isNew = false;
 							
-							service.updateHash(false,true);
+							canvas.dirty = false;
 							
 							callback();
 						}

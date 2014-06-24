@@ -8,6 +8,28 @@ app.service
 	 		{
 	 			_id: 1,
 	 			
+	 			id: function(c)
+	 			{
+	 				this._id = 1;
+	 				
+	 				var walk = function(c)
+	 				{
+	 					c.id = service.uniqueId();
+	 					
+	 					if( c.children )
+	 					{
+	 						for(var ch in c.children)
+	 						{
+	 							c.children[ch].pid = c.id;
+	 							
+	 							walk(c.children[ch]);
+	 						}
+	 					}
+	 				};
+	 				
+	 				walk(c);
+	 			},
+	 			
 				componentInstance: function(definition,values,parent)
 				{
 					values = values || {};

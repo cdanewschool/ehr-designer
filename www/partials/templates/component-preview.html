@@ -1,19 +1,18 @@
-<div class='component-preview'  ng-class='{static:isStatic,root:!instance.pid,previewing:canvas && canvas.previewing,"full-width":instance.isTemplate && (instance.values.width && instance.values.width=="100%" || instance.values.height && instance.values.height=="100%")}'>
-	
-	<span ng-if="simpleRender">{{instance.name}}</span>
+<div class='component-preview'>
 	
 	<!-- border -->
-	<div ng-if="!simpleRender" ng-class='{border:(showBorder && instance.componentId!="grid"), active:(canvas.selection.instance==instance), dropTarget:(showBorder && instance.componentId!="grid" && dragService.dragModel.hover==definition), droppable:isDroppable}' style="width:100%;height:100%">
+	<div class="outline" style="width:100%;height:100%">
 
 		<div class='content' style="width:100%;height:100%">
 			
-			<div ng-if='instance.componentId=="ui_component"' ng-repeat="child in instance.children" style="width:100%;height:100%;position:absolute;" ng-mouseenter='dragService.onOver($event,instance)'>
+			<div ng-if='instance.componentId=="ui_component"' ng-repeat="child in instance.children" style="width:100%;height:100%;position:absolute;">
 				<component-preview component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview>
 			</div>
 			
-			<div ng-if='instance.componentId=="text"' ng-mouseenter='dragService.onOver($event,instance)'>
+			<div ng-if='instance.componentId=="text"'>
 				<span 
-					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
+					class='target' 
+					style='text-wrap:none;white-space:nowrap;display:inline-block;'
 					ng-style="
 						{
 							'color':instance.values.color,
@@ -35,8 +34,7 @@
 				</span>
 			</div>
 			
-			<div 
-				ng-if='instance.componentId=="paragraph"' ng-mouseenter='dragService.onOver($event,instance)' 
+			<div ng-if='instance.componentId=="paragraph"'
 				resizable="instance.values" resizable-config="{handles:'e'}">
 				<p 
 					class='target'
@@ -59,8 +57,7 @@
 				</p>
 			</div>
 			
-			
-			<div ng-if='instance.componentId=="link"' ng-mouseenter='dragService.onOver($event,instance)'>
+			<div ng-if='instance.componentId=="link"'>
 				<a
 					class='target' style='text-wrap:none;white-space:nowrap;display:inline-block;'
 					ng-style="
@@ -81,9 +78,7 @@
 				</a>
 			</div>
 			
-			<div 
-				ng-if='instance.componentId=="button"' 
-				ng-mouseenter='dragService.onOver($event,instance)'>
+			<div ng-if='instance.componentId=="button"'>
 				<button 
 					class="btn btn-default target" 
 					ng-class="
@@ -116,9 +111,7 @@
 				</button>
 			</div>
 			
-			<div 
-				ng-if='instance.componentId=="buttonbar" || instance.componentId=="linkbar"' 
-				ng-mouseenter='dragService.onOver($event,instance)'
+			<div ng-if='instance.componentId=="buttonbar" || instance.componentId=="linkbar"' 
 				class="btn-group">
 				<button 
 					ng-repeat="item in (instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.items)"
@@ -152,12 +145,11 @@
 				</button>
 			</div>
 			
-			<div 
-				ng-if='instance.componentId=="image"' 
+			<div ng-if='instance.componentId=="image"' 
 				class='img' 
-				ng-mouseenter='dragService.onOver($event,instance)'
 				resizable="instance.values">
-				<img class='target' ng-src='{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.src}}' 
+				<img class='target' 
+					ng-src='{{instance.datamap && instance.datamap.value ? instance.datamap.value : instance.values.src}}' 
 					ng-style="
 						{
 							'background-color':instance.values['background-color'],
@@ -383,31 +375,30 @@
 					step="{{instance.values.step}}"> 
 			</div>
 			
-			<div 
+			<div  
 				ng-if='instance.componentId=="grid"' 
-				ng-mouseenter='dragService.onOver($event,instance)'
 				ng-style="
 					{
 						'width':  !isStatic && instance.isTemplate ? '100%' : 'auto',
 						'height': !isStatic && instance.isTemplate ? '100%' : 'auto'
 					}">
-				<table ng-style="
+				<table 
+					ng-style="
 							{
 								'width': instance.isTemplate && instance.values.width ? instance.values.width : 'inherit',
 								'height': instance.isTemplate && instance.values.height ? instance.values.height : 'inherit'
 							}">
-					<tr ng-repeat="r in [] | range:instance.values.rows">
+					<tr  
+						ng-repeat="r in [] | range:instance.values.rows">
 						 <td 
 						 	ng-controller="CellCtrl" 
 						 	ng-repeat="c in [] | range:instance.values.cols" 
 						 	ng-init="init($parent.$index,$parent.$parent.$index,instance)" 
-						 	ng-mouseover="onOver($event)" 
-						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
-						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==instance.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	ng-class="{border:cellsAreDroppable, droppable:isDroppable}" 
 						 	ng-style="
 							{
-								'width':  instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].width ? instance.values['cell-size'][cellIndex].width : false,
-								'height': instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].height ? instance.values['cell-size'][cellIndex].height : false,
+								'width':instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].width ? instance.values['cell-size'][cellIndex].width : false,
+								'height':instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].height ? instance.values['cell-size'][cellIndex].height : false,
 								'margin-top':instance.values.margin.top+instance.values.margin.unit,
 								'margin-right':instance.values.margin.right+instance.values.margin.unit,
 								'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
@@ -418,10 +409,10 @@
 								'padding-left':((canvas.selection.instance==instance?5:0)+instance.values.padding.left)+instance.values.padding.unit,
 							}" 
 						 	resizable="instance.values['cell-size']" resizable-config="{handles:'e,s'}" resizable-cell="{cols:instance.values.cols,rows:instance.values.rows,index:cellIndex}"> 
-						 	<div style="width:100%;height:100%"><div 
-						 			style="position:relative" 
-						 			ng-repeat="child in instance.children | filter: getCellChildren" 
-							 		ng-style="
+						 	<div 						 		style="width:100%;height:100%"><div 
+						 		style="position:relative" 
+						 		ng-repeat="child in instance.children | filter: getCellChildren" 
+							 	ng-style="
 							 		{
 							 			'text-align':child.values['halign']?child.values['halign']:false,
 							 			'top':child.values['valign']=='middle'?'50%':(child.values['valign']=='bottom'?'100%':false),
@@ -432,8 +423,10 @@
 				</table>
 			</div>
 			
-			<div ng-if='instance.componentId=="table"' ng-mouseenter='dragService.onOver($event,instance)'>
-				<table class="table table-condensed" ng-class="{'table-bordered':instance.values.bordered,'table-striped':instance.values.striped}" 
+			<div ng-if='instance.componentId=="table"'>
+				<table 
+					class="table table-condensed" 
+					ng-class="{'table-bordered':instance.values.bordered,'table-striped':instance.values.striped}" 
 					ng-style="
 						{
 							'background-color':instance.values['background-color'],
@@ -447,14 +440,13 @@
 					<thead ng-show="instance.values.headers">
 						<th ng-repeat="header in instance.values.headers">{{header.label}}</th>
 					</thead>
-					<tr ng-repeat="r in [] | range:instance.values.rows">
+					<tr 
+						ng-repeat="r in [] | range:instance.values.rows">
 						 <td 
 						 	ng-controller="CellCtrl" 
 						 	ng-repeat="c in [] | range:instance.values.cols" 
-						 	ng-init="init($parent.$index,$parent.$parent.$index,definition)" 
-						 	ng-mouseover="dragService.onOver($event,definition,cellIndex)" 
-						 	ng-mouseout="dragService.dragModel.hoverIndex=null" 
-						 	ng-class="{border:cellsAreDroppable, dropTarget:(cellsAreDroppable && definition && dragService.dragModel.hover.id==instance.id && dragService.dragModel.hoverIndex==cellIndex), droppable:isDroppable}" 
+						 	ng-init="init($parent.$index,$parent.$parent.$index,instance)" 
+						 	ng-class="{droppable:isDroppable}" 
 						 	ng-style="
 							{
 								'padding-top':instance.values.padding.top+instance.values.padding.unit,

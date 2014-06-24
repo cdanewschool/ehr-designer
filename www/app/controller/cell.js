@@ -8,8 +8,8 @@ app.controller
 (
 	'CellCtrl',
 	[
-	 	'$scope','$rootScope','DragService',
-	 	function($scope,$rootScope,dragService)
+	 	'$scope',
+	 	function($scope)
 	 	{
 	 		$scope.cellIndex = null;
 	 		$scope.instanceDefinition = null;
@@ -24,7 +24,7 @@ app.controller
 	 		
 	 		$scope.$watch
 	 		(
-	 			'definition.values.rows',
+	 			'instanceDefinition.values.rows',
 	 			function(newVal,oldVal)
 	 			{
 	 				if( newVal != oldVal )
@@ -34,7 +34,7 @@ app.controller
 	 		
 	 		$scope.$watch
 	 		(
-	 			'definition.values.cols',
+	 			'instanceDefinition.values.cols',
 	 			function(newVal,oldVal)
 	 			{
 	 				if( newVal != oldVal )
@@ -46,18 +46,10 @@ app.controller
 	 		{
 	 			$scope.row = row;
 	 			$scope.col = col;
+	 			
 	 			$scope.instanceDefinition = definition;
 	 			
 	 			update();
-	 		};
-	 		
-	 		$scope.onOver = function($event)
-	 		{
-	 			if( $scope.isStatic ) return;
-	 			
-	 			$event.stopPropagation();
-	 			
-	 			dragService.onOver($event,$scope.instanceDefinition,$scope.cellIndex);
 	 		};
 	 		
 	 		$scope.getCellChildren = function(item)

@@ -126,16 +126,16 @@
 	    	
 	    </tab>
 	    
-	    <!-- 	debug window -->
+	    <!-- 	debug window	-->
 	    <tab heading="Debug" class="small" ng-if="DEBUG">
-	    
+	    	-->
 	    	<h6>Document JSON</h6>
 	    	<pre class="pre-scrollable">{{canvas.currentProject | json}}</pre>
-	    	
+	    	-->
 	    	<button class="btn btn-primary btn-md" ng-if="DEBUG" ng-show="canvas.selection" ng-click="exportSelectionDefinition()">Export</button>
 	    	
 	    </tab>
-	    
+	     
   	</tabset>
   	
 </div>
@@ -185,7 +185,7 @@
 			</div>		
 			
 		</div>
-			
+		
 		<!-- pages in project-->
 		<div ng-if="canvas.currentProject && !canvas.currentPage">
 			

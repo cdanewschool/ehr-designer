@@ -8,7 +8,6 @@ app.service
 			dragProps:null,
 			dragItem:null,
 			dropTarget:null,
-			hover:null,
 			selection:null
 		};
 	}
@@ -184,7 +183,7 @@ app.service
 					//	item has been freshly added to stage
 					else
 					{
-						values = snap( {left:ui.offset.left - dropTarget.offset().left,top:ui.offset.top - dropTarget.offset().top});
+						values = snap( {left:ui.offset.left - dropTarget.offset().left,top:ui.offset.top - dropTarget.offset().top, isNew:true});
 						
 						var instance = factory.componentInstance(dragItem,values,target);
 						
@@ -218,15 +217,6 @@ app.service
 					$rootScope.$apply();
 				},
 				
-				onOver: function(event,definition,index)
-				{
-					if( !canvas.previewing )
-					{
-						dragModel.hover = definition;
-						dragModel.hoverIndex = index;
-					}
-				},
-				
 				acceptDrop: function(item)
 				{
 					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
@@ -238,12 +228,22 @@ app.service
 				{
 					var target = event.currentTarget;
 					
+					var simpleRender = true;
+					var component = library.componentsIndexed[ angular.element(target).attr("data-id") ];
+					
+					if( !component )
+					{
+						component = library.elementsIndexed[ angular.element(target).attr("data-component-id") ];
+						simpleRender = false;
+					}
+					
 					var scope = $rootScope.$new(true);
 					scope.canvas = canvas;
-					scope.component = library.componentsIndexed[ angular.element(target).attr("data-id") ] || library.elementsIndexed[ angular.element(target).attr("data-component-id") ];
+					scope.component = component;
 					scope.dragService = this;
+					scope.simpleRender = simpleRender;
 					
-					var clone = angular.element('<component-preview component-instance="component" component-draggable drag-service="dragService"></component-preview>');
+					var clone = angular.element('<component-preview component-instance="component" component-static="true" simple-render="simpleRender" component-draggable drag-service="dragService"></component-preview>');
 					$compile(clone)(scope);
 					
 					return $("<div></div>").append(clone);

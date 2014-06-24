@@ -88,18 +88,7 @@ app.controller
 				}
 			);
 			
-			//	deep watch project and update hash (and `dirty` flag) whenever it changes
-			$scope.$watch
-			(
-				'canvas.currentProject',
-				function(newVal,oldVal)
-				{
-					if( newVal != oldVal )
-						canvasService.updateHash(true,false);
-				},true
-			);
-			
-			//	shallow watch project and init factory service's unique id when a new project is set
+			//	watch project and init factory service's unique id when a new project is set
 			//	(this handles loading existing projects and preventing id collision)
 			$scope.$watch
 	 		(
@@ -110,27 +99,17 @@ app.controller
 	 				{
 	 					if( newVal )
 	 					{
-	 						var getMax = function(item,val)
-		 					{
-		 						val = Math.max( parseInt(item.id), val );
-		 						
-		 						if( item.children )
-		 							for(var c in item.children)
-		 								val = getMax(item.children[c],val);
-		 						
-		 						return val;
-		 					};
-		 					
-		 					var val = getMax( canvas.currentPage, 1 );
-		 					
-		 					FactoryService._id = val;
+	 						if( oldVal && oldVal.id == newVal.id )
+	 							canvas.dirty = true;
+	 						
+	 						FactoryService.id(canvas.currentPage);
 	 					}
 	 					else
 	 					{
 	 						canvas.selection = null;
 	 					}
 	 				}
-	 			}
+	 			},true
 	 		);
 			
 			/**
@@ -180,8 +159,6 @@ app.controller
 									history.actions = actions;
 									history.currentAction = history.actions[ history.actions.length-1 ];
 								}
-								
-								canvasService.updateHash(true,true);
 							},
 							function(response,err)
 							{
@@ -395,6 +372,7 @@ app.controller
 				}
 				
 				var template = angular.copy(template);
+				template.id = FactoryService.uniqueId();
 				template.pid = canvas.currentPage.id;
 				
 				if( canvas.currentPage.children.length )
