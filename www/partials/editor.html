@@ -1,5 +1,39 @@
+<div class="container-fluid">
+
+	<div class="row" ng-show="!canvas.previewing">
+		
+		<div class="col-sm-8">
+		
+			<ol class="breadcrumb pull-left">
+				<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentPage = null">{{canvas.currentProject.content.name}}</a></li>
+				<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}} ({{canvas.currentProject.content.children.indexOf(canvas.currentPage)+1}}/{{canvas.currentProject.content.children.length}})</li>
+			</ol>
+			
+		</div>
+		
+		<div class="col-sm-4">
+			
+			<div class="pull-right">
+				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="addPage(true)" ng-disabled="!canvas.currentProject">
+						<span class="glyphicon glyphicon-plus grey"></span> Page
+					</button>
+				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="saveProject()" ng-disabled="!canvas.currentProject || canvas.dirty===false">
+						<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> Save
+				</button>
+				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
+						<img src="../images/icons/icon_preview.png"> Preview
+				</button>
+			</div>
+	
+		</div>
+		
+	</div>
+	
+</div>
+
+		
 <!-- sidebar -->
-<div id="sidebar" ng-show="!canvas.previewing" property-inspector-minimizer>
+<div id="sidebar" ng-show="!canvas.previewing" property-inspector-minimizer ng-class="{minimized:!canvas.currentPage}">
 	
 	<div class="alert alert-warning alert-dismissable" ng-show="canvas.errors.length">
 		<button type="button" class="close" aria-hidden="true" ng-click="canvas.errors = []">&times;</button>
@@ -145,35 +179,6 @@
 
 	<div ng-class="{minimized:canvas.selection!=null}">
 	
-		<div class="row clearfix" ng-show="!canvas.previewing">
-		
-			<div class="col-sm-8">
-			
-				<ol class="breadcrumb pull-left">
-					<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentProject"><a href="/myprojects/{{canvas.currentProject._id}}">{{canvas.currentProject.content.name}}</a></li>
-					<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}} ({{canvas.currentProject.content.children.indexOf(canvas.currentPage)+1}}/{{canvas.currentProject.content.children.length}})</li>
-				</ol>
-				
-			</div>
-			
-			<div class="col-sm-4">
-				
-				<div class="pull-right">
-					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="addPage(true)" ng-disabled="!canvas.currentProject">
-	 					<span class="glyphicon glyphicon-plus grey"></span> Page
-	 				</button>
-					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="saveProject()" ng-disabled="!canvas.currentProject || canvas.dirty===false">
-	 					<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> Save
-					</button>
-					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
-	 					<img src="../images/icons/icon_preview.png"> Preview
-					</button>
-				</div>
-
-			</div>
-			
-		</div>
-		
 		<div ng-show="canvas.previewing">
 		
 			<div class="pull-right">
@@ -181,6 +186,55 @@
 					<img src="../images/icons/icon_preview.png"> Exit Preview
 				</button>
 			</div>		
+			
+		</div>
+		
+		<!-- pages in project-->
+		<div ng-if="canvas.currentProject && !canvas.currentPage">
+			
+			<div class="container-fluid">
+			
+				<div class="col-4 tile new">
+				
+					<div class="thumbnail">
+						<img ng-click="addPage(true);" src="images/new-page.png">
+					</div>
+					
+				</div>
+				
+				<div class="col-4 tile" ng-repeat="page in canvas.currentProject.content.children | filter : filterByTitle | orderBy : sortField : sort!='name'">
+				
+					<div class="thumbnail">
+						<a ng-click="selectPageByIndex($index)"><img ng-src="{{canvas.currentProject.thumbnails[$index] || 'images/default/project.jpg'}}" src-fallback="images/default/project.jpg"></a>
+					</div>
+						
+					<div class="actions">
+					
+						<div class="small pull-left">
+							<span class="action">{{action}}</span>
+						</div>
+						
+						<div class="small pull-right">
+							<a ng-click="editPage(page)" ng-mouseover="action='Edit'" ng-mouseout="action=null"><img src="../images/icons/icon_cog.png"></a>
+							<a ng-click="deletePage(page)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
+							<a href="/browse/{{canvas.currentProject._id}}/{{canvas.currentProject.content.children.indexOf(page)+1}}" ng-mouseover="action='Preview'" ng-mouseout="action=null"><img src="../images/icons/icon_preview.png"></a>
+						</div>
+						
+					</div>
+					
+					<div class="caption">
+						
+						<h4><a class="page-name" ng-click="selectPageByIndex($index)">{{page.name}}</a></h4>
+						
+						<div class="footer">
+							<div class="small text-muted" style="clear:both">Modified: {{page.updated | date:'short'}} | Created: {{page.created | date:'shortDate'}}</div>
+						</div>
+						 	
+					</div>
+					
+				</div>
+			
+			</div>
 			
 		</div>
 		

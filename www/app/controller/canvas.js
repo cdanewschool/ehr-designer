@@ -330,9 +330,22 @@ app.controller
 				);
 			};
 			
-			$scope.selectPage = function(page)
+			$scope.deletePage = function(page)
 			{
-				$scope.selectPageByIndex( canvas.currentProject.content.children.indexOf( page ) );
+				projectService.deletePage(page,canvas.currentProject,showEdit);
+			};
+			
+			$scope.editPage = function(page)
+			{
+				projectService.editItemProperties(page,false,true,canvas.currentProject).then
+				(
+					function()
+					{
+						page.updated = Date.now();
+						
+						$scope.saveProject();
+					}
+				);
 			};
 			
 			$scope.selectPageByIndex = function(id)

@@ -79,8 +79,13 @@ a[ng-click] { cursor: pointer; }
 	width: 20%; 
 	height: 100%; 
 	background: rgba(255, 255, 255, .5); 
-	padding: 10px; 
+	padding: 10px;
+	display: block;
 	float:left;
+}
+
+#sidebar.minimized {
+	display: none;
 }
 
 #properties { 
@@ -372,11 +377,11 @@ h4.panel-title {
 	color: #999;
 }
 
-.tile.col-md-3  > .caption {
+.tile.col-3  > .caption {
 	margin-top: 18px;
 }
 
-.tile.col-md-4 > .caption {
+.tile.col-4 > .caption {
 	margin-top: 4px;
 }
 
@@ -451,6 +456,10 @@ h4.panel-title {
 	z-index: 1029;
 }
 
+.navbar-nav { 
+	margin-left: 45px;
+}
+
 .navbar-default { 
 	background-color: #fff;
 	border: none;
@@ -473,10 +482,6 @@ h4.panel-title {
 
 .nav > li > a {
 	padding: 15px 30px 10px 30px;
-}
-
-.nav { 
-	margin-left: 45px;
 }
 
 #user-menu {

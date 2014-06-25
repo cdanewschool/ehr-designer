@@ -22,7 +22,9 @@ app.service
 				 
 				 canvas.messages = [];
 				 canvas.errors = [];
-				 canvas.currentPage.updated = Date.now();
+				 
+				 if( canvas.currentPage )
+					 canvas.currentPage.updated = Date.now();
 				 
 				 /**
 				  * Saving the project causes an issue where property updates don't propagate to the underlying
