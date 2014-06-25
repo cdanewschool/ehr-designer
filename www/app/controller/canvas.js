@@ -298,7 +298,7 @@ app.controller
 						//	user has provided a name and/or clicked "save"
 						function ()
 						{
-							projectService.addPage(showEdit);
+							projectService.addPage(canvas.currentProject,showEdit);
 						},
 						//	user has clicked cancel
 						function()
@@ -310,7 +310,7 @@ app.controller
 				}
 				else
 				{
-					projectService.addPage(showEdit);
+					projectService.addPage(canvas.currentProject,showEdit);
 				}
 			};
 			
