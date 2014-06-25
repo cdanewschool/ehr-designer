@@ -128,7 +128,7 @@
 	    
 	    <!-- 	debug window	-->
 	    <tab heading="Debug" class="small" ng-if="DEBUG">
-	    	-->
+	    	<!--
 	    	<h6>Document JSON</h6>
 	    	<pre class="pre-scrollable">{{canvas.currentProject | json}}</pre>
 	    	-->
@@ -150,12 +150,10 @@
 			<div class="col-sm-8">
 			
 				<ol class="breadcrumb pull-left">
-					<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentProject"><a ng-click="canvas.currentPage = null">{{canvas.currentProject.content.name}}</a></li>
-					<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}}</li>
+					<li ng-class="{active:canvas.currentPage==null}" ng-show="canvas.currentProject"><a href="/myprojects/{{canvas.currentProject._id}}">{{canvas.currentProject.content.name}}</a></li>
+					<li ng-class="{active:true}" ng-show="canvas.currentPage">{{canvas.currentPage.name}} ({{canvas.currentProject.content.children.indexOf(canvas.currentPage)+1}}/{{canvas.currentProject.content.children.length}})</li>
 				</ol>
 				
-				<a class="btn btn-link btn-nav text-muted small pull-left" ng-click="editCurrentItem()">Edit Properties</a>				
-
 			</div>
 			
 			<div class="col-sm-4">
@@ -168,7 +166,7 @@
 	 					<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> Save
 					</button>
 					<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
-	 					<img src="../images/icons/icon_preview.png" > Preview
+	 					<img src="../images/icons/icon_preview.png"> Preview
 					</button>
 				</div>
 
@@ -179,20 +177,10 @@
 		<div ng-show="canvas.previewing">
 		
 			<div class="pull-right">
-				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="canvas.previewing=false"" ng-disabled="!canvas.currentProject">
-						<img src="../images/icons/icon_preview.png" > Exit Preview
+				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="canvas.previewing=false" ng-disabled="!canvas.currentProject">
+					<img src="../images/icons/icon_preview.png"> Exit Preview
 				</button>
 			</div>		
-			
-		</div>
-		
-		<!-- pages in project-->
-		<div ng-if="canvas.currentProject && !canvas.currentPage">
-			
-			<div class="page tile" ng-repeat="page in canvas.currentProject.content.children">
-				<a ng-click="selectPage(page)">{{page.name}}</a>
-				<a class="small"ng-click="deletePage(page)"tooltip-placement="left" tooltip="DELETE"> <img src="../images/icons/icon_trash_25px.png" ></a>
-			</div>
 			
 		</div>
 		

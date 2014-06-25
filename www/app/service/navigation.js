@@ -8,8 +8,8 @@ app.service
 (
 	'navigation',
 	[
-	 	'$rootScope','$modal','$location','canvas',
-		function($rootScope,$modal,$location,canvas)
+	 	'$rootScope','$modal','$location','$window','canvas',
+		function($rootScope,$modal,$location,$window,canvas)
 		{
 	 		var navigation = 
 	 		{
@@ -36,6 +36,11 @@ app.service
 				    );
 				    
 					return modalInstance.result;
+				},
+				
+				back: function()
+				{
+					$window.history.back();
 				}
 			};
 	 		

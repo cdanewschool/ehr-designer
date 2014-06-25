@@ -164,6 +164,7 @@ app.directive
 				dragService:"=dragService",
 				instance: "=componentInstance",
 				isStatic: "=componentStatic",
+				preview: "=preview",
 				simpleRender: "=simpleRender"
 			},
 			templateUrl: "partials/templates/component-preview.html",
@@ -232,7 +233,7 @@ app.directive
 							}
 							
 							//	whether in preview mode or not
-							var previewing = scope.canvas && scope.canvas.previewing;
+							var previewing = scope.preview || (scope.canvas && scope.canvas.previewing);
 							
 							scope.cellsAreDroppable = (!previewing && scope.definition.container==="cell");
 							scope.isDroppable = (!previewing && !scope.isStatic && scope.instance.componentId!='label' && scope.instance.componentId!='image');
@@ -240,6 +241,7 @@ app.directive
 							element
 								.attr("data-id",scope.instance.id)
 								.attr("data-component-id",scope.instance.componentId)
+								.toggleClass('border',scope.preview ? true : false)
 								.toggleClass('static',scope.isStatic ? true : false)
 								.toggleClass('root',!scope.instance.pid ? true : false)
 								.toggleClass('full-width',scope.instance.isTemplate && (scope.instance.values.width && scope.instance.values.width=="100%" || scope.instance.values.height && scope.instance.values.height=="100%") ? true : false);
@@ -378,9 +380,7 @@ app.directive
 						
 						var updateDynamicStyles = function()
 						{
-							var active = scope.canvas && scope.canvas.selection ? scope.canvas.selection.instance.id==scope.instance.id : false;
-							
-							element.toggleClass('previewing',active);
+							element.toggleClass('previewing',scope.preview || (scope.canvas && scope.canvas.previewing));
 							
 							angular.element('[data-id="'+scope.instance.id+'"] > .outline')
 								.toggleClass('droppable',scope.isDroppable ? true : false);

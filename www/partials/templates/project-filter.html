@@ -1,5 +1,5 @@
 <div class="pull-left">
-	<button class="btn btn-default btn-sm" ng-repeat="f in filters" ng-click="$parent.$parent.setFilter(f.value)" ng-class="{active:filter==f.value}">{{f.label}}</button>
+	<button class="btn btn-default btn-sm" ng-repeat="sortOption in sortOptions" ng-click="$parent.$parent.setSort(sortOption.value)" ng-class="{active:sort==sortOption.value}">{{sortOption.label}}</button>
 </div>
 
 <div class="pull-right">

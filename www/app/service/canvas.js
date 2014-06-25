@@ -22,12 +22,12 @@ app.service
 				 
 				 canvas.messages = [];
 				 canvas.errors = [];
-				
+				 canvas.currentPage.updated = Date.now();
+				 
 				 /**
 				  * Saving the project causes an issue where property updates don't propagate to the underlying
 				  * object, so we clone it instead
 				  */
-				 
 				 var __currentProject = angular.copy(canvas.currentProject);
 				 __currentProject.history = $base64.encode( JSON.stringify(history.actions) );
 				 
@@ -66,19 +66,6 @@ app.service
 						}
 					);
 				 }
-			 },
-			 
-			 updateHash: function(update,updateSaved)
-			 {
-				 var content = canvas.currentProject ? angular.copy(canvas.currentProject) : null;
-				 
-				 if( update )
-					 canvas.hash.current = $base64.encode( JSON.stringify(content) );
-				
-				 if( updateSaved )
-					 canvas.hash.last = $base64.encode( JSON.stringify(content) );
-				 
-				 canvas.dirty = (canvas.currentProject!=null && canvas.hash.current !== canvas.hash.last) ? true : false;
 			 },
 			 
 			 getElements: function()

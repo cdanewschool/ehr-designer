@@ -2,11 +2,13 @@ app.controller
 (
 	'BrowseCtrl',
 	[
-	 	'$scope','$rootScope','$routeParams','canvas','Project','CanvasService','DragService','library',
-	 	function($scope,$rootScope,$routeParams,canvas,Project,canvasService,dragService,library)
+	 	'$scope','$rootScope','$routeParams','canvas','Project','ProjectService','CanvasService','DragService','library','navigation',
+	 	function($scope,$rootScope,$routeParams,canvas,Project,projectService,canvasService,dragService,library,navigation)
 	 	{
 	 		$scope.dragService = dragService;
+	 		$scope.projectService = projectService;
 	 		$scope.canvas = canvas;
+	 		$scope.navigation = navigation;
 	 		
 	 		$scope.currentProject = null;
 	 		$scope.currentPage = null;
@@ -19,7 +21,7 @@ app.controller
 	 			{
 	 				if(newVal!=oldVal)
 	 				{
-	 					$scope.selectPageByIndex(0);
+	 					$scope.selectPageByIndex( $routeParams.pageId ? $routeParams.pageId - 1 : 0 );
 	 				}
 	 			}
 	 		);
@@ -97,6 +99,38 @@ app.controller
 	 				}
 	 			);
 	 		};
+	 		
+	 		$scope.editPage = function(page,project)
+			{
+	 			projectService.editItemProperties(page).then
+				(
+					function()
+					{
+						project.$update
+						(
+							{
+								projectId:project._id
+							}
+						);
+					}
+				);
+			};
+			
+			$scope.editProject = function(project)
+			{
+				projectService.editItemProperties(project.content).then
+				(
+					function()
+					{
+						project.$update
+						(
+							{
+								projectId:project._id
+							}
+						);
+					}
+				);
+			};
 	 	}
 	 ]
 );

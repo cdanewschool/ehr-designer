@@ -1,59 +1,63 @@
 <div class="container" ng-controller="FilterCtrl">
 	
-	<h1 class="page-title">Browse</h1>
+	<div id="header">
+		<h1 class="page-name">Browse</h1>
+		<img src="images/header-symbol.png"/>
+		<a class="action" ng-show="currentProject" ng-click="navigation.back()">Back</a>
+	</div>
 	
 	<div id="project-filters" ng-show="!currentProject" ng-include src="'partials/templates/project-filter.html'"></div>
 	
 	<div ng-if="!currentProject" class="container" style="clear:both;" ng-init="find()">
 
-		<div class="row">
+		<div class="col-3 tile" ng-repeat="project in projects | filter : filterByTitle | orderBy : sortField : sort!='name'">
 		
-			<div class="col-md-3 tile" ng-repeat="project in projects | filter : filterByTitle | orderBy : filter : filter!='content.name'">
+			<div class="thumbnail">
+				
+				<a href="/browse/{{project._id}}"><img ng-src="{{project.thumbnails[0]}}" src-fallback="images/default/project.jpg"></a>
+			 	
+			</div>
 			
-				<div class="thumbnail">
-					
-					<a href="/browse/{{project._id}}"><img ng-src="{{project.thumbnail}}" src-fallback="images/default/project.jpg"></a>
-				 	
-					<div class="caption">
-					
-						<h4>
-							<a class="project-name" href="/browse/{{project._id}}" class="pull-left">{{project.content.name}}</a>
-							<div class="small pull-right"><span class="badge text-primary">{{project.content.children.length}}</span></div>
-						</h4>
-						
-						<div class="footer">
-							<h6 class="small text-muted" style="clear:both">by <span class="author">{{project.creator.nameFirst}} {{project.creator.nameLast}}</span></h6>
-							<div class="small text-muted">Modified: {{project.updated | date:'short'}}</div>
-						</div>
-						
-					</div>
-					
+			<div class="caption">
+				
+				<h4>
+					<a class="project-name" href="/browse/{{project._id}}" class="pull-left">{{project.content.name}}</a>
+					<a class="small pull-right" tooltip-placement="left" tooltip="Pages in Project"><span class="badge text-primary">{{project.content.children.length}}</span></a>
+				</h4>
+				
+				<div class="footer">
+					<h6 class="small text-muted" style="clear:both">by <span class="author">{{project.creator.nameFirst}} {{project.creator.nameLast}}</span></h6>
+					<div class="small text-muted">Modified: {{project.updated | date:'short'}} | Created: {{project.created | date:'shortDate'}}</div>
 				</div>
 				
 			</div>
-		
+			
 		</div>
 		
 	</div>
 	
 	<div ng-if="currentProject" style="clear:both;width:100%;height:100%;">
 	
-		<h3>{{currentProject.title}} <small>by {{currentProject.creator.nameFirst}} {{currentProject.creator.nameLast}}</small></h3>
-		<h5>Last updated on {{currentProject.updated | date:small}} at {{currentProject.updated | date:'shortTime'}}</h5>
+		<div class="header">
 		
-		<div class="well well-sm">
+			<h3>{{currentProject.title}} <small>by {{currentProject.creator.nameFirst}} {{currentProject.creator.nameLast}}</small></h3>
+			<h5>Last updated on {{currentProject.updated | date:small}} at {{currentProject.updated | date:'shortTime'}}</h5>
 		
-			<form role="form">
-				
-				<div class="row">
-														
-					<div class="form-group col-sm-4">
-						<select class="form-control input-sm" ng-options="page.name for page in currentProject.content.children" ng-model="currentPage"></select>
+			<div class="well well-sm">
+			
+				<form role="form">
+					
+					<div class="row">
+															
+						<div class="form-group col-sm-4">
+							<select class="form-control input-sm" ng-options="page.name for page in currentProject.content.children" ng-model="currentPage"></select>
+						</div>
+					
 					</div>
+					
+				</form>
 				
-				</div>
-				
-			</form>
+			</div>
 			
 		</div>
 		
@@ -62,6 +66,5 @@
 		</div>
 	
 	</div>
-	
 		
 </div>

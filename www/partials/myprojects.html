@@ -1,38 +1,59 @@
-<div class="container" ng-init="find(true)" ng-controller="FilterCtrl">
+<div class="container" ng-controller="FilterCtrl">
 
-	<h1 class="page-title">My Projects</h1>
+	<div id="header" ng-show="!currentProject" >
+		<h1>My Projects</h1>
+		<img src="images/header-symbol.png"/>
+	</div>
+	
+	<div id="header" ng-show="currentProject" >
+		<h2>My Projects</h2>
+		<img src="images/header-symbol.png"/>
+		<h1>{{currentProject.title}} pages</h1>
+		<a class="action" ng-click="navigation.back()">Back</a>
+	</div>
 	
 	<div id="project-filters" ng-include src="'partials/templates/project-filter.html'"></div>
 	
-	<div class="container" style="clear:both;">
-		
-		<div class="row" ng-controller="CanvasCtrl">
+	<div ng-if="!currentProject"  ng-init="find(true)">
+	
+		<div ng-controller="CanvasCtrl">
 			
-			<div class="col-md-4 tile new">
+			<div class="col-3 tile new">
 				
 				<div class="thumbnail">
-					<img ng-click="newProject(true);location.path('/editor')" src="images/new-project.jpg">
+					<img ng-click="newProject(true);location.path('/editor')" src="images/new-project.png">
 				</div>
 				
 			</div>
 			
-			<div class="col-md-4 tile" ng-repeat="project in projects | filter : filterByTitle | orderBy : filter : filter!='content.name'">
+			<div class="col-3 tile" ng-repeat="project in projects | filter : filterByTitle | orderBy : sortField : sort!='name'">
 				
 				<div class="thumbnail">
-					<a href="/editor/{{project._id}}"><img ng-src="{{project.thumbnail}}" src-fallback="images/default/project.jpg"></a>
+					<a href="/myprojects/{{project._id}}"><img ng-src="{{project.thumbnails[0]}}" src-fallback="images/default/project.jpg"></a>
+				</div>
+				
+				<div class="actions">
+				
+					<div class="small pull-left">
+						<span class="action">{{action}}</span>
+					</div>
+					
+					<div class="small pull-right">
+						<a ng-click="deleteProject(project)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
+						<a href="/browse/{{project._id}}" ng-mouseover="action='Preview'" ng-mouseout="action=null"><img src="../images/icons/icon_preview.png"></a>
+					</div>
+					
 				</div>
 				
 				<div class="caption">
 					
 					<h4>
-						<a class="small pull-right" href="/browse/{{project._id}}" tooltip-placement="left" tooltip="PREVIEW"> <img src="../images/icons/icon_preview_25px.png" ></a>
-						<a class="small pull-right" ng-click="deleteProject(project)"tooltip-placement="left" tooltip="DELETE"> <img src="../images/icons/icon_trash_25px.png" ></a>
- 						<a class="project-name" href="/editor/{{project._id}}" class="pull-left">{{project.content.name}}</a>
-						<a class="small pull-right" tooltip-placement="left" tooltip="PAGES IN PROJECT"><span class="badge text-primary">{{project.content.children.length}}</span></a>
+						<a class="project-name" ng-click="editProject(project)" class="pull-left">{{project.content.name}}</a>
+						<a class="small pull-right" tooltip-placement="left" tooltip="Pages in Project"><span class="badge text-primary">{{project.content.children.length}}</span></a>
 					</h4>
 					
 					<div class="footer">
-						<div class="small text-muted" style="clear:both">Modified: {{project.updated | date:'short'}} | Created: {{project.created | date:'short'}}</div>
+						<div class="small text-muted" style="clear:both">Modified: {{project.updated | date:'short'}} | Created: {{project.created | date:'shortDate'}}</div>
 					</div>
 					
 				</div>
@@ -40,6 +61,49 @@
 			</div>
 			
 		</div>
+	
+	</div>
+	
+	<div ng-if="currentProject" style="clear:both;width:100%;height:100%;">
+	
+			<div class="col-4 tile new">
+				
+				<div class="thumbnail">
+					<img ng-click="projectService.addPage(currentProject,true);" src="images/new-page.png">
+				</div>
+				
+			</div>
+			
+			<div class="col-4 tile" ng-repeat="page in currentProject.content.children | filter : filterByTitle | orderBy : sortField : sort!='name'">
+			
+				<div class="thumbnail">
+					<a href="/editor/{{currentProject._id}}/{{$index+1}}"><img ng-src="{{currentProject.thumbnails[$index] || 'images/default/project.jpg'}}" src-fallback="images/default/project.jpg"></a>
+				</div>
+					
+				<div class="actions">
+				
+					<div class="small pull-left">
+						<span class="action">{{action}}</span>
+					</div>
+					
+					<div class="small pull-right">
+						<a ng-click="projectService.deletePage(page)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
+						<a href="/browse/{{currentProject._id}}/{{currentProject.content.children.indexOf(page)+1}}" ng-mouseover="action='Preview'" ng-mouseout="action=null"><img src="../images/icons/icon_preview.png"></a>
+					</div>
+					
+				</div>
+				
+				<div class="caption">
+					
+					<h4><a class="page-name" ng-click="editPage(page,currentProject)">{{page.name}}</a></h4>
+					
+					<div class="footer">
+						<div class="small text-muted" style="clear:both">Modified: {{page.updated | date:'short'}} | Created: {{page.created | date:'shortDate'}}</div>
+					</div>
+					 	
+				</div>
+				
+			</div>
 	
 	</div>
 	

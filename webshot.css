@@ -1,0 +1,14 @@
+/*-----------------------------------*/
+  Used by node webshot for screenshotting
+/*-----------------------------------*/
+body { padding-top: 0px; }
+
+.navbar, h1.page-title, .header { display:none }
+
+#project-preview {
+	position:absolute; 
+}
+
+.component-preview.root.previewing {
+	border: none;
+}

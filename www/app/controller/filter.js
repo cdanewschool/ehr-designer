@@ -5,27 +5,52 @@ app.controller
 	 	'$scope','webStorage',
 	 	function($scope,webStorage)
 	 	{
-	 		$scope.filters = [
-	 		                  {value:'content.name',label:'Alphabetical'},
+	 		$scope.sortOptions = [
+	 		                  {value:'name',label:'Alphabetical'},
 	 		                  {value:'created',label:'Recently Created'},
 	 		                  {value:'updated',label:'Recently Modified'}
 	 		                 ];
-	 		$scope.filter = webStorage.get('filter') || $scope.filters[0].value;
 	 		
 	 		$scope.search = null;
+	 		$scope.sort = null;
+	 		$scope.sortField = null;
 	 		
-	 		$scope.setFilter = function(filter)
+	 		$scope.$watch
+	 		(
+	 			'currentProject',
+	 			function()
+	 			{
+	 				updateSort();
+	 			}
+	 		);
+	 		
+	 		var updateSort = function()
 	 		{
-	 			$scope.filter = filter;
+	 			$scope.isProject = $scope.currentProject != null;
 	 			
-	 			webStorage.add('filter',filter);
+	 			$scope.setSort( webStorage.get('sort') || $scope.sortOptions[0].value );
+	 		};
+	 		
+	 		$scope.setSort = function(sort)
+	 		{
+	 			$scope.sort = sort;
+	 			
+	 			webStorage.add('sort',sort);
+	 			
+	 			var sortField = sort;
+	 			
+	 			if( sort == "name" && !$scope.isProject )
+	 				sortField = "content.name";
+	 			
+	 			$scope.sortField = sortField;
 	 		};
 	 		
 	 		$scope.filterByTitle = function(item)
 	 		{
-	 			return !$scope.search || item.content.name.toLowerCase().indexOf($scope.search.toLowerCase())==0;
+	 			var title = item.content ? item.content.name : item.name;
+	 			
+	 			return !$scope.search || title.toLowerCase().indexOf($scope.search.toLowerCase())==0;
 	 		};
 	 	}
-	 
 	 ]
 );
