@@ -93,10 +93,25 @@ app.controller
 	 				query,
 	 				function(response)
 	 				{
-	 					console.log( response );
-	 					
 	 					$scope.projects = response;
 	 				}
+	 			);
+	 		};
+	 		
+	 		$scope.addPage = function(project)
+	 		{
+	 			//	add a page and save project on success
+	 			projectService.addPage(project,true).then
+	 			(
+ 					function()
+					{
+						project.$update
+						(
+							{
+								projectId:project._id
+							}
+						);
+					}
 	 			);
 	 		};
 	 		

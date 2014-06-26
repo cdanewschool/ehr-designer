@@ -57,9 +57,10 @@ app.controller
 						canvas.currentPage = null;
 						
 						//	select a section/page when a project is selected
-						if( newVal )
+						if( newVal 
+							&& $routeParams.pageId )
 						{
-							$scope.selectPageByIndex(0);
+							$scope.selectPageByIndex( $routeParams.pageId - 1 );
 						}
 						//	otherwise nullify page/section
 						else
@@ -70,7 +71,7 @@ app.controller
 				}
 			);
 			
-			//	refresh section/page on history load
+			//	refresh page on history load
 			$scope.$watch
 			(
 				'canvas.currentProject.content',
@@ -78,8 +79,9 @@ app.controller
 				{
 					if( newVal != oldVal )
 					{
-						if( newVal )
-							$scope.selectPageByIndex( $routeParams.pageId ? $routeParams.pageId-1 : 0 );
+						if( newVal 
+							&& $routeParams.pageId )
+							$scope.selectPageByIndex( $routeParams.pageId - 1 );
 						else
 						{
 							canvas.currentPage = null;
@@ -101,6 +103,8 @@ app.controller
 	 					{
 	 						if( oldVal && oldVal.id == newVal.id )
 	 							canvas.dirty = true;
+	 						else
+	 							canvas.dirty = false;
 	 						
 	 						FactoryService.id(canvas.currentPage);
 	 					}
@@ -298,12 +302,25 @@ app.controller
 						//	user has provided a name and/or clicked "save"
 						function ()
 						{
-							projectService.addPage(canvas.currentProject,showEdit);
+							projectService.addPage(canvas.currentProject,true).then
+							(
+								function()
+								{
+									$scope.saveProject();
+								},
+								function()
+								{
+									canvas.currentProject = null;
+									
+									$location.path('/myprojects');
+								}
+							);
 						},
 						//	user has clicked cancel
 						function()
 						{
-							canvas.currentProject = null;							
+							canvas.currentProject = null;
+							
 							$location.path('/myprojects');
 						}
 					);
@@ -319,13 +336,16 @@ app.controller
 				canvas.previewing = true;
 			};
 			
-			$scope.addPage = function(showEdit)
+			$scope.addPage = function(showEdit,showOnCreate)
 			{  
 				projectService.addPage(canvas.currentProject,showEdit).then
 				(
 					function()
 					{
-						$scope.selectPageByIndex( canvas.currentProject.content.children.length - 1 );
+						$scope.saveProject();
+						
+						if( showOnCreate )
+							$scope.selectPageByIndex( canvas.currentProject.content.children.length - 1 );
 					}
 				);
 			};
@@ -346,6 +366,24 @@ app.controller
 						$scope.saveProject();
 					}
 				);
+			};
+			
+			$scope.showPages = function()
+			{
+				if( canvas.dirty )
+				{
+					navigation.showConfirm("You have unsaved changes. Do you want to Save?").then
+					(
+						function()
+						{
+							$scope.setLocation('/editor/'+canvas.currentProject._id);
+						}
+					);
+				}
+				else
+				{
+					$scope.setLocation('/editor/'+canvas.currentProject._id);
+				}
 			};
 			
 			$scope.selectPageByIndex = function(id)

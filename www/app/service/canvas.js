@@ -60,6 +60,7 @@ app.service
 					(
 						function(response)
 						{
+							canvas.currentProject._id = response._id;
 							canvas.currentProject._isNew = false;
 							
 							canvas.dirty = false;

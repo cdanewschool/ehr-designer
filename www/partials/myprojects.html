@@ -70,15 +70,15 @@
 		<div class="col-4 tile new">
 			
 			<div class="thumbnail">
-				<img ng-click="projectService.addPage(currentProject,true);" src="images/new-page.png">
+				<img ng-click="addPage(currentProject);" src="images/new-page.png">
 			</div>
 			
 		</div>
 		
-		<div class="col-4 tile" ng-repeat="page in currentProject.content.children | filter : filterByTitle | orderBy : sortField : sort!='name'">
+		<div class="col-4 tile" ng-repeat="page in currentProject.content.children.slice() | filter : filterByTitle | orderBy : sortField : sort!='name'">
 		
-			<div class="thumbnail">
-				<a href="/editor/{{currentProject._id}}/{{$index+1}}"><img ng-src="{{currentProject.thumbnails[$index] || 'images/default/project.jpg'}}" src-fallback="images/default/project.jpg"></a>
+			<div class="thumbnail" ng-init="_index=currentProject.content.children.indexOf(page)">
+				<a href="/editor/{{currentProject._id}}/{{_index+1}}"><img ng-src="{{currentProject.thumbnails[_index] || 'images/default/project.jpg'}}" src-fallback="images/default/project.jpg"></a>
 			</div>
 				
 			<div class="actions">
@@ -89,7 +89,7 @@
 				
 				<div class="small pull-right">
 					<a ng-click="editPage(page,currentProject)" ng-mouseover="action='Edit'" ng-mouseout="action=null"><img src="../images/icons/icon_cog.png"></a>
-					<a ng-click="projectService.deletePage(page)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
+					<a ng-click="projectService.deletePage(page,currentProject)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
 					<a href="/browse/{{currentProject._id}}/{{currentProject.content.children.indexOf(page)+1}}" ng-mouseover="action='Preview'" ng-mouseout="action=null"><img src="../images/icons/icon_preview.png"></a>
 				</div>
 				
@@ -97,7 +97,7 @@
 			
 			<div class="caption">
 				
-				<h4><a class="page-name" href="/editor/{{currentProject._id}}/{{$index+1}}">{{page.name}}</a></h4>
+				<h4><a class="page-name" href="/editor/{{currentProject._id}}/{{_index+1}}">{{page.name}}</a></h4>
 				
 				<div class="footer">
 					<div class="small text-muted" style="clear:both">Modified: {{page.updated | date:'short'}} | Created: {{page.created | date:'shortDate'}}</div>

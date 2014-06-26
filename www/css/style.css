@@ -75,6 +75,38 @@ div[ng-view] {
 a[ng-click] { cursor: pointer; }
 
 /*	EDITOR	*/
+.editor-nav {
+	border-radius: 5px;
+	padding: 10px 30px;
+	margin: 0px 10px 10px 10px;
+	background-color: #f5f5f5;
+}
+
+.breadcrumb {
+	background-color: transparent;
+	padding: 0px;
+	margin-bottom: 0px;
+}
+
+.breadcrumb img {
+	padding-right: 5px;
+}
+
+.breadcrumb > .active, .breadcrumb a {
+	color: #000;
+	text-decoration: none;
+}
+
+.breadcrumb > li:first-child a {
+	padding-left: 5px;
+}
+
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #808080;
+  content: ">\00a0";
+}
+
 #sidebar { 
 	width: 20%; 
 	height: 100%; 
@@ -90,8 +122,8 @@ a[ng-click] { cursor: pointer; }
 
 #properties { 
 	position: fixed; 
-	right: 10px; 
-	top: 60px; 
+	right: 15px; 
+	top: 145px; 
 	width: 300px; 
 	display: none; 
 	background: #fff; 
@@ -211,7 +243,7 @@ a[ng-click] { cursor: pointer; }
 .dropTarget { border: dashed 1px rgba(0, 0, 0, 1) !important;  }
 
 .grey {
-    color: #CCCCCC;
+    color: #808080;
 }
 
 .thumb {
@@ -285,9 +317,9 @@ h4.panel-title {
 	top: 0px;
 }
 
-#project-filters .btn-default {
+#project-filters .btn-default, .action-button {
 	font-size: 0.8em;
-	margin-right: 30px;
+	margin-right: 5px;
 	-webkit-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.5);
 	-moz-box-shadow:    0px 1px 5px 0px rgba(50, 50, 50, 0.5);
 	box-shadow:         0px 1px 5px 0px rgba(50, 50, 50, 0.5);
@@ -296,7 +328,11 @@ h4.panel-title {
 	color: #998675;
 }
 
-#project-filters .btn-default.active {
+#project-filters .btn-default {
+	margin-right: 30px;
+}
+
+#project-filters .btn-default.active, .action-button.active {
 	background-color: #fff !important;
 	border: solid 1px #534741;
 	color: #998675;
@@ -305,7 +341,7 @@ h4.panel-title {
 	box-shadow:         none;
 }
 
-#project-filters .btn-default:hover {
+#project-filters .btn-default:hover, .action-button:hover {
 	color: #000000;
 	background-color: #fff;
 }
@@ -577,11 +613,6 @@ td > div:first-child:empty {
 	text-decoration: none;
 	background-color: transparent;
 	cursor: not-allowed;
-}
-
-.breadcrumb>.active a {
-	color: #999;
-	text-decoration: none;
 }
 
 .tab-pane, .tab-pane > div > .component-preview {
