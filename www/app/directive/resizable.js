@@ -60,7 +60,7 @@ app.directive
 											
 											//	horizontal resize
 											//	resize height for all cells in the corresponding row
-									        if ( ui.originalSize.height !== ui.size.heigh ) 
+									        if ( ui.originalSize.height !== ui.size.height ) 
 									        {
 									        	var start = Math.floor( cellData.index/cellData.cols ) * cellData.cols;
 									        	var end = start + (cellData.cols - 1);

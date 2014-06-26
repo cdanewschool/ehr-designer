@@ -213,33 +213,32 @@
 						'padding-left':instance.values.padding.left+instance.values.padding.unit,
 						'pointer-events':canvas.previewing?'auto':'none'
 					}">
-			 
+			
 			<input 
-				ng-if='instance.componentId=="textinput"'
-				class="form-control target" 
-				type="{{instance.values.type}}" 
-				placeholder="{{instance.values.placeholder}}" 
-				value="{{!instance.values.placeholder ? instance.values.text : ''}}"
-				maxlength="{{instance.values.maxlength}}"
-				size="{{instance.values.size}}"
-				ng-style="
-					{
-						'background-color':instance.values['background-color'],
-						'border-color':instance.values['border-color'],
-						'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
-						'color':instance.values.color,
-						'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
-						'margin-top':instance.values.margin.top+instance.values.margin.unit,
-						'margin-right':instance.values.margin.right+instance.values.margin.unit,
-						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
-						'margin-left':instance.values.margin.left+instance.values.margin.unit,
-						'padding-top':instance.values.padding.top+instance.values.padding.unit,
-						'padding-right':instance.values.padding.right+instance.values.padding.unit,
-						'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
-						'padding-left':instance.values.padding.left+instance.values.padding.unit,
-						'pointer-events':canvas.previewing?'auto':'none'
-					}">
-
+					ng-if='instance.componentId=="textinput"'
+					class="form-control target" 
+					type="{{instance.values.type}}" 
+					placeholder="{{instance.values.placeholder}}" 
+					value="{{!instance.values.placeholder ? instance.values.text : ''}}"
+					maxlength="{{instance.values.maxlength}}"
+					ng-style="
+						{
+							'background-color':instance.values['background-color'],
+							'border-color':instance.values['border-color'],
+							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
+							'color':instance.values.color,
+							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
+							'margin-top':instance.values.margin.top+instance.values.margin.unit,
+							'margin-right':instance.values.margin.right+instance.values.margin.unit,
+							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+							'margin-left':instance.values.margin.left+instance.values.margin.unit,
+							'padding-top':instance.values.padding.top+instance.values.padding.unit,
+							'padding-right':instance.values.padding.right+instance.values.padding.unit,
+							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
+							'padding-left':instance.values.padding.left+instance.values.padding.unit,
+							'pointer-events':canvas.previewing?'auto':'none'
+						}">
+			
 			<div ng-if='instance.componentId=="textarea"' resizable="instance.values" resizable-config="{handles:'e,s'}">
 				<textarea 
 					class="form-control target" 
@@ -389,7 +388,11 @@
 					ng-style="
 							{
 								'width': instance.isTemplate && instance.values.width ? instance.values.width : 'inherit',
-								'height': instance.isTemplate && instance.values.height ? instance.values.height : 'inherit'
+								'height': instance.isTemplate && instance.values.height ? instance.values.height : 'inherit',
+								'margin-top':instance.values.margin.top+instance.values.margin.unit,
+								'margin-right':instance.values.margin.right+instance.values.margin.unit,
+								'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+								'margin-left':instance.values.margin.left+instance.values.margin.unit
 							}">
 					<tr  
 						ng-repeat="r in [] | range:instance.values.rows">
@@ -402,17 +405,13 @@
 							{
 								'width':instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].width ? instance.values['cell-size'][cellIndex].width : false,
 								'height':instance.values['cell-size'][cellIndex] && instance.values['cell-size'][cellIndex].height ? instance.values['cell-size'][cellIndex].height : false,
-								'margin-top':instance.values.margin.top+instance.values.margin.unit,
-								'margin-right':instance.values.margin.right+instance.values.margin.unit,
-								'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
-								'margin-left':instance.values.margin.left+instance.values.margin.unit,
 								'padding-top':((canvas.selection.instance==instance?5:0)+instance.values.padding.top)+instance.values.padding.unit,
 								'padding-right':((canvas.selection.instance==instance?5:0)+instance.values.padding.right)+instance.values.padding.unit,
 								'padding-bottom':((canvas.selection.instance==instance?5:0)+instance.values.padding.bottom)+instance.values.padding.unit,
 								'padding-left':((canvas.selection.instance==instance?5:0)+instance.values.padding.left)+instance.values.padding.unit,
 							}" 
 						 	resizable="instance.values['cell-size']" resizable-config="{handles:'e,s'}" resizable-cell="{cols:instance.values.cols,rows:instance.values.rows,index:cellIndex}"> 
-						 	<div 						 		style="width:100%;height:100%"><div 
+						 	<div style="width:100%;height:100%"><div 
 						 		style="position:relative" 
 						 		ng-repeat="child in instance.children | filter: getCellChildren" 
 							 	ng-style="

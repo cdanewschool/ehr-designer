@@ -22,7 +22,7 @@ app.service
 app.directive
 (
 	'canvasManager',
-	function(canvas,instanceCache,library)
+	function(canvas,DragService,instanceCache,library)
 	{
 		return {
 			restrict: 'A',
@@ -57,9 +57,9 @@ app.directive
 							angular.element( canvas.selection.element ).parents('.outline').first().removeClass('active');
 						
 						//	get data
-						var id = angular.element(e.target).parents('.component-preview').attr('data-id');
+						var id = angular.element(e.target).closest('.component-preview').attr('data-id');
 						var instance = instanceCache.get(id);
-						
+						console.log(angular.element(e.target).closest('.component-preview'))
 						if( !instance )
 						{
 							instance = find([canvas.currentPage],id);
@@ -103,6 +103,8 @@ app.directive
 					'mouseover',
 					function(e)
 					{
+						if( canvas.previewing ) return;
+						
 						e.stopImmediatePropagation();
 						
 						var id = angular.element(e.target).closest('.component-preview').first().attr('data-id');
@@ -127,6 +129,8 @@ app.directive
 						(
 							function()
 							{
+								DragService.onOver(e,instance,cellIndex);
+							
 								updateHighlightedDropTarget(instance,cellIndex);
 							}
 						);
@@ -164,32 +168,6 @@ app.directive
 						}
 					}
 				};
-				
-				/*
-				scope.$watch
-				(
-					'dragService.dragModel.hover',
-					function(newVal,oldVal)
-					{
-						if(newVal!=oldVal)
-						{
-							updateHighlightedDropTarget(scope.dragService.dragModel.hover,scope.dragService.dragModel.hoverIndex);
-						}
-					}
-				);
-				
-				scope.$watch
-				(
-					'dragService.dragModel.hoverIndex',
-					function(newVal,oldVal)
-					{
-						if(newVal!=oldVal)
-						{
-							updateHighlightedDropTarget(scope.dragService.dragModel.hover,scope.dragService.dragModel.hoverIndex);
-						}
-					}
-				);
-				*/
 			}
 		};
 	}

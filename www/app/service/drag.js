@@ -217,6 +217,15 @@ app.service
 					$rootScope.$apply();
 				},
 				
+				onOver: function(event,definition,index)
+				{
+					if( !canvas.previewing )
+					{
+						dragModel.hover = definition;
+						dragModel.hoverIndex = index;
+					}
+				},
+				
 				acceptDrop: function(item)
 				{
 					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;

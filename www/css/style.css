@@ -14,6 +14,7 @@
 	UTILITY
 	
 	BOOTSTRAP OVERRIDES
+	JQUERYUI OVERRIDES
 */
 
 /*-----------------------------------*
@@ -618,4 +619,12 @@ td > div:first-child:empty {
 .tab-pane, .tab-pane > div > .component-preview {
 	width: 100%;
 	height: 100%;
+}
+
+/*-----------------------------------*
+	JQUERYUI OVERRIDES
+ *-----------------------------------*/
+.ui-state-disabled
+{
+	opacity: 1;
 }

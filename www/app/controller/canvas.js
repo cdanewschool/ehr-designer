@@ -104,9 +104,11 @@ app.controller
 	 						if( oldVal && oldVal.id == newVal.id )
 	 							canvas.dirty = true;
 	 						else
+	 						{
+	 							FactoryService.id(canvas.currentPage);
+	 							
 	 							canvas.dirty = false;
-	 						
-	 						FactoryService.id(canvas.currentPage);
+	 						}
 	 					}
 	 					else
 	 					{
@@ -374,6 +376,10 @@ app.controller
 				{
 					navigation.showConfirm("You have unsaved changes. Do you want to Save?").then
 					(
+						function()
+						{
+							$scope.setLocation('/editor/'+canvas.currentProject._id);
+						},
 						function()
 						{
 							$scope.setLocation('/editor/'+canvas.currentProject._id);
