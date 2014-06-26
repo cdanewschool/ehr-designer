@@ -118,8 +118,8 @@ app.service
 					values = snap(values);
 					
 					//	set hoverIndex if set
-					if( dragModel.hoverIndex !== null 
-						&& dragItem.parentIndex !== dragModel.hoverIndex
+					if( dragModel.hoverIndex >= 0 
+						&& dragModel.hover
 						&& dragModel.hover.id != dragItem.id )
 					{
 						if( !isNew ) ui.draggable.remove();

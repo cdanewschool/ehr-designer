@@ -59,7 +59,7 @@ app.directive
 						//	get data
 						var id = angular.element(e.target).closest('.component-preview').attr('data-id');
 						var instance = instanceCache.get(id);
-						console.log(angular.element(e.target).closest('.component-preview'))
+						
 						if( !instance )
 						{
 							instance = find([canvas.currentPage],id);

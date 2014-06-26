@@ -72,7 +72,7 @@
             							{{category.name}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': openTab, 'glyphicon-chevron-right': !openTab}"></i>
         							</accordion-heading>
         							<div class="list-group">
-        								<a ng-repeat="component in category.components | filter:componentFilter | orderBy:'name'" class="list-group-item">
+        								<a ng-repeat="component in category.components track by component.id | filter:componentFilter | orderBy:'name'" class="list-group-item">
         									<component-preview component-instance="component" component-static="true" simple-render="true" component-draggable drag-service="dragService"></component-preview>
         								</a>
         							</div>

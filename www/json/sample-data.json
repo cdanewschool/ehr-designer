@@ -1,5 +1,74 @@
 [
     {
+		"id": "address-use",
+		"title": "Address Use",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Address Use",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"BAD"}, "display":{"value":"bad address"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"CONF"}, "display":{"value":"confidential address"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"H"}, "display":{"value":"home address"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"HP"}, "display":{"value":"primary home"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"HV"}, "display":{"value":"vacation home"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"MC"}, "display":{"value":"mobile contact"} } } },                
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"OLD"}, "display":{"value":"no longer in use"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"TMP"}, "display":{"value":"temporary address"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"WP"}, "display":{"value":"work place"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"PST"}, "display":{"value":"postal address"} } } }			
+			]
+		}
+	},
+	{
+		"id": "administrative-gender",
+		"title": "Administrative Gender",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Administrative Gender Codes",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"F"}, "display":{"value":"Female"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"M"}, "display":{"value":"Male"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"UN"}, "display":{"value":"Undifferentiated"} } } }
+			]
+		}
+	},
+	{
+		"id": "condition-severity",
+		"title": "Condition Severities",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Condition Severities",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"255604002"}, "display":{"value":"Mild"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"6736007"}, "display":{"value":"Moderate"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"24484000"}, "display":{"value":"Severe"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"399166001"}, "display":{"value":"Fatal"} } } }
+			]
+		}
+	},
+    {
+    	"id": "condition-status",
+		"title": "Condition Status",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Condition Status",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"provisional"}, "display":{"value":"This is a tentative diagnosis - still a candidate that is under consideration."} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"working"}, "display":{"value":"The patient is being treated on the basis that this is the condition, but it is still not confirmed."} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"confirmed"}, "display":{"value":"There is sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition."} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"refuted"}, "display":{"value":"This condition has been ruled out by diagnostic and clinical evidence."} } } }
+			]
+		}
+	},
+	{
     	"id": "encounter-class",
 		"title": "Encounter Classes",
 		"content":
@@ -19,23 +88,23 @@
 			]
 		}
 	},
-	{
-		"id": "valueset-administrative-gender",
-		"title": "Administrative Gender",
+    {
+    	"id": "living-arrangement",
+		"title": "Living Arrangement",
 		"content":
 		{
 			"resourceType": "Bundle",
-			"title": "Administrative Gender Codes",
+			"title": "Living Arrangement",
 			"entry": 
 			[
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"F"}, "display":{"value":"Female"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"M"}, "display":{"value":"Male"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/AdministrativeGender"}, "code":{"value":"UN"}, "display":{"value":"Undifferentiated"} } } }
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"HL"}, "display":{"value":"homeless"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"I"}, "display":{"value":"institution"} } } },
+                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"PR"}, "display":{"value":"private residence"} } } }
 			]
 		}
 	},
-    {
-    	"id": "valueset-marital-status",
+	{
+    	"id": "marital-status",
 		"title": "Marital Status",
 		"content":
 		{
@@ -58,71 +127,25 @@
 		}
 	},
 	{
-		"id": "valueset-condition-severity",
-		"title": "Condition Severities",
+		"id": "patient-contact-relationship",
+		"title": "Contact Relationships",
 		"content":
 		{
 			"resourceType": "Bundle",
-			"title": "Condition Severities",
+			"title": "Contact Relationships",
 			"entry": 
 			[
-				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"255604002"}, "display":{"value":"Mild"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"6736007"}, "display":{"value":"Moderate"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"24484000"}, "display":{"value":"Severe"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://snomed.info/sct"}, "code":{"value":"399166001"}, "display":{"value":"Fatal"} } } }
-			]
-		}
-	},
-    {
-    	"id": "valueset-condition-status",
-		"title": "Condition Status",
-		"content":
-		{
-			"resourceType": "Bundle",
-			"title": "Condition Status",
-			"entry": 
-			[
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"provisional"}, "display":{"value":"This is a tentative diagnosis - still a candidate that is under consideration."} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"working"}, "display":{"value":"The patient is being treated on the basis that this is the condition, but it is still not confirmed."} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"confirmed"}, "display":{"value":"There is sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition."} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"refuted"}, "display":{"value":"This condition has been ruled out by diagnostic and clinical evidence."} } } }
-			]
-		}
-	},
-        {
-		"id": "valueset-address-use",
-		"title": "Address Use",
-		"content":
-		{
-			"resourceType": "Bundle",
-			"title": "Address Use",
-			"entry": 
-			[
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"BAD"}, "display":{"value":"bad address"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"CONF"}, "display":{"value":"confidential address"} } } },
-                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"H"}, "display":{"value":"home address"} } } },
-                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"HP"}, "display":{"value":"primary home"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"HV"}, "display":{"value":"vacation home"} } } },
-                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"MC"}, "display":{"value":"mobile contact"} } } },                
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"OLD"}, "display":{"value":"no longer in use"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"TMP"}, "display":{"value":"temporary address"} } } },
-                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"WP"}, "display":{"value":"work place"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/AddressUse"}, "code":{"value":"PST"}, "display":{"value":"postal address"} } } }			
-			]
-		}
-	},
-    {
-    	"id": "valueset-living-arrangement",
-		"title": "Living Arrangement",
-		"content":
-		{
-			"resourceType": "Bundle",
-			"title": "Living Arrangement",
-			"entry": 
-			[
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"HL"}, "display":{"value":"homeless"} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"I"}, "display":{"value":"institution"} } } },
-                { "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/v3/vs/LivingArrangement"}, "code":{"value":"PR"}, "display":{"value":"private residence"} } } }
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"emergency"}, "display":{"value":"Emergency"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"family"}, "display":{"value":"Family"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"guardian"}, "display":{"value":"Guardian"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"friend"}, "display":{"value":"Friend"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"partner"}, "display":{"value":"Partner"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"work"}, "display":{"value":"Work"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"caregiver"}, "display":{"value":"Caregiver"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"agent"}, "display":{"value":"Agent"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"guarantor"}, "display":{"value":"Gguarantor"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"owner"}, "display":{"value":"Owner of animal"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"parent"}, "display":{"value":"Parent"} } } }
 			]
 		}
 	},
