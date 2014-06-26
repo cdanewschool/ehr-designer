@@ -379,8 +379,11 @@
 				ng-if='instance.componentId=="grid"' 
 				ng-style="
 					{
-						'width':  !isStatic && instance.isTemplate ? '100%' : 'auto',
-						'height': !isStatic && instance.isTemplate ? '100%' : 'auto'
+						'width': !isStatic && instance.isTemplate ? '100%' : 'auto',
+						'height': !isStatic && instance.isTemplate ? '100%' : 'auto',
+						'border-style': instance.values['border-width'] && instance.values['border-width'].size > 0 ? 'solid' : 'none',
+						'border-color': instance.values['border-color'],
+						'border-width': instance.values['border-width'].size+instance.values['border-width'].unit
 					}">
 				<table 
 					ng-style="

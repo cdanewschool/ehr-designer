@@ -414,6 +414,30 @@
 						"type":"boolean"
 					},
 					{
+						"id":"border-color",
+						"name":"Border Color",
+						"type":"color"
+					},
+					{
+						"id":"border-width",
+						"name":"Border Width",
+						"type":"object",
+						"parseExpression":"(\\d*)([a-z]*)",
+						"properties":
+						[
+							{
+								"id":"size",
+								"name":"",
+								"type":"int"
+							},
+							{
+								"id":"unit",
+								"type":"enum",
+								"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
+							}
+						]
+					},
+					{
 						"id":"vertical-align",
 						"name":"Vertical Align",
 						"type":"enum",
@@ -423,6 +447,7 @@
 				"values":
 				{
 					"auto-layout-children":true,
+					"border-color":"#000000",
 					"cell-size":{},
 					"cols":2,
 					"rows":1,
