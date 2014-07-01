@@ -15,20 +15,34 @@
 			
 		</div>
 		
-		<div class="col-sm-4" ng-show="canvas.currentPage">
+		<div class="col-sm-4">
 			
-			<div class="pull-right">
+			<div class="pull-right"  ng-show="canvas.currentPage">
+			
 				<button type="button" class="btn btn-default btn-sm action action-button" ng-show="canvas.currentProject" ng-click="addPage(true,true)" ng-disabled="!canvas.currentProject">
 					<span class="glyphicon glyphicon-plus grey"></span> Page
 				</button>
+				
 				<button type="button" class="btn btn-default btn-sm action action-button" ng-show="canvas.currentProject" ng-click="saveProject()" ng-disabled="!canvas.currentProject || canvas.dirty===false">
 					<span class="glyphicon glyphicon-flash" ng-show="canvas.dirty" tooltip-placement="left" tooltip="Your project needs to be saved!"></span> Save
 				</button>
+				
 				<button type="button" class="btn btn-default btn-sm action action-button" ng-show="canvas.currentProject" ng-controller="CanvasCtrl" ng-click="previewProject()" ng-disabled="!canvas.currentPage">
 					<img src="../images/icons/icon_preview.png"> Preview
 				</button>
+				
 			</div>
+			
+		</div>
+		
+	</div>
 	
+	<div class="row" ng-show="canvas.previewing">
+	
+		<div class="pull-right" ng-show="canvas.previewing">
+			<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="canvas.previewing=false" ng-disabled="!canvas.currentProject">
+				<img src="../images/icons/icon_preview.png"> Exit Preview
+			</button>
 		</div>
 		
 	</div>
@@ -183,16 +197,6 @@
 
 	<div ng-class="{minimized:canvas.selection!=null}">
 	
-		<div ng-show="canvas.previewing">
-		
-			<div class="pull-right">
-				<button type="button" class="btn btn-default btn-sm action" ng-show="canvas.currentProject" ng-click="canvas.previewing=false" ng-disabled="!canvas.currentProject">
-					<img src="../images/icons/icon_preview.png"> Exit Preview
-				</button>
-			</div>		
-			
-		</div>
-		
 		<!-- pages in project-->
 		<div ng-if="canvas.currentProject && !canvas.currentPage">
 			
