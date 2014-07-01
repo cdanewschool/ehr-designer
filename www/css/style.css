@@ -22,29 +22,29 @@
  *-----------------------------------*/
 @font-face {
 	font-family: 'MyriadPro-Regular';
-	src: url('fonts/MyriadPro-Regular/MyriadPro-Regular.eot?') format('eot'), 
-	     url('fonts/MyriadPro-Regular/MyriadPro-Regular.otf')  format('opentype'),
-	     url('fonts/MyriadPro-Regular/MyriadPro-Regular.woff') format('woff'), 
-	     url('fonts/MyriadPro-Regular/MyriadPro-Regular.ttf')  format('truetype'),
-	     url('fonts/MyriadPro-Regular/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg');
+	src: url('../fonts/MyriadPro-Regular/MyriadPro-Regular.eot?') format('eot'), 
+	     url('../fonts/MyriadPro-Regular/MyriadPro-Regular.otf')  format('opentype'),
+	     url('../fonts/MyriadPro-Regular/MyriadPro-Regular.woff') format('woff'), 
+	     url('../fonts/MyriadPro-Regular/MyriadPro-Regular.ttf')  format('truetype'),
+	     url('../fonts/MyriadPro-Regular/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg');
 }
 
 @font-face {
 	font-family: 'MyriadPro-Semibold';
-	src: url('fonts/MyriadPro-Semibold/MyriadPro-Semibold.eot?') format('eot'), 
-	     url('fonts/MyriadPro-Semibold/MyriadPro-Semibold.otf')  format('opentype'),
-	     url('fonts/MyriadPro-Semibold/MyriadPro-Semibold.woff') format('woff'), 
-	     url('fonts/MyriadPro-Semibold/MyriadPro-Semibold.ttf')  format('truetype'),
-	     url('fonts/MyriadPro-Semibold/MyriadPro-Semibold.svg#MyriadPro-Semibold') format('svg');
+	src: url('../fonts/MyriadPro-Semibold/MyriadPro-Semibold.eot?') format('eot'), 
+	     url('../fonts/MyriadPro-Semibold/MyriadPro-Semibold.otf')  format('opentype'),
+	     url('../fonts/MyriadPro-Semibold/MyriadPro-Semibold.woff') format('woff'), 
+	     url('../fonts/MyriadPro-Semibold/MyriadPro-Semibold.ttf')  format('truetype'),
+	     url('../fonts/MyriadPro-Semibold/MyriadPro-Semibold.svg#MyriadPro-Semibold') format('svg');
 }
 
 @font-face {
 	font-family: 'SabonLTStd-Roman';
-	src: url('fonts/SabonLTStd-Roman/SabonLTStd-Roman.eot?') format('eot'), 
-	     url('fonts/SabonLTStd-Roman/SabonLTStd-Roman.otf')  format('opentype'),
-	     url('fonts/SabonLTStd-Roman/SabonLTStd-Roman.woff') format('woff'), 
-	     url('fonts/SabonLTStd-Roman/SabonLTStd-Roman.ttf')  format('truetype'),
-	     url('fonts/SabonLTStd-Roman/SabonLTStd-Roman.svg#SabonLTStd-Roman') format('svg');
+	src: url('../fonts/SabonLTStd-Roman/SabonLTStd-Roman.eot?') format('eot'), 
+	     url('../fonts/SabonLTStd-Roman/SabonLTStd-Roman.otf')  format('opentype'),
+	     url('../fonts/SabonLTStd-Roman/SabonLTStd-Roman.woff') format('woff'), 
+	     url('../fonts/SabonLTStd-Roman/SabonLTStd-Roman.ttf')  format('truetype'),
+	     url('../fonts/SabonLTStd-Roman/SabonLTStd-Roman.svg#SabonLTStd-Roman') format('svg');
 }
 
 /*-----------------------------------*
