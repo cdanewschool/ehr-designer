@@ -85,18 +85,21 @@ app.service
 						
 						for(var e in elements)
 						{
-							elementsIndexed[ elements[e].id ] = elements[e];
+							var element = elements[e];
+							element.type = "element";
 							
-							if( !elements[e].abstract 
-								&& elements[e].category )
+							elementsIndexed[ element.id ] = element;
+							
+							if( !element.abstract 
+								&& element.category )
 							{
-								if( !elementsByCategory[ elements[e].category ] )
-									elementsByCategory[ elements[e].category ] = {name:elements[e].category,elements:[]};
+								if( !elementsByCategory[ element.category ] )
+									elementsByCategory[ element.category ] = {name:element.category,elements:[]};
 								
-								elementsByCategory[ elements[e].category ].elements.push( elements[e] );
+								elementsByCategory[ element.category ].elements.push( element );
 							}
 						}
-							
+						
 						library.elementsByCategory = elementsByCategory;
 						library.elements = elements;
 						library.elementsIndexed = elementsIndexed;
@@ -126,6 +129,7 @@ app.service
 						{
 							var definition = library.elementsIndexed[ components[c].componentId ];
 							var component = _.defaults(components[c],definition);
+							component.type = "component";
 							
 							componentsIndexed[ components[c].id ] = component;
 							
@@ -161,7 +165,19 @@ app.service
 					{},
 					function(templates)
 					{
+						var templatesIndexed = {};
+						
+						for(var t in templates)
+						{
+							var definition = library.elementsIndexed[ templates[t].componentId ];
+							var template = _.defaults(templates[t],definition);
+							template.type = "template";
+							
+							templatesIndexed[ templates[t].id ] = template;
+						}
+						
 						library.templates = templates;
+						library.templatesIndexed = templatesIndexed;
 						
 						async.resolve();
 						

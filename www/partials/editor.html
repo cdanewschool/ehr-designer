@@ -1,6 +1,6 @@
 <div class="container-fluid editor-nav">
 
-	<div class="row" ng-show="!canvas.previewing" >
+	<div class="row" ng-show="!canvas.previewing">
 		
 		<div class="col-sm-8">
 		
@@ -60,7 +60,7 @@
 	    	<div class="panel panel-default">
 				<div class="panel-body">
 			    	<accordion class="library" close-others="oneAtATime">
-			    		<accordion-group heading="EHR Components">
+			    		<accordion-group heading="EHR Components" is-open="true">
 			    			<div class="list-group" >
      							<a ng-repeat="component in library.components | filter:{'category':'!'} | orderBy:'name'" class="list-group-item">
      								<component-preview component-instance="component" component-static="true" simple-render="true" component-draggable drag-service="dragService"></component-preview>
@@ -109,7 +109,7 @@
 	    	<div class="panel panel-default">
 	    		<div class="panel-body">
 	    			<accordion close-others="oneAtATime">
-			    		<accordion-group heading="Template" is-open="false">
+			    		<accordion-group heading="Template" is-open="true">
 			    			<div class="list-group" ng-repeat="template in library.templates">
 			    				<a ng-click="setTemplate(template)" class="list-group-item">
 			    					<component-preview component-instance="template" component-static="true" style="width:100%;height:100px"></component-preview>
@@ -133,7 +133,7 @@
 						</accordion-group>
 					</accordion>
 					<accordion close-others="oneAtATime">
-			    		<accordion-group heading="Project Privacy" is-open="false">				
+			    		<accordion-group heading="Privacy" is-open="false">				
 							<form role="form">
 								<div class="form-group">
 									<div>
@@ -166,10 +166,10 @@
 	    
 	    <!-- 	debug window	-->
 	    <tab heading="Debug" class="small" ng-if="DEBUG">
-	    	<!--
+	    	
 	    	<h6>Document JSON</h6>
 	    	<pre class="pre-scrollable">{{canvas.currentProject | json}}</pre>
-	    	-->
+	    	
 	    	<button class="btn btn-primary btn-md" ng-if="DEBUG" ng-show="canvas.selection" ng-click="exportSelectionDefinition()">Export</button>
 	    	
 	    </tab>

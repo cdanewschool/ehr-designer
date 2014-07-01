@@ -44,9 +44,9 @@ app.directive
 								(
 									function()
 									{
-										if( !iElement.data('ui-draggable')) return;
+										if( !iElement.data('ui-draggable') ) return;
 										
-										iElement.draggable( scope.canvas && scope.canvas.previewing ? 'disable' : 'enable')
+										iElement.draggable( (scope.canvas && scope.canvas.previewing) || (scope.$eval(iAttrs.componentDraggable)===false) ? 'disable' : 'enable' );
 									},100
 								);
 							};

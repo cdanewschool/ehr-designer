@@ -90,24 +90,10 @@
 						"values":[{"value":"px","label":"px"},{"value":"em","label":"em"}]
 					}
 				]
-			},
-			{
-				"id":"halign",
-				"name":"Horizontal Align",
-				"type":"enum",
-				"values":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"},{"value":"none","label":"None"}]
-			},
-			{
-				"id":"valign",
-				"name":"Vertical Align",
-				"type":"enum",
-				"values":[{"value":"top","label":"Top"},{"value":"middle","label":"Middle"},{"value":"bottom","label":"Bottom"}]
 			}
 		],
 		"values":
 		{
-			"halign":"none",
-			"valign":"top"
 		},
 		"subcomponents":
 		[
@@ -164,11 +150,18 @@
 						"name":"Casing",
 						"type":"enum",
 						"values":[{"value":"none","label":"None"},{"value":"capitalize","label":"Capitalize"},{"value":"lowercase","label":"Lowercase"},{"value":"uppercase","label":"Uppercase"}]
+					},
+					{
+						"id":"text-align",
+						"name":"Text Align",
+						"type":"enum",
+						"values":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}]
 					}
 				],
 				"values":
 				{
-					"text":"Text"
+					"text":"Text",
+					"text-align":"left"
 				},
 				"subcomponents":
 				[
@@ -180,7 +173,7 @@
 						"binding":{"dataType":"object"},
 						"values":
 						{
-							"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+							"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 							"width":100
 						}
 					},
@@ -279,6 +272,23 @@
 						"id":"border-color",
 						"name":"Border Color",
 						"type":"color"
+					},
+					{
+						"id":"bold",
+						"name":"Bold",
+						"type":"boolean"
+					},
+					{
+						"id":"font-style",
+						"name":"Font Style",
+						"type":"enum",
+						"values":[{"value":"normal","label":"Normal"},{"value":"italic","label":"Italic"}]
+					},
+					{
+						"id":"text-transform",
+						"name":"Casing",
+						"type":"enum",
+						"values":[{"value":"none","label":"None"},{"value":"capitalize","label":"Capitalize"},{"value":"lowercase","label":"Lowercase"},{"value":"uppercase","label":"Uppercase"}]
 					}
 				],
 				"values":
@@ -410,7 +420,7 @@
 					},
 					{
 						"id":"auto-layout-children",
-						"name":"Tile children",
+						"name":"Auto-layout children",
 						"type":"boolean"
 					},
 					{
@@ -438,6 +448,12 @@
 						]
 					},
 					{
+						"id":"horizontal-align",
+						"name":"Horizontal Align",
+						"type":"enum",
+						"values":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}]
+					},
+					{
 						"id":"vertical-align",
 						"name":"Vertical Align",
 						"type":"enum",
@@ -450,6 +466,7 @@
 					"border-color":"#000000",
 					"cell-size":{},
 					"cols":2,
+					"horizontal-align":"left",
 					"rows":1,
 					"vertical-align":"top"
 				},
@@ -608,16 +625,6 @@
 						"type":"color"
 					},
 					{
-						"id":"background-color",
-						"name":"Background Color",
-						"type":"color"
-					},
-					{
-						"id":"border-color",
-						"name":"Border Color",
-						"type":"color"
-					},
-					{
 						"id":"font-size",
 						"name":"Font Size",
 						"type":"object",
@@ -716,7 +723,8 @@
 						{
 							"label":"Banana"
 						}
-					]
+					],
+					"margin": {"top":0,"right":10,"bottom":0,"left":10,"unit":"px"}
 				}				
 			},
 			{
@@ -794,7 +802,6 @@
 						"values":
 						{
 							"type":"text",
-							"placeholder":"John Doe",
 							"size":"10",
 							"maxlength":"5"
 						}

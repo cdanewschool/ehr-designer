@@ -4,9 +4,23 @@ app.service
 	function()
 	{
 		return {
+			getDefinition:function(element)
+			{
+				if( element.attr("data-component-type") == "template" )
+					return this.templatesIndex(element.attr("data-id"));
+				else if( element.attr("data-component-type") == "component" )
+					return this.componentsIndexed[element.attr("data-id")];
+				
+				return this.elementsIndexed[element.attr("data-component-id")];
+			},
+			
 			components:null,
 			componentsByCategory:null,
 			componentsIndexed:null,
+			
+			elements:null,
+			elementsByCategory:null,
+			elementsIndexed:null,
 			
 			sampleData:null,
 			sampleDataTypes: 
@@ -26,7 +40,10 @@ app.service
 			 		 	{ label: ".picture",id: "photo.url" }
 			 		 ]
 			 	}
-			]
+			],
+			
+			templates:null,
+			templatesIndexed:null
 		};
 	}
 );

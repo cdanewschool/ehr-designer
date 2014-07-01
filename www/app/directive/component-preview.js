@@ -55,6 +55,15 @@ app.directive
  		
  		var setDefaultProperties = function(definition,instance,element)
  		{
+ 			var classes = [];
+ 			
+ 			if( angular.element(element).hasClass('target') )
+ 			{
+ 				classes.push( 'target' );
+ 				
+ 				angular.element(element).removeClass('target');
+ 			}
+ 			
  			if( !instance.values )
  				instance.values = {};
  			
@@ -155,6 +164,9 @@ app.directive
  					}
  				}
  			);
+ 			
+ 			if( classes.length )
+ 				angular.element(element).addClass( classes.join(' ') );
  		};
  		
 		return {
@@ -241,6 +253,7 @@ app.directive
 							element
 								.attr("data-id",scope.instance.id)
 								.attr("data-component-id",scope.instance.componentId)
+								.attr("data-component-type",scope.instance.type)
 								.toggleClass('border',scope.preview ? true : false)
 								.toggleClass('static',scope.isStatic ? true : false)
 								.toggleClass('root',!scope.instance.pid ? true : false)
@@ -249,11 +262,11 @@ app.directive
 							if( !scope.isStatic )
 								updateDynamicStyles();
 							
-							if( !scope.simpleRender 
-								&& !scope.isStatic )
+							if( !scope.simpleRender )
 							{
 								//	detect and clear `isNew` prop set on newly-added component's `values` obj by drag manager
-								if( scope.instance.values.isNew )
+								if( scope.instance.values
+									&& scope.instance.values.isNew )
 								{
 									delete scope.instance.values.isNew;
 									
@@ -262,7 +275,7 @@ app.directive
 										function()
 										{
 											setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
-										},1
+										},100
 									);
 								}
 							}
@@ -445,11 +458,11 @@ app.directive
 						 				(
 						 					function()
 						 					{
-						 						setDefaultProperties( scope.definition, scope.instance );
+						 						setDefaultProperties( scope.definition, scope.instance, angular.element(element).find('.target')[0] );
 						 						
 						 						scope.$apply();
 						 					},
-						 					1000
+						 					100
 						 				);
 									}
 								}

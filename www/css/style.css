@@ -596,6 +596,11 @@ td > div:first-child:empty {
 /*-----------------------------------*
 	BOOTSTRAP OVERRIDES
  *-----------------------------------*/
+.list-inline > li {
+	float: left;
+	display: list-item;
+}
+
 .tooltip-inner {
 	text-transform: uppercase;
 }

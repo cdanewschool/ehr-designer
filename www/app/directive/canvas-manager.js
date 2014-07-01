@@ -44,6 +44,18 @@ app.directive
 					}
 				};
 				
+				scope.$watch
+				(
+					'canvas.selection',
+					function(newVal,oldVal)
+					{
+						if( newVal!=oldVal && !newVal && oldVal )
+						{
+							angular.element( oldVal.element ).parents('.outline').first().removeClass('active');
+						}
+					}
+				);
+				
 				element.on
 				(
 					'click',

@@ -122,8 +122,6 @@ app.service
 						&& dragModel.hover
 						&& dragModel.hover.id != dragItem.id )
 					{
-						if( !isNew ) ui.draggable.remove();
-						
 						dragItem.parentIndex = dragModel.hoverIndex;
 						dragModel.hoverIndex = null;
 					}
@@ -237,18 +235,12 @@ app.service
 				{
 					var target = event.currentTarget;
 					
-					var simpleRender = true;
-					var component = library.componentsIndexed[ angular.element(target).attr("data-id") ];
-					
-					if( !component )
-					{
-						component = library.elementsIndexed[ angular.element(target).attr("data-component-id") ];
-						simpleRender = false;
-					}
+					var item = library.getDefinition( angular.element(target) );
+					var simpleRender = item.type == "component";
 					
 					var scope = $rootScope.$new(true);
 					scope.canvas = canvas;
-					scope.component = component;
+					scope.component = item;
 					scope.dragService = this;
 					scope.simpleRender = simpleRender;
 					

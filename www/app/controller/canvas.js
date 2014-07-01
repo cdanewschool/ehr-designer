@@ -410,9 +410,9 @@ app.controller
 					return;
 				}
 				
-				var template = angular.copy(template);
-				template.id = FactoryService.uniqueId();
-				template.pid = canvas.currentPage.id;
+				var template = FactoryService.componentInstance(template,{},canvas.currentPage);
+				template.values.isNew = true;
+				template.properties = angular.copy( library.elementsIndexed[template.componentId].properties );
 				
 				if( canvas.currentPage.children.length )
 				{
