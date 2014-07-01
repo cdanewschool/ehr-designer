@@ -20,18 +20,23 @@ app.controller
 				},
 			 	{
 			 		type:"waitForClick",
-			 		targets: ["a.dropdown-toggle"],
+			 		targets: [".navbar-nav li:nth-child(2) > a"],
 			 		tooltips: 
 			 			[
-			 			 {selector:"a.dropdown-toggle",text:'First, click the file menu',placement:'right'}
+			 			 {selector:".navbar-nav li:nth-child(2) > a",text:'First, click My Projects',placement:'right'}
 			 			 ]
 			 	},
 			 	{
+			 		type:"delay",
+			 		delay: 500
+			 	},
+			 	{
 			 		type:"waitForClick",
-			 		targets: [".dropdown-menu li:nth-child(1) button"],
+			 		targets: [".tile.new > .thumbnail > img"],
+			 		highlight: [".tile.new > .thumbnail"],
 			 		tooltips: 
 			 			[
-			 			 {selector:".dropdown-menu li:nth-child(1) button",text:'Then click "New" to create a new project',placement:'right'}
+			 			 {selector:".tile.new > .thumbnail",text:'Then click "New Project" to create a new project',placement:'right'}
 			 			 ]
 			 	},
 			 	{
@@ -44,8 +49,7 @@ app.controller
 			 		highlight: [".modal-dialog form input:nth-child(1)", ".modal-dialog .modal-footer button:nth-child(2)"],
 			 		tooltips: 
 			 			[
-			 			 {selector:".modal-dialog form input:nth-child(1)",text:'Enter a name for your project (or use the default)',placement:'right'},
-			 			 {selector:".modal-dialog .modal-footer button:nth-child(2)",text:'Then click OK',placement:'right'}
+			 			 {selector:".modal-dialog form input:nth-child(1)",text:'Enter a name for your project (or stick with the default)',placement:'right'}
 			 			 ]
 			 	},
 			 	{
@@ -58,48 +62,38 @@ app.controller
 			 		highlight: [".modal-dialog form input:nth-child(1)", ".modal-dialog .modal-footer button:nth-child(2)"],
 			 		tooltips: 
 			 			[
-			 			 {selector:".modal-dialog form input:nth-child(1)",text:'Next, enter a name for your project\'s section (or use the default)',placement:'right'}
-			 			 ]
-			 	},
-			 	{
-			 		type:"delay",
-			 		delay: 1000
-			 	},
-			 	{
-			 		type:"waitForClick",
-			 		targets: [".modal-dialog .modal-footer button:nth-child(2)"],
-			 		highlight: [".modal-dialog form input:nth-child(1)", ".modal-dialog .modal-footer button:nth-child(2)"],
-			 		tooltips: 
-			 			[
-			 			 {selector:".modal-dialog form input:nth-child(1)",text:'Finally, enter a name for your section\'s first page (or use the default)',placement:'right'}
+			 			 {selector:".modal-dialog form input:nth-child(1)",text:'Finally, enter a name for your project\'s first page',placement:'right'}
 			 			 ]
 			 	},
 			 	{
 					type: "showMessage",
 					message: {
-						content:"<p>That's it! You've successfully created your first project.</p><p>Now, lets Save it.</p>"
+						content:"<p>That's it! You've successfully created your first project.</p><p>Now, lets work on it.</p>"
+					}
+				},
+				{
+			 		type:"waitForClick",
+			 		targets: [".tile:nth-child(2) > .thumbnail > a"],
+			 		highlight: [".tile:nth-child(2) > .thumbnail"],
+			 		tooltips: 
+			 			[
+			 			 {selector:".tile:nth-child(2) > .thumbnail",text:'Click a page to edit it',placement:'right'}
+			 			 ]
+			 	},
+			 	{
+			 		type:"delay",
+			 		delay: 1000
+			 	},
+			 	{
+					type: "showMessage",
+					message: {
+						content:"<p>Now, start dragging some components from the Library to the stage. Selecting a component will bring up the Property Inspector, which will allow you to edit the selected component.</p>"
 					}
 				},
 			 	{
-			 		type:"waitForClick",
-			 		targets: ["a.dropdown-toggle"],
-			 		tooltips: 
-			 			[
-			 			 {selector:"a.dropdown-toggle",text:'Click the File menu again ',placement:'right'}
-			 			 ]
-			 	},
-			 	{
-			 		type:"waitForClick",
-			 		targets: [".dropdown-menu li:nth-child(2) button"],
-			 		tooltips: 
-			 			[
-			 			 {selector:".dropdown-menu li:nth-child(2) button",text:'And finally, click "Save"',placement:'right'}
-			 			 ]
-			 	},
-			 	{
 					type: "showMessage",
 					message: {
-						content:"<p>Nice work! You've created a new project and saved it.</p>",
+						content:"<p>That's all there is to it. Now start building!</p>",
 						header:"Tutorial Complete",
 						buttonText: "Close"
 					}
