@@ -14,6 +14,11 @@ app.service
 			get: function(id)
 			{
 				return _cache[id];
+			},
+			
+			clear: function()
+			{
+				_cache = {};
 			}
 		};
 	}
@@ -52,6 +57,33 @@ app.directive
 						if( newVal!=oldVal && !newVal && oldVal )
 						{
 							angular.element( oldVal.element ).parents('.outline').first().removeClass('active');
+						}
+					}
+				);
+				
+				/**
+				 * Clear cache when switching pages/project to avoid stale references
+				 */
+				scope.$watch
+				(
+					'canvas.currentPage',
+					function(newVal,oldVal)
+					{
+						if( newVal!=oldVal )
+						{
+							instanceCache.clear();
+						}
+					}
+				);
+				
+				scope.$watch
+				(
+					'canvas.currentProject',
+					function(newVal,oldVal)
+					{
+						if( newVal!=oldVal )
+						{
+							instanceCache.clear();
 						}
 					}
 				);
