@@ -1,8 +1,8 @@
 [
   {
-    "id": "patientsearch",
-    "name": "Basic Patient Search",
-    "category": "Patient Search",
+    "id": "basic-patient-info",
+    "name": "Basic Patient Info",
+    "category": "Patient Info",
     "values": {
       "left": 58,
       "top": 38,
