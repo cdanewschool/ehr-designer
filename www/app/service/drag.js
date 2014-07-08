@@ -63,7 +63,7 @@ app.service
 					if( !dragModel.dragItem ) return;
 					if( target == dragModel.dragItem ) return;
 					
-					var targetDefinition = library.elementsIndexed[angular.element(event.target).attr('data-component-id')];
+					var targetDefinition = library.getDefinition(angular.element(event.target),angular.element(event.target).attr('data-component-id'));
 					
 					if( targetDefinition.container===false  ) return;
 					
@@ -72,8 +72,6 @@ app.service
 						&& target.id == dragModel.dragItem.pid 
 						&& dragModel.dragItem.parentIndex == dragModel.hoverIndex ) 
 						return revert();
-					
-					var isNew = dragModel.dragItem.hasOwnProperty('__v');
 					
 					var dropTarget = angular.element(event.target);
 					var dragItem = dragModel.dragItem;
@@ -119,6 +117,7 @@ app.service
 					
 					//	set hoverIndex if set
 					if( dragModel.hoverIndex >= 0 
+						&& dragModel.hoverIndex !== null 
 						&& dragModel.hover
 						&& dragModel.hover.id != dragItem.id )
 					{
@@ -226,7 +225,7 @@ app.service
 				
 				acceptDrop: function(item)
 				{
-					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
+					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.getDefinition(angular.element(dragModel.dropTarget),angular.element(dragModel.dropTarget).attr("data-component-id")).container!==false : true; //elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ]
 					
 					return acceptable;
 				},

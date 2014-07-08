@@ -4,14 +4,16 @@ app.service
 	function()
 	{
 		return {
-			getDefinition:function(element)
+			getDefinition:function(element,id)
 			{
-				if( element.attr("data-component-type") == "template" )
-					return this.templatesIndex(element.attr("data-id"));
-				else if( element.attr("data-component-type") == "component" )
-					return this.componentsIndexed[element.attr("data-id")];
+				var id = id || element.attr("data-id");
 				
-				return this.elementsIndexed[element.attr("data-component-id")];
+				if( element.attr("data-component-type") == "template" )
+					return this.templatesIndexed(id);
+				else if( element.attr("data-component-type") == "component" )
+					return this.componentsIndexed[id];
+				
+				return this.elementsIndexed[id];
 			},
 			
 			components:null,

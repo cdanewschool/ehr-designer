@@ -99,14 +99,28 @@ app.controller
 	 			{
 	 				if( newVal != oldVal )
 	 				{
+	 					if( newVal && (!oldVal || newVal.id != oldVal.id ) )
+	 					{
+	 						FactoryService.clear();
+	 						FactoryService.id(canvas.currentPage);
+	 					}
+	 				}
+	 			}
+	 		);
+			
+			$scope.$watch
+	 		(
+	 			'canvas.currentPage',
+	 			function(newVal,oldVal)
+	 			{
+	 				if( newVal != oldVal )
+	 				{
 	 					if( newVal )
 	 					{
 	 						if( oldVal && oldVal.id == newVal.id )
 	 							canvas.dirty = true;
-	 						else
+	 						else 
 	 						{
-	 							FactoryService.id(canvas.currentPage);
-	 							
 	 							canvas.dirty = false;
 	 						}
 	 					}
@@ -339,7 +353,42 @@ app.controller
 			};
 			
 			$scope.addPage = function(showEdit,showOnCreate)
-			{  
+			{ 
+				if( canvas.dirty )
+				{
+					navigation.showConfirm("You have unsaved changes. Do you want to Save?").then
+					(
+						function()
+						{
+							projectService.addPage(canvas.currentProject,showEdit).then
+							(
+								function()
+								{
+									$scope.saveProject();
+									
+									if( showOnCreate )
+										$scope.selectPageByIndex( canvas.currentProject.content.children.length - 1 );
+								}
+							);
+						},
+						function()
+						{
+							projectService.addPage(canvas.currentProject,showEdit).then
+							(
+								function()
+								{
+									$scope.saveProject();
+									
+									if( showOnCreate )
+										$scope.selectPageByIndex( canvas.currentProject.content.children.length - 1 );
+								}
+							);
+						}
+					);
+					
+					return;
+				}
+				
 				projectService.addPage(canvas.currentProject,showEdit).then
 				(
 					function()
@@ -354,7 +403,7 @@ app.controller
 			
 			$scope.deletePage = function(page)
 			{
-				projectService.deletePage(page,canvas.currentProject,showEdit);
+				projectService.deletePage(page,canvas.currentProject);
 			};
 			
 			$scope.editPage = function(page)

@@ -8,11 +8,14 @@ app.service
 	 		{
 	 			_id: 1,
 	 			
-	 			id: function(c)
+	 			clear: function()
 	 			{
 	 				this._id = 1;
-	 				
-	 				var walk = function(c)
+	 			},
+	 			
+	 			id: function(c)
+	 			{
+	 				var walkTree = function(c)
 	 				{
 	 					c.id = service.uniqueId();
 	 					
@@ -22,12 +25,12 @@ app.service
 	 						{
 	 							c.children[ch].pid = c.id;
 	 							
-	 							walk(c.children[ch]);
+	 							walkTree(c.children[ch]);
 	 						}
 	 					}
 	 				};
 	 				
-	 				walk(c);
+	 				walkTree(c);
 	 			},
 	 			
 				componentInstance: function(definition,values,parent)
@@ -35,8 +38,10 @@ app.service
 					values = values || {};
 					
 					var clone = angular.copy(definition);
-					clone.id = this.uniqueId();
 					clone.values = _.defaults(values,angular.copy(definition.values));
+					
+					//	give children unique ids
+					this.id(clone);
 					
 					if( !clone.componentId )
 						clone.componentId = definition.id;

@@ -231,9 +231,6 @@ app.directive
 						{
 							if( !scope.instance ) return;
 							
-							//	set up scope
-							if( !scope.id ) scope.id = FactoryService.uniqueId();
-							
 							//	set component's definition, handling an unrecognized/invalid component id
 							if( !(scope.definition = library.elementsIndexed[scope.instance.componentId]) )
 							{
@@ -251,8 +248,24 @@ app.directive
 							scope.isDroppable = (!previewing && !scope.isStatic && scope.instance.componentId!='label' && scope.instance.componentId!='image');
 							
 							element
+							
+								/**
+								 * Unique id for the component instance
+								 * 
+								 * For items in the library, this is a string identifier (i.e. "textinput", "grid", etc); for 
+								 * instances of an item appearing on the stage, this is an int
+								 */
 								.attr("data-id",scope.instance.id)
+								
+								/**
+								 * Id of the element this element/component/template is based on
+								 * 
+								 * For elements, this will be the same as their string identifier, while for components and templates, 
+								 * this will be the id of an element (i.e. "grid")
+								 */
 								.attr("data-component-id",scope.instance.componentId)
+								
+								//	 string identifying type of component (element, component or template)
 								.attr("data-component-type",scope.instance.type)
 								.toggleClass('border',scope.preview ? true : false)
 								.toggleClass('static',scope.isStatic ? true : false)
