@@ -9,26 +9,38 @@ A demo of this application can be viewed at [http://ar210.piim.newschool.edu:301
 
 Installation
 ============
-Install [PhantomJS](http://phantomjs.org/) (used by node-webshot for project snapshotting):
+The following steps use the homebrew package manager for OSX. If you are on a PC, replace the `brew` command with the equivalent for your pacakge manager.
+
+Install [mongo](http://www.mongodb.org/), [npm](https://www.npmjs.org/) and [PhantomJS](http://phantomjs.org/) (used by node-webshot for project snapshotting). If you have `mongo` and `npm` installed (more comon than `phantomjs`), go ahead and skip them:
 	
+	brew install mongo
+	brew install npm
 	brew install phantomjs
 	
-Install global node modules [`mongoose-fixture`](https://github.com/mgan59/mongoose-fixture) and [`webshot`](https://github.com/brenden/node-webshot):
+Install the [`bower`](http://bower.io/), [`grunt`](http://gruntjs.com/), [`mongoose-fixture`](https://github.com/mgan59/mongoose-fixture) and [`webshot`](https://github.com/brenden/node-webshot) node modules globally:
 	
+	npm install -g bower
+	npm install -g grunt-cli
 	npm install -g mongoose-fixture
 	npm install -g webshot
 
-Clone the repository (if you haven't already) and move into it:
+Clone the repository (if you haven't done so already) and move into it:
 
-	git clone https://github.com/piim/ehr-designer.git && cd ehr-designer
+	git clone https://github.com/piim/ehr-designer.git
+	cd ehr-designer
 
 Install dev dependencies:
 
-	npm install && bower install --allow-root
+	npm install
+	bower install --allow-root
 	
 Build (creates `www/index.html` from `dist/index.tpl.html` template):
 
 	grunt
+
+Start mongo if it's not running already. Note that you'll have to keep this process open in a terminal window to start and run the server, but if you want to close it after running the data import you can:
+
+	mongod
 	
 Import data:
 
@@ -38,7 +50,10 @@ Import data:
 
 Running
 =======
+Start `mongod` if not running already. Note that you'll have to keep this process open in a terminal window:
 
+	mongod
+	
 Start the server (on port 3000):
 
 	cd [install directory]
