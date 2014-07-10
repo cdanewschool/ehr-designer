@@ -104,11 +104,35 @@ app.directive
 				
 				scope.$watch
 				(
-					'isStatic + scope.definition.container + canvas.previewing',
+					'canvas.previewing',
 					function(newVal,oldVal)
 					{
 						if( newVal != oldVal )
 							update();
+					}
+				);
+				
+				scope.$watch
+				(
+					'instance.values.width',
+					function(newVal,oldVal)
+					{
+						if( newVal != oldVal )
+						{
+							angular.element(element).css("width",scope.instance.values.width);
+						}
+					}
+				);
+				
+				scope.$watch
+				(
+					'instance.values.height',
+					function(newVal,oldVal)
+					{
+						if( newVal != oldVal )
+						{
+							angular.element(element).css("height",scope.instance.values.height);
+						}
 					}
 				);
 				

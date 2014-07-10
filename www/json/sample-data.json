@@ -61,10 +61,10 @@
 			"title": "Condition Status",
 			"entry": 
 			[
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"provisional"}, "display":{"value":"This is a tentative diagnosis - still a candidate that is under consideration."} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"working"}, "display":{"value":"The patient is being treated on the basis that this is the condition, but it is still not confirmed."} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"confirmed"}, "display":{"value":"There is sufficient diagnostic and/or clinical evidence to treat this as a confirmed condition."} } } },
-				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"refuted"}, "display":{"value":"This condition has been ruled out by diagnostic and clinical evidence."} } } }
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"provisional"}, "display":{"value":"Provisional"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"working"}, "display":{"value":"Working"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"confirmed"}, "display":{"value":"Confirmed"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/vs/condition-status"}, "code":{"value":"refuted"}, "display":{"value":"Refuted"} } } }
 			]
 		}
 	},
@@ -126,6 +126,22 @@
 			]
 		}
 	},
+	 {
+    	"id": "quantity-comparator",
+		"title": "Quantity Comparator",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Quantity Comparator",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/quantity-comparator"}, "code":{"value":"<"}, "display":{"value":"<"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/quantity-comparator"}, "code":{"value":"<="}, "display":{"value":"<="} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/quantity-comparator"}, "code":{"value":">="}, "display":{"value":">="} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/quantity-comparator"}, "code":{"value":">"}, "display":{"value":">"} } } }
+			]
+		}
+	},
 	{
 		"id": "patient-contact-relationship",
 		"title": "Contact Relationships",
@@ -146,6 +162,42 @@
 				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"guarantor"}, "display":{"value":"Gguarantor"} } } },
 				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"owner"}, "display":{"value":"Owner of animal"} } } },
 				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/patient-contact-relationship"}, "code":{"value":"parent"}, "display":{"value":"Parent"} } } }
+			]
+		}
+	},
+	{
+		"id": "supply-status",
+		"title": "Supply Status",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Supply Status",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/valueset-supply-status"}, "code":{"value":"requested"}, "display":{"value":"Requested"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/valueset-supply-status"}, "code":{"value":"dispensed"}, "display":{"value":"Dispensed"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/valueset-supply-status"}, "code":{"value":"received"}, "display":{"value":"Received"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/valueset-supply-status"}, "code":{"value":"failed"}, "display":{"value":"Failed"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/valueset-supply-status"}, "code":{"value":"cancelled"}, "display":{"value":"Cancelled"} } } }
+			]
+		}
+	},
+	{
+		"id": "units-of-time",
+		"title": "Units of Time",
+		"content":
+		{
+			"resourceType": "Bundle",
+			"title": "Units of Time",
+			"entry": 
+			[
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"s"}, "display":{"value":"Second"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"min"}, "display":{"value":"Minute"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"h"}, "display":{"value":"Hour"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"d"}, "display":{"value":"Day"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"wk"}, "display":{"value":"Week"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"mo"}, "display":{"value":"Month"} } } },
+				{ "concept": { "coding": { "system":{"value":"http://hl7.org/fhir/units-of-time"}, "code":{"value":"a"}, "display":{"value":"Year"} } } }
 			]
 		}
 	},

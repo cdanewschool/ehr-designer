@@ -134,6 +134,9 @@ a[ng-click] { cursor: pointer; }
 	box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.75);
 }
 
+#properties.reject {
+	color: inherit;
+}
 #properties .panel-body {
 	max-height: 500px; 
 	overflow: hidden; 
@@ -353,7 +356,8 @@ h4.panel-title {
 }
 
 .tile {
-	float: left;
+	display: inline-block;
+	vertical-align: top;
 }
 
 .tile.col-4 {

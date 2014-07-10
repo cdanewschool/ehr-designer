@@ -4,13 +4,11 @@ app.service
 	function()
 	{
 		return {
-			getDefinition:function(element,id)
+			getDefinition:function(id,type)
 			{
-				var id = id || element.attr("data-id");
-				
-				if( element.attr("data-component-type") == "template" )
+				if( type == "template" )
 					return this.templatesIndexed(id);
-				else if( element.attr("data-component-type") == "component" )
+				else if( type == "component" )
 					return this.componentsIndexed[id];
 				
 				return this.elementsIndexed[id];

@@ -14,10 +14,11 @@ app.controller
 	 		//	sets a component's value(s) to a dummy datum, vs. a manually entered value
 	 		var bindMapping = function()
 	 		{
-	 			if( !$scope.instance || !$scope.instance.datamap || !$scope.instance.binding ) return;
+	 			if( !$scope.instance || !$scope.instance.datamap ) return;
+	 			if( !$scope.definition || !$scope.definition.binding ) return;
 	 			
 	 			//	component supports mapping to a single object property
-	 			if( $scope.instance.binding.dataType == "object" )
+	 			if( $scope.definition.binding.dataType == "object" )
 	 			{
 	 				//	nullify and return if not all selections have been made
 	 				if( !propertyInspector.selectedDataType || !propertyInspector.selectedData || !propertyInspector.selectedDataTypeField )
@@ -59,7 +60,7 @@ app.controller
 					);
 	 			}
 	 			//	component supports binding to a list of items
-	 			else if( $scope.instance.binding.dataType === "list" )
+	 			else if( $scope.definition.binding.dataType === "list" )
 	 			{
 	 				//	 nullify and return if not all selections have been made
 	 				if( !propertyInspector.selectedData )
@@ -164,7 +165,7 @@ app.controller
 	 					
 	 					bindMapping();
 	 					
-	 					if( newVal && $scope.instance.binding.dataType == "object" )
+	 					if( newVal && $scope.definition.binding.dataType == "object" )
 	 					{
 	 						if( newVal )
 		 						angular.forEach
@@ -181,7 +182,7 @@ app.controller
 		 							}
 		 						);
 	 					}
-	 					else if( newVal && $scope.instance.binding.dataType === "list" )
+	 					else if( newVal && $scope.definition.binding.dataType === "list" )
 	 					{
 	 						angular.forEach
 	 						(

@@ -59,7 +59,7 @@ Start the server (on port 3000):
 	cd [install directory]
 	node server
 	
-Visit [`localhost:3100`](http://localhost:3000). To run on a different port, specify the desires port when starting the server, i.e. `PORT=8080 node server`.
+Visit [`localhost:3000`](http://localhost:3000). To run on a different port, specify the desires port when starting the server, i.e. `PORT=8080 node server`.
 
 Configuration
 =============

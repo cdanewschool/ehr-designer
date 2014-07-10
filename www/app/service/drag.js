@@ -63,7 +63,7 @@ app.service
 					if( !dragModel.dragItem ) return;
 					if( target == dragModel.dragItem ) return;
 					
-					var targetDefinition = library.getDefinition(angular.element(event.target),angular.element(event.target).attr('data-component-id'));
+					var targetDefinition = library.getDefinition(angular.element(event.target).attr('data-component-id'),angular.element(event.target).attr('data-component-type'));
 					
 					if( targetDefinition.container===false  ) return;
 					
@@ -225,7 +225,7 @@ app.service
 				
 				acceptDrop: function(item)
 				{
-					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.getDefinition(angular.element(dragModel.dropTarget),angular.element(dragModel.dropTarget).attr("data-component-id")).container!==false : true; //elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ]
+					var acceptable = angular.element(dragModel.dropTarget).attr("data-component-id") ? library.elementsIndexed[ angular.element(dragModel.dropTarget).attr("data-component-id") ].container!==false : true;
 					
 					return acceptable;
 				},
@@ -234,7 +234,7 @@ app.service
 				{
 					var target = event.currentTarget;
 					
-					var item = library.getDefinition( angular.element(target) );
+					var item = library.getDefinition( angular.element(target).attr("data-component-id"),angular.element(target).attr('data-component-type') );
 					var simpleRender = item.type == "component";
 					
 					var scope = $rootScope.$new(true);

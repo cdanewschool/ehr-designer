@@ -10,7 +10,7 @@
     "angular-resource": "latest",
     "angular-route": "latest",
     "angular-sanitize": "latest",
-    "angular-tutorial": "0.0.3",
+    "angular-tutorial": "0.0.4",
     "angular-bootstrap-colorpicker": "latest",
     "angular-ui-bootstrap": "0.10.0",
     "angular-ui-sortable": "latest",

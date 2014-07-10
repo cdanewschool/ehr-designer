@@ -38,7 +38,7 @@ app.service
 	 			revert: function(action)
 	 			{
 	 				canvas.currentProject.content = action.content;
-	 				console.log(canvas.currentProject.content)
+	 				
 	 				history.currentAction = action;
 	 			}
 	 		};

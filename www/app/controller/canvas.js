@@ -277,33 +277,6 @@ app.controller
 			
 			$scope.newProject = function(showEdit)
 			{
-				if( canvas.dirty )
-				{
-					navigation.showConfirm("You have unsaved changes. Do you want to Save?").then
-					(
-						function()
-						{
-							$scope.saveProject
-							( 
-								function()
-								{
-									canvas.currentProject = null;
-									
-									$scope.newProject(showEdit); 
-								} 
-							);
-						},
-						function()
-						{
-							canvas.currentProject = null;
-							canvas.dirty = false;	//	shouldn't be needed
-							$scope.newProject(showEdit); 
-						}
-					);
-					
-					return;
-				}
-				
 				var project = angular.copy( template.document );
 				project.name = "My Project";
 				
@@ -350,6 +323,8 @@ app.controller
 			$scope.previewProject = function()
 			{
 				canvas.previewing = true;
+				
+				canvas.selection = null;
 			};
 			
 			$scope.addPage = function(showEdit,showOnCreate)
@@ -360,6 +335,8 @@ app.controller
 					(
 						function()
 						{
+							$scope.saveProject();
+							
 							projectService.addPage(canvas.currentProject,showEdit).then
 							(
 								function()
@@ -427,6 +404,7 @@ app.controller
 					(
 						function()
 						{
+							$scope.saveProject();
 							$scope.setLocation('/editor/'+canvas.currentProject._id);
 						},
 						function()
