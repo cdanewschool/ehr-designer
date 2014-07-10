@@ -8,7 +8,7 @@
 app.directive
 (
 	'componentPreview',
-	function($rootScope,$compile,$timeout,library,canvas,FactoryService)
+	function($rootScope,$compile,$timeout,library,canvas)
 	{
 		var getDefault = function(property)
  		{
@@ -179,7 +179,7 @@ app.directive
 				preview: "=preview",
 				simpleRender: "=simpleRender"
 			},
-			templateUrl: "partials/templates/component-preview.html",
+			templateUrl: "app/canvas/component-preview/component-preview.directive.html",
 			replace: true,
 			controller: function($scope)
 			{

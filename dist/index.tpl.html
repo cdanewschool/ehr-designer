@@ -5,7 +5,7 @@
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/dist/css/bootstrap.min.css" -->
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery-ui/themes/ui-lightness/jquery-ui.min.css" -->
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/css/colorpicker.css" -->
-<!-- include: "type": "css", "basePath": "www/", "files": "css/**/*.css" -->
+<!-- include: "type": "css", "basePath": "www/", "files": "assets/css/**/*.css" -->
 </head>
 
 <body ng-controller="NavigationCtrl" ng-init="init()" ng-cloak>
@@ -40,7 +40,7 @@
 				<li>
 					<span class="navbar-text" ng-show="currentUser">|</span>
 				</li>
-				<li ng-controller="UserCtrl" ng-show="currentUser">
+				<li ng-show="currentUser">
 					<a ng-click="logout()">Log out</a>
 				</li>
 			</ul>

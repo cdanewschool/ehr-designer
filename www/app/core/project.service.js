@@ -82,7 +82,7 @@ app.service
 		    var modalInstance = $modal.open
 		    (
 	    		 {
-	    			 templateUrl: 'popups/edit-item.html',
+	    			 templateUrl: 'partials/templates/edit-item.html',
 				     controller: ModalCtrl,
 				     backdrop: $tutorial.running() ? 'static' : true,
 				     resolve: {

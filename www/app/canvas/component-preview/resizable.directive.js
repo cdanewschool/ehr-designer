@@ -1,7 +1,7 @@
 app.directive
 (
 	'resizable',
-	function($parse,$compile,canvas,FactoryService,HistoryService)
+	function($parse,$compile,canvas,HistoryService)
 	{
 		return {
 			restrict : 'A',

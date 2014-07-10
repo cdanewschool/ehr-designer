@@ -303,7 +303,7 @@ app.controller
 	 			var modalInstance = $modal.open
 	 			(
 	 				{
-	 					templateUrl: "popups/media-browser.html",
+	 					templateUrl: "partials/templates/media-browser.html",
 	 					controller: 'MediaCtrl'
 	 				}	
 	 			);

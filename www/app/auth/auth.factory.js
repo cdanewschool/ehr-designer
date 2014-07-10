@@ -76,8 +76,6 @@ app.factory
 					function(user)
 					{
 						$rootScope.currentUser = user;
-						
-						console.log(user)
 					}
 				);
 			}

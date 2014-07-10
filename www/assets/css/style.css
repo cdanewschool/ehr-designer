@@ -435,7 +435,7 @@ h4.panel-title {
 }
 
 .tile > .caption .badge {
-  background-image: url('../images/icons/icon_page.png');
+  background-image: url('../../images/icons/icon_page.png');
   background-repeat: no-repeat; 
   background-color: transparent;
   font-family: 'MyriadPro-Regular';
@@ -488,7 +488,7 @@ h4.panel-title {
  *-----------------------------------*/
 .navbar {
 	text-transform: uppercase;
-	background: transparent top repeat-x url(../images/top-tile.png);
+	background: transparent top repeat-x url(../../images/top-tile.png);
 	padding-top: 8px;
 }
 
