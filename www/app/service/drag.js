@@ -63,7 +63,7 @@ app.service
 					if( !dragModel.dragItem ) return;
 					if( target == dragModel.dragItem ) return;
 					
-					var targetDefinition = library.getDefinition(angular.element(event.target).attr('data-component-id'),angular.element(event.target).attr('data-component-type'));
+					var targetDefinition = library.elementsIndexed[ angular.element(event.target).attr('data-component-id') ];
 					
 					if( targetDefinition.container===false  ) return;
 					
@@ -234,7 +234,7 @@ app.service
 				{
 					var target = event.currentTarget;
 					
-					var item = library.getDefinition( angular.element(target).attr("data-component-id"),angular.element(target).attr('data-component-type') );
+					var item = library.getDefinition( angular.element(target).attr("data-id"),angular.element(target).attr('data-component-type') );
 					var simpleRender = item.type == "component";
 					
 					var scope = $rootScope.$new(true);
