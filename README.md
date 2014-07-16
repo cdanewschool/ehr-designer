@@ -66,6 +66,17 @@ Configuration
 ###Email Confirmation###
 To enable optional email confirmation, open `lib/config/config.js`, set `confirmAccounts=true` and enter a [Mandrill](https://www.mandrill.com/) API key.
 
+Testing
+=======
+To run the test suite, you must have the [Karma](http://karma-runner.github.io) test runner installed. To install Karma:
+
+	npm install -g karma-cli
+	
+With Karma installed:
+
+	cd [install directory]
+	npm test
+
 Credits
 =======
 The EHR Designer was built by the [Parsons Institute for Information Mapping](http://piim.newschool.edu) and funded by the [Telemedicine and Advanced Technology Research Center (TATRC)](http://www.tatrc.org/).
