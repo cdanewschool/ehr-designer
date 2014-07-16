@@ -21,6 +21,10 @@
     "underscore": "latest",
     "underscore.string": "latest"
   },
+  "devDependencies":{
+  	"angular-mocks": "latest",
+  	"jasmine-jquery": "latest"
+  },
   "resolutions": {
     "angular": "1.2.16"
   }

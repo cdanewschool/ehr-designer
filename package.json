@@ -18,5 +18,16 @@
     "passport-local": "1.0.0",
     "path": "0.4.9",
     "webshot": "0.15.0"
+  },
+  "devDependencies": {
+  	"karma":"latest",
+    "karma-jasmine":"~0.2.0",
+    "karma-chrome-launcher":"latest",
+    "karma-ng-html2js-preprocessor":"~0.1"
+  },
+  "scripts":{
+  	"postinstall": "bower install",
+  	"pretest":"npm install",
+  	"test":"karma start test/karma.conf.js"
   }
 }

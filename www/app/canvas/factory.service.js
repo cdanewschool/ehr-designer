@@ -21,11 +21,11 @@ app.service
 	 					
 	 					if( c.children )
 	 					{
-	 						for(var ch in c.children)
+	 						for(var i=0;i<c.children.length;i++)
 	 						{
-	 							c.children[ch].pid = c.id;
+	 							c.children[i].pid = c.id;
 	 							
-	 							walkTree(c.children[ch]);
+	 							walkTree(c.children[i]);
 	 						}
 	 					}
 	 				};

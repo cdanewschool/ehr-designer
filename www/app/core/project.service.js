@@ -1,7 +1,7 @@
 app.service
 (
 	'ProjectService',
-	function($modal,$tutorial,canvas,library,navigation,FactoryService)
+	function($modal,$tutorial,$q,canvas,library,navigation,FactoryService)
 	{
 		var service = {};
 		
@@ -16,20 +16,33 @@ app.service
 			
 			if(showEdit)
 				return service.editItemProperties(page, showEdit, true, project);
+			
+			var async = $q.defer();
+			async.resolve();
+			return async.promise;
 		};
 		
-		service.deletePage = function(page,project)
+		service.deletePage = function(page,project,showConfirm)
 		{
-			navigation.showConfirm("Are you sure you want to Delete Page " + page.name + "?" ).then
-			(
-				function()
-				{
-					project.content.children.splice( project.content.children.indexOf(page),1 );
-				},
-				function()
-				{
-				}
-			);
+			showConfirm = (typeof showConfirm != 'undefined') ? showConfirm : true;
+			
+			if( showConfirm )
+			{
+				navigation.showConfirm("Are you sure you want to Delete Page " + page.name + "?" ).then
+				(
+					function()
+					{
+						project.content.children.splice( project.content.children.indexOf(page),1 );
+					},
+					function()
+					{
+					}
+				);
+			}
+			else
+			{
+				project.content.children.splice( project.content.children.indexOf(page),1 );
+			}
 		};
 		
 		service.editItemProperties = function(item, isNew, isPage, project)

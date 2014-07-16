@@ -45,7 +45,7 @@ app.run
 			
 			path = path.split("/")[1];
 			
-			if (!$rootScope.currentUser && (['about','browse','login','signup'].indexOf(path) == -1 )) 
+			if (!$rootScope.currentUser && (['','about','browse','login','signup'].indexOf(path) == -1 )) 
 			{
 				Auth.currentUser();
 		    }

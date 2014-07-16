@@ -1,0 +1,38 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	
+	<div class="container-fluid">
+	
+		<div class="navbar-header">
+			<span class="navbar-brand">EHR Designer</span>
+		</div>
+		
+		<ul id="main-menu" class="nav navbar-nav">
+			<li>
+				<a href="/browse" ng-class="{active:location.path().indexOf('/browse')>-1}">Browse</a>
+			</li>
+			<li ng-controller="UserCtrl" ng-show="currentUser">
+				<a href="/myprojects" ng-class="{active:location.path().indexOf('/myprojects')>-1}">My Projects</a>
+			</li>
+			<li>
+				<a href="/about" ng-class="{active:location.path().indexOf('/about')>-1}">About</a>
+			</li>
+		</ul>
+		
+		<ul id="user-menu" class="nav navbar-nav navbar-right">
+			<li ng-show="!currentUser">
+				<a href="/login">Login</a>
+			</li>
+			<li ng-controller="UserCtrl" ng-show="currentUser">
+				<span class="navbar-text username">{{currentUser.nameFirst}} {{currentUser.nameLast}}</span>
+			</li>
+			<li>
+				<span class="navbar-text" ng-show="currentUser">|</span>
+			</li>
+			<li ng-show="currentUser">
+				<a ng-click="logout()">Log out</a>
+			</li>
+		</ul>
+					
+	</div>
+	
+</nav>

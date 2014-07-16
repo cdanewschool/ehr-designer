@@ -35,8 +35,6 @@ app.factory
 						
 						$cookieStore.remove('user');
 						
-						$cookieStore.remove('user');
-						
 						return callback();
 					},
 					function(err)

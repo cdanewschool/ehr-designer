@@ -2,8 +2,8 @@ app.controller
 (
 	'BrowseCtrl',
 	[
-	 	'$scope','$rootScope','$routeParams','canvas','Project','ProjectService','CanvasService','DragService','library','navigation',
-	 	function($scope,$rootScope,$routeParams,canvas,Project,projectService,canvasService,dragService,library,navigation)
+	 	'$scope','$rootScope','$routeParams','$location','canvas','Project','ProjectService','CanvasService','DragService','library','navigation',
+	 	function($scope,$rootScope,$routeParams,$location,canvas,Project,projectService,canvasService,dragService,library,navigation)
 	 	{
 	 		$scope.dragService = dragService;
 	 		$scope.projectService = projectService;
@@ -26,19 +26,6 @@ app.controller
 	 			}
 	 		);
 	 		
-	 		$scope.$watch
-	 		(
-	 			'currentProjectIndex',
-	 			function(newVal,oldVal)
-	 			{
-	 				if(newVal!=oldVal)
-	 				{
-	 					$scope.selectPageByIndex($scope.currentProjectIndex);
-	 					$scope.$apply();
-	 				}
-	 			}
-	 		);
-	 		
 	 		if( $routeParams.projectId )
 			{
 	 			var initProject = function()
@@ -55,6 +42,7 @@ app.controller
 						},
 						function(response)
 						{
+							$location.path( '/' + $location.$$path.substr( 1, $location.$$path.lastIndexOf('/')-1 ) );
 						}
 					);
 		 		};
@@ -73,7 +61,7 @@ app.controller
 					return;
 				}
 				
-				$scope.currentPage = $scope.currentProject.content.children[index];
+				$scope.currentPage = $scope.currentProject.content.children[ (index < $scope.currentProject.content.children.length ? index : 0) ];
 			};
 			
 	 		$scope.find = function( filterByUser )

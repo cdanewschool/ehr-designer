@@ -105,8 +105,6 @@ app.service
 						library.elementsIndexed = elementsIndexed;
 						
 						async.resolve();
-						
-						console.log( "elements loaded", library.elements, library.elementsIndexed );
 					}
 				);
 				
@@ -148,8 +146,6 @@ app.service
 						library.componentsIndexed = componentsIndexed;
 						
 						async.resolve();
-						
-						console.log( "components loaded", library.components, library.componentsIndexed );
 					}
 				);
 				
@@ -180,8 +176,6 @@ app.service
 						library.templatesIndexed = templatesIndexed;
 						
 						async.resolve();
-						
-						console.log( "templates loaded", library.templates );
 					}
 				);
 				

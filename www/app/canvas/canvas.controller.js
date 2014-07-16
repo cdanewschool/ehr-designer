@@ -41,7 +41,7 @@ app.controller
 				'$locationChangeStart',
 				function()
 				{
-					canvas.previewing  =false;
+					canvas.previewing = false;
 				}
 			);
 			
@@ -55,14 +55,15 @@ app.controller
 						canvas.messages = [];
 						canvas.errors = [];
 						canvas.currentPage = null;
+						canvas.previewing = false;
 						
-						//	select a section/page when a project is selected
+						//	init page specified in url (if set) when a project is selected
 						if( newVal 
 							&& $routeParams.pageId )
 						{
 							$scope.selectPageByIndex( $routeParams.pageId - 1 );
 						}
-						//	otherwise nullify page/section
+						//	otherwise nullify the page
 						else
 						{
 							canvas.currentPage = null;
@@ -90,8 +91,8 @@ app.controller
 				}
 			);
 			
-			//	watch project and init factory service's unique id when a new project is set
-			//	(this handles loading existing projects and preventing id collision)
+			//	give all elements of page tree a unique id when a new page is set
+			//	(this prevents id collision when switching between projects)
 			$scope.$watch
 	 		(
 	 			'canvas.currentPage',
@@ -99,7 +100,7 @@ app.controller
 	 			{
 	 				if( newVal != oldVal )
 	 				{
-	 					if( newVal && (!oldVal || newVal.id != oldVal.id ) )
+	 					if( newVal && (!oldVal || newVal._id != oldVal._id) )
 	 					{
 	 						FactoryService.clear();
 	 						FactoryService.id(canvas.currentPage);
@@ -117,7 +118,7 @@ app.controller
 	 				{
 	 					if( newVal )
 	 					{
-	 						if( oldVal && oldVal.id == newVal.id )
+	 						if( oldVal && oldVal._id == newVal._id )
 	 							canvas.dirty = true;
 	 						else 
 	 						{
@@ -126,6 +127,7 @@ app.controller
 	 					}
 	 					else
 	 					{
+	 						canvas.dirty = false;
 	 						canvas.selection = null;
 	 					}
 	 				}
@@ -135,14 +137,14 @@ app.controller
 			/**
 			 * Initializes controller by loading sample data, components and (optionally) a project
 			 */
-			$scope.init = function()
+			$scope.init = function(showEdit)
 			{
+				showEdit = showEdit || true;
+				
 				var initProject = function()
 				{
 					if( $routeParams.projectId )
 					{
-						canvas.currentProject = null;
-						
 						Project.get
 						(
 							{
@@ -194,7 +196,7 @@ app.controller
 					}
 					else if( !canvas.currentProject )
 					{
-						$scope.newProject(true);
+						$scope.newProject(showEdit);
 					}
 				};
 				
@@ -262,8 +264,8 @@ app.controller
 							},
 							function()
 							{
-								var idx = $scope.projects.indexOf(project);
-								$scope.projects.splice(idx,1);
+								var index = $scope.projects.indexOf(project);
+								$scope.projects.splice(index,1);
 							}
 						);
 					},
@@ -286,7 +288,7 @@ app.controller
 				
 				if(showEdit)
 				{
-					projectService.editItemProperties(canvas.currentProject.content, showEdit).then
+					return projectService.editItemProperties(canvas.currentProject.content, showEdit).then
 					(
 						//	user has provided a name and/or clicked "save"
 						function ()
@@ -316,7 +318,7 @@ app.controller
 				}
 				else
 				{
-					projectService.addPage(canvas.currentProject,showEdit);
+					return projectService.addPage(canvas.currentProject,showEdit);
 				}
 			};
 			
@@ -328,7 +330,7 @@ app.controller
 			};
 			
 			$scope.addPage = function(showEdit,showOnCreate)
-			{ 
+			{
 				if( canvas.dirty )
 				{
 					navigation.showConfirm("You have unsaved changes. Do you want to Save?").then
@@ -378,9 +380,9 @@ app.controller
 				);
 			};
 			
-			$scope.deletePage = function(page)
+			$scope.deletePage = function(page,showConfirm)
 			{
-				projectService.deletePage(page,canvas.currentProject);
+				projectService.deletePage(page,canvas.currentProject,showConfirm);
 			};
 			
 			$scope.editPage = function(page)
@@ -437,9 +439,9 @@ app.controller
 					return;
 				}
 				
-				var template = FactoryService.componentInstance(template,{},canvas.currentPage);
-				template.values.isNew = true;
-				template.properties = angular.copy( library.elementsIndexed[template.componentId].properties );
+				var templateInstance = FactoryService.componentInstance(template,{},canvas.currentPage);
+				templateInstance.values.isNew = true;
+				templateInstance.properties = angular.copy( library.elementsIndexed[template.componentId].properties );
 				
 				if( canvas.currentPage.children.length )
 				{
@@ -447,7 +449,7 @@ app.controller
 					(
 						function()
 						{
-							canvas.currentPage.children = [ template ];
+							canvas.currentPage.children = [ templateInstance ];
 						},
 						function()
 						{
@@ -456,7 +458,7 @@ app.controller
 				}
 				else
 				{
-					canvas.currentPage.children = [ template ];
+					canvas.currentPage.children = [ templateInstance ];
 				}
 			};
 			

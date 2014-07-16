@@ -1,0 +1,4591 @@
+[
+  {
+    "_id": "53c3fa7b73c3ae8503b6901f",
+    "created": "2014-07-14T15:42:51.935Z",
+    "id": "ui_component",
+    "name": "UI Component",
+    "abstract": true,
+    "container": true,
+    "resizable": false,
+    "__v": 0,
+    "values": {},
+    "properties": [
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "ui_component"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69020",
+    "created": "2014-07-14T15:42:51.940Z",
+    "id": "text",
+    "name": "Text",
+    "category": "Text",
+    "container": false,
+    "binding": {
+      "dataType": "object"
+    },
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "text": "Text",
+      "text-align": "left"
+    },
+    "properties": [
+      {
+        "id": "text",
+        "name": "Text",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "bold",
+        "name": "Bold",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-style",
+        "name": "Font Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "italic",
+            "label": "Italic"
+          }
+        ]
+      },
+      {
+        "id": "text-transform",
+        "name": "Casing",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "id": "text-align",
+        "name": "Text Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "text"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69021",
+    "created": "2014-07-14T15:42:51.943Z",
+    "id": "paragraph",
+    "name": "Paragraph",
+    "category": "Text",
+    "resizable": true,
+    "binding": {
+      "dataType": "object"
+    },
+    "container": false,
+    "__v": 0,
+    "values": {
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "width": 100,
+      "text-align": "left"
+    },
+    "properties": [
+      {
+        "id": "text",
+        "name": "Text",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "bold",
+        "name": "Bold",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-style",
+        "name": "Font Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "italic",
+            "label": "Italic"
+          }
+        ]
+      },
+      {
+        "id": "text-transform",
+        "name": "Casing",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "id": "text-align",
+        "name": "Text Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "paragraph"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69022",
+    "created": "2014-07-14T15:42:51.962Z",
+    "id": "link",
+    "name": "Link",
+    "category": "Text",
+    "binding": {
+      "dataType": "object"
+    },
+    "container": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "text": "My Link",
+      "text-align": "left"
+    },
+    "properties": [
+      {
+        "id": "text",
+        "name": "Text",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "bold",
+        "name": "Bold",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-style",
+        "name": "Font Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "italic",
+            "label": "Italic"
+          }
+        ]
+      },
+      {
+        "id": "text-transform",
+        "name": "Casing",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "id": "text-align",
+        "name": "Text Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "link"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69023",
+    "created": "2014-07-14T15:42:51.965Z",
+    "id": "button",
+    "name": "Button",
+    "category": "Buttons",
+    "container": false,
+    "binding": {
+      "dataType": "object"
+    },
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "text": "My Button",
+      "src": "images/default/placeholder.png"
+    },
+    "properties": [
+      {
+        "id": "text",
+        "name": "Text",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "src",
+        "name": "Icon",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "bold",
+        "name": "Bold",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-style",
+        "name": "Font Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "italic",
+            "label": "Italic"
+          }
+        ]
+      },
+      {
+        "id": "text-transform",
+        "name": "Casing",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "button"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69024",
+    "created": "2014-07-14T15:42:51.981Z",
+    "id": "buttonbar",
+    "name": "Button Bar",
+    "category": "Buttons",
+    "container": false,
+    "binding": {
+      "dataType": "list"
+    },
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "items": [
+        {
+          "label": "Button 1"
+        },
+        {
+          "label": "Button 2"
+        }
+      ],
+      "text": "My Button",
+      "src": "images/default/placeholder.png"
+    },
+    "properties": [
+      {
+        "id": "items",
+        "name": "Items",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "bold",
+        "name": "Bold",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-style",
+        "name": "Font Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "italic",
+            "label": "Italic"
+          }
+        ]
+      },
+      {
+        "id": "text-transform",
+        "name": "Casing",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "buttonbar"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69025",
+    "created": "2014-07-14T15:42:51.983Z",
+    "id": "linkbar",
+    "name": "Link Bar",
+    "category": "Buttons",
+    "binding": {
+      "dataType": "list"
+    },
+    "container": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "items": [
+        {
+          "label": "Link 1"
+        },
+        {
+          "label": "Link 2"
+        }
+      ],
+      "text": "My Button",
+      "src": "images/default/placeholder.png"
+    },
+    "properties": [
+      {
+        "id": "items",
+        "name": "Items",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "bold",
+        "name": "Bold",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-style",
+        "name": "Font Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "italic",
+            "label": "Italic"
+          }
+        ]
+      },
+      {
+        "id": "text-transform",
+        "name": "Casing",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "capitalize",
+            "label": "Capitalize"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "linkbar"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69026",
+    "created": "2014-07-14T15:42:52.000Z",
+    "id": "image",
+    "name": "Image",
+    "category": "Other",
+    "container": false,
+    "resizable": {
+      "constrain": true
+    },
+    "binding": {
+      "dataType": "object",
+      "fields": [
+        {
+          "id": "patient",
+          "path": "photo.url"
+        }
+      ]
+    },
+    "__v": 0,
+    "values": {
+      "width": "30px",
+      "height": "30px",
+      "src": "images/default/placeholder.png"
+    },
+    "properties": [
+      {
+        "id": "src",
+        "name": "Source",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "image"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69027",
+    "created": "2014-07-14T15:42:52.003Z",
+    "id": "grid",
+    "name": "Grid",
+    "category": "Containers",
+    "container": "cell",
+    "resizable": true,
+    "__v": 0,
+    "values": {
+      "auto-layout-children": true,
+      "border-color": "#000000",
+      "cell-size": {},
+      "cols": 2,
+      "horizontal-align": "left",
+      "rows": 1,
+      "vertical-align": "top"
+    },
+    "properties": [
+      {
+        "id": "cols",
+        "name": "Columns",
+        "type": "int",
+        "min": 1,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "rows",
+        "name": "Rows",
+        "type": "int",
+        "min": 1,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "cell-size",
+        "editable": false,
+        "type": "object",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "auto-layout-children",
+        "name": "Auto-layout children",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "horizontal-align",
+        "name": "Horizontal Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "id": "vertical-align",
+        "name": "Vertical Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "grid"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69028",
+    "created": "2014-07-14T15:42:52.005Z",
+    "id": "table",
+    "name": "Table",
+    "category": "Containers",
+    "container": "cell",
+    "resizable": true,
+    "__v": 0,
+    "values": {
+      "background-color": "#ffffff",
+      "bordered": true,
+      "headers": [
+        {
+          "label": "Name"
+        },
+        {
+          "label": "Gender"
+        }
+      ],
+      "color": "#000000",
+      "cols": 2,
+      "rows": 1,
+      "font-size": {
+        "size": 14,
+        "unit": "px"
+      },
+      "striped": true,
+      "auto-layout-children": true,
+      "border-color": "#000000",
+      "cell-size": {},
+      "horizontal-align": "left",
+      "vertical-align": "top"
+    },
+    "properties": [
+      {
+        "id": "headers",
+        "name": "Headers",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "bordered",
+        "name": "Bordered",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "striped",
+        "name": "Striped Rows",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "cols",
+        "name": "Columns",
+        "type": "int",
+        "min": 1,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "rows",
+        "name": "Rows",
+        "type": "int",
+        "min": 1,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "cell-size",
+        "editable": false,
+        "type": "object",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "auto-layout-children",
+        "name": "Auto-layout children",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "horizontal-align",
+        "name": "Horizontal Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "id": "vertical-align",
+        "name": "Vertical Align",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "middle",
+            "label": "Middle"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "table"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69029",
+    "created": "2014-07-14T15:42:52.023Z",
+    "id": "dropdown",
+    "name": "Dropdown",
+    "category": "Input Fields",
+    "abstract": false,
+    "container": false,
+    "binding": {
+      "dataType": "list"
+    },
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "options": [
+        {
+          "label": "My Item",
+          "id": "item"
+        }
+      ],
+      "color": "#000000"
+    },
+    "properties": [
+      {
+        "id": "options",
+        "name": "Options",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Text Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "dropdown"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b6902a",
+    "created": "2014-07-14T15:42:52.025Z",
+    "id": "radio",
+    "name": "Radio Button",
+    "category": "Buttons",
+    "container": false,
+    "binding": {
+      "dataType": "list"
+    },
+    "abstract": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "type": "radio",
+      "direction": "horizontal",
+      "margin": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "padding": {
+        "top": 0,
+        "right": 10,
+        "bottom": 0,
+        "left": 0
+      },
+      "options": [
+        {
+          "label": "My Radio"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "id": "options",
+        "name": "Options",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "direction",
+        "name": "Direction",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ]
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "radio"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b6902b",
+    "created": "2014-07-14T15:42:52.029Z",
+    "id": "checkbox",
+    "name": "Checkbox",
+    "category": "Buttons",
+    "binding": {
+      "dataType": "list"
+    },
+    "container": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "type": "checkbox",
+      "options": [
+        {
+          "label": "My Checkbox"
+        }
+      ],
+      "direction": "horizontal",
+      "margin": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "padding": {
+        "top": 0,
+        "right": 10,
+        "bottom": 0,
+        "left": 0
+      }
+    },
+    "properties": [
+      {
+        "id": "options",
+        "name": "Options",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "direction",
+        "name": "Direction",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ]
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "checkbox"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b6902c",
+    "created": "2014-07-14T15:42:52.045Z",
+    "id": "list",
+    "name": "List",
+    "category": "Text",
+    "container": false,
+    "binding": {
+      "dataType": "list"
+    },
+    "abstract": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "direction": "vertical",
+      "liststyle": "ordered",
+      "items": [
+        {
+          "label": "Apple"
+        },
+        {
+          "label": "Orange"
+        },
+        {
+          "label": "Banana"
+        }
+      ],
+      "margin": {
+        "top": 0,
+        "right": 10,
+        "bottom": 0,
+        "left": 10,
+        "unit": "px"
+      }
+    },
+    "properties": [
+      {
+        "id": "items",
+        "name": "Items",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "direction",
+        "name": "Direction",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ]
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "liststyle",
+        "name": "List Style",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "ordered",
+            "label": "Ordered"
+          },
+          {
+            "value": "unordered",
+            "label": "Unordered"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ]
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "list"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b6902d",
+    "created": "2014-07-14T15:42:52.047Z",
+    "id": "textinput",
+    "name": "Input Fields",
+    "category": "Input Fields",
+    "abstract": false,
+    "resizable": {
+      "constrain": true
+    },
+    "container": false,
+    "__v": 0,
+    "values": {
+      "type": "text",
+      "size": "10",
+      "maxlength": "5"
+    },
+    "properties": [
+      {
+        "id": "type",
+        "name": "Field Type",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "email",
+            "label": "Email"
+          },
+          {
+            "value": "search",
+            "label": "Search"
+          },
+          {
+            "value": "text",
+            "label": "Text"
+          },
+          {
+            "value": "url",
+            "label": "URL"
+          }
+        ]
+      },
+      {
+        "id": "placeholder",
+        "name": "Placeholder Text",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "text",
+        "editable": false,
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "maxlength",
+        "name": "Maxlength",
+        "type": "int",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "textinput"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b6902e",
+    "created": "2014-07-14T15:42:52.050Z",
+    "id": "dateinput",
+    "category": "Input Fields",
+    "name": "Date Input",
+    "abstract": false,
+    "container": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "type": "date"
+    },
+    "properties": [
+      {
+        "id": "type",
+        "name": "Field Type",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "date",
+            "label": "Date"
+          },
+          {
+            "value": "month",
+            "label": "Month"
+          },
+          {
+            "value": "time",
+            "label": "Time"
+          },
+          {
+            "value": "week",
+            "label": "Week"
+          }
+        ]
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "dateinput"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b6902f",
+    "created": "2014-07-14T15:42:52.066Z",
+    "id": "numberinput",
+    "category": "Input Fields",
+    "name": "Number Field",
+    "abstract": false,
+    "container": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "min": 0,
+      "max": 10,
+      "type": "number",
+      "value": 1
+    },
+    "properties": [
+      {
+        "id": "type",
+        "name": "Field Type",
+        "type": "enum",
+        "properties": null,
+        "values": [
+          {
+            "value": "number",
+            "label": "Number"
+          },
+          {
+            "value": "range",
+            "label": "Range"
+          }
+        ]
+      },
+      {
+        "id": "min",
+        "name": "Min",
+        "type": "int",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "max",
+        "name": "Max",
+        "type": "int",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "step",
+        "name": "Step",
+        "type": "int",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "value",
+        "editable": false,
+        "name": "Default Value",
+        "type": "int",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "numberinput"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69030",
+    "created": "2014-07-14T15:42:52.068Z",
+    "id": "telephoneinput",
+    "category": "Input Fields",
+    "name": "Telephone Field",
+    "abstract": false,
+    "container": false,
+    "resizable": false,
+    "__v": 0,
+    "values": {
+      "placeholder": "888-888-8888",
+      "type": "tel"
+    },
+    "properties": [
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "telephoneinput"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69031",
+    "created": "2014-07-14T15:42:52.070Z",
+    "id": "textarea",
+    "name": "Text Area",
+    "category": "Input Fields",
+    "abstract": false,
+    "resizable": true,
+    "container": false,
+    "__v": 0,
+    "values": {},
+    "properties": [
+      {
+        "id": "placeholder",
+        "name": "Placeholder Text",
+        "type": "string",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-color",
+        "name": "Border Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "border-width",
+        "name": "Border Width",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "textarea"
+  },
+  {
+    "_id": "53c3fa7b73c3ae8503b69032",
+    "created": "2014-07-14T15:42:52.087Z",
+    "id": "tabs",
+    "name": "Tabs",
+    "category": "Containers",
+    "abstract": false,
+    "container": false,
+    "resizable": true,
+    "__v": 0,
+    "values": {
+      "auto-layout-children": false,
+      "background-color": "#ffffff",
+      "color": "#ffffff",
+      "tabs": [
+        {
+          "label": "Tab 1"
+        },
+        {
+          "label": "Tab 2"
+        }
+      ],
+      "font-size": {
+        "size": 14,
+        "unit": "px"
+      },
+      "tab-disabled-background-color": "#ffffff"
+    },
+    "properties": [
+      {
+        "id": "tabs",
+        "name": "Tab Names",
+        "type": "array",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size",
+        "type": "object",
+        "parseExpression": "(\\d*)([a-z]*)",
+        "properties": [
+          {
+            "id": "size",
+            "name": "",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "auto-layout-children",
+        "name": "Layout children",
+        "type": "boolean",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "background-color",
+        "name": "Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "tab-disabled-background-color",
+        "name": "Disabled Tab Background Color",
+        "type": "color",
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "width",
+        "name": "Width",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "height",
+        "name": "Height",
+        "type": "int",
+        "min": 0,
+        "editable": false,
+        "properties": null,
+        "values": null
+      },
+      {
+        "id": "padding",
+        "name": "Padding",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      },
+      {
+        "id": "margin",
+        "name": "Margin",
+        "type": "object",
+        "parseExpression": "^(\\d*)([a-z]*)\\s*(\\d*)([a-z]*)",
+        "lockable": true,
+        "properties": [
+          {
+            "id": "top",
+            "name": "Top",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "right",
+            "name": "Right",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "bottom",
+            "name": "Bottom",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "left",
+            "name": "Left",
+            "type": "int",
+            "properties": null,
+            "values": null
+          },
+          {
+            "id": "unit",
+            "type": "enum",
+            "properties": null,
+            "values": [
+              {
+                "value": "px",
+                "label": "px"
+              },
+              {
+                "value": "em",
+                "label": "em"
+              }
+            ]
+          }
+        ],
+        "values": null
+      }
+    ],
+    "componentId": "tabs"
+  }
+]

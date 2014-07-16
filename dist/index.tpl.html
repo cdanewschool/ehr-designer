@@ -10,63 +10,26 @@
 
 <body ng-controller="NavigationCtrl" ng-init="init()" ng-cloak>
 
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	
-		<div class="container-fluid">
-		
-			<div class="navbar-header">
-				<span class="navbar-brand">EHR Designer</span>
-			</div>
-			
-			<ul class="nav navbar-nav">
-				<li>
-					<a href="/browse" ng-class="{active:location.path().indexOf('/browse')>-1}">Browse</a>
-				</li>
-				<li ng-controller="UserCtrl" ng-show="currentUser">
-					<a href="/myprojects" ng-class="{active:location.path().indexOf('/myprojects')>-1}">My Projects</a>
-				</li>
-				<li>
-					<a href="/about" ng-class="{active:location.path().indexOf('/about')>-1}">About</a>
-				</li>
-			</ul>
-			
-			<ul id="user-menu" class="nav navbar-nav navbar-right">
-				<li ng-show="!currentUser">
-					<a href="/login">Login</a>
-				</li>
-				<li ng-controller="UserCtrl" ng-show="currentUser">
-					<span class="navbar-text username">{{currentUser.nameFirst}} {{currentUser.nameLast}}</span>
-				</li>
-				<li>
-					<span class="navbar-text" ng-show="currentUser">|</span>
-				</li>
-				<li ng-show="currentUser">
-					<a ng-click="logout()">Log out</a>
-				</li>
-			</ul>
-						
-		</div>
-		
-	</nav>
+	<div ng-include="'partials/includes/navigation.html'"></div>
 	
 	<div ng-view></div>
 	
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery/dist/jquery.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery-ui/ui/minified/jquery-ui.min.js" -->
-	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/js/tooltip.js" -->
-	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular/angular.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular/angular.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-base64/angular-base64.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-cookies/angular-cookies.min.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-dragdrop/src/angular-dragdrop.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-http-auth/src/http-auth-interceptor.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-resource/angular-resource.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-route/angular-route.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-sanitize/angular-sanitize.min.js" -->
-	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js" -->
-	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-dragdrop/src/angular-dragdrop.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-tutorial/angular-tutorial.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-ui-bootstrap/dist/ui-bootstrap-custom-tpls-0.10.0.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-ui-sortable/sortable.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-webstorage/angular-webstorage.js" -->
+	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/js/tooltip.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "underscore/underscore.js" -->
 	<!-- include: "type": "js", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "underscore.string/dist/underscore.string.min.js" -->
 	<!-- include: "type": "js", "basePath": "www/app/", "baseUrl": "app/", "files": "**/*.js" -->
