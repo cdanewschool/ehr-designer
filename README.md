@@ -30,23 +30,23 @@ Clone the repository (if you haven't done so already) and move into it:
 	cd ehr-designer
 
 Install dev dependencies:
-
+	
 	npm install
 	bower install --allow-root
 	
 Build (creates `www/index.html` from `dist/index.tpl.html` template):
-
+	
 	grunt
-
+	
 Start mongo if it's not running already. Note that you'll have to keep this process open in a terminal window to start and run the server, but if you want to close it after running the data import you can:
-
+	
 	mongod
 	
 Import data:
 
-	mongoose-fixture --fixture='all' --add
-	
-**NOTE:** if you have trouble installing or using `mongoose-fixture`, you can alternately import the data files in `lib/import/mongoimport` manually using [mongoimport](http://docs.mongodb.org/v2.2/reference/mongoimport/).
+To import data, run `bash/import-mongoose-fixture.sh` from the project root. Note that this will empty the collections first if they exist.
+
+**NOTE:** if you have trouble installing or using `mongoose-fixture`, you can alternately import the data files via `bash/import-mongoimport.sh`, which imports the files in `lib/import/mongoimport` manually using [mongoimport](http://docs.mongodb.org/v2.2/reference/mongoimport/).
 
 Running
 =======
