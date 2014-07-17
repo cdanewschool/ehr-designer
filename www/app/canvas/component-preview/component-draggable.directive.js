@@ -1,3 +1,8 @@
+/**
+ * component-draggable
+ * 
+ * Convenience directive for instantiating a draggable canvas item
+ */
 app.directive
 (
 	'componentDraggable',
@@ -8,8 +13,10 @@ app.directive
 			require: '^componentPreview',
 			compile: function compile(element,attrs)
 			{
+				//	remove the attribute mapped to this directive to avoid infinite digest
 				element.removeAttr("component-draggable");
 				
+				//	add configuration attributes
 				element.attr("data-drag",true);
 				element.attr("jqyoui-draggable","{animate: false, onStart: 'onDragStart', onStop: 'onDragStop', onDrag: 'onDrag', placeholder:'keep'}");
 				element.attr("data-jqyoui-options","{appendTo: 'body', cancel: '.previewing', helper: getDragPreview, revert: 'invalid'}");

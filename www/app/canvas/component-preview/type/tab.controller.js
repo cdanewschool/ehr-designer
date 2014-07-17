@@ -1,3 +1,6 @@
+/**
+ * Tab Controller
+ */
 app.controller
 (
 	'TabCtrl',
@@ -7,22 +10,12 @@ app.controller
 	 	{
 	 		$scope.tabs = [];
 	 		
-	 		$scope.onMouseOver = function(e,index)
-	 		{
-	 			if( !dragService.dragModel.dragging ) return;
-	 			
-	 			angular.forEach($scope.tabs,function(item){ item.active = false; } );
-	 			
-	 			$scope.tabs[index].active = true;
-	 		};
-	 		
-	 		$scope.onMouseEnter = function(e)
-	 		{
-	 			e.preventDefault();
-	 			
-	 			dragService.dragModel.hover=$scope.instanceDefinition;
-	 		};
-	 		
+	 		/**
+	 		 * Initializes a tab by appending a first child as a container
+	 		 * to hold additional additional elements/components
+	 		 * 
+	 		 * @param {Object} item Object representing a tab
+	 		 */
 	 		$scope.placeChild = function(item)
 	 		{
 	 			var index = $scope.definition.values.tabs.indexOf(item);
@@ -34,6 +27,10 @@ app.controller
 					$scope.definition.children[index] = factory.componentInstance( library.elementsIndexed['ui_component'],{} );
 	 		};
 	 		
+	 		/**
+	 		 * Updates a `tabs` property used by the tab component
+	 		 * to manage which tab is currently-displayed
+	 		 */
 	 		var initTabs = function(l)
 	 		{
 	 			l = l || $scope.definition.values.tabs.length;

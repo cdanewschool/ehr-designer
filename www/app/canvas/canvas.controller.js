@@ -1,3 +1,7 @@
+/**
+ * Canvas Controller
+ * 
+ */
 app.controller
 (
 	'CanvasCtrl',
@@ -17,7 +21,9 @@ app.controller
 			$scope.messages = [];
 			$scope.errors = [];
 			
-			//	handle component deletion
+			/**
+			 * Listen for component deletion
+			 */
 			$rootScope.$on
 			(
 				'deleteComponent',
@@ -25,10 +31,10 @@ app.controller
 				{
 					if( !canvas.selection ) return;
 		 			
-					//	remove it
+					//	remove the component
 		 			utilities.remove(canvas.selection.instance);
 		 			
-		 			//	append to history
+		 			//	append the deletion event to action history
 		 			historyService.save( "Removed " + canvas.selection.instance.componentId );
 		 			
 		 			//	nullify current selection (hides property inspector)
@@ -36,6 +42,11 @@ app.controller
 				}
 			);
 			
+			/**
+			 * Clear the 'previewing' flag whenever location changes
+			 * 
+			 * @todo Check for redundancy with watcher below
+			 */
 			$rootScope.$on
 			(
 				'$locationChangeStart',
@@ -45,6 +56,9 @@ app.controller
 				}
 			);
 			
+			/**
+			 * Init project-specific state when project changes
+			 */
 			$scope.$watch
 			(
 				'canvas.currentProject',
@@ -54,6 +68,7 @@ app.controller
 					{
 						canvas.messages = [];
 						canvas.errors = [];
+						
 						canvas.currentPage = null;
 						canvas.previewing = false;
 						
@@ -72,7 +87,11 @@ app.controller
 				}
 			);
 			
-			//	refresh page on history load
+			/**
+			 * Refresh page on history load
+			 * 
+			 * @todo Check for redundancy with watcher above
+			 */
 			$scope.$watch
 			(
 				'canvas.currentProject.content',
@@ -91,8 +110,10 @@ app.controller
 				}
 			);
 			
-			//	give all elements of page tree a unique id when a new page is set
-			//	(this prevents id collision when switching between projects)
+			/**
+			 * Reset uniuqe id counter and assign all elements of a document tree a unique id 
+			 * when a new page is set, to prevent potential id collision when switching between projects
+			 */
 			$scope.$watch
 	 		(
 	 			'canvas.currentPage',
@@ -109,6 +130,10 @@ app.controller
 	 			}
 	 		);
 			
+			/**
+			 * Set dirty flag when current page's contents change, clear it
+			 * when current page changes altogether
+			 */
 			$scope.$watch
 	 		(
 	 			'canvas.currentPage',
@@ -135,7 +160,9 @@ app.controller
 	 		);
 			
 			/**
-			 * Initializes controller by loading sample data, components and (optionally) a project
+			 * Initialize controller by loading sample data, components and (optionally) a project
+			 * 
+			 * @param {boolean} showEdit Whether to show the edit project properties dialog if a new project is created
 			 */
 			$scope.init = function(showEdit)
 			{
@@ -246,11 +273,23 @@ app.controller
 				);
 			};
 			
+			/**
+			 * Saves a project
+			 * 
+			 * @param {function} callback Function to call on success
+			 * 
+			 * @todo Refactor to use promises vs. passing callback to service
+			 */
 			$scope.saveProject = function(callback)
 			{
 				canvasService.saveProject(callback);
 			};
 			
+			/**
+			 * Deletes a project
+			 * 
+			 * @param {Project} project Project to delete
+			 */
 			$scope.deleteProject = function(project)
 			{
 				navigation.showConfirm("Are you sure you want to Delete this Project?").then
@@ -269,6 +308,7 @@ app.controller
 							}
 						);
 					},
+					//	user cancelled out of delete
 					function()
 					{
 					}
@@ -277,15 +317,23 @@ app.controller
 				return;
 			};
 			
+			/**
+			 * Creates a new project
+			 * 
+			 * @param {Boolean} showEdit Whether to show edit properties dialog for newly-created project
+			 */
 			$scope.newProject = function(showEdit)
 			{
+				//	init the project body from document template
 				var project = angular.copy( template.document );
 				project.name = "My Project";
 				
+				//	set initial metadata
 				canvas.currentProject = new Project();
 				canvas.currentProject.content = project;
 				canvas.currentProject.sharing = "private";
 				
+				//	show edit properties dialog
 				if(showEdit)
 				{
 					return projectService.editItemProperties(canvas.currentProject.content, showEdit).then
@@ -299,6 +347,7 @@ app.controller
 								{
 									$scope.saveProject();
 								},
+								//	user cancelled out of add page
 								function()
 								{
 									canvas.currentProject = null;
@@ -307,11 +356,12 @@ app.controller
 								}
 							);
 						},
-						//	user has clicked cancel
+						//	user cancelled out of rename
 						function()
 						{
 							canvas.currentProject = null;
 							
+							//	redirect to /myprojects
 							$location.path('/myprojects');
 						}
 					);
@@ -322,6 +372,9 @@ app.controller
 				}
 			};
 			
+			/**
+			 * Preview a project
+			 */
 			$scope.previewProject = function()
 			{
 				canvas.previewing = true;
@@ -329,6 +382,12 @@ app.controller
 				canvas.selection = null;
 			};
 			
+			/**
+			 * Adds a page to a project
+			 * 
+			 * @param {Boolean} showEdit Whether to show edit properties dialog for newly-created project
+			 * @param {Boolean} showOnCreate Whether to select the newly added page after creation
+			 */
 			$scope.addPage = function(showEdit,showOnCreate)
 			{
 				if( canvas.dirty )
@@ -380,11 +439,23 @@ app.controller
 				);
 			};
 			
+			/**
+			 * Delete a page from the currently-selected project
+			 * 
+			 * @param {Object} page Page to delete
+			 * @param {Boolean} showConfirm Whether to show a confirmation before deleting (exposed for testing)
+			 */
 			$scope.deletePage = function(page,showConfirm)
 			{
 				projectService.deletePage(page,canvas.currentProject,showConfirm);
 			};
 			
+			/**
+			 * Shows edit properties dialog for a page, updating page's last updated timestamp and saving 
+			 * current project on success
+			 * 
+			 * @param {Object} page Page to edit
+			 */
 			$scope.editPage = function(page)
 			{
 				projectService.editItemProperties(page,false,true,canvas.currentProject).then
@@ -398,6 +469,12 @@ app.controller
 				);
 			};
 			
+			/**
+			 * Shows the pages for a project
+			 * current project on success
+			 * 
+			 * @param {Object} page Page to edit
+			 */
 			$scope.showPages = function()
 			{
 				if( canvas.dirty )
@@ -421,12 +498,24 @@ app.controller
 				}
 			};
 			
-			$scope.selectPageByIndex = function(id)
+			/**
+			 * Selects the currently-selected project's page by index (0-based)
+			 * 
+			 * @param {int} index Index of the page to be selected
+			 */
+			$scope.selectPageByIndex = function(index)
 			{
-				if( canvas.currentProject.content.children[id] )
-					canvas.currentPage = canvas.currentProject.content.children[id];
+				//	clamp the index to valid page range
+				index = Math.max( 0, Math.min(index, canvas.currentProject.content.children.length-1) );
+				
+				canvas.currentPage = canvas.currentProject.content.children[index];
 			};
 			
+			/**
+			 * Applies a template to the currently-selected page
+			 * 
+			 * @param {object} template The template definition to set as the page's root element
+			 */
 			$scope.setTemplate = function(template)
 			{
 				if( !canvas.currentPage ) return;
@@ -462,6 +551,9 @@ app.controller
 				}
 			};
 			
+			/**
+			 * Clears the canvas and appends the action to the history
+			 */
 			$scope.clearCanvas = function()
 			{
 				canvas.currentPage.children = [];
@@ -470,6 +562,11 @@ app.controller
 	 			historyService.save( "Cleared canvas" );
 			};
 			
+			/**
+			 * Filter function to filter out elements that are abstract and not meant to show up in library
+			 * 
+			 * @param {Object} item The element item to be filtered
+			 */
 			$scope.componentFilter = function(item)
 			{
 				return !item.abstract;
@@ -477,12 +574,15 @@ app.controller
 			
 			if( ENV.DEBUG )
 			{
+				/**
+				 * In debug mode, exposes a function that shows a json representation of selection for transfer to definition file
+				 * 
+				 * @todo Strip root component's location property values (x,y)
+				 */
 				$scope.exportSelectionDefinition = function()
 		 		{
 		 			var props = {id:"mycomponent",name:"My Component"};
 		 			var output = _.defaults(props,canvas.selection.instance);
-		 			
-		 			//TODO: strip root component's location property values (x,y)
 		 			
 		 			delete output['category'];
 		 			delete output['pid'];
@@ -497,7 +597,7 @@ app.controller
 		 				};
 		 			};
 		 			
-		 			var modalInstance = $modal.open
+		 			$modal.open
 		 			(
 		 				{
 		 					template: '<div class="modal-body"><p>The following JSON represents your selection:</p><pre class="pre-scrollable">{{content | json}}</pre></div><div class="modal-footer"><button class="btn btn-primary" ng-click="close()">OK</button></div>',

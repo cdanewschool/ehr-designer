@@ -32,7 +32,7 @@ describe
 				{
 					loadFixtures("base/www/partials/includes/navigation.html");
 					
-					$controller('NavigationCtrl',{$scope:scope,$rootScope:rootScope});
+					$controller('AppCtrl',{$scope:scope,$rootScope:rootScope});
 					$compile( angular.element('#jasmine-fixtures') )(scope);
 					scope.$digest();
 					
@@ -54,7 +54,7 @@ describe
 					
 					rootScope.currentUser = loggedInUser;
 					
-					$controller('NavigationCtrl',{$scope:scope,$rootScope:rootScope});
+					$controller('AppCtrl',{$scope:scope,$rootScope:rootScope});
 					$compile( angular.element('#jasmine-fixtures') )(scope);
 					scope.$digest();
 					

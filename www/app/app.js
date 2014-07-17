@@ -35,31 +35,31 @@ app.run
 (
 	function($rootScope,$location,Auth)
 	{
-		var bounce = function()
+		var getSessionIfNeeded = function()
 		{
-			// trim path
+			// get location and strip query string
 			var path = $location.path();
+			if( path.indexOf("?")>-1 ) path = path.substr(0,path.indexOf("?") );
 			
-			if( path.indexOf("?")>-1 )
-				path = path.substr(0,path.indexOf("?") );
-			
+			//	get path base minus the leading slash
 			path = path.split("/")[1];
 			
-			if (!$rootScope.currentUser && (['','about','browse','login','signup'].indexOf(path) == -1 )) 
+			//	if no logged-in user exists and the path we're on is restricted, try to get a user from session
+			if ( !$rootScope.currentUser 
+					&& ['','about','browse','login','signup'].indexOf(path) == -1 ) 
 			{
 				Auth.currentUser();
 		    }
 		};
 		
-		$rootScope.$on('$locationChangeStart',bounce);
+		//	whenever the location and/or presence of a logged-in user changes,
+		//	see if we should get a session if one is needed
+		$rootScope.$on('$locationChangeStart',getSessionIfNeeded);
+		$rootScope.$watch('currentUser',getSessionIfNeeded);
 		
-		$rootScope.$watch
-		(
-			'currentUser',
-			bounce
-		);
-		
-		// On catching 401 errors, redirect to the login page.
+		//	whenever a service call returns a 401 error code (unauthorized), the http-auth-interceptor module
+		//	automatically dispatches the 'event:auth-loginRequired' from $rootScope; listen for it here and
+		//	redirect to the login page when it's received
 	    $rootScope.$on
 	    (
 	    	'event:auth-loginRequired', 
@@ -72,8 +72,8 @@ app.run
 	}
 );
 
-//allows us to use ng-repeat with a number
-//usage: ng-repeat="n in [] | range:model.mynumber
+//	filter allowing us to use ng-repeat with a number
+//	usage: ng-repeat="n in [] | range:model.mynumber
 app.filter
 (
 	'range', 

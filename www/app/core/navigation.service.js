@@ -13,6 +13,14 @@ app.service
 		{
 	 		var navigation = 
 	 		{
+	 			/**
+	 			 * Shows a confirmation window
+	 			 * 
+	 			 * @param {String} message Message to show
+	 			 * @param {String} title Title to show; defaults to "Confirm"
+	 			 * 
+	 			 * @return Async promise resolved when the Yes button is clicked and rejected when the No button is clicked
+	 			 */
 				showConfirm: function(message,title)
 				{
 					title = title || "Confirm";
@@ -22,7 +30,7 @@ app.service
 				    	$scope.message = message;
 				    	$scope.title = title;
 				    };
-				     
+				    
 				    var modalInstance = $modal.open
 				    (
 			    		 {
@@ -38,12 +46,17 @@ app.service
 					return modalInstance.result;
 				},
 				
+				/**
+				 * Navigates to the previous url
+				 */
 				back: function()
 				{
 					$window.history.back();
 				}
 			};
 	 		
+	 		//	listen for navigation changes and show a save confirmation if there is a logged-in
+	 		//	user and the canvas is dirty
 	 		$rootScope.$on
 			(
 				'$locationChangeStart',
@@ -51,7 +64,8 @@ app.service
 				{
 					var path = $location.path();
 					
-					if( path.indexOf("/editor") == -1 && $rootScope.currentUser)
+					if( path.indexOf("/editor") == -1 
+						&& $rootScope.currentUser)
 					{
 						if( canvas.dirty )
 						{
@@ -87,7 +101,6 @@ app.service
 					}
 				}
 			);
-			
 	 		
 			return navigation;
 		}

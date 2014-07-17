@@ -258,7 +258,7 @@ describe
 							scope.currentProject = project1;
 							scope.$digest();
 							
-							expect( scope.currentPage ).toBe( page1 );
+							expect( scope.currentPage ).toEqual( page1 );
 						}
 					)
 				);
@@ -276,19 +276,21 @@ describe
 							//	first page (page1) should be selected by default (if no pageId in route params)
 							scope.currentProject = project1;
 							scope.$digest();
-							expect( scope.currentPage ).toBe( page1 );
+							expect( scope.currentPage ).toEqual( page1 );
 							
 							//	select page2
 							scope.selectPageByIndex( 1 );
-							expect( scope.currentPage ).toBe( page2 );
+							expect( scope.currentPage ).toEqual( page2 );
 							
 							//	select page1 again
 							scope.selectPageByIndex( 0 );
-							expect( scope.currentPage ).toBe( page1 );
+							expect( scope.currentPage ).toEqual( page1 );
 							
-							//	selecting an invalid page should default to the first page
+							//	selecting an invalid page should select the closest default page
 							scope.selectPageByIndex( 2 );
-							expect( scope.currentPage ).toBe( page1 );
+							expect( scope.currentPage ).toEqual( page2 );
+							scope.selectPageByIndex( -1 );
+							expect( scope.currentPage ).toEqual( page1 );
 						}
 					)
 				);
@@ -481,8 +483,10 @@ describe
 							scope.selectPageByIndex( 0 );
 							expect( scope.canvas.currentPage ).toEqual( page1 );
 							
-							//	selecting an invalid page should default to the first page
+							//	selecting an invalid page should select the closest default page
 							scope.selectPageByIndex( 2 );
+							expect( scope.canvas.currentPage ).toEqual( page2 );
+							scope.selectPageByIndex( -1 );
 							expect( scope.canvas.currentPage ).toEqual( page1 );
 						}
 					)

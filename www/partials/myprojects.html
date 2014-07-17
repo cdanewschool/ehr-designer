@@ -89,7 +89,7 @@
 				
 				<div class="small pull-right">
 					<a ng-click="editPage(page,currentProject)" ng-mouseover="action='Edit'" ng-mouseout="action=null"><img src="../images/icons/icon_cog.png"></a>
-					<a ng-click="projectService.deletePage(page,currentProject)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
+					<a ng-click="deletePage(page,currentProject)" ng-mouseover="action='Delete'" ng-mouseout="action=null"><img src="../images/icons/icon_trash.png"></a>
 					<a href="/browse/{{currentProject._id}}/{{currentProject.content.children.indexOf(page)+1}}" ng-mouseover="action='Preview'" ng-mouseout="action=null"><img src="../images/icons/icon_preview.png"></a>
 				</div>
 				

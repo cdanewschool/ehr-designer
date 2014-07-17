@@ -1,3 +1,6 @@
+/**
+ * Utilities
+ */
 app.service
 (
 	'utilities',
@@ -25,9 +28,14 @@ app.service
 			
 			return search(canvas.currentPage);
 		};
-				
+		
 		return {
 			
+			/**
+			 * Removes a component definition from the tree
+			 * 
+			 * @instance {Object} instance The component definition to remove (must contain a `pid` property referencing the id of it's parent)
+			 */
 			remove: function(instance)
 			{
 				var parentId = instance.pid;
@@ -37,9 +45,9 @@ app.service
 				if( !parent )
 					throw new Error("no parent for " + instance.pid);
 				
-				var oldIndex = parent.children.indexOf(instance);
+				var index = parent.children.indexOf(instance);
 				
-				parent.children.splice( oldIndex, 1 );
+				parent.children.splice( index, 1 );
 			}
 		};
 	}

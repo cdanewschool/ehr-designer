@@ -1,3 +1,9 @@
+/**
+ * canvas-manager
+ * 
+ * Directive that--for performance reasons--manages mouse interactions, mouse-based style updates, and other 
+ * events for the canvas' DOM tree from the top down (vs. bottom up, a few listeners vs. many)
+ */
 app.service
 (
 	'instanceCache',
@@ -33,6 +39,8 @@ app.directive
 			restrict: 'A',
 			link: function(scope,element,attrs)
 			{
+				//	walks down document tree recursively and returns a component
+				//	definition by id
 				var find = function(items,id)
 				{
 					for(var i in items)
@@ -49,21 +57,20 @@ app.directive
 					}
 				};
 				
+				//	when the selection changes, remove the selected style from the previous selection
 				scope.$watch
 				(
 					'canvas.selection',
 					function(newVal,oldVal)
 					{
-						if( newVal!=oldVal && !newVal && oldVal )
+						if( newVal!=oldVal && oldVal )
 						{
 							angular.element( oldVal.element ).parents('.outline').first().removeClass('active');
 						}
 					}
 				);
 				
-				/**
-				 * Clear cache when switching pages/project to avoid stale references
-				 */
+				//	clear cache when switching pages/project to avoid stale references
 				scope.$watch
 				(
 					'canvas.currentPage',
@@ -100,10 +107,11 @@ app.directive
 						if( canvas.selection )
 							angular.element( canvas.selection.element ).parents('.outline').first().removeClass('active');
 						
-						//	get data
+						//	get data definition for element/component that was clicked from cache
 						var id = angular.element(e.target).closest('.component-preview').attr('data-id');
 						var instance = instanceCache.get(id);
 						
+						//	if not cached, retrieve and cache it
 						if( !instance )
 						{
 							instance = find([canvas.currentPage],id);
@@ -113,6 +121,7 @@ app.directive
 							instanceCache.set(instance);
 						}
 						
+						//	clear all selections if clicking canvas background
 						if( !instance.pid )
 						{
 							scope.$apply
@@ -123,6 +132,8 @@ app.directive
 								}
 							);
 						}
+						
+						//	otherwise select the element/component that was clicked
 						else
 						{
 							e.stopImmediatePropagation();
@@ -153,7 +164,6 @@ app.directive
 						
 						var id = angular.element(e.target).closest('.component-preview').first().attr('data-id');
 						var instance = instanceCache.get(id);
-						var cellIndex;
 						
 						if( !instance )
 						{
@@ -164,11 +174,16 @@ app.directive
 							instanceCache.set(instance);
 						}
 						
+						var cellIndex = null;
+						
 						if( instance.componentId == "grid" || instance.componentId == "table" )
 						{
 							cellIndex = angular.element(e.target).scope().cellIndex;
 						}
 						
+						
+						//	update the element being hovered over, and if applicable, the cell index within the component 
+						//	that has mouse focus
 						scope.$apply
 						(
 							function()
@@ -181,12 +196,12 @@ app.directive
 					}
 				);
 				
-				var dropTarget;
+				var dropTarget = null;
 				
 				var updateHighlightedDropTarget = function(instance,index)
 				{
-					if( dropTarget ) 
-						dropTarget.removeClass('dropTarget');
+					//	clear the droppable style from the current drop target, if any
+					if( dropTarget ) dropTarget.removeClass('dropTarget');
 					
 					if( !instance ) return;
 					

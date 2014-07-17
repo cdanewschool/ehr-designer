@@ -1,3 +1,6 @@
+/**
+ * Tutorial Controller
+ */
 app.controller
 (
 	'TutorialCtrl',

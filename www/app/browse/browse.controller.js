@@ -1,12 +1,13 @@
+/**
+ * Controller for /browse and /myprojects views
+ */
 app.controller
 (
 	'BrowseCtrl',
 	[
-	 	'$scope','$rootScope','$routeParams','$location','canvas','Project','ProjectService','CanvasService','DragService','library','navigation',
+	 	'$scope','$rootScope','$routeParams','$location','canvas','Project','ProjectService','CanvasService','library','navigation',
 	 	function($scope,$rootScope,$routeParams,$location,canvas,Project,projectService,canvasService,dragService,library,navigation)
 	 	{
-	 		$scope.dragService = dragService;
-	 		$scope.projectService = projectService;
 	 		$scope.canvas = canvas;
 	 		$scope.navigation = navigation;
 	 		
@@ -14,6 +15,7 @@ app.controller
 	 		$scope.currentPage = null;
 	 		$scope.currentPageId = null;
 	 		
+	 		// reset the selected page to the first page when project changes
 	 		$scope.$watch
 	 		(
 	 			'currentProject',
@@ -26,18 +28,21 @@ app.controller
 	 			}
 	 		);
 	 		
+	 		//	look for projectId in url and initialize associated project if set
+	 		//	if not, redirect to page root
 	 		if( $routeParams.projectId )
 			{
-	 			var initProject = function()
+	 			function loadProject(projectId)
 		 		{
 		 			Project.get
 					(
 						{
-							projectId:$routeParams.projectId
+							projectId:projectId
 						},
 						function(response)
 						{
 							canvas.previewing = true;
+							
 							$scope.currentProject = response;
 						},
 						function(response)
@@ -47,15 +52,27 @@ app.controller
 					);
 		 		};
 		 		
+		 		//	load data definitions if not loaded yet then load project
 	 			if( !library.components )
-	 				canvasService.getElements().then( canvasService.getComponents ).then( canvasService.getTemplates ).then( initProject );
+	 				canvasService.getElements()
+	 					.then( canvasService.getComponents )
+	 					.then( canvasService.getTemplates )
+	 					.then( function(){ loadProject($routeParams.projectId); } );
 	 			else
-	 				initProject();	 			
+	 				loadProject($routeParams.projectId);	 			
 			};
 			
+			/**
+			 * Selects the currently-selected project's page by index (0-based)
+			 * 
+			 * @param {int} index Index of the page to be selected
+			 */
 			$scope.selectPageByIndex = function(index)
 			{
-				if( !$scope.currentProject || !$scope.currentProject.content.children || $scope.currentProject.content.children.length<index )
+				//	clamp the index to valid page range
+				index = Math.max( 0, Math.min(index, $scope.currentProject.content.children.length-1) );
+				
+				if( !$scope.currentProject || !$scope.currentProject.content.children )
 				{
 					$scope.currentPage = null;
 					return;
@@ -64,6 +81,11 @@ app.controller
 				$scope.currentPage = $scope.currentProject.content.children[ (index < $scope.currentProject.content.children.length ? index : 0) ];
 			};
 			
+			/**
+			 * Gets all projects from server and sets on scope
+			 * 
+			 * @param {boolean} filterByUser Whether to filter by projects owned by logged-in user
+			 */
 	 		$scope.find = function( filterByUser )
 	 		{
 	 			var query = {};
@@ -86,6 +108,11 @@ app.controller
 	 			);
 	 		};
 	 		
+	 		/**
+	 		 * Adds a page to the specified project and saves the project on success
+	 		 * 
+	 		 * @param {Project} project Project to add a page to
+	 		 */
 	 		$scope.addPage = function(project)
 	 		{
 	 			//	add a page and save project on success
@@ -103,6 +130,34 @@ app.controller
 	 			);
 	 		};
 	 		
+	 		/**
+	 		 * Deletes a page and saves the project on success
+	 		 * 
+	 		 * @param {Object} page Page to edit
+	 		 * @param {Project} project Project the page to edit belongs to
+	 		 */
+			$scope.deletePage = function(page,project)
+			{
+				projectService.deletePage(page,project).then
+				(
+					function()
+					{
+						project.$update
+						(
+							{
+								projectId:project._id
+							}
+						);
+					}	
+				);
+			};
+			
+			/**
+	 		 * Spawns a modal for editing page properties and saves the project on success 
+	 		 * 
+	 		 * @param {Object} page Page to edit
+	 		 * @param {Project} project Project the page to edit belongs to
+	 		 */
 	 		$scope.editPage = function(page,project)
 			{
 	 			projectService.editItemProperties(page).then
@@ -119,6 +174,11 @@ app.controller
 				);
 			};
 			
+			/**
+	 		 * Spawns a modal for editing project properties and saves the project on success 
+	 		 * 
+	 		 * @param {Project} project The project to edit
+	 		 */
 			$scope.editProject = function(project)
 			{
 				projectService.editItemProperties(project.content).then

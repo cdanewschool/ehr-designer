@@ -9,6 +9,7 @@ app.controller
 		$scope.errors = {};
 		$scope.user = {};
 		
+		//	look for `success`/`error` params in url
 		if( $routeParams )
 		{
 			if( $routeParams.success )
@@ -24,6 +25,12 @@ app.controller
 			}
 		}
 		
+		/**
+		 * Submits login form, setting form field validity on error and 
+		 * redirecting to /myprojects on success
+		 * 
+		 * @param {FormController} form The login form
+		 */
 		$scope.login = function(form)
 		{
 			Auth.login
@@ -61,6 +68,9 @@ app.controller
 			);
 		};
 		
+		/**
+		 * Logs out user, redirecting to / on success
+		 */
 		$scope.logout = function()
 		{
 			Auth.logout
@@ -73,6 +83,11 @@ app.controller
 			);
 		};
 		
+		/**
+		 * Submits login form, setting form field validity on error
+		 * 
+		 * @param {FormController} form The login form
+		 */
 		$scope.signup = function(form)
 		{
 			Auth.signup

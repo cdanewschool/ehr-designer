@@ -1,3 +1,16 @@
+'use strict';
+
+/**
+ * confirm-dialog
+ * 
+ * Directive for showing a confirmation dialog
+ * 
+ * @attr {String} confirm-dialog-message Message to show in the confirmation window
+ * @attr {String} confirm-dialog-title Title to show in the confirmation window; defaults to "Edit"
+ * @attr {String} confirm-dialog-no-button Text to show in the confirmation button; defaults to "Yes"
+ * @attr {String} confirm-dialog-yes-button Text to show in the cancel button; defaults to "No"
+ * @attr {Function} confirm-dialog-callback Function to call on confirm
+ */
 app.directive
 (
 	'confirmDialog', 
@@ -19,6 +32,7 @@ app.directive
 							var title = attrs.confirmDialogTitle || "Edit";
 							var noButtonText = attrs.confirmDialogNoButton || "No";
 							var yesButtonText = attrs.confirmDialogYesButton || "Yes";
+							var callback = attrs.confirmDialogCallback;
 							
 							var header = '<div class="modal-header"><button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button><h4 class="modal-title">{{title}}</h4></div>';
 							var body = '<div class="modal-body" style="text-align:center">{{message}}</div>';
@@ -33,7 +47,7 @@ app.directive
 								
 								$scope.confirm = function()
 								{
-									$parse(callback)(scope).apply(args);
+									if( callback ) $parse(callback)(scope).apply(args);
 									
 						       		$modalInstance.close();
 						      	};
@@ -50,7 +64,7 @@ app.directive
 					    			template: header + body + footer,
 					    			controller: ModalCtrl,
 					    			resolve: {
-					    				callback: function(){ return attrs.confirmDialogCallback; },
+					    				callback: function(){ return callback; },
 					    				args: function(){ return attrs.confirmDialogCallbackArgs; },
 					    				message: function(){ return message; },
 					    				noButtonText: function(){ return noButtonText; },

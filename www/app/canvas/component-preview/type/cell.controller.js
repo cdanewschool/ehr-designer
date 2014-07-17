@@ -1,8 +1,8 @@
 /**
  * Controller for a grid cell
  * 
- * Initializes a unique index for the cell's relative location and 
- * renders children whose `parentIndex` matches the cell index
+ * Used by cells in grid and table components to manage the retrieval
+ * of child components that should be placed at this particular cell position
  */
 app.controller
 (
@@ -22,6 +22,8 @@ app.controller
 	 			$scope.cellIndex = ($scope.instanceDefinition.values.cols*$scope.col)+$scope.row;
 	 		};
 	 		
+	 		//	update the unique index for a cell's location when
+	 		//	the parent grid's row- or cell-count changes
 	 		$scope.$watch
 	 		(
 	 			'instanceDefinition.values.rows',
@@ -42,6 +44,13 @@ app.controller
 	 			}
 	 		);
 	 		
+	 		/**
+	 		 * Initializes the cell
+	 		 * 
+	 		 * @param {int} row The cell's row
+	 		 * @param {int} row The cell's column
+	 		 * @param {Object} definition The instance definition for the grid component containing this cell
+	 		 */
 	 		$scope.init = function(row,col,definition)
 	 		{
 	 			$scope.row = row;
@@ -52,6 +61,12 @@ app.controller
 	 			update();
 	 		};
 	 		
+	 		/**
+	 		 * Filter function that determines if a given component definition
+	 		 * belongs to a given cell
+	 		 * 
+	 		 * @param {Object} item The object to check for mapping to this cell
+	 		 */
 	 		$scope.getCellChildren = function(item)
 	 		{
 	 			return item.parentIndex == $scope.cellIndex;

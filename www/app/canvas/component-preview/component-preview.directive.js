@@ -1,15 +1,23 @@
 /**
- * Component Preview
+ * component-preview
  * 
- * This directive recursively builds a DOM structure by rendering
- * itself and it's children, which can be component-previews themselves
- * (see component-preview.html). 
+ * This directive renders a component definition and it's children, which as component-previews 
+ * themselves, results in a recursively-build, nested DOM structure
+ * 
+ * (see www/app/canvas/component-preview.directive.html for the corresponding template file)
  */
 app.directive
 (
 	'componentPreview',
 	function($rootScope,$compile,$timeout,library,canvas)
 	{
+		/**
+		 * Returns the default definition for a style property definition
+		 * 
+		 * @param {Object} property The style property object containing 'type' and 'values' props
+		 * 
+		 * @return The default value (mixed, depending on property type)
+		 */
 		var getDefault = function(property)
  		{
 			switch( property.type )
@@ -53,6 +61,15 @@ app.directive
  			}
  		};
  		
+ 		/**
+ 		 * Initializes the property values on a created component instance by copying over
+ 		 * any valid values from the component that was dragged, and deferring to defaults
+ 		 * for values that aren't present
+ 		 * 
+ 		 * @param {Object} definition The object containing the definition for the instance
+ 		 * @param {Object} instance The object representing a component instance
+ 		 * @param {Object} element The source element that was dragged to create 'instance' by the drag service
+ 		 */
  		var setDefaultProperties = function(definition,instance,element)
  		{
  			var classes = [];

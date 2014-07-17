@@ -1,6 +1,9 @@
+/**
+ * Application Controller
+ */
 app.controller
 (
-	'NavigationCtrl',
+	'AppCtrl',
 	[
 	 	'$scope','$rootScope','$location','navigation','canvas','Auth',
 		function($scope,$rootScope,$location,navigation,canvas,Auth)
@@ -13,6 +16,9 @@ app.controller
 				$location.path(path);
 			};
 			
+			/**
+			 * Logs the user out, prompting a save if the canvas is dirty
+			 */
 			$scope.logout = function()
 			{
 				var logout = function()

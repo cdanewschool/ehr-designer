@@ -1,3 +1,8 @@
+/**
+ * resizable
+ * 
+ * Convenience directive for instantiating a resizable canvas item
+ */
 app.directive
 (
 	'resizable',

@@ -1,3 +1,6 @@
+/**
+ * Service for exposing common project-related operations
+ */
 app.service
 (
 	'ProjectService',
@@ -5,6 +8,14 @@ app.service
 	{
 		var service = {};
 		
+		/**
+		 * Adds a page to the specified project
+		 * 
+		 * @param {Project} project The project to add a page to 
+		 * @param {Boolean} showEdit Whether to show the edit properties modal
+		 * 
+		 * @return {$promise} Async promise resolved when the page addition is complete
+		 */
 		service.addPage = function(project,showEdit)
 		{
 			var page =  FactoryService.componentInstance( library.elementsIndexed['ui_component'] );
@@ -15,20 +26,30 @@ app.service
 			project.content.children.push( page );
 			
 			if(showEdit)
-				return service.editItemProperties(page, showEdit, true, project);
+				return service.editItemProperties(page, showEdit, true);
 			
 			var async = $q.defer();
 			async.resolve();
+			
 			return async.promise;
 		};
 		
+		/**
+		 * Deletes a page from the specified project
+		 * 
+		 * @param {Object} page The page to remove
+		 * @param {Project} project The project to remove the specified page from 
+		 * @param {Boolean} showConfirm Whether to show the confirm modal before deleting (exposed for testing)
+		 * 
+		 * @return {$promise} Async promise resolved when the page deletion is complete
+		 */
 		service.deletePage = function(page,project,showConfirm)
 		{
 			showConfirm = (typeof showConfirm != 'undefined') ? showConfirm : true;
 			
 			if( showConfirm )
 			{
-				navigation.showConfirm("Are you sure you want to Delete Page " + page.name + "?" ).then
+				return navigation.showConfirm("Are you sure you want to delete page \"" + page.name + "\"?" ).then
 				(
 					function()
 					{
@@ -42,10 +63,25 @@ app.service
 			else
 			{
 				project.content.children.splice( project.content.children.indexOf(page),1 );
+				
+				var async = $q.defer();
+				async.resolve();
+				
+				return async.promise;
 			}
 		};
 		
-		service.editItemProperties = function(item, isNew, isPage, project)
+		/**
+		 * Shows an Edit Properties modal for the specified page or project
+		 * 
+		 * @param {Mixed} item The project or page to remove
+		 * @param {Project} isNew Whether the item to edit was newly-added or not 
+		 * @param {Boolean} isPage Whether the item is a page or not
+		 * @param {Project} project The project item belongs to, if it is a page
+		 * 
+		 * @return A promise resolved when modal is closed, rejected when cancelled
+		 */
+		service.editItemProperties = function(item, isNew, isPage)
 		{
 			if( !item ) return;
 		    
@@ -65,13 +101,12 @@ app.service
 					message = "What would you like to call this project?";
 			}
 			
-		    var ModalCtrl = function($scope,$modalInstance,item,message,title,isPage,project)
+		    var ModalCtrl = function($scope,$modalInstance,item,message,title,isPage)
 		    {
 		    	$scope.item = angular.copy(item);
 		    	$scope.message = message;
 		    	$scope.title = title;
 		    	$scope.isPage = isPage;
-		    	$scope.project = project;
 		    	
 		      	$scope.save = function()
 		      	{
@@ -83,12 +118,7 @@ app.service
 		      
 		      	$scope.cancel = function()
 		      	{
-			       	if(isPage && isNew && project)
-			       	{
-			       		project.content.children.splice( project.content.children.indexOf(item),1 );		    	   
-			       	}
-			       	
-					$modalInstance.dismiss('cancel');
+			       	$modalInstance.dismiss('cancel');
 		      	};
 		    };
 		    
@@ -102,7 +132,6 @@ app.service
 				    	 item: function(){ return item; },
 				    	 isPage: function(){ return isPage; },
 				    	 message: function(){ return message; },
-				    	 project: function(){ return project; },
 				    	 title: function(){ return title; }
 				     }
 	    		 }

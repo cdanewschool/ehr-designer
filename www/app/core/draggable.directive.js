@@ -1,3 +1,10 @@
+'use strict';
+
+/**
+ * draggable
+ * 
+ * Directive for enabling drag
+ */
 app.directive
 (
 	'draggable',
