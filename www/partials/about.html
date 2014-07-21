@@ -7,7 +7,13 @@
 		<div ng-controller="TutorialCtrl" >
 			<a ng-tutorial ng-tutorial-id="createProject">Creating a New Project</a>
 		</div>
-	
+		
 	</div>
 	
+	<div ng-show="debug">
+	
+		<h4>Version Info</h4>
+		Latest commit is {{revision}} (<a href="https://github.com/piim/ehr-designer/commit/{{revision}}">View</a>)
+	</div>
+		
 </div>

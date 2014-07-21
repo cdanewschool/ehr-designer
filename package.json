@@ -20,6 +20,7 @@
     "webshot": "0.15.0"
   },
   "devDependencies": {
+  	"grunt-git-describe":"latest",
   	"karma":"latest",
     "karma-jasmine":"~0.2.0",
     "karma-chrome-launcher":"latest",

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" ng-controller="AppCtrl" ng-init="init()" >
 <base href="/"></base>
 <head>
+<title>{{title}}</title>
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "bootstrap/dist/css/bootstrap.min.css" -->
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "jquery-ui/themes/ui-lightness/jquery-ui.min.css" -->
 <!-- include: "type": "css", "basePath": "www/bower_components/", "baseUrl": "bower_components/", "files": "angular-bootstrap-colorpicker/css/colorpicker.css" -->
 <!-- include: "type": "css", "basePath": "www/", "files": "assets/css/**/*.css" -->
 </head>
 
-<body ng-controller="AppCtrl" ng-init="init()" ng-cloak>
+<body ng-cloak>
 
 	<div ng-include="'partials/includes/navigation.html'"></div>
 	

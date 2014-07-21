@@ -2,7 +2,7 @@
   "name": "ehr-designer",
   "version": "0.0.0-1",
   "dependencies": {
-    "angular": "^1.2",
+    "angular": "1.2.16",
     "angular-base64": "2.0.1",
     "angular-cookies": "1.2.15",
     "angular-dragdrop": "1.0.5",
@@ -21,11 +21,8 @@
     "underscore": "latest",
     "underscore.string": "latest"
   },
-  "devDependencies":{
-  	"angular-mocks": "latest",
-  	"jasmine-jquery": "latest"
-  },
-  "resolutions": {
-    "angular": "1.2.16"
+  "devDependencies": {
+    "angular-mocks": "latest",
+    "jasmine-jquery": "latest"
   }
 }

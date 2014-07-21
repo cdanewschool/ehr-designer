@@ -1,9 +1,11 @@
 .project
 .settings/
 
-bower_components/
 node_modules/
+
+www/bower_components/
 www/app/config.js
 www/images/projects/
+www/version.json
 
 index.html

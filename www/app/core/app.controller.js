@@ -5,11 +5,26 @@ app.controller
 (
 	'AppCtrl',
 	[
-	 	'$scope','$rootScope','$location','navigation','canvas','Auth',
-		function($scope,$rootScope,$location,navigation,canvas,Auth)
+	 	'$scope','$rootScope','$location','$http','navigation','canvas','Auth','ENV',
+		function($scope,$rootScope,$location,$http,navigation,canvas,Auth,ENV)
 		{
 	 		$scope.location = $location;
 	 		$scope.canvas = canvas;
+	 		
+	 		$scope.title = "EHR Designer";
+	 		$scope.revision = null;
+	 		$scope.debug = ENV.DEBUG;
+	 		
+	 		if( $scope.debug )
+	 		{
+	 			$http.get("version.json").then
+	 			(
+	 				function(response)
+	 				{
+	 					$scope.revision = response.data.revision;
+	 				}
+	 			);
+	 		}
 	 		
 			$scope.setLocation = function(path)
 			{
