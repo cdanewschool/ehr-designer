@@ -19,6 +19,9 @@ describe
 				{
 					rootScope = $rootScope;
 					scope = rootScope.$new();
+					
+					var version = JSON.parse(readFixtures("base/www/version.json"));
+					$httpBackend.when('GET','version.json').respond( function(){ return [200, version, {}]; } );
 				}
 			)
 		);

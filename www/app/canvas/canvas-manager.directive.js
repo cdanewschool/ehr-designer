@@ -63,7 +63,7 @@ app.directive
 					'canvas.selection',
 					function(newVal,oldVal)
 					{
-						if( newVal!=oldVal && oldVal )
+						if( newVal!=oldVal && oldVal && !newVal )
 						{
 							angular.element( oldVal.element ).parents('.outline').first().removeClass('active');
 						}
@@ -104,7 +104,7 @@ app.directive
 						
 						e.stopImmediatePropagation();
 						
-						if( canvas.selection )
+						if( canvas.selection && canvas.selection.element != e.target ) 
 							angular.element( canvas.selection.element ).parents('.outline').first().removeClass('active');
 						
 						//	get data definition for element/component that was clicked from cache
@@ -174,13 +174,12 @@ app.directive
 							instanceCache.set(instance);
 						}
 						
-						var cellIndex = null;
+						var cellLocation = null;
 						
 						if( instance.componentId == "grid" || instance.componentId == "table" )
 						{
-							cellIndex = angular.element(e.target).scope().cellIndex;
+							cellLocation = {x: angular.element(e.target).scope().col, y: angular.element(e.target).scope().row};
 						}
-						
 						
 						//	update the element being hovered over, and if applicable, the cell index within the component 
 						//	that has mouse focus
@@ -188,9 +187,9 @@ app.directive
 						(
 							function()
 							{
-								DragService.onOver(e,instance,cellIndex);
-							
-								updateHighlightedDropTarget(instance,cellIndex);
+								DragService.onOver(e,instance,cellLocation);
+								
+								updateHighlightedDropTarget(instance,cellLocation);
 							}
 						);
 					}
@@ -198,7 +197,7 @@ app.directive
 				
 				var dropTarget = null;
 				
-				var updateHighlightedDropTarget = function(instance,index)
+				var updateHighlightedDropTarget = function(instance,cellLocation)
 				{
 					//	clear the droppable style from the current drop target, if any
 					if( dropTarget ) dropTarget.removeClass('dropTarget');
@@ -207,7 +206,7 @@ app.directive
 					
 					dropTarget = angular.element('[data-id="' + instance.id + '"] > .outline');
 					
-					if( index != null )
+					if( cellLocation != null )
 					{
 						if( instance.componentId == "grid" || instance.componentId == "table" )
 						{
@@ -215,8 +214,8 @@ app.directive
 							
 							var cols = target.find('table > tbody').first().children().first().children().length;
 							
-							var row = Math.floor(index/cols);
-							var col = index%cols;
+							var col = cellLocation.x;
+							var row = cellLocation.y;
 							
 							if( instance.componentId == "table" )
 								dropTarget = target.find('table > tbody').children('tr').eq(row).children('td').eq(col).find('div');

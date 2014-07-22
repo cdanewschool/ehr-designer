@@ -39,7 +39,7 @@ app.service
 					dragModel.dragging = true;
 					
 					dragModel.hover = null;
-					dragModel.hoverIndex = null;
+					dragModel.hoverCellLocation = null;
 					dragModel.dragItem = item;
 					dragModel.dragProps = _.defaults(item.values||{},{width:event.toElement.scrollWidth,height:event.toElement.scrollHeight});
 					dragModel.dragElement = event.target;
@@ -70,7 +70,10 @@ app.service
 					if( targetDefinition.container === 'cell' 
 						&& target.values['auto-layout-children'] == true
 						&& target.id == dragModel.dragItem.pid 
-						&& dragModel.dragItem.parentIndex == dragModel.hoverIndex ) 
+						&& dragModel.dragItem.parentCellLocation
+						&& dragModel.hoverCellLocation
+						&& dragModel.dragItem.parentCellLocation.x == dragModel.hoverCellLocation.x
+						&& dragModel.dragItem.parentCellLocation.y == dragModel.hoverCellLocation.y ) 
 						return revert();
 					
 					var dropTarget = angular.element(event.target);
@@ -115,14 +118,13 @@ app.service
 					//	snap points to grid
 					values = snap(values);
 					
-					//	set hoverIndex if set
-					if( dragModel.hoverIndex >= 0 
-						&& dragModel.hoverIndex !== null 
+					//	set parentCellLocation if set
+					if( dragModel.hoverCellLocation 
 						&& dragModel.hover
 						&& dragModel.hover.id != dragItem.id )
 					{
-						dragItem.parentIndex = dragModel.hoverIndex;
-						dragModel.hoverIndex = null;
+						dragItem.parentCellLocation = dragModel.hoverCellLocation;
+						dragModel.hoverCellLocation = null;
 					}
 					else if( dragItem.pid && target.id != dragItem.pid )
 					{
@@ -214,12 +216,12 @@ app.service
 					$rootScope.$apply();
 				},
 				
-				onOver: function(event,definition,index)
+				onOver: function(event,definition,cellLocation)
 				{
 					if( !canvas.previewing )
 					{
 						dragModel.hover = definition;
-						dragModel.hoverIndex = index;
+						dragModel.hoverCellLocation = cellLocation;
 					}
 				},
 				

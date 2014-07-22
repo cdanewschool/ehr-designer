@@ -11,54 +11,24 @@ app.controller
 	 	'$scope',
 	 	function($scope)
 	 	{
-	 		$scope.cellIndex = null;
 	 		$scope.instanceDefinition = null;
 	 		
 	 		$scope.row = null;
 	 		$scope.col = null;
 	 		
-	 		var update = function()
-	 		{
-	 			$scope.cellIndex = ($scope.instanceDefinition.values.cols*$scope.col)+$scope.row;
-	 		};
-	 		
-	 		//	update the unique index for a cell's location when
-	 		//	the parent grid's row- or cell-count changes
-	 		$scope.$watch
-	 		(
-	 			'instanceDefinition.values.rows',
-	 			function(newVal,oldVal)
-	 			{
-	 				if( newVal != oldVal )
-	 					update();
-	 			}
-	 		);
-	 		
-	 		$scope.$watch
-	 		(
-	 			'instanceDefinition.values.cols',
-	 			function(newVal,oldVal)
-	 			{
-	 				if( newVal != oldVal )
-	 					update();
-	 			}
-	 		);
-	 		
 	 		/**
 	 		 * Initializes the cell
 	 		 * 
-	 		 * @param {int} row The cell's row
-	 		 * @param {int} row The cell's column
+	 		 * @param {int} col The cell's column index
+	 		 * @param {int} row The cell's row index
 	 		 * @param {Object} definition The instance definition for the grid component containing this cell
 	 		 */
-	 		$scope.init = function(row,col,definition)
+	 		$scope.init = function(col,row,definition)
 	 		{
-	 			$scope.row = row;
 	 			$scope.col = col;
+	 			$scope.row = row;	
 	 			
 	 			$scope.instanceDefinition = definition;
-	 			
-	 			update();
 	 		};
 	 		
 	 		/**
@@ -69,7 +39,7 @@ app.controller
 	 		 */
 	 		$scope.getCellChildren = function(item)
 	 		{
-	 			return item.parentIndex == $scope.cellIndex;
+	 			return item.parentCellLocation && item.parentCellLocation.x == $scope.col && item.parentCellLocation.y == $scope.row;
 	 		};
 	 	}
 	 ]
