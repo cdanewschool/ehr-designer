@@ -3047,6 +3047,7 @@
     "id": "advanced-directives",
     "name": "Advanced Directives",
     "category": "Demographics",
+    "componentId": "grid",
     "children": [
       {
         "created": "2014-07-22T21:08:04.781Z",

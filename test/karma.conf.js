@@ -44,23 +44,23 @@ module.exports = function(config) {
     	  watched:  true,
     	  served:   true,
     	  included: false 
-		},
-	        
-		// JSON fixture
-		{
-			pattern:  'www/json/*.json',
-			watched:  true,
-			served:   true,
-			included: false 
-		},
+      },
+	  
+      // JSON fixture
+      {
+    	  pattern:  'www/**/*.json',
+    	  watched:  true,
+    	  served:   true,
+    	  included: false 
+      },
 		
-		// fixture
-		{
-			pattern:  'www/partials/includes/*.html',
-			watched:  true,
-			served:   true,
-			included: true 
-		}
+      // fixture
+      {
+    	  pattern:  'www/partials/includes/*.html',
+    	  watched:  true,
+    	  served:   true,
+    	  included: true 
+      }
     ],
 
     // enable / disable watching file and executing tests whenever any file changes
