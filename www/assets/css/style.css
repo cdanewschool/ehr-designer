@@ -606,6 +606,10 @@ td > div:first-child:empty {
 /*-----------------------------------*
 	BOOTSTRAP OVERRIDES
  *-----------------------------------*/
+.btn-sm .glyphicon {
+	top: 2px;
+}
+
 .list-inline > li {
 	float: left;
 	display: list-item;
