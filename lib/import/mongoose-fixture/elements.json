@@ -772,9 +772,9 @@
 					{
 						"id":"textinput",
 						"name":"Input Fields",
-						"category":"Input Fields",
+						"category":"Input Field",
 						"abstract":false,
-						"resizable":{ "constrain": true },
+						"resizable":{ "constrain": false },
 						"properties":
 						[
 							{

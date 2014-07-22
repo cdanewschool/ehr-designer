@@ -225,8 +225,18 @@
 						'pointer-events':canvas.previewing?'auto':'none'
 					}">
 			
-			<input 
-					ng-if='instance.componentId=="textinput"'
+			<div 
+				ng-if='instance.componentId=="textinput"' 
+				resizable="instance.values" resizable-config="{handles:'e'}" 
+				ng-style="
+					{
+						'margin-top':instance.values.margin.top+instance.values.margin.unit,
+						'margin-right':instance.values.margin.right+instance.values.margin.unit,
+						'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
+						'margin-left':instance.values.margin.left+instance.values.margin.unit
+					}"
+				class="resizable-container">
+				<input 
 					class="form-control target" 
 					type="{{instance.values.type}}" 
 					placeholder="{{instance.values.placeholder}}" 
@@ -239,16 +249,14 @@
 							'border-width':instance.values['border-width'].size+instance.values['border-width'].unit,
 							'color':instance.values.color,
 							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
-							'margin-top':instance.values.margin.top+instance.values.margin.unit,
-							'margin-right':instance.values.margin.right+instance.values.margin.unit,
-							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
-							'margin-left':instance.values.margin.left+instance.values.margin.unit,
 							'padding-top':instance.values.padding.top+instance.values.padding.unit,
 							'padding-right':instance.values.padding.right+instance.values.padding.unit,
 							'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
 							'padding-left':instance.values.padding.left+instance.values.padding.unit,
 							'pointer-events':canvas.previewing?'auto':'none'
 						}">
+			</div>
+			
 			
 			<div ng-if='instance.componentId=="textarea"' resizable="instance.values" resizable-config="{handles:'e,s'}">
 				<textarea 

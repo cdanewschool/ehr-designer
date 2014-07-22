@@ -244,7 +244,13 @@ a[ng-click] { cursor: pointer; }
 	background-color: #eee;
 }
 
-.dropTarget { border: dashed 1px rgba(0, 0, 0, 1) !important;  }
+.resizable-container { 
+	display: inline-block; 
+}
+
+.dropTarget { 
+	border: dashed 1px rgba(0, 0, 0, 1) !important;  
+}
 
 .grey {
     color: #808080;
