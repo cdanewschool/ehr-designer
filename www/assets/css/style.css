@@ -247,6 +247,16 @@ a[ng-click] { cursor: pointer; }
 	background-color: #eee;
 }
 
+.component-preview .nav-tabs>li>a {
+	color: inherit;
+}
+
+.component-preview .nav-tabs>li.active>a, 
+.component-preview .nav-tabs>li.active>a:hover, 
+.component-preview .nav-tabs>li.active>a:focus {
+	background-color: transparent;
+}
+
 .resizable-container { 
 	display: inline-block; 
 }

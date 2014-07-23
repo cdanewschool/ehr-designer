@@ -1797,7 +1797,7 @@
       "left": 178,
       "top": 218,
       "background-color": "#ffffff",
-      "color": "#ffffff",
+      "color": "#000",
       "tabs": [
         {
           "label": "Search"
@@ -1810,7 +1810,8 @@
         "size": 14,
         "unit": "px"
       },
-      "tab-disabled-background-color": "#ffffff",
+      "tab-background-color": "#ffffff",
+      "tab-disabled-background-color": "#eeeeee",
       "width": 24,
       "height": 17,
       "padding": {
@@ -2997,6 +2998,7 @@
       "left": 318,
       "top": 198,
       "auto-layout-children": true,
+      "background-color": "transparent",
       "border-color": "#000000",
       "cols": 3,
       "rows": 1,
@@ -3916,6 +3918,7 @@
       "left": 398,
       "top": 238,
       "auto-layout-children": true,
+      "background-color": "transparent",
       "border-color": "#000000",
       "cols": 1,
       "rows": 2,
@@ -4779,6 +4782,7 @@
       "left": 418,
       "top": 218,
       "auto-layout-children": true,
+      "background-color": "transparent",
       "border-color": "#000000",
       "cols": 1,
       "rows": 2,
@@ -6407,6 +6411,7 @@
       "left": 478,
       "top": 238,
       "auto-layout-children": true,
+      "background-color": "transparent",
       "border-color": "#000000",
       "cell-size": {
         "0": {

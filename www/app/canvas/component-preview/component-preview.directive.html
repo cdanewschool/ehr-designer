@@ -398,6 +398,7 @@
 					{
 						'width': !isStatic && instance.isTemplate ? '100%' : 'auto',
 						'height': !isStatic && instance.isTemplate ? '100%' : 'auto',
+						'background-color': instance.values['background-color'],
 						'border-style': instance.values['border-width'] && instance.values['border-width'].size > 0 ? 'solid' : 'none',
 						'border-color': instance.values['border-color'],
 						'border-width': instance.values['border-width'].size+instance.values['border-width'].unit
@@ -446,10 +447,10 @@
 			<div ng-if='instance.componentId=="table"'>
 				<table 
 					class="table table-condensed" 
-					ng-class="{'table-bordered':instance.values.bordered,'table-striped':instance.values.striped}" 
+					ng-class="{'table-bordered':instance.values.bordered}" 
 					ng-style="
 						{
-							'background-color':instance.values['background-color'],
+							'background-color':instance.values['header-color'],
 							'color':instance.values.color,
 							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
 							'margin-top':instance.values.margin.top+instance.values.margin.unit,
@@ -457,11 +458,16 @@
 							'margin-bottom':instance.values.margin.bottom+instance.values.margin.unit,
 							'margin-left':instance.values.margin.left+instance.values.margin.unit
 						}">
-					<thead ng-show="instance.values.headers">
+					<thead 
+						ng-show="instance.values.headers">
 						<th ng-repeat="header in instance.values.headers">{{header.label}}</th>
 					</thead>
 					<tr 
-						ng-repeat="r in [] | range:instance.values.rows">
+						ng-repeat="r in [] | range:instance.values.rows" 
+						ng-style="
+						{
+							'background-color':instance.values['background-color']
+						}">
 						 <td 
 						 	ng-controller="CellCtrl" 
 						 	ng-repeat="c in [] | range:instance.values.cols" 
@@ -482,13 +488,15 @@
 			
 			<div ng-if='instance.componentId=="tabs"' ng-controller="TabCtrl">
 				<tabset>
-					<tab ng-style="
+					<tab 
+						ng-repeat="item in instance.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" 
+						ng-style="
 						{
-							'background-color':instance.values['tab-disabled-background-color'],
+							'background-color':tabs[$index].active ? instance.values['tab-background-color'] : instance.values['tab-disabled-background-color'],
 							'color':instance.values.color,
 							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit
 						}" 
-						ng-repeat="item in instance.values.tabs" ng-init="placeChild(item)" heading="{{item.label}}" active="tabs[$index].active">
+						active="tabs[$index].active">
 						<div 
 							resizable="instance.values['cell-size']"
 							resizable-config="{handles:'e,s'}" 

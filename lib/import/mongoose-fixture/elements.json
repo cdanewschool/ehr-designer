@@ -448,6 +448,11 @@
 						]
 					},
 					{
+						"id":"background-color",
+						"name":"Background Color",
+						"type":"color"
+					},
+					{
 						"id":"horizontal-align",
 						"name":"Horizontal Align",
 						"type":"enum",
@@ -463,6 +468,7 @@
 				"values":
 				{
 					"auto-layout-children":true,
+					"background-color":"transparent",
 					"border-color":"#000000",
 					"cell-size":{},
 					"cols":2,
@@ -489,11 +495,6 @@
 								"type":"boolean"
 							},
 							{
-								"id":"striped",
-								"name":"Striped Rows",
-								"type":"boolean"
-							},
-							{
 								"id":"font-size",
 								"name":"Font Size",
 								"type":"object",
@@ -513,6 +514,11 @@
 								]
 							},
 							{
+								"id":"header-color",
+								"name":"Header Color",
+								"type":"color"
+							},
+							{
 								"id":"background-color",
 								"name":"Background Color",
 								"type":"color"
@@ -528,11 +534,10 @@
 							"background-color": "#ffffff",
 							"bordered":true,
 							"headers":[{"label":"Name"},{"label":"Gender"}],
-							"color": "#000000",
+							"header-color": "#ffffff",
 							"cols":2,
 							"rows":1,
-							"font-size":{"size":14,"unit":"px"},
-							"striped":true
+							"font-size":{"size":14,"unit":"px"}
 						}
 					}
 				]
@@ -540,7 +545,7 @@
 			{
 				"id":"dropdown",
 				"name":"Dropdown",
-				"category":"Input Fields",
+				"category":"Input Field",
 				"abstract":false,
 				"container":false,
 				"binding":{"dataType":"list"},
@@ -771,7 +776,7 @@
 				[
 					{
 						"id":"textinput",
-						"name":"Input Fields",
+						"name":"Input Field",
 						"category":"Input Field",
 						"abstract":false,
 						"resizable":{ "constrain": false },
@@ -808,7 +813,7 @@
 					},
 					{
 						"id":"dateinput",
-						"category":"Input Fields",
+						"category":"Input Field",
 						"name":"Date Input",
 						"abstract":false,
 						"properties":
@@ -827,7 +832,7 @@
 					},
 					{
 						"id":"numberinput",
-						"category":"Input Fields",
+						"category":"Input Field",
 						"name":"Number Field",
 						"abstract":false,
 						"properties":
@@ -870,7 +875,7 @@
 					},
 					{
 						"id":"telephoneinput",
-						"category":"Input Fields",
+						"category":"Input Field",
 						"name":"Telephone Field",
 						"abstract":false,
 						"values":
@@ -882,7 +887,7 @@
 					{
 						"id":"textarea",
 						"name":"Text Area",
-						"category":"Input Fields",
+						"category":"Input Field",
 						"abstract":false,
 						"resizable":true,
 						"properties":
@@ -948,6 +953,11 @@
 						"type":"color"
 					},
 					{
+						"id":"tab-background-color",
+						"name":"Tab Background Color",
+						"type":"color"
+					},
+					{
 						"id":"tab-disabled-background-color",
 						"name":"Disabled Tab Background Color",
 						"type":"color"
@@ -957,10 +967,11 @@
 				{
 					"auto-layout-children":false,
 					"background-color": "#ffffff",
-					"color": "#ffffff",
+					"color": "#333333",
 					"tabs":[{"label":"Tab 1"},{"label":"Tab 2"}],
 					"font-size": {"size":14,"unit":"px"},
-					"tab-disabled-background-color": "#ffffff"
+					"tab-background-color": "#ffffff",
+					"tab-disabled-background-color": "#eeeeee"
 				}
 			}
 		]
