@@ -183,6 +183,9 @@ a[ng-click] { cursor: pointer; }
 .ui-draggable-dragging.reject {
 	color: #ff3300;
 }
+.ui-draggable-dragging > * {
+	opacity: .5;
+}
 
 .component-preview {
 	display:inline-block;
