@@ -1,0 +1,13 @@
+[
+  {
+  	"id": "angular",
+    "title": "AngularJS",
+    "description": "Export a project skeleton in HTML5, Javascript and AngularJS, Google's \"super-heroic\" Javascript framework.",
+    "urls": [
+      {
+        "value": "https://angularjs.org/",
+        "label": "Angular"
+      }
+    ]
+  }
+]

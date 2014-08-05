@@ -11,3 +11,6 @@ mongoose-fixture --fixture='components' --add
 
 mongoose-fixture --fixture='templates' --remove
 mongoose-fixture --fixture='templates' --add
+
+mongoose-fixture --fixture='export-types' --remove
+mongoose-fixture --fixture='export-types' --add

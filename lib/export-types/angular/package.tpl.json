@@ -1,0 +1,10 @@
+{
+	"name": "ehr-designer-export",
+	"dependencies": {
+		"grunt": "latest",
+		"grunt-shell": "latest"
+	},
+	"scripts": {
+	  	"postinstall": "bower install && grunt"
+  	}
+}

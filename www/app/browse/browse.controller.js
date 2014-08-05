@@ -5,8 +5,8 @@ app.controller
 (
 	'BrowseCtrl',
 	[
-	 	'$scope','$rootScope','$routeParams','$location','canvas','Project','ProjectService','CanvasService','library','navigation',
-	 	function($scope,$rootScope,$routeParams,$location,canvas,Project,projectService,canvasService,dragService,library,navigation)
+	 	'$scope','$rootScope','$routeParams','$location','$window','$modal','canvas','ExportType','Project','ProjectService','CanvasService','library','navigation',
+	 	function($scope,$rootScope,$routeParams,$location,$window,$modal,canvas,ExportType,Project,projectService,canvasService,dragService,library,navigation)
 	 	{
 	 		$scope.canvas = canvas;
 	 		$scope.navigation = navigation;
@@ -193,6 +193,46 @@ app.controller
 						);
 					}
 				);
+			};
+			
+			$scope.exportProject = function(project)
+			{
+				var ModalCtrl = function($scope,$modalInstance,project)
+	 			{
+					$scope.defaultExportType = {id:undefined,title:"None"};
+					
+	 				ExportType.get
+					(
+						{},
+						function(response)
+						{
+							$scope.exportTypes = [$scope.defaultExportType].concat(response);
+							$scope.exportType = $scope.defaultExportType;
+						},
+						function(response)
+						{
+						}
+					);
+	 				
+	 				$scope.exportType = undefined;
+	 				
+	 				$scope.close = function()
+	 				{
+	 					$window.open('/api/projects/' + project._id + '/export/' + $scope.exportType.id);
+	 					$modalInstance.close();
+	 				};
+	 			};
+	 			
+	 			$modal.open
+	 			(
+	 				{
+	 					template: '<div class="modal-header"><h4 class="modal-title">Export Project<button type="button" class="close" ng-click="$dismiss()" aria-hidden="true">&times;</button></h4></div><div class="modal-body"><form role="form" class="form-horizontal"><div><label class="control-label">Select an export type:</label><select class="form-control" ng-model="$parent.exportType" ng-options="o as o.title for o in exportTypes"></select></div></form><div class="well" style="margin-top:10px;" ng-show="$parent.exportType.id"><p>{{exportType.description}}</p><p ng-show-"$parent.exportType.urls.length">For more info visit: <span ng-repeat="url in $parent.exportType.urls"><span ng-show="!$first && !$last">, </span><span ng-show="$last"> and </span><a ng-href="{{url.value}}" target="_blank">{{url.label}}</a></span></p></div></div><div class="modal-footer"><button class="btn btn-primary" ng-click="close()" ng-disabled="$parent.exportType==$parent.defaultExportType">Export</button></div>',
+	 					controller: ModalCtrl,
+	 					resolve: {
+	 						project: function(){ return project; }
+	 					}
+	 				}
+	 			);
 			};
 	 	}
 	 ]

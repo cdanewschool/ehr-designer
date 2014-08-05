@@ -1,0 +1,214 @@
+<% if( model.componentId == "ui_component" ) { %>
+	<!-- ui component -->
+	<% _.each(model.children, function(child) { %>
+	<div style="width:100%;height:100%;position:absolute">
+	<%= templateFn( {model:child, templateFn:templateFn} ) %>
+	</div>
+	<% }); %>
+<!-- end ui component -->
+<% } else { %>
+	<div style='width:auto;height:auto;display:inline-block;position:<%=model.values&&model.values.position?model.values.position:"relative"%>;<%=model.values&&model.values.left?"left:"+model.values.left+"px;":""%><%=model.values&&model.values.top?"top:"+model.values.top+"px;":""%>'>
+	<% if( model.componentId == "grid" ) { %>
+		<!-- grid -->
+		<div style='width:100%;height:100%;<%=model.values["background-color"]?"background-color:"+model.values["background-color"]+";":""%><%="border-style:"+(model.values["border-width"]&&model.values["border-width"].size>0?"solid":"none")%>;<%="border-color:"+model.values["border-color"]%>;<%= model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>'>
+			<table class='grid' style='width:<%=model.isTemplate&&model.values.width?model.values.width:"inherit"%>;height:<%=model.isTemplate&&model.values.height?model.values.height:"inherit"%>;<%=model.values.margin?"margin:"+model.values.margin.top+model.values.margin.unit+" "+model.values.margin.right+model.values.margin.unit+" "+model.values.margin.bottom+model.values.margin.unit+" "+model.values.margin.left+model.values.margin.unit:""%>'>
+			<% 	for( var r = 0; r < model.values.rows; r++ ) { %>
+				<tr>
+				<% for( var c = 0; c < model.values.cols; c++ ) { 
+					var cellIndex = (model.values.cols*c)+r;
+				%>
+					<td style='<%=(model.values["cell-size"]&&model.values["cell-size"][cellIndex]&&model.values["cell-size"][cellIndex].width?"width:"+model.values["cell-size"][cellIndex].width+";":"")%><%=model.values["cell-size"]&&model.values["cell-size"][cellIndex]&&model.values["cell-size"][cellIndex].height?"height:"+model.values["cell-size"][cellIndex].height+";":""%><%=model.values.padding?"padding:"+model.values.padding.top+model.values.padding.unit+" "+model.values.padding.right+model.values.padding.unit+" "+model.values.padding.bottom+model.values.padding.unit+" "+model.values.padding.left+model.values.padding.unit+";":""%>'>
+						<% _.each(model.children, function(child) { 
+							if( child.parentCellLocation.x == c && child.parentCellLocation.y == r ) { %>
+								<div style='width:100%;height:100%'>
+									<%= templateFn( {model:child, templateFn:templateFn} ) %>
+									</div>
+								</div>
+							<%}%>
+						<%})%>
+					</td>
+				<% } %>
+				</tr>
+			<% } %>
+			</table>
+		</div>
+		<!-- end grid -->
+	<% } else if( model.componentId == "table" ) { %>
+	<!-- table -->
+	<table 
+		class='table table-condensed<% if(model.values.bordered) %> <%= "table-bordered" %>' style='background-color:<%= model.values["header-color"] %>;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;'>
+		<% if( model.values.headers ) { %>
+		<thead>
+		<% 	_.each(model.values.headers,function(header){ %>
+			<th><%= header.label %></th>
+		<% 	}); %>
+		</thead>
+		<% } %>
+		<% for( var r = 0; r < model.values.rows; r++ ) { %>
+		<tr style='background-color:<%= model.values["background-color"] %>'>
+			<% 
+			for( var c = 0; c < model.values.cols; c++ ) { 
+				var cellIndex = (model.values.cols*c)+r;
+			%>
+			<td style='vertical-align:top;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;'>
+				<div>
+				<% for( var ch = 0; ch < model.children.length; ch++ ) { %>
+					<div style="display:inline-block;position:relative">
+						<% _.each(model.children, function(child) {
+							if( child.parentCellLocation.x == c && child.parentCellLocation.y == r ) { %>
+								<%= templateFn( {model:child, templateFn:templateFn} ) %>
+							<% }
+							}); 
+						%>
+					</div>
+				<% } %>
+				</div>
+			</td>
+			<% } %>
+		</tr>
+		<% } %>
+	</table>
+	<!-- end table -->
+	<% } else if( model.componentId == "tabs" ) { %>
+	<!-- tabs -->
+	<tabset>
+		<% _.each(model.values.tabs, function(item) { 
+			var $index = model.values.tabs.indexOf(item);
+		%>
+		<tab 
+			heading="<%= item.label %>" 
+			style='background-color:<%= tabs[$index].active ? model.values["tab-background-color"] : model["tab-disabled-background-color"] %>;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>' 
+			active="<%= tabs[$index].active %>">
+			<div style='width:<%= model.values.width %>;height:<%= model.values.height %>;background-color:<%= model.values["background-color"] %>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>'>
+			<% _.each(model.children, function(child) { %>
+			<%= templateFn( {model:child, templateFn:templateFn} ) %>
+			<% }); %>
+			</div>
+		</tab>
+		<% }) %>
+	</tabset>
+	<!-- end tabs -->
+	<% } else if( model.componentId == "text" ) { %>
+	<!-- text -->
+	<span class='text' style='text-wrap:none;white-space:nowrap;display:inline-block;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>font-weight:<%= model.values.bold?"bold":"normal" %>;font-style:<%= model.values["font-style"]?model.values["font-style"]:"normal" %>;text-transform:<%= model.values["text-transform"]?model.values["text-transform"]:"inherit" %>;'>
+		<%= model.datamap && model.datamap.value ? model.datamap.value : model.values.text %>
+	</span>
+	<!-- end text -->
+	<% } else if( model.componentId == "paragraph" ) { %>
+	<!--  paragraph -->
+	<p class='paragraph' style='width:<%= model.values.width %>;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>font-weight:<%= model.values.bold?"bold":"normal" %>;font-style:<%= model.values["font-style"]?model.values["font-style"]:"normal" %>;text-transform:<%= model.values["text-transform"]?model.values["text-transform"]:"inherit" %>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>'>
+		<%= model.datamap && model.datamap.value ? model.datamap.value : model.values.text %>
+	</p>
+	<!--  end paragraph -->
+	<% } else if( model.componentId == "link" ) { %>
+	<!--  link -->
+	<a class='link' style='text-wrap:none;white-space:nowrap;display:inline-block;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>font-weight:<%= model.values.bold?"bold":"normal" %>;font-style:<%= model.values["font-style"]?model.values["font-style"]:"normal" %>;text-transform:<%= model.values["text-transform"]?model.values["text-transform"]:"inherit" %>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>'>
+		<%= model.datamap && model.datamap.value ? model.datamap.value : model.values.text %>
+	</a>
+	<!--  end link -->
+	<% } else if( model.componentId == "button" ) { %>
+	<!--  button -->
+	<button 
+		class='btn btn-default <%if(model.values["text-align"]=="left"){%><%="text-left "%><%}if(model.values["text-align"]=="center"){%><%="text-center "%><%}if(model.values["text-align"]=="right"){%><%="text-right "%><%}%>button' 
+		style='background-color:<%= model.values["background-color"] %>;<%= model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>color:<%= model.values["color"] %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>font-weight:<%= model.values.bold?"bold":"normal" %>;font-style:<%= model.values["font-style"]?model.values["font-style"]:"normal" %>;text-transform:<%= model.values["text-transform"]?model.values["text-transform"]:"inherit" %>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>'>
+		<% if( model.values.src != undefined ) { %>
+		<%= "<span class='glyphicon'><img src='" + model.values.src + "' style='height:14px;' /></span>" %>
+		<% } %>
+		<%= model.datamap && model.datamap.value ? model.datamap.value : model.values.text %>
+	</button>
+	<!--  end button -->
+	<% } else if( model.componentId == "buttonbar" || model.componentId == "linkbar" ) { %>
+	<!--  button bar/link bar -->
+	<div class="btn-group">
+		<% _.each( model.datamap && model.datamap.value ? model.datamap.value : model.values.items, function(item) { %>
+		<!--  link -->
+		<button 
+			class='btn <%if(model.componentId == "buttonbar"){%><%="btn-default "%><%}if(model.componentId == "linkbar"){%><%="btn-link "%><%} if(model.values["text-align"]=="left"){%><%="text-left "%><%}if(model.values["text-align"]=="center"){%><%="text-center "%><%}if(model.values["text-align"]=="right"){%><%="text-right "%><%}%>' 
+			style='background-color:<%= model.values["background-color"] %>;<%= model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>color:<%= model.values["color"] %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>font-weight:<%= model.values.bold?"bold":"normal" %>;font-style:<%= model.values["font-style"]?model.values["font-style"]:"normal" %>;text-transform:<%= model.values["text-transform"]?model.values["text-transform"]:"inherit" %>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>'>
+			<%= item.label %>
+		</button>
+		<% }) %>
+	</div>
+	<!--  end button bar/link bar -->
+	<% } else if( model.componentId == "image" ) { %>
+	<!--  image -->
+	<div class='img'>
+		<img 
+			class='img'
+			src='<%= model.datamap && model.datamap.value ? model.datamap.value : model.values.src %>' 
+			style='background-color:<%= model.values["background-color"]%>;border-color:<%= model.values["border-color"]%>;<%=model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>color:<%= model.values["color"]%>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;width:<%=model.values.width%>;height:<%=model.values.height%>'>
+	</div>
+	<!--  end image -->
+	<% } else if( model.componentId == "dropdown" ) { %>
+	<!--  dropdown -->
+	<select 
+		class='form-control dropdown' 
+		style='background-color:<%= model.values["background-color"]%>;border-color:<%= model.values["border-color"]%>;<%=model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>color:<%= model.values["color"]%>;<%=model.values.margin?"margin:"+model.values.margin.top+model.values.margin.unit+" "+model.values.margin.right+model.values.margin.unit+" "+model.values.margin.bottom+model.values.margin.unit+" "+model.values.margin.left+model.values.margin.unit:""%>;'>
+		<% _.each(model.datamap && model.datamap.value ? model.datamap.value : model.values.options, function(item) { %>
+			<option value='<%=item.id%>'><%=item.label%></option>
+		<% }); %>
+	</select>
+	<!--  end dropdown -->
+	<% } else if( model.componentId == "textinput" ) { %>
+	<!--  textinput -->
+	<div style='margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;'>
+		<input 
+			class='form-control textinput'
+			type='<%= model.values.type %>' 
+			placeholder='<%= model.values.placeholder %>' 
+			value='<%= !model.values.placeholder ? model.values.text : "" %>'
+			maxlength='<%= model.values.maxlength %>'
+			style='<%=(model.values["background-color"]?"background-color:"+model.values["background-color"]+";":""%><%= model.values["border-color"]?"border-color:"+model.values["border-color"]+";":"")%><%=model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%><%=model.values["color"]?"color:"+model.values["color"]+";":""%><%=model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":""%><%=model.values.padding?"padding:"+model.values.padding.top+model.values.padding.unit+" "+model.values.padding.right+model.values.padding.unit+" "+model.values.padding.bottom+model.values.padding.unit+" "+model.values.padding.left+model.values.padding.unit+";":""%>'>
+	</div>
+	<!--  end textinput -->
+	<% } else if( model.componentId == "textarea" ) { %>
+	<!--  textarea -->
+	<textarea 
+		class='form-control textarea' 
+		placeholder='<%= model.values.placeholder %>'
+		style='background-color:<%= model.values["background-color"]%>;border-color:<%= model.values["border-color"]%><%= model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>;color:<%= model.values["color"]%>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;'>
+		<%= !model.values.placeholder ? model.values.text : ""%>
+	</textarea>
+	<!--  end textarea -->
+	<% } else if( model.componentId == "list" && model.values["liststyle"]=="ordered" ) { %>
+	<!--  ordered list -->
+	<ol class='<%= model.values["direction"]=="horizontal"?"list-inline ":""%>ordered-list'
+		style='clear:both; list-style:decimal outside'>
+		<% _.each(model.datamap && model.datamap.value ? model.datamap.value : model.values.items, function(item) { %>
+		<li style='color:<%= model.values["color"]%><%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>;margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;'><%= item.label %></li>
+		<% }) %>
+	</ol>
+	<!--  end ordered list -->
+	<% } else if( model.componentId == "list" && model.values["liststyle"]!="ordered" ) { %>
+	<!--  unordered list -->
+	<ul class='<%= model.values["direction"]=="horizontal"?"list-inline ":""%><%= model.values["liststlye"]=="none"?"list-unstyled ":""%>unordered-list'
+		style='clear:both; list-style:<%= model.values["direction"]=="horizontal"&&model.values["liststyle"]!="none"?"disc outside":"inherit" %>'>
+		<% _.each(model.datamap && model.datamap.value ? model.datamap.value : model.values.items, function(item) { %>
+		<li style='color:<%= model.values["color"]%>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;'><%= item.label %></li>
+		<% }) %>
+	</ul>
+	<!--  end unordered list -->
+	<% } else if( model.componentId == "checkbox" || model.componentId == "radio" ) { %>
+	<!--  checkbox/radio -->
+	<div style='<%= model.values.margin?"margin:"+model.values.margin.top+model.values.margin.unit+" "+model.values.margin.right+model.values.margin.unit+" "+model.values.margin.bottom+model.values.margin.unit+" "+model.values.margin.left+model.values.margin.unit:""%>'>
+		<% _.each(model.datamap && model.datamap.value ? model.datamap.value : model.values.options, function(item) { %>
+		<span style='color:<%= model.values["color"]%>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>display:model.values["direction"]=="horizontal"?"inline-block":"block";<%=model.values.padding?"padding:"+model.values.padding.top+model.values.padding.unit+" "+model.values.padding.right+model.values.padding.unit+" "+model.values.padding.bottom+model.values.padding.unit+" "+model.values.padding.left+model.values.padding.unit:""%>'>
+			<input class='<%= model.values.type %>' type='<%= model.values.type %>' name='radiogroup' value='item.id'> <%= item.label %>
+		</span>
+		<% }) %>
+	</div>
+	<!--  end checkbox/radio -->
+	<% } else if( model.componentId == "numberinput" ) { %>
+	<!--  number input -->
+	<input 
+		class='<%=model.values.type!="range"?"form-control":""%>'
+		type='<%= model.values.type %>' 
+		value='<%= !model.values.value %>'
+		min='<%= !model.values.min %>'
+		max='<%= !model.values.max %>'
+		step='<%= model.values.step %>'
+		style='background-color:<%= model.values["background-color"]%>;border-color:<%= model.values["border-color"]%>;<%= model.values["border-width"]?model.values["border-width"].size+model.values["border-width"].unit+";":""%>color:<%= model.values["color"]%>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;padding:<%= model.values.padding.top+model.values.padding.unit%> <%= model.values.padding.right+model.values.padding.unit%> <%= model.values.padding.bottom+model.values.padding.unit%> <%= model.values.padding.left+model.values.padding.unit%>;'>
+	<!--  end number input -->
+	<% }; %>
+	</div>
+<% } %>

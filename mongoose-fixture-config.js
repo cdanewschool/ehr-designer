@@ -45,6 +45,12 @@ var fixtures =
     	schema:'template',
         data:'templates',
         collection:'templates'
+    },
+    {
+    	itemName:'ExportType',
+    	schema:'exportType',
+        data:'export-types',
+        collection:'exporttypes'
     }
 ];
 
@@ -53,6 +59,7 @@ fixtureConfig.fixtureListings.set('all', fixtures);
 fixtureConfig.fixtureListings.set('elements', [fixtures[0]]);
 fixtureConfig.fixtureListings.set('components', [fixtures[1]]);
 fixtureConfig.fixtureListings.set('templates', [fixtures[2]]);
+fixtureConfig.fixtureListings.set('export-types', [fixtures[3]]);
 
 // export the config
 module.exports = fixtureConfig;

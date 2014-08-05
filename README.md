@@ -9,7 +9,7 @@ A demo of this application can be viewed at [http://ar210.piim.newschool.edu:301
 
 Installation
 ============
-The following steps use the homebrew package manager for OSX. If you are on a PC, replace the `brew` command with the equivalent for your pacakge manager.
+The following steps use the homebrew package manager for OSX. If you are on a PC, replace the `brew` command with the equivalent for your package manager.
 
 Install [mongo](http://www.mongodb.org/), [npm](https://www.npmjs.org/) and [PhantomJS](http://phantomjs.org/) (used by node-webshot for project snapshotting). If you have `mongo` and `npm` installed (more comon than `phantomjs`), go ahead and skip them:
 	
@@ -38,19 +38,19 @@ Build (creates `www/index.html` from `dist/index.tpl.html` template):
 	
 	grunt
 	
-Start mongo if it's not running already. Note that you'll have to keep this process open in a terminal window to start and run the server, but if you want to close it after running the data import you can:
+Start `mongo` if it's not running already. Note that you'll have to keep this process open in a terminal window to start and run the server, but if you want to close it after running the data import you can:
 	
 	mongod
 	
-Import data:
+Import data
+===========
+To import data, run `bash bash/import-mongoose-fixture.sh` from the project root. Note that this will empty the collections first if they exist.
 
-To import data, run `bash/import-mongoose-fixture.sh` from the project root. Note that this will empty the collections first if they exist.
-
-**NOTE:** if you have trouble installing or using `mongoose-fixture`, you can alternately import the data files via `bash/import-mongoimport.sh`, which imports the files in `lib/import/mongoimport` manually using [mongoimport](http://docs.mongodb.org/v2.2/reference/mongoimport/).
+**NOTE:** if you have trouble installing or using `mongoose-fixture`, you can alternately import the data files via `bash bash/import-mongoimport.sh`, which imports the files in `lib/import/mongoimport` manually using [mongoimport](http://docs.mongodb.org/v2.2/reference/mongoimport/).
 
 Running
 =======
-Start `mongod` if not running already. Note that you'll have to keep this process open in a terminal window:
+Start `mongod` if it's not running already. Note that you'll have to keep this process open in a terminal window:
 
 	mongod
 	
@@ -59,7 +59,7 @@ Start the server (on port 3000):
 	cd [install directory]
 	node server
 	
-Visit [`localhost:3000`](http://localhost:3000). To run on a different port, specify the desires port when starting the server, i.e. `PORT=8080 node server`.
+Visit [`localhost:3000`](http://localhost:3000). To run on a different port, specify the desired port when starting the server, i.e. `PORT=8080 node server`.
 
 Configuration
 =============

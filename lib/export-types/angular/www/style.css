@@ -1,0 +1,27 @@
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none !important; }
+
+/*	NAVBAR	*/
+body { padding-top: 70px; }
+div[ng-view] { position: relative; }
+
+div[ng-view] {
+	
+	/*	containers	*/
+	table.grid {}
+	table.table {}
+	
+	/*	elements	*/
+	span.text {}
+	p.paragraph {}
+	a.link {}
+	button.button {}
+	div.btn-group > .button {}
+	div.img > img.img {}
+	select.dropdown {}
+	input.textinput {}
+	textarea.textarea {}
+	ol.ordered-list {}
+	ol.unordered-list {}
+	input.radio {}
+	input.checkbox {}
+}

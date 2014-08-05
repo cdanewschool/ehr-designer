@@ -1,0 +1,12 @@
+{
+  "name": "ehr-designer-export",
+  "dependencies": {
+    "angular": "1.2.21",
+    "angular-resource": "1.2.21",
+    "angular-route": "1.2.21",
+    "angular-sanitize": "1.2.21",
+    "angular-ui-bootstrap": "0.10.0",
+    "bootstrap": "latest",
+    "jquery": "2.1.0"
+  }
+}
