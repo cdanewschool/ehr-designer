@@ -218,7 +218,7 @@ app.directive
 							var row = cellLocation.y;
 							
 							if( instance.componentId == "table" )
-								dropTarget = target.find('table > tbody').children('tr').eq(row).children('td').eq(col).find('div');
+								dropTarget = target.find('table > tbody').children('tr').eq(row).children('td').eq(col).find('div').first();
 							else
 								dropTarget = target.find('table > tbody').children('tr').eq(row).children('td').eq(col);
 							
