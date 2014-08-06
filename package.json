@@ -29,7 +29,6 @@
     "karma-ng-html2js-preprocessor":"~0.1"
   },
   "scripts":{
-  	"postinstall": "bower install",
   	"pretest":"npm install",
   	"test":"karma start test/karma.conf.js"
   }
