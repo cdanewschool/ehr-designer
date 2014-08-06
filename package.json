@@ -5,6 +5,7 @@
   	"archiver": "0.10.1",
   	"connect-mongo": "0.4.0",
   	"crypto": "0.0.3",
+  	"file": "0.2.2",
     "grunt": "latest",
     "grunt-include-source": "latest",
     "grunt-ng-constant": "latest",
