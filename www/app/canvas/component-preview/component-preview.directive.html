@@ -450,7 +450,7 @@
 					ng-class="{'table-bordered':instance.values.bordered}" 
 					ng-style="
 						{
-							'background-color':instance.values['header-color'],
+							'background-color':instance.values['background-color'],
 							'color':instance.values.color,
 							'font-size':instance.values['font-size'].size+instance.values['font-size'].unit,
 							'margin-top':instance.values.margin.top+instance.values.margin.unit,
@@ -466,7 +466,7 @@
 						ng-repeat="r in [] | range:instance.values.rows" 
 						ng-style="
 						{
-							'background-color':instance.values['background-color']
+							'background-color':instance.values['header-background-color']
 						}">
 						 <td 
 						 	ng-controller="CellCtrl" 

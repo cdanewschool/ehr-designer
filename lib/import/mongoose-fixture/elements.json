@@ -112,7 +112,7 @@
 					},
 					{
 						"id":"color",
-						"name":"Color",
+						"name":"Text Color",
 						"type":"color"
 					},
 					{
@@ -191,7 +191,7 @@
 							},
 							{
 								"id":"color",
-								"name":"Color",
+								"name":"Text Color",
 								"type":"color"
 							},
 							{
@@ -260,7 +260,7 @@
 					},
 					{
 						"id":"color",
-						"name":"Color",
+						"name":"Text Color",
 						"type":"color"
 					},
 					{
@@ -496,7 +496,7 @@
 							},
 							{
 								"id":"font-size",
-								"name":"Font Size",
+								"name":"Header Font Size",
 								"type":"object",
 								"parseExpression":"(\\d*)([a-z]*)",
 								"properties": 
@@ -514,18 +514,18 @@
 								]
 							},
 							{
-								"id":"header-color",
-								"name":"Header Color",
+								"id":"background-color",
+								"name":"Cell Background Color",
 								"type":"color"
 							},
 							{
-								"id":"background-color",
-								"name":"Background Color",
+								"id":"header-background-color",
+								"name":"Header Background Color",
 								"type":"color"
 							},
 							{
 								"id":"color",
-								"name":"Color",
+								"name":"Header Color",
 								"type":"color"
 							}
 						],
@@ -534,7 +534,7 @@
 							"background-color": "#ffffff",
 							"bordered":true,
 							"headers":[{"label":"Name"},{"label":"Gender"}],
-							"header-color": "#ffffff",
+							"header-background-color": "#ffffff",
 							"cols":2,
 							"rows":1,
 							"font-size":{"size":14,"unit":"px"}

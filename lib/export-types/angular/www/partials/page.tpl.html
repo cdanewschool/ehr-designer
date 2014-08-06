@@ -36,7 +36,7 @@
 	<% } else if( model.componentId == "table" ) { %>
 	<!-- table -->
 	<table 
-		class='table table-condensed<% if(model.values.bordered) %> <%= "table-bordered" %>' style='background-color:<%= model.values["header-color"] %>;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;'>
+		class='table table-condensed<% if(model.values.bordered) %> <%= "table-bordered" %>' style='background-color:<%= model.values["background-color"] %>;color:<%= model.values.color %>;<%= model.values["font-size"]?"font-size:"+model.values["font-size"].size+model.values["font-size"].unit+";":"" %>margin:<%= model.values.padding.top+model.values.margin.unit%> <%= model.values.margin.right+model.values.margin.unit%> <%= model.values.margin.bottom+model.values.margin.unit%> <%= model.values.margin.left+model.values.margin.unit%>;'>
 		<% if( model.values.headers ) { %>
 		<thead>
 		<% 	_.each(model.values.headers,function(header){ %>
@@ -45,7 +45,7 @@
 		</thead>
 		<% } %>
 		<% for( var r = 0; r < model.values.rows; r++ ) { %>
-		<tr style='background-color:<%= model.values["background-color"] %>'>
+		<tr style='background-color:<%= model.values["header-background-color"] %>'>
 			<% 
 			for( var c = 0; c < model.values.cols; c++ ) { 
 				var cellIndex = (model.values.cols*c)+r;
