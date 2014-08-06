@@ -93,7 +93,7 @@ module.exports = function(grunt)
 				{
 					files: 
 					{
-						'www/index.html': 'dist/index.tpl.html'
+						'www/index.html': 'template/index.tpl.html'
 					}
 				}
 			},
