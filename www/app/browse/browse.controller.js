@@ -6,7 +6,7 @@ app.controller
 	'BrowseCtrl',
 	[
 	 	'$scope','$rootScope','$routeParams','$location','$window','$modal','canvas','ExportType','Project','ProjectService','CanvasService','library','navigation',
-	 	function($scope,$rootScope,$routeParams,$location,$window,$modal,canvas,ExportType,Project,projectService,canvasService,dragService,library,navigation)
+	 	function($scope,$rootScope,$routeParams,$location,$window,$modal,canvas,ExportType,Project,projectService,canvasService,library,navigation)
 	 	{
 	 		$scope.canvas = canvas;
 	 		$scope.navigation = navigation;
