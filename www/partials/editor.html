@@ -152,10 +152,10 @@
 								<div class="form-group">
 									<div>
 										<label class="control-label" style="text-align:left"> This project is</label>
-										<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions"></select>
+										<select class="form-control" ng-model="canvas.currentProject.sharing" ng-options="t.value as t.label for t in canvas.privacyOptions" ng-change="canvas.dirty = true"></select>
 									</div>
-									<span ng-show="canvas.currentProject.sharing=='private'" class="help-block">Only you will be able to see</span>
-									<span ng-show="canvas.currentProject.sharing=='public'" class="help-block">For all users to see</span>
+									<span ng-show="canvas.currentProject.sharing=='private'" class="help-block small">This project will not appear under Browse</span>
+									<span ng-show="canvas.currentProject.sharing=='public'" class="help-block small">This project will appear under Browse</span>
 								</div>
 							</form>
 						</accordion-group>
