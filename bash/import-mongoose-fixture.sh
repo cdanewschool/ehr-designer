@@ -14,3 +14,6 @@ mongoose-fixture --fixture='templates' --add
 
 mongoose-fixture --fixture='export-types' --remove
 mongoose-fixture --fixture='export-types' --add
+
+mongoose-fixture --fixture='design-rules' --remove
+mongoose-fixture --fixture='design-rules' --add

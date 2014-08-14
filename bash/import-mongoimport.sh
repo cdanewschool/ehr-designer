@@ -12,3 +12,9 @@ mongoimport --db ehr-designer --collection components --file lib/import/mongoimp
 
 mongo ehr-designer --eval "db.templates.drop()"
 mongoimport --db ehr-designer --collection templates --file lib/import/mongoimport/templates.json
+
+mongo ehr-designer --eval "db.exporttypes.drop()"
+mongoimport --db ehr-designer --collection exporttypes --file lib/import/mongoimport/exporttypes.json
+
+mongo ehr-designer --eval "db.designrules.drop()"
+mongoimport --db ehr-designer --collection designrules --file lib/import/mongoimport/designrules.json

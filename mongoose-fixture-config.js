@@ -51,6 +51,12 @@ var fixtures =
     	schema:'exportType',
         data:'export-types',
         collection:'exporttypes'
+    },
+    {
+    	itemName:'DesignRule',
+    	schema:'designRule',
+        data:'design-rules',
+        collection:'designrules'
     }
 ];
 
@@ -60,6 +66,7 @@ fixtureConfig.fixtureListings.set('elements', [fixtures[0]]);
 fixtureConfig.fixtureListings.set('components', [fixtures[1]]);
 fixtureConfig.fixtureListings.set('templates', [fixtures[2]]);
 fixtureConfig.fixtureListings.set('export-types', [fixtures[3]]);
+fixtureConfig.fixtureListings.set('design-rules', [fixtures[4]]);
 
 // export the config
 module.exports = fixtureConfig;

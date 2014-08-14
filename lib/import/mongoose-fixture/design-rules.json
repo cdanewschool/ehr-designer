@@ -1,0 +1,186 @@
+[
+	{
+		"preconditions":
+		[
+			{
+				"type": "property",
+				"property": {
+					"name": "background-color",
+					"type": "color",
+					"value": ["#CC0000","#FF4D4D"]
+				},
+				"modifier": "inside"
+			}
+		],
+		"message": 
+		{
+			"title": "The color Red is generally reserved for error conditions.",
+			"description": "If you are not using Red to indicate an error state, consider choosing another color."
+		},
+		"level": 0,
+		"resolution":
+		{
+			"actions": 
+			[
+				{
+					"type": "property",
+					"value": {
+						"property": "background-color",
+						"value": "#FFFFFF"
+					}
+				}
+			],
+			"summary": "Change the background color of the offending element(s) to white"
+		}
+	},
+	{
+		"preconditions":
+		[
+			{
+				"type": "property",
+				"property": {
+					"name": "font-size.size",
+					"type": "int",
+					"value": 10
+				},
+				"modifier": "lessthan"
+			},
+			{
+				"type": "property",
+				"property": {
+					"name": "font-size.unit",
+					"type": "string",
+					"value": "px"
+				},
+				"modifier": "equals"
+			}
+		],
+		"message": 
+		{
+			"title": "Font size too small"
+		},
+		"level": 1,
+		"resolution":
+		{
+			"actions": 
+			[
+				{
+					"type": "property",
+					"value": {
+						"property": "font-size.size",
+						"value": 10
+					}
+				}
+			],
+			"summary": "Change the font size of the offending element(s) to 10px"
+		}
+	},
+	{
+		"preconditions":
+		[
+			{
+				"type": "property",
+				"property": {
+					"name": "font-size.size",
+					"type": "int",
+					"value": 30
+				},
+				"modifier": "greaterthan"
+			},
+			{
+				"type": "property",
+				"property": {
+					"name": "font-size.unit",
+					"type": "string",
+					"value": "px"
+				},
+				"modifier": "equals"
+			}
+		],
+		"message": 
+		{
+			"title": "Font size too big"
+		},
+		"level": 1,
+		"resolution":
+		{
+			"actions": 
+			[
+				{
+					"type": "property",
+					"value": {
+						"property": "font-size.size",
+						"value": 30
+					}
+				}
+			],
+			"summary": "Change the font size of the offending element(s) to 30px"
+		}
+	},
+	{
+		"preconditions":
+		[
+			{
+				"type": "proximity",
+				"property": {
+					"name": "left",
+					"value": [1,15]
+				},
+				"modifier": "inside"
+			}
+		],
+		"message": 
+		{
+			"title": "Left alignment",
+			"description": "Items on the same or similar vertical plane should be aligned with one another"
+		},
+		"level": 1,
+		"resolution":
+		{
+			"actions": 
+			[
+				{
+					"type": "property",
+					"value": {
+						"property": "left",
+						"value": "reference"
+					}
+				}
+			],
+			"summary": "Left align the offending element(s)"
+		}
+	},
+	{
+		"preconditions":
+		[
+			{
+				"type": "proximity",
+				"property": {
+					"name": "top",
+					"value": [1,10]
+				},
+				"modifier": "inside"
+			}
+		],
+		"message": 
+		{
+			"title": "Top alignment",
+			"description": "Items on the same or similar horizontal plane should be aligned with one another"
+		},
+		"level": 1,
+		"resolution":
+		{
+			"actions": 
+			[
+				{
+					"type": "property",
+					"value": {
+						"property": "top",
+						"value": "reference"
+					}
+				}
+			],
+			"summary": "Top align the offending element(s)"
+		}
+	}
+]

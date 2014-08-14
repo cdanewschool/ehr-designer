@@ -178,6 +178,42 @@
 	    	
 	    </tab>
 	    
+	    <tab heading="Warnings" class="small" ng-controller="RulesCtrl" ng-init="find()">
+	    	
+	    	<div id="warnings" class="panel panel-default">
+	    		<div class="panel-body">
+	    			<span ng-show="!rules.warningsPending.length" class="text-muted">No warnings to show</span>
+		    		<div class="list-group" ng-show="rules.warningsPending.length">
+						<a class="list-group-item small list-group-item-warning warning" ng-repeat="warning in rules.warningsPending | orderBy:'date':true track by $index" design-warning="warning">
+							<button type="button" class="close btn btn-xs" tooltip="Dismiss">
+								<span aria-hidden="true" class="glyphicon glyphicon-remove-circle"></span>
+							</button>
+							<div>
+								<strong ng-show="warning.message.title">{{warning.message.title}}</strong> 
+								<div ng-show="warning.message.description" class="small">{{warning.message.description}}</div>
+							</div>
+							<button type="button" class="btn btn-xs btn-default resolve" ng-show="warning.rule.resolution" tooltip="{{warning.rule.resolution.summary}}" tooltip-placement="right">Resolve</button>
+						</a>
+					</div>
+					<div ng-show="rules.warningsDismissed.length" class="dismissed">
+						<div>
+							<a ng-click="showingDismissed=!showingDismissed">Dismissed </a><i class="pull-right glyphicon text-muted" ng-class="{'glyphicon-chevron-down': showingDismissed, 'glyphicon-chevron-right': !showingDismissed}"></i>
+						</div>
+	    				<div class="list-group" collapse="!showingDismissed">
+	    					<a class="list-group-item small warning" ng-repeat="warning in rules.warningsDismissed | orderBy:'date':true track by $index" design-warning="warning">
+	    						<div>
+	    							<strong ng-show="warning.message.title">{{warning.message.title}}</strong>
+									<div ng-show="warning.message.description" class="small">{{warning.message.description}}</div>
+	    						</div>
+	    						<button type="button" class="btn btn-xs resolve" ng-show="warning.rule.resolution && warning.rule.resolution.actions" tooltip="{{warning.rule.resolution.summary}}" tooltip-placement="right">Resolve</button>
+	    					</a>
+	    				</div>
+	    			</div>
+				</div>
+			</div>
+	    	
+	    </tab>
+	    
 	    <!-- 	debug window	-->
 	    <tab heading="Debug" class="small" ng-if="DEBUG">
 	    	

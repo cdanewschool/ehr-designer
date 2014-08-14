@@ -7,3 +7,4 @@ mongoexport -d ehr-designer -c elements -o lib/import/mongoimport/elements.json
 mongoexport -d ehr-designer -c components -o lib/import/mongoimport/components.json
 mongoexport -d ehr-designer -c templates -o lib/import/mongoimport/templates.json
 mongoexport -d ehr-designer -c exporttypes -o lib/import/mongoimport/exporttypes.json
+mongoexport -d ehr-designer -c designrules -o lib/import/mongoimport/designrules.json
