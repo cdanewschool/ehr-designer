@@ -29,8 +29,6 @@ app.service
 	 						
 	 						rules.rules = _rules;
 	 						
-	 						console.log( _rules );
-	 						
 	 						async.resolve();
 	 					}
 	 				);

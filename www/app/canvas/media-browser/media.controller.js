@@ -65,8 +65,6 @@ app.controller
     			{
     				$scope.data = null;
     				
-    				console.log( "Image uploaded" );
-    				
     				$scope.find();
     			}
     		)
@@ -76,7 +74,10 @@ app.controller
     			{
     				if( errCode == 409 
     					&& !response.errors )
-    					response = {errors:{file:{message:"Image exists"}}};
+    					response = {errors:{file:{message:"The selectd image already exists!"}}};
+    				else if( errCode == 413 
+    					&& !response.errors )
+    					response = {errors:{file:{message:"The selectd image is too big. Please upload a file that is 2MB or less."}}};
     				
     				if( response.errors )
     				{
