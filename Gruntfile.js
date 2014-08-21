@@ -142,9 +142,9 @@ module.exports = function(grunt)
 		'default', 
 		[
 		 	'version',
+		 	'shell:build',
 		 	'includeSource',
-	   		'ngconstant:' + (grunt.option('environment')||'development'),
-	   		'shell:build'
+	   		'ngconstant:' + (grunt.option('environment')||'development')
 	    ]
 	);
 };

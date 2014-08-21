@@ -2,27 +2,27 @@
   "name": "ehr-designer",
   "version": "0.0.0-1",
   "dependencies": {
-    "angular": "1.2.16",
-    "angular-base64": "2.0.1",
-    "angular-cookies": "1.2.15",
-    "angular-dragdrop": "1.0.5",
-    "angular-http-auth": "1.2.1",
-    "angular-resource": "latest",
-    "angular-route": "latest",
-    "angular-sanitize": "latest",
-    "angular-tutorial": "0.0.4",
-    "angular-bootstrap-colorpicker": "latest",
-    "angular-ui-bootstrap": "0.10.0",
-    "angular-ui-sortable": "latest",
-    "angular-webstorage": "0.10.3",
-    "bootstrap": "latest",
-    "jquery": "2.1.0",
-    "jquery-ui": "1.10.4",
-    "underscore": "latest",
-    "underscore.string": "latest"
+    "angular": "~1.2.16",
+    "angular-base64": "~2.0.1",
+    "angular-cookies": "~1.2.15",
+    "angular-dragdrop": "~1.0.5",
+    "angular-http-auth": "~1.2.1",
+    "angular-resource": "~1.2.16",
+    "angular-route": "~1.2.16",
+    "angular-sanitize": "~1.2.16",
+    "angular-tutorial": "~0.0.4",
+    "angular-bootstrap-colorpicker": "~3.0.8",
+    "angular-ui-bootstrap": "~0.10.0",
+    "angular-ui-sortable": "~0.12.10",
+    "angular-webstorage": "~0.10.3",
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.0",
+    "jquery-ui": "~1.10.4",
+    "underscore": "~1.6.0",
+    "underscore.string": "~2.3.3"
   },
   "devDependencies": {
-    "angular-mocks": "latest",
-    "jasmine-jquery": "latest"
+    "angular-mocks": "~1.2.16",
+    "jasmine-jquery": "~2.0.5"
   }
 }
