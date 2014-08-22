@@ -148,11 +148,11 @@
 					<div class="row">
 					
 						<div class="col-sm-6">
-							<select class="form-control input-sm" ng-model="instance.datamap.type_id" ng-options="t.id as t.label for t in [{id:undefined,label:'------'}].concat(library.sampleDataTypes) | filter:includeBindableDataType"></select>
+							<select class="form-control input-sm" ng-model="instance.datamap.type_id" ng-options="t.id as t.label for t in sampleDataTypeOptions | filter:includeBindableDataType"></select>
 						</div>
 						
-						<div class="col-sm-6">
-							<select class="form-control input-sm" ng-model="instance.datamap.field_id" ng-options="t.id as t.label for t in [{id:undefined,label:'.______'}].concat(propertyInspector.selectedDataType.fields) | filter:includeBindableField" ng-show="propertyInspector.selectedDataType"></select>
+						<div class="col-sm-6" ng-show="propertyInspector.selectedDataType">
+							<select class="form-control input-sm" ng-model="instance.datamap.field_id" ng-options="t.id as t.label for t in selectedDataTypeOptions | filter:includeBindableField" ng-show="propertyInspector.selectedDataType"></select>
 						</div>
 						
 					</div>
@@ -160,7 +160,7 @@
 					<div class="row" ng-show="propertyInspector.selectedDataType && propertyInspector.selectedDataTypeField">
 					
 						<div class="col-sm-12">
-							<select class="form-control input-sm" ng-model="instance.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(propertyInspector.selectedDataTypeData)" ng-show="propertyInspector.selectedDataTypeField"></select>
+							<select class="form-control input-sm" ng-model="instance.datamap.data_id" ng-options="t.id as t.title for t in selectedDataTypeDataOptions" ng-show="propertyInspector.selectedDataTypeField"></select>
 						</div>
 						
 					</div>
@@ -172,7 +172,7 @@
 					<div class="row">
 					
 						<div class="col-sm-12">
-							<select class="form-control input-sm" ng-model="instance.datamap.data_id" ng-options="t.id as t.title for t in [{id:undefined,title:'------'}].concat(library.sampleData.bundle)  | filter : {'content.entry':'!null'}"></select>
+							<select class="form-control input-sm" ng-model="instance.datamap.data_id" ng-options="t.id as t.title for t in sampleDataBundleOptions | filter : {'content.entry':'!null'}"></select>
 						</div>
 						
 					</div>
