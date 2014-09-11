@@ -12,6 +12,7 @@ app.config
 		 {
 			 $locationProvider.hashPrefix = "!";
 			 $locationProvider.html5Mode(true);
+			 
 			 $routeProvider
 			 	.when("/",{templateUrl:"partials/main.html",controller:"UserCtrl"})
 			 	.when("/login",{templateUrl:"partials/login.html",controller:"UserCtrl"})

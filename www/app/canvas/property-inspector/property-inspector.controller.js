@@ -11,11 +11,6 @@ app.controller
 	 		$scope.definition = null;
 	 		$scope.locked = {};
 	 		
-	 		$scope.selectedDataTypeOptions = null;
-	 		$scope.selectedDataTypeDataOptions = null;
-	 		$scope.sampleDataTypeOptions = null;
-	 		$scope.sampleDataBundleOptions = null;
-	 		
 	 		//	sets a component's value(s) to a dummy datum, vs. a manually entered value
 	 		var bindMapping = function()
 	 		{
@@ -236,42 +231,6 @@ app.controller
 		 					
 		 					$scope.timeout = setTimeout(init,500);
 	 					}
-	 				}
-	 			}
-	 		);
-	 		
-	 		$scope.$watch
-	 		(
-	 			'library.sampleData',
-	 			function(newVal,oldVal)
-	 			{
-	 				if(newVal!=oldVal)
-	 				{
-	 			 		$scope.sampleDataTypeOptions = newVal ? [{id:undefined,label:'------'}].concat(library.sampleDataTypes) : null;
-	 			 		$scope.sampleDataBundleOptions = newVal ? [{id:undefined,title:'------'}].concat(library.sampleData.bundle) : null;
-	 				}
-	 			}
-	 		);
-	 		$scope.$watch
-	 		(
-	 			'propertyInspector.selectedDataType',
-	 			function(newVal,oldVal)
-	 			{
-	 				if(newVal!=oldVal)
-	 				{
-	 					$scope.selectedDataTypeOptions = newVal ? [{id:undefined,label:'.______'}].concat(newVal.fields) : null;
-	 				}
-	 			}
-	 		);
-	 		
-	 		$scope.$watch
-	 		(
-	 			'propertyInspector.selectedDataTypeField',
-	 			function(newVal,oldVal)
-	 			{
-	 				if(newVal!=oldVal)
-	 				{
-	 					$scope.selectedDataTypeDataOptions = newVal ? [{id:undefined,title:'.______'}].concat(propertyInspector.selectedDataTypeData) : null;
 	 				}
 	 			}
 	 		);
