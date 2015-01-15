@@ -1,0 +1,274 @@
+/*-----------------------------------*
+	CONTENTS
+ *-----------------------------------*/
+
+/*
+	THEME1
+*/
+
+
+
+
+
+
+
+
+
+/*-----------------------------------*
+	none
+	
+	.component-preview.light.ui-draggable > div > .content > div {
+	color: blue;
+	background-color: yellow;
+	}
+
+	.component-preview.classic.ui-draggable > div > .content > div {
+	color:  #2D2D2D;
+	background-color: #D3DEEF;
+	}
+
+ *-----------------------------------*/
+ .component-preview.light {
+	background-color: #FFFFFF;
+}
+
+
+
+.component-preview.light.helpbutton.ui-draggable > div > .content > div {
+	color: red;
+	background-color: red;
+}
+
+.component-preview.light.ui-draggable > div > .content > ol {
+	background-color: #c0ebd9;
+	color: #a212e3;
+}
+
+.component-preview.light.ui-draggable > div > .content > div > button {
+	color:  #FFFFFF;
+	background-color: #D3DEEF;
+	font-size: 22px;
+}
+
+/*-----------------------------------*
+	CLASSIC
+ *-----------------------------------*/
+ 
+ .component-preview.classic {
+	background-color: #FFFFFF;
+}
+
+
+.component-preview.classic.ui-draggable > div > .content > ol {
+	color:  #2C4197;
+	background-color:  #FDCE8E;
+	font-size: 12px;
+}
+
+.component-preview.classic.ui-draggable > div > .content > div > button {
+	color:  #2C4197;
+	background-color: #FBFBFB;
+	font-size: 14px;
+}
+
+
+.component-preview.classic.ui-draggable > div > .content > div > p {
+	color:  #2C4197;
+	background-color: #FDCE8E;
+	font-size: 12px;
+}
+
+.component-preview.classic.ui-draggable > div > .content > div > a:link {
+	color:  #2C4197;
+	font-size: 12px;
+	text-decoration: underline;
+	
+}
+
+.component-preview.classic.ui-draggable > div > .content > div > a:hover {
+	color:  #2C4197;
+	font-size: 12px;
+	text-decoration: underline;
+	background-color: #8BCFDD;
+	
+}
+
+/*-----------------------------------*
+	componentId=="checkbox"
+    componentId=="radio"
+ *-----------------------------------*/
+.component-preview.classic > div > .content > div > span > input {
+	color:  #2C4197;
+	background-color: #EBFAEB;
+}
+
+/*-----------------------------------*
+	componentId=="dateinput"
+	componentId=="dropdown"
+	componentId=="telephoneinput"
+ *-----------------------------------*/
+.component-preview.classic.ui-draggable > div > .content > .form-control {
+	color:  #2C4197;
+	background-color: #EBFAEB;
+
+}
+
+/*-----------------------------------*
+	componentId=="textinput"
+	componentId=="textarea"
+	componentId=="numberinput"
+ *-----------------------------------*/
+.component-preview.classic.ui-draggable > div > .content > div > .form-control {
+	color:  #2C4197;
+	background-color: #EBFAEB;
+
+}
+
+/*-----------------------------------*
+	componentId=="grid"
+ *-----------------------------------*/
+.component-preview.classic.ui-draggable > div > .content > div > table {
+	
+	background-color: #EBF2EB;
+
+}
+
+/*-----------------------------------*
+	componentId=="table", header
+ *-----------------------------------*/
+
+.component-preview.classic.ui-draggable > div > .content > div > table > thead  {
+	
+	background-color: #81BF80;
+
+}
+
+.component-preview.classic.ui-draggable > div > .content > div > tabset  {
+	
+	color: #DFE6F0;
+
+}
+
+.component-preview.classic.ui-draggable > div > .content > div > tabset > tab > div {
+	
+	color: #DFE6F0;
+
+}
+
+.component-preview.classic.ui-draggable > div > .content > div > tabset > tab:hover {
+	
+	background-color: #F5F5E6;
+
+}
+
+/*-----------------------------------*
+	MODERN
+ *-----------------------------------*/
+
+ .component-preview.modern {
+	background-color:  #3D3D3D;
+	color: #FFFFFF;
+}
+
+.component-preview.modern.ui-draggable > div > .content > ol {
+	color:    #BED63A;
+	background-color:   #868686;
+	font-size: 12px;
+}
+
+.component-preview.modern.ui-draggable > div > .content > div > button {
+	color:  #4D4D4D;
+	background-color: #FBFBFB;
+	font-size: 14px;
+}
+
+
+.component-preview.modern.ui-draggable > div > .content > div > p {
+	color:   #FBB03B;
+	background-color: #FDCE8E;
+	font-size: 12px;
+}
+
+.component-preview.modern.ui-draggable > div > .content > div > a:link {
+	color:   #FBB03B;
+	font-size: 12px;
+	text-decoration: underline;
+	
+}
+
+.component-preview.modern.ui-draggable > div > .content > div > a:hover {
+	color:   #FBB03B;
+	font-size: 12px;
+	text-decoration: underline;
+	background-color: #8BCFDD;
+	
+}
+
+/*-----------------------------------*
+	componentId=="checkbox"
+    componentId=="radio"
+ *-----------------------------------*/
+.component-preview.modern > div > .content > div > span > input {
+	color:  #FBB03B;
+	background-color: #FFFFFF;
+}
+
+/*-----------------------------------*
+	componentId=="dateinput"
+	componentId=="dropdown"
+	componentId=="telephoneinput"
+ *-----------------------------------*/
+.component-preview.modern.ui-draggable > div > .content > .form-control {
+	color:    #AEDEE4;
+	background-color:   #FFFFFF;
+
+}
+
+/*-----------------------------------*
+	componentId=="textinput"
+	componentId=="textarea"
+	componentId=="numberinput"
+ *-----------------------------------*/
+.component-preview.modern.ui-draggable > div > .content > div > .form-control {
+	color: #FF931E;
+	background-color:  #FFFFFF;
+
+}
+
+/*-----------------------------------*
+	componentId=="grid"
+ *-----------------------------------*/
+.component-preview.modern.ui-draggable > div > .content > div > table {
+	background-color:  #3D3D3D;
+
+}
+
+/*-----------------------------------*
+	componentId=="table", header
+ *-----------------------------------*/
+
+.component-preview.modern.ui-draggable > div > .content > div > table > thead  {
+	
+	background-color:  #868686;
+	color:  #FFFFFF;
+
+}
+
+.component-preview.modern.ui-draggable > div > .content > div > tabset  {
+	
+	color: #DFE6F0;
+
+}
+
+.component-preview.modern.ui-draggable > div > .content > div > tabset > tab > div {
+	
+	color: #DFE6F0;
+
+}
+
+.component-preview.modern.ui-draggable > div > .content > div > tabset > tab:hover {
+	
+	background-color: #F5F5E6;
+
+}
+ 

@@ -6,12 +6,12 @@
 		<div class='content' style="width:100%;height:100%">
 			
 			<div ng-if='instance.componentId=="ui_component"' ng-repeat="child in instance.children" style="width:100%;height:100%;position:absolute;">
-				<component-preview component-instance='child' component-static="false" component-draggable="child.type!='template'" component-droppable drag-service='dragService' canvas='canvas'></component-preview>
+				<component-preview ng-class="canvas.currentProject.content.style" component-instance='child' component-static="false" component-draggable="child.type!='template'" component-droppable drag-service='dragService' canvas='canvas'></component-preview>
 			</div>
 			
 			<div ng-if='instance.componentId=="text"'>
 				<span 
-					class='target' 
+					class='target'
 					style='text-wrap:none;white-space:nowrap;display:inline-block;'
 					ng-style="
 						{
@@ -438,7 +438,7 @@
 							 			'text-align':child.values['horizontal-align'] || child.values['text-align'],
 							 			'top':(child.values['vertical-align']=='middle'?'50%':(child.values['vertical-align']=='bottom'?'100%':'0%')),
 							 			'transform':(child.values['vertical-align']=='middle'?'translateY(-50%)':(child.values['vertical-align']=='bottom'?'translateY(-100%)':false))
-							 		}"><component-preview component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+							 		}"><component-preview ng-class="canvas.currentProject.content.style" component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>
@@ -480,7 +480,7 @@
 								'padding-bottom':instance.values.padding.bottom+instance.values.padding.unit,
 								'padding-left':instance.values.padding.left+instance.values.padding.unit,
 								'vertical-align': 'top'
-							}"><div><div ng-repeat="child in instance.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
+							}"><div><div ng-repeat="child in instance.children | filter: getCellChildren" style="display:inline-block;position:relative"><component-preview ng-class="canvas.currentProject.content.style" component-instance='child' component-static="false" component-draggable component-droppable drag-service='dragService' canvas='canvas'></component-preview></div></div>
 						 </td>
 					</tr>
 				</table>
@@ -514,7 +514,7 @@
 								'padding-right':instance.values.padding.right+'px',
 								'padding-bottom':instance.values.padding.bottom+'px',
 								'padding-left':instance.values.padding.left+'px'
-							}"><component-preview component-instance="instance.children[$index]" component-droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
+							}"><component-preview ng-class="canvas.currentProject.content.style" component-instance="instance.children[$index]" component-droppable drag-service="dragService" canvas="canvas" ng-mouseover='dragService.onOver($event,definition,cellIndex)'></component-preview></div>
 					</tab>
 				</tabset>
 			</div>

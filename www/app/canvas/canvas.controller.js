@@ -332,6 +332,7 @@ app.controller
 				canvas.currentProject = new Project();
 				canvas.currentProject.content = project;
 				canvas.currentProject.sharing = "private";
+				canvas.currentProject.content.style = "none1";
 				
 				//	show edit properties dialog
 				if(showEdit)

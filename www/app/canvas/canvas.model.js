@@ -22,6 +22,13 @@ app.service
 				 	{value:"private",label:"Private"},
 				 	{value:"public",label:"Public"}
 				 ],
+			styleThemes: 
+				[
+				 	{value:"none1",label:"None"},
+				 	{value:"light",label:"Light"},
+				 	{value:"modern",label:"Modern"},
+				 	{value:"classic",label:"Classic"}
+				 ],
 			selection: null
 		};
 	}

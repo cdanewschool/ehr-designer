@@ -41,7 +41,7 @@ app.directive
  					
  				case "color":
  					
- 					return "#000000";
+ 					//return "#000000";
  					
  					break;
  					
