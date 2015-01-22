@@ -370,7 +370,10 @@ app.controller
 	 		{
 	 			dragModel.dragItem = null;
 	 		};
-	 		
+	 		$scope.applyTheme = function()
+	 		{
+	 			$rootScope.$emit('applyTheme',[canvas]);
+	 		};
 	 		var init = function()
 	 		{
 	 			if( !$scope.definition ) return;
