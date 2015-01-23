@@ -138,7 +138,7 @@
 								<div class="form-group">
 									<div>
 										<label class="control-label" style="text-align:left">Select Style Theme</label>
-										<select class="form-control"  ng-model="canvas.currentProject.content.style" ng-options="t.value as t.label for t in canvas.styleThemes" ng-change="canvas.dirty = true; applyTheme()"></select>
+										<select class="form-control"  ng-model="canvas.currentProject.content.style" ng-options="t.value as t.label for t in canvas.styleThemes" ng-change="restoreDefaults()"></select>
 									</div>
 								</div>
 							</form>

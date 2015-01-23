@@ -497,18 +497,7 @@ app.directive
 									}
 								}
 							);
-							$rootScope.$on
-							(
-								'applyTheme',
-								function(e,args)
-								{
-									if( args 
-											&& args[0] === canvas)
-										{
-										 	scope.instance.values = angular.copy(scope.definition.values);
-										}
-								}
-							);
+							
 							update();
 						}
 						
